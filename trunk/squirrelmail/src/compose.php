@@ -363,11 +363,11 @@ if (sqsession_is_registered('session_expired_post')) {
     } else {
         $sHeaderJs = (isset($sHeaderJs)) ? $sHeaderJs : '';
         if (strpos($action, 'reply') !== false && $reply_focus) {
-            $sBodyTagJs = 'onload="checkForm(\''.$replyfocus.'\');"';
+            $sOnload = 'checkForm(\''.$replyfocus.'\');';
         } else {
-            $sBodyTagJs = 'onload="checkForm();"';
+            $sOnload = 'checkForm();';
         }
-        displayPageHeader($color, $mailbox,$sHeaderJs,$sBodyTagJs);
+        displayPageHeader($color, $mailbox,$sHeaderJs,$sOnload);
     }
     showInputForm($session, false);
     exit();
