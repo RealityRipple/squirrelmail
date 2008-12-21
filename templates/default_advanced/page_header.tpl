@@ -60,7 +60,7 @@ $options_link	= makeInternalLink ('src/options.php', $options_str);
 $help_link		= makeInternalLink ('src/help.php', $help_str);
 
 ?>
-<body <?php echo $body_tag_js; ?>>
+<body <?php if (!empty($onload)) echo ' onload="' . $onload . '"'; ?>>
 <?php
 
    /** if preview pane turned on, do not show menubar above message */

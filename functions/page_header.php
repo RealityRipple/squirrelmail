@@ -166,6 +166,8 @@ EOS;
  * Given a path to a SquirrelMail file, return a HTML link to it
  *
  * @param string path the SquirrelMail file to link to
+ *               (should start with something like "src/..." or
+ *               "functions/..." or "plugins/..." etc.)
  * @param string text the link text
  * @param string target the target frame for this link
  */
@@ -193,29 +195,28 @@ function makeInternalLink($path, $text, $target='') {
  * @param array color the array of theme colors
  * @param string mailbox the current mailbox name to display
  * @param string sHeaderJs javascipt code to be inserted in a script block in the header
- * @param string sBodyTagJs js events to be inserted in the body tag
+ * @param string sOnload JavaScript code to be added inside the body's onload handler
+ *                       as of 1.5.2, this replaces $sBodyTagJs argument
  * @return void
  */
-
-function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '') {
+function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sOnload = '') {
 
     global $reply_focus, $hide_sm_attributions, $frame_top,
         $provider_name, $provider_uri, $startMessage,
         $action, $oTemplate, $org_title, $base_uri,
         $data_dir, $username;
 
-//FIXME: $sBodyTag should be turned into $sOnload and should only contain the contents of the onload attribute (not the attribute name nor any quotes).... only question is if anyone was using $sBodyTag for anything but onload event handlers? (see function compose_Header() below for how to fix it once we confirm it can be changed)
-    if (empty($sBodyTagJs)) {
+    if (empty($sOnload)) {
         if (strpos($action, 'reply') !== FALSE && $reply_focus) {
-        if ($reply_focus == 'select')
-            $sBodyTagJs = 'onload="checkForm(\'select\');"';
-        else if ($reply_focus == 'focus')
-            $sBodyTagJs = 'onload="checkForm(\'focus\');"';
-        else if ($reply_focus != 'none')
-            $sBodyTagJs = 'onload="checkForm();"';
+            if ($reply_focus == 'select')
+                $sOnload = 'checkForm(\'select\');';
+            else if ($reply_focus == 'focus')
+                $sOnload = 'checkForm(\'focus\');';
+            else if ($reply_focus != 'none')
+                $sOnload = 'checkForm();';
         }
         else
-        $sBodyTagJs = 'onload="checkForm();"';
+            $sOnload = 'checkForm();';
     }
 
     $startMessage = (int)$startMessage;
@@ -226,7 +227,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
         $frame_top = '_top';
     }
 
-//FIXME: does checkForJavascript() make the 2nd part of the if() below unneccessary??
+//FIXME: does checkForJavascript() make the 2nd part of the if() below unneccessary?? (that is, I think checkForJavascript() might already look for new_js_autodetect_results...(?))
     if( checkForJavascript() || strpos($sHeaderJs, 'new_js_autodetect_results.value') ) {
         $js_includes = $oTemplate->get_javascript_includes(TRUE);
         $sJsBlock = '';
@@ -242,7 +243,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
     } else {
         /* do not use JavaScript */
         displayHtmlHeader ($org_title);
-        $sBodyTagJs = '';
+        $sOnload = '';
     }
     if ($mailbox) {
         /*
@@ -265,7 +266,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sBodyTagJs = '')
         $provider_link = create_hyperlink($provider_uri, $provider_name, '_blank');
     }
 
-    $oTemplate->assign('body_tag_js', $sBodyTagJs);
+    $oTemplate->assign('onload', $sOnload);
     $oTemplate->assign('shortBoxName', $shortBoxName);
     $oTemplate->assign('provider_link', $provider_link);
     $oTemplate->assign('frame_top', $frame_top);
@@ -303,7 +304,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sOnload = '') {
                 $sOnload = 'checkForm();';
         }
         else
-        $sOnload = 'checkForm();';
+            $sOnload = 'checkForm();';
     }
 
 
@@ -329,7 +330,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sOnload = '') {
     } else {
         /* javascript off */
         displayHtmlHeader(_("Compose"));
-        $onload = '';
+        $sOnload = '';
     }
 
 // FIXME: change the colorization attributes below to a CSS class!

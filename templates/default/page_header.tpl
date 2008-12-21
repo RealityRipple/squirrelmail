@@ -60,7 +60,7 @@ $options_link	= makeInternalLink ('src/options.php', $options_str);
 $help_link		= makeInternalLink ('src/help.php', $help_str);
 
 ?>
-<body <?php echo $body_tag_js; ?>>
+<body <?php if (!empty($onload)) echo ' onload="' . $onload . '"'; ?>>
 <div id="page_header">
 <a name="pagetop"></a>
 <?php if (!empty($plugin_output['page_header_top'])) echo $plugin_output['page_header_top']; ?>
