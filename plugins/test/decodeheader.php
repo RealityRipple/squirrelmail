@@ -17,7 +17,7 @@ include_once(SM_PATH . 'functions/mime.php');
 
 global $oTemplate, $color;
 
-displayPageHeader($color, 'none');
+displayPageHeader($color, '');
 
 
 $header = array("< &  \xC3",                   // plain text
