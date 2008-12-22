@@ -25,7 +25,7 @@ if (!in_array('demo', $plugins))
 
 
 global $oTemplate, $color;
-displayPageHeader($color, 'None');
+displayPageHeader($color, '');
 
 $oTemplate->display('plugins/demo/demo.tpl');
 $oTemplate->display('footer.tpl');
