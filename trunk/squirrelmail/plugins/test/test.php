@@ -14,7 +14,7 @@ include_once('../../include/init.php');
 
 global $oTemplate, $color;
 
-displayPageHeader($color, 'none');
+displayPageHeader($color, '');
 
 $oTemplate->display('plugins/test/test_menu.tpl');
 $oTemplate->display('footer.tpl');

@@ -16,7 +16,7 @@ include_once('../../include/init.php');
 
 global $oTemplate, $color;
 
-displayPageHeader($color, 'none');
+displayPageHeader($color, '');
 
 sq_change_text_domain('test');
 
