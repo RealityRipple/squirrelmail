@@ -355,7 +355,7 @@ function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCha
   *               name for the given $base_name (where 0 (zero) means
   *               that no such widgets have been created yet).
   *
-  * @since 1.4.18 and 1.5.2
+  * @since 1.5.2
   *
   */
 function unique_widget_name($base_name, $return_count=FALSE)
