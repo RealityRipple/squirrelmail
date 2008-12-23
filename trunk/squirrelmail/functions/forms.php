@@ -336,3 +336,39 @@ function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCha
     return $oTemplate->fetch('form.tpl');
 }
 
+/**
+  * Creates unique widget names
+  *
+  * Names are formatted as such: "send1", "send2", "send3", etc.,
+  * where "send" in this example is what was given for $base_name
+  *
+  * @param string  $base_name    The name upon which to base the
+  *                              returned widget name.
+  * @param boolean $return_count When TRUE, this function will
+  *                              return the last number used to
+  *                              create a widget name for $base_name
+  *                              (OPTIONAL; default = FALSE).
+  *
+  * @return mixed When $return_output is FALSE, a string containing
+  *               the unique widget name; otherwise an integer with
+  *               the last number used to create the last widget
+  *               name for the given $base_name (where 0 (zero) means
+  *               that no such widgets have been created yet).
+  *
+  * @since 1.4.18 and 1.5.2
+  *
+  */
+function unique_widget_name($base_name, $return_count=FALSE)
+{
+   static $counts = array();
+
+   if (!isset($counts[$base_name]))
+      $counts[$base_name] = 0;
+
+   if ($return_count)
+      return $counts[$base_name];
+
+   ++$counts[$base_name];
+   return $base_name . $counts[$base_name];
+}
+

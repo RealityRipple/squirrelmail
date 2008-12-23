@@ -70,7 +70,7 @@ extract($t);
         <?php
     }
    ?>
-   <input type="submit" name="send" value="<?php echo _("Send"); ?>" />&nbsp;
+   <input type="submit" name="<?php echo unique_widget_name('send'); ?>" value="<?php echo _("Send"); ?>" />&nbsp;
    <?php if (!empty($plugin_output['compose_button_row'])) echo $plugin_output['compose_button_row']; ?>
   </td>
  </tr>

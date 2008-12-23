@@ -267,6 +267,7 @@ Version 1.5.2 - SVN
     option widgets.
   - Add informational type option widget
   - Add password type option widget
+  - Make all submit button names unique on compose screen
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

@@ -60,7 +60,9 @@ sqsession_unregister('compose_messages');
 $oErrorHandler->setDelayedErrors(true);
 
 /** SESSION/POST/GET VARS */
-sqgetGlobalVar('send', $send, SQ_POST);
+sqgetGlobalVar('send_button_count', $send_button_count, SQ_POST, 1, SQ_TYPE_INT);
+for ($i = 1; $i <= $send_button_count; $i++)
+   if (sqgetGlobalVar('send' . $i, $send, SQ_POST)) break;
 // Send can only be achieved by setting $_POST var. If Send = true then
 // retrieve other form fields from $_POST
 if (isset($send) && $send) {
