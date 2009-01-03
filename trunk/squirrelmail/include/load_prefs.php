@@ -337,6 +337,9 @@ $mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', SM
 $custom_date_format = getPref($data_dir, $username, 'custom_date_format', '');
 $show_full_date = getPref($data_dir, $username, 'show_full_date', SMPREF_OFF);
 
+// Allow user to determine if personal name or email address is shown in mailbox listings
+$show_personal_names = getPref($data_dir, $username, 'show_personal_names', SMPREF_ON);
+
 /* Allow user to customize length of from field */
 $truncate_sender = getPref($data_dir, $username, 'truncate_sender', 50);
 /* Allow user to customize length of subject field */

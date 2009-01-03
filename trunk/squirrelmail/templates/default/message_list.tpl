@@ -64,6 +64,12 @@
  *    $aErrors
  *    $checkall
  *    $preselected
+ *    $show_personal_names boolean When turned on, all email
+ *                                 address fields should display
+ *                                 the personal name and use the
+ *                                 email address as a tool tip;
+ *                                 When turned off, this logic
+ *                                 should be inverted
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -442,6 +448,16 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
         $onclick    = (isset($aCol['onclick']))    ? $aCol['onclick']    : '';
         $value      = (isset($aCol['value']))      ? $aCol['value']      : '';
         $target     = (isset($aCol['target']))     ? $aCol['target']     : '';
+        if (!$show_personal_names
+         && ($iCol == SQM_COL_FROM
+          || $iCol == SQM_COL_TO
+          || $iCol == SQM_COL_CC
+          || $iCol == SQM_COL_BCC)) {
+            // swap title and value
+            $tmp = $title;
+            $title = $value;
+            $value = $tmp;
+        }
         if ($iCol !== SQM_COL_CHECK) {
             $value = $sLabelStart.$sPre.$value.$sEnd.$sLabelEnd;
         }
