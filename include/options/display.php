@@ -281,6 +281,13 @@ function load_optpage_data_display() {
     );
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
+        'name'    => 'show_personal_names',
+        'caption' => _("Show Names Instead of Email Addresses"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE,
+    );
+
+    $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'show_full_date',
         'caption' => _("Always Show Full Date"),
         'type'    => SMOPT_TYPE_BOOLEAN,

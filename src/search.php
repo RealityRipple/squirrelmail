@@ -1625,6 +1625,9 @@ if ($submit == $search_button_text) {
                         $oTemplate->assign('checkall', $checkall);
                         $oTemplate->assign('preselected', $preselected);
 
+                        global $show_personal_names;
+                        $oTemplate->assign('show_personal_names', $show_personal_names);
+
                         $oTemplate->display('message_list.tpl');
                     }
                 }
