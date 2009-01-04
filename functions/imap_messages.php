@@ -47,7 +47,6 @@ function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = tru
     if ($source_mailbox!==false && $source_mailbox==$mailbox) {
         return false;
     }
-    $msgs_id = sqimap_message_list_squisher($id);
     if (sqimap_msgs_list_copy ($imap_stream, $id, $mailbox, $handle_errors)) {
         return sqimap_toggle_flag($imap_stream, $id, '\\Deleted', true, true);
     } else {
