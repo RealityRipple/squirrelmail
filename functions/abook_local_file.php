@@ -252,6 +252,7 @@ class abook_local_file extends addressbook_backend {
           return $this->set_error($this->filename . ':' . _("Unable to update"));
         }
         @unlink($this->filename . '.tmp');
+        @chmod($this->filename, 0600);
         $this->unlock();
         $this->open(true);
         return true;
