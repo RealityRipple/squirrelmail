@@ -268,6 +268,7 @@ Version 1.5.2 - SVN
   - Add informational type option widget
   - Add password type option widget
   - Make all submit button names unique on compose screen
+  - Make address book file permissions 0600 - same as preference files
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
