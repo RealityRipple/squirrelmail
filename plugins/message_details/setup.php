@@ -46,7 +46,7 @@ function show_message_details(&$links) {
 
     /* Output the link. */
     $links[] = array('URL' => $url,
-        'Text' => _("View Message details") );
+        'Text' => _("View Message Details") );
 
     if (checkForJavascript()) {
         echo '<script type="text/javascript">' . "\n"
