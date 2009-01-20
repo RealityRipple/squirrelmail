@@ -41,7 +41,7 @@ extract($t);
         ?>
  <tr>
   <td class="bottomSend">
-   <input type="submit" name="send" value="<?php echo _("Send"); ?>" />
+   <input type="submit" name="<?php echo unique_widget_name('send'); ?>" value="<?php echo _("Send"); ?>" />
   </td>
  </tr>
         <?php
