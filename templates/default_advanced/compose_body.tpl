@@ -49,3 +49,4 @@ extract($t);
  ?>
 </table>
 </div>
+<input type="hidden" name="send_button_count" value="<?php echo unique_widget_name('send', TRUE); ?>" />
