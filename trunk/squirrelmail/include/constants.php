@@ -197,6 +197,7 @@ define('SM_ABOOK_FIELD_LABEL', 4);
  * @since 1.5.2
  */
 define('SQ_TYPE_INT', 'int');
+define('SQ_TYPE_BIGINT', 'bigint');
 define('SQ_TYPE_STRING', 'string');
 define('SQ_TYPE_BOOL', 'bool');
 define('SQ_TYPE_ARRAY', 'array');

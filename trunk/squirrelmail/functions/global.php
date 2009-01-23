@@ -340,6 +340,9 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $
             case SQ_TYPE_INT: $value = (int) $value; break;
             case SQ_TYPE_STRING: $value = (string) $value; break;
             case SQ_TYPE_BOOL: $value = (bool) $value; break;
+            case SQ_TYPE_BIGINT:
+                $value = (preg_match('/^[0-9]+$/', $value) ? $value : '0');
+                break;
             default: break;
         }
     } else if (!$result && !is_null($default)) {
