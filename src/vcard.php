@@ -35,7 +35,7 @@ include_once(SM_PATH . 'functions/imap_messages.php');
 
 /* globals */
 
-sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 sqgetGlobalVar('ent_id', $ent_id, SQ_GET);
 sqgetGlobalVar('startMessage', $startMessage, SQ_GET);

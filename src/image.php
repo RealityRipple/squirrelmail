@@ -22,9 +22,7 @@ require('../include/init.php');
 displayPageHeader($color);
 
 /* globals */
-if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
-  $passed_id = (int) $temp;
-}
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
 sqgetGlobalVar('mailbox',       $mailbox,       SQ_GET);
 sqgetGlobalVar('ent_id',        $ent_id,        SQ_GET);
 sqgetGlobalVar('QUERY_STRING',  $QUERY_STRING,  SQ_SERVER);

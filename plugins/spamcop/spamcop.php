@@ -28,7 +28,7 @@ include_once(SM_PATH . 'functions/compose.php');
 /* GLOBALS */
 
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
-sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
 sqgetGlobalVar('js_web', $js_web, SQ_GET);
 
 if (! sqgetGlobalVar('startMessage', $startMessage, SQ_GET) ) {

@@ -85,7 +85,7 @@ sqgetGlobalVar('request_mdn',$request_mdn, $SQ_GLOBAL);
 sqgetGlobalVar('request_dr',$request_dr, $SQ_GLOBAL);
 sqgetGlobalVar('html_addr_search',$html_addr_search, $SQ_GLOBAL);
 sqgetGlobalVar('mail_sent',$mail_sent, $SQ_GLOBAL);
-sqgetGlobalVar('passed_id',$passed_id, $SQ_GLOBAL);
+sqgetGlobalVar('passed_id',$passed_id, $SQ_GLOBAL, NULL, SQ_TYPE_BIGINT);
 sqgetGlobalVar('passed_ent_id',$passed_ent_id, $SQ_GLOBAL);
 
 sqgetGlobalVar('attach',$attach, SQ_POST);

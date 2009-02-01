@@ -781,12 +781,10 @@ if ( sqgetGlobalVar('account', $temp,  SQ_GET) ) {
 }
 
 /** GET/POST VARS */
+sqgetGlobalVar('passed_id',     $passed_id, SQ_INORDER, NULL, SQ_TYPE_BIGINT);
 sqgetGlobalVar('passed_ent_id', $passed_ent_id);
 sqgetGlobalVar('mailbox',       $mailbox);
 
-if ( sqgetGlobalVar('passed_id', $temp) ) {
-    $passed_id = (int) $temp;
-}
 if ( sqgetGlobalVar('sort', $temp) ) {
     $sort = (int) $temp;
 }
