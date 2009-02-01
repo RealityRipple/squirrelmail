@@ -895,7 +895,10 @@ function sqimap_parse_address($read, &$i) {
  */
 function sqimap_get_message($imap_stream, $id, $mailbox, $hide=0) {
     // typecast to int to prohibit 1:* msgs sets
-    $id = (int) $id;
+    // Update: $id should always be sanitized into a BIGINT so this
+    // is being removed; leaving this code here in case something goes
+    // wrong, however
+    //$id = (int) $id;
     $flags = array();
     $read = sqimap_run_command($imap_stream, "FETCH $id (FLAGS BODYSTRUCTURE)", true, $response, $message, TRUE);
     if ($read) {

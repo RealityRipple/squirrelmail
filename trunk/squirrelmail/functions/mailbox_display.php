@@ -1334,6 +1334,11 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
     /* retrieve the check boxes */
     $aUid = (isset($msg) && is_array($msg)) ? array_values($msg) : $aUid;
     if (count($aUid) && $sButton != 'expunge') {
+
+        // make sure message UIDs are sanitized (BIGINT)
+        foreach ($aUid as $i => $uid)
+           $aUid[$i] = (preg_match('/^[0-9]+$/', $uid) ? $uid : '0');
+
         $aUpdatedMsgs = false;
         $bExpunge = false;
         switch ($sButton) {

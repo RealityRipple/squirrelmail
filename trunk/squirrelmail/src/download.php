@@ -48,9 +48,7 @@ sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
 sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
 sqgetGlobalVar('absolute_dl',$absolute_dl,  SQ_GET);
 sqgetGlobalVar('force_crlf', $force_crlf,   SQ_GET);
-if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
-    $passed_id = (int) $temp;
-}
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
 if (!sqgetGlobalVar('account', $account, SQ_GET) ) {
     $account = 0;
 }

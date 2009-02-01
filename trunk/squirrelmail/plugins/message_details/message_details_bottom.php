@@ -33,7 +33,7 @@ global $msgd_8bit_in_hex;
 $msgd_8bit_in_hex=false;
 
 if (!empty($md_action)) {
-    sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+    sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
     if (!sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET))
         $passed_ent_id = 0;
     sqgetGlobalVar('mailbox', $mailbox, SQ_GET);

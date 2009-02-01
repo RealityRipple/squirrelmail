@@ -83,9 +83,7 @@ function parse_viewheader($imapConnection,$id, $passed_ent_id) {
 }
 
 /* get global vars */
-if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
-  $passed_id = (int) $temp;
-}
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
 if ( sqgetGlobalVar('mailbox', $temp, SQ_GET) ) {
   $mailbox = $temp;
 }
