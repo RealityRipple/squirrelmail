@@ -117,8 +117,15 @@ function getHashedDir($username, $dir, $hash_dirs = '') {
  * @since 1.2.0
  */
 function computeHashDirs($username) {
-    /* Compute the hash for this user and extract the hash directories. */
-    $hash = base_convert(crc32($username), 10, 16);
+    /* Compute the hash for this user and extract the hash directories.  */ 
+    /* Note that the crc32() function result will be different on 32 and */ 
+    /* 64 bit systems, thus the hack below.                              */
+    $crc = crc32($username);
+    if ($crc & 0x80000000) {
+        $crc ^= 0xffffffff;
+        $crc += 1;
+    }
+    $hash = base_convert($crc, 10, 16);
     $hash_dirs = array();
     for ($h = 0; $h < 4; ++ $h) {
         $hash_dirs[] = substr($hash, $h, 1);
