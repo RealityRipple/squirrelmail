@@ -272,6 +272,10 @@ Version 1.5.2 - SVN
   - Added compatibility with Dovecot's bigint UIDs
   - Ensure that hash directory computation is the same on both 32 and
     64 bit architectures (#2596879).
+  - Allow multiple addresses in one abook entry (separate with commas),
+    although we HIGHLY DISCOURAGE grouping in this manner - note amongst
+    other issues that can come up, sizing for large groups will be a
+    problem (#2611967)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
