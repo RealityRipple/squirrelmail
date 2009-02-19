@@ -975,8 +975,10 @@ function check_plugin_dependencies($plugin_name, $force_inclusion = FALSE)
          {
             $version = explode('.', substr($depend_requirements['version'], strpos($depend_requirements['version'], ':') + 1), 3);
             $version[0] = intval($version[0]);
-            $version[1] = intval($version[1]);
-            $version[2] = intval($version[2]);
+            if (isset($version[1])) $version[1] = intval($version[1]);
+            else $version[1] = 0;
+            if (isset($version[2])) $version[2] = intval($version[2]);
+            else $version[2] = 0;
 
             if (!check_sm_version($version[0], $version[1], $version[2]))
                $missing_or_bad[$depend_name] = $depend_requirements;
