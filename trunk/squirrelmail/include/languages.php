@@ -340,10 +340,12 @@ function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {
  * @return string $charset Adjusted name of charset
  */
 function fixcharset($charset) {
-    /* remove minus and characters that might be used in paths from charset
+
+    /* Remove minus and characters that might be used in paths from charset
      * name in order to be able to use it in function names and include calls.
+     * Also make sure it's in lower case (ala "UTF" --> "utf")
      */
-    $charset=preg_replace("/[-:.\/\\\]/",'_',$charset);
+    $charset=preg_replace("/[-:.\/\\\]/",'_', strtolower($charset));
 
     // OE ks_c_5601_1987 > cp949
     $charset=str_replace('ks_c_5601_1987','cp949',$charset);
