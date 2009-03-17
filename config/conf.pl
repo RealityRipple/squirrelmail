@@ -547,7 +547,7 @@ $list_supported_imap_servers =
 
 #####################################################################################
 if ( $config_use_color == 1 ) {
-    $WHT = "\x1B[37;1m";
+    $WHT = "\x1B[1m";
     $NRM = "\x1B[0m";
 } else {
     $WHT              = "";
@@ -906,7 +906,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             $NRM              = "";
         } else {
             $config_use_color = 1;
-            $WHT              = "\x1B[37;1m";
+            $WHT              = "\x1B[1m";
             $NRM              = "\x1B[0m";
         }
     } elsif ( $command =~ /^w([0-9]+)/ ) {
