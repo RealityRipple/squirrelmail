@@ -278,6 +278,8 @@ Version 1.5.2 - SVN
     problem (#2611967)
   - Added Tamil translation (Thanks to Kengatharaiyer Sarveswaran).
   - Added Bengali (Bangladesh) translation (Thanks to Jamil Ahmed).
+  - Implemented accesskeys on primary pages; is user-configurable in the
+    Options -> Accessibility Preferences page 
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
