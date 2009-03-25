@@ -459,13 +459,21 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
 /**
  * Format message toolbar
  *
- * @param array $aMailbox Current mailbox information array
- * @param int $passed_id UID of current message
- * @param int $passed_ent_id Id of entity within message
- * @param object $message Current message object
- * @param object $mbx_response
+ * @param array   $aMailbox      Current mailbox information array
+ * @param int     $passed_id     UID of current message
+ * @param int     $passed_ent_id Id of entity within message
+ * @param object  $message       Current message object
+ * @param void    $removedVar    This parameter is no longer used, but remains
+ *                               so as not to break this function's prototype
+ *                               (OPTIONAL)
+ * @param boolean $nav_on_top    When TRUE, the menubar is being constructed
+ *                               for use at the top of the page, otherwise it
+ *                               will be used for page bottom (OPTIONAL;
+ *                               default = TRUE)
  */
-function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removedVar, $nav_on_top = TRUE) {
+function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
+                       $removedVar=FALSE, $nav_on_top=TRUE) {
+
     global $base_uri, $draft_folder, $where, $what, $sort,
            $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
@@ -658,12 +666,30 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         $oTemplate->assign('can_be_copied', false);
     }
 
-    // access keys...
+    // access keys... only add to the bottom menubar, because adding
+    // them twice makes them less functional (press access key, *then*
+    // press <enter> to make it work), and we always have a bottom
+    // menubar, even on the non-JavaScript printable screen
     //
-    global $accesskey_read_msg_reply, $accesskey_read_msg_reply_all,
-           $accesskey_read_msg_forward, $accesskey_read_msg_as_attach,
-           $accesskey_read_msg_delete, $accesskey_read_msg_bypass_trash,
-           $accesskey_read_msg_move_to, $accesskey_read_msg_move;
+    // the one exception we'll make to this is the "move to" (folder
+    // selection) since the user can get confused if the focus for
+    // that access key does not land in the folder select widget at
+    // the top of the page
+    //
+    // FIXME: this also can be confusing for the "as attachment" and "bypass trash" checkboxes, but they are not being excepted like "move to" because pressing their access keys will only focus on them and not check them, which might be even more confusing to naive users or those that can't see the focus indication on the checkbox - this is a compromise, the best I can think of at this time
+    //
+    global $accesskey_read_msg_move_to;
+    if (!$nav_on_top) {
+        global $accesskey_read_msg_reply, $accesskey_read_msg_reply_all,
+               $accesskey_read_msg_forward, $accesskey_read_msg_as_attach,
+               $accesskey_read_msg_delete, $accesskey_read_msg_bypass_trash,
+               $accesskey_read_msg_move;
+    } else {
+        $accesskey_read_msg_reply = $accesskey_read_msg_reply_all =
+        $accesskey_read_msg_forward = $accesskey_read_msg_as_attach =
+        $accesskey_read_msg_delete = $accesskey_read_msg_bypass_trash =
+        $accesskey_read_msg_move = 'NONE';
+    }
     $oTemplate->assign('accesskey_read_msg_reply', $accesskey_read_msg_reply);
     $oTemplate->assign('accesskey_read_msg_reply_all', $accesskey_read_msg_reply_all);
     $oTemplate->assign('accesskey_read_msg_forward', $accesskey_read_msg_forward);
