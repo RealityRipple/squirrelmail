@@ -658,6 +658,21 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         $oTemplate->assign('can_be_copied', false);
     }
 
+    // access keys...
+    //
+    global $accesskey_read_msg_reply, $accesskey_read_msg_reply_all,
+           $accesskey_read_msg_forward, $accesskey_read_msg_as_attach,
+           $accesskey_read_msg_delete, $accesskey_read_msg_bypass_trash,
+           $accesskey_read_msg_move_to, $accesskey_read_msg_move;
+    $oTemplate->assign('accesskey_read_msg_reply', $accesskey_read_msg_reply);
+    $oTemplate->assign('accesskey_read_msg_reply_all', $accesskey_read_msg_reply_all);
+    $oTemplate->assign('accesskey_read_msg_forward', $accesskey_read_msg_forward);
+    $oTemplate->assign('accesskey_read_msg_as_attach', $accesskey_read_msg_as_attach);
+    $oTemplate->assign('accesskey_read_msg_delete', $accesskey_read_msg_delete);
+    $oTemplate->assign('accesskey_read_msg_bypass_trash', $accesskey_read_msg_bypass_trash);
+    $oTemplate->assign('accesskey_read_msg_move_to', $accesskey_read_msg_move_to);
+    $oTemplate->assign('accesskey_read_msg_move', $accesskey_read_msg_move);
+
     global $null;
     do_hook('read_body_menu', $null);
 

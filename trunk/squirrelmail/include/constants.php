@@ -260,3 +260,32 @@ define('SMOPT_SIZE_NORMAL', 5);
 define('SMOPT_SAVE_DEFAULT', 'save_option');
 define('SMOPT_SAVE_NOOP', 'save_option_noop');
 
+// Convenience array of values 'a' through 'z'
+$a_to_z = array(
+              'a' => 'a',
+              'b' => 'b',
+              'c' => 'c',
+              'd' => 'd',
+              'e' => 'e',
+              'f' => 'f',
+              'g' => 'g',
+              'h' => 'h',
+              'i' => 'i',
+              'j' => 'j',
+              'k' => 'k',
+              'l' => 'l',
+              'm' => 'm',
+              'n' => 'n',
+              'o' => 'o',
+              'p' => 'p',
+              'q' => 'q',
+              'r' => 'r',
+              's' => 's',
+              't' => 't',
+              'u' => 'u',
+              'v' => 'v',
+              'w' => 'w',
+              'x' => 'x',
+              'y' => 'y',
+              'z' => 'z',
+          );

@@ -39,6 +39,15 @@
  *    $delete_form_extra - additional input elements needed by the DELETE form
  *    $move_form_extra - additional input elements needed by the MOVE form.
  *    $last_move_target - the last folder that a message was moved/copied to. 
+ *    $accesskey_read_msg_reply        - The accesskey to be used for the Reply button
+ *    $accesskey_read_msg_reply_all    - The accesskey to be used for the Reply All button
+ *    $accesskey_read_msg_forward      - The accesskey to be used for the Forward button
+ *    $accesskey_read_msg_as_attach    - The accesskey to be used for the As Attachment checkbox
+ *    $accesskey_read_msg_delete       - The accesskey to be used for the Delete button
+ *    $accesskey_read_msg_bypass_trash - The accesskey to be used for the Bypass Trash checkbox
+ *    $accesskey_read_msg_move_to      - The accesskey to be used for the folder select list
+ *    $accesskey_read_msg_move         - The accesskey to be used for the Move button
+ *    $accesskey_read_msg_copy         - The accesskey to be used for the Copy button
  *    
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
@@ -95,14 +104,14 @@ if ($nav_on_top) {
             <?php
         }
     ?>
-    <input type="submit" name="smaction_reply" value="<?php echo _("Reply"); ?>" onclick="<?php echo $button_onclick; ?>" />&nbsp;
-    <input type="submit" name="smaction_reply_all" value="<?php echo _("Reply All"); ?>" onclick="<?php echo $button_onclick; ?>" />
+    <input type="submit" name="smaction_reply" <?php if ($accesskey_read_msg_reply != 'NONE') echo 'accesskey="' . $accesskey_read_msg_reply . '" '; ?>value="<?php echo _("Reply"); ?>" onclick="<?php echo $button_onclick; ?>" />&nbsp;
+    <input type="submit" name="smaction_reply_all" <?php if ($accesskey_read_msg_reply_all != 'NONE') echo 'accesskey="' . $accesskey_read_msg_reply_all . '" '; ?>value="<?php echo _("Reply All"); ?>" onclick="<?php echo $button_onclick; ?>" />
     &nbsp;&nbsp;|&nbsp;&nbsp;
-    <input type="submit" name="smaction_forward" value="<?php echo _("Forward"); ?>" onclick="<?php echo $button_onclick; ?>" />
+    <input type="submit" name="smaction_forward" <?php if ($accesskey_read_msg_forward != 'NONE') echo 'accesskey="' . $accesskey_read_msg_forward . '" '; ?>value="<?php echo _("Forward"); ?>" onclick="<?php echo $button_onclick; ?>" />
     <?php
     if ($forward_as_attachment_enabled) {
         ?>
-    <input type="checkbox" name="smaction_attache" id="smaction_attache" />
+    <input type="checkbox" name="smaction_attache" id="smaction_attache" <?php if ($accesskey_read_msg_as_attach != 'NONE') echo 'accesskey="' . $accesskey_read_msg_as_attach . '" '; ?>/>
     <label for="smaction_attache"><?php echo _("As Attachment"); ?></label>
         <?php
     }
@@ -116,8 +125,8 @@ if ($nav_on_top) {
     <form name="deleteMessageForm" action="<?php echo $move_delete_form_action; ?>" method="post">
      <?php echo $delete_form_extra; ?>
      <small>
-     <input type="submit" name="delete" value="<?php echo _("Delete"); ?>" />
-     <input type="checkbox" name="bypass_trash" id="bypass_trash" /><label for="bypass_trash"><?php echo _("Bypass Trash"); ?></label>
+     <input type="submit" name="delete" <?php if ($accesskey_read_msg_delete != 'NONE') echo 'accesskey="' . $accesskey_read_msg_delete . '" '; ?>value="<?php echo _("Delete"); ?>" />
+     <input type="checkbox" name="bypass_trash" id="bypass_trash" <?php if ($accesskey_read_msg_bypass_trash != 'NONE') echo 'accesskey="' . $accesskey_read_msg_bypass_trash . '" '; ?>/><label for="bypass_trash"><?php echo _("Bypass Trash"); ?></label>
      </small>
     </form>
         <?php
@@ -133,18 +142,18 @@ if ($nav_on_top) {
      <?php echo $move_form_extra; ?>
      <small>
      <?php echo _("Move To"); ?>:
-     <select name="targetMailbox">
+     <select <?php if ($accesskey_read_msg_move_to != 'NONE') echo 'accesskey="' . $accesskey_read_msg_move_to . '" '; ?>name="targetMailbox">
      <?php
         foreach ($mailboxes as $value=>$option) {
             echo '<option value="'. $value .'"' . ($value==$last_move_target ? ' selected="selected"' : '').'>' . $option .'</option>'."\n";
         }
      ?>
      </select>
-     <input type="submit" name="moveButton" value="<?php echo _("Move"); ?>" />
+     <input type="submit" name="moveButton" <?php if ($accesskey_read_msg_move != 'NONE') echo 'accesskey="' . $accesskey_read_msg_move . '" '; ?>value="<?php echo _("Move"); ?>" />
      <?php
         if ($can_be_copied) {
             ?>
-     <input type="submit" name="copyButton" value="<?php echo _("Copy"); ?>" />
+     <input type="submit" name="copyButton" <?php if ($accesskey_read_msg_copy != 'NONE') echo 'accesskey="' . $accesskey_read_msg_copy . '" '; ?>value="<?php echo _("Copy"); ?>" />
             <?php
         }
      ?>

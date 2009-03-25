@@ -350,6 +350,37 @@ $show_recipient_instead = getPref($data_dir, $username, 'show_recipient_instead'
 $delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', SMPREF_ON);
 
 /**
+ * Access keys
+ * @since 1.5.2
+ */
+$accesskey_read_msg_reply = getPref($data_dir, $username, 'accesskey_read_msg_reply', 'r');
+$accesskey_read_msg_reply_all = getPref($data_dir, $username, 'accesskey_read_msg_reply_all', 'a');
+$accesskey_read_msg_forward = getPref($data_dir, $username, 'accesskey_read_msg_forward', 'f');
+$accesskey_read_msg_as_attach = getPref($data_dir, $username, 'accesskey_read_msg_as_attach', 'h');
+$accesskey_read_msg_delete = getPref($data_dir, $username, 'accesskey_read_msg_delete', 'd');
+$accesskey_read_msg_bypass_trash = getPref($data_dir, $username, 'accesskey_read_msg_bypass_trash', 'b');
+$accesskey_read_msg_move_to = getPref($data_dir, $username, 'accesskey_read_msg_move_to', 't');
+$accesskey_read_msg_move = getPref($data_dir, $username, 'accesskey_read_msg_move', 'm');
+$accesskey_read_msg_copy = getPref($data_dir, $username, 'accesskey_read_msg_copy', 'c');
+
+$accesskey_compose_to = getPref($data_dir, $username, 'accesskey_compose_to', 't');
+$accesskey_compose_cc = getPref($data_dir, $username, 'accesskey_compose_cc', 'c');
+$accesskey_compose_bcc = getPref($data_dir, $username, 'accesskey_compose_bcc', 'NONE');
+$accesskey_compose_subject = getPref($data_dir, $username, 'accesskey_compose_subject', 'j');
+$accesskey_compose_priority = getPref($data_dir, $username, 'accesskey_compose_priority', 'p');
+$accesskey_compose_on_read = getPref($data_dir, $username, 'accesskey_compose_on_read', 'r');
+$accesskey_compose_on_delivery = getPref($data_dir, $username, 'accesskey_compose_on_delivery', 'v');
+$accesskey_compose_signature = getPref($data_dir, $username, 'accesskey_compose_signature', 'g');
+$accesskey_compose_addresses = getPref($data_dir, $username, 'accesskey_compose_addresses', 'a');
+$accesskey_compose_save_draft = getPref($data_dir, $username, 'accesskey_compose_save_draft', 'd');
+$accesskey_compose_send = getPref($data_dir, $username, 'accesskey_compose_send', 's');
+$accesskey_compose_body = getPref($data_dir, $username, 'accesskey_compose_body', 'b');
+$accesskey_compose_attach_browse = getPref($data_dir, $username, 'accesskey_compose_attach_browse', 'w');
+$accesskey_compose_attach = getPref($data_dir, $username, 'accesskey_compose_attach', 'h');
+$accesskey_compose_delete_attach = getPref($data_dir, $username, 'accesskey_compose_delete_attach', 'l');
+
+
+/**
  * Height of iframe that displays html formated emails
  * @since 1.5.1
  */
