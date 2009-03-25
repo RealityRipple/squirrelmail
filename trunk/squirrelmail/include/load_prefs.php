@@ -365,7 +365,7 @@ $accesskey_read_msg_copy = getPref($data_dir, $username, 'accesskey_read_msg_cop
 
 $accesskey_compose_to = getPref($data_dir, $username, 'accesskey_compose_to', 't');
 $accesskey_compose_cc = getPref($data_dir, $username, 'accesskey_compose_cc', 'c');
-$accesskey_compose_bcc = getPref($data_dir, $username, 'accesskey_compose_bcc', 'NONE');
+$accesskey_compose_bcc = getPref($data_dir, $username, 'accesskey_compose_bcc', 'o');
 $accesskey_compose_subject = getPref($data_dir, $username, 'accesskey_compose_subject', 'j');
 $accesskey_compose_priority = getPref($data_dir, $username, 'accesskey_compose_priority', 'p');
 $accesskey_compose_on_read = getPref($data_dir, $username, 'accesskey_compose_on_read', 'r');
