@@ -165,13 +165,14 @@ EOS;
 /**
  * Given a path to a SquirrelMail file, return a HTML link to it
  *
- * @param string path the SquirrelMail file to link to
- *               (should start with something like "src/..." or
- *               "functions/..." or "plugins/..." etc.)
- * @param string text the link text
- * @param string target the target frame for this link
+ * @param string $path      The SquirrelMail file to link to
+ *                          (should start with something like "src/..." or
+ *                          "functions/..." or "plugins/..." etc.)
+ * @param string $text      The link text
+ * @param string $target    The target frame for this link
+ * @param string $accesskey The access key to be used, if any
  */
-function makeInternalLink($path, $text, $target='') {
+function makeInternalLink($path, $text, $target='', $accesskey='') {
     global $base_uri, $oTemplate;
 //    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
 
@@ -184,7 +185,9 @@ function makeInternalLink($path, $text, $target='') {
     //
     //do_hook('internal_link', $text);
 
-    return create_hyperlink($base_uri . $path, $text, $target);
+    return create_hyperlink($base_uri . $path, $text, $target,
+                            '', '', '', '',
+                            (empty($accesskey) ? array() : array('accesskey' => $accesskey)));
 }
 
 /**

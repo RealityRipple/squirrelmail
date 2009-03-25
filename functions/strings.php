@@ -735,13 +735,17 @@ function quoteimap($str) {
  *
  * Returns a link to the compose-page, taking in consideration
  * the compose_in_new and javascript settings.
- * @param string $url the URL to the compose page
- * @param string $text the link text, default "Compose"
- * @param string $target (since 1.4.3) url target
+ *
+ * @param string $url       The URL to the compose page
+ * @param string $text      The link text, default "Compose"
+ * @param string $target    URL target, if any (since 1.4.3)
+ * @param string $accesskey The access key to be used, if any
+ *
  * @return string a link to the compose page
+ *
  * @since 1.4.2
  */
-function makeComposeLink($url, $text = null, $target='') {
+function makeComposeLink($url, $text = null, $target='', $accesskey='') {
     global $compose_new_win, $compose_width, 
            $compose_height, $oTemplate;
 
@@ -752,7 +756,7 @@ function makeComposeLink($url, $text = null, $target='') {
     // if not using "compose in new window", make
     // regular link and be done with it
     if($compose_new_win != '1') {
-        return makeInternalLink($url, $text, $target);
+        return makeInternalLink($url, $text, $target, $accesskey);
     }
 
     // build the compose in new window link...
@@ -763,11 +767,14 @@ function makeComposeLink($url, $text = null, $target='') {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
         $compuri = SM_BASE_URI.$url;
 
-        return create_hyperlink('javascript:void(0)', $text, '', "comp_in_new('$compuri','$compose_width','$compose_height')");
+        return create_hyperlink('javascript:void(0)', $text, '',
+                                "comp_in_new('$compuri','$compose_width','$compose_height')",
+                                '', '', '',
+                                (empty($accesskey) ? array() : array('accesskey' => $accesskey)));
     }
 
     // otherwise, just open new window using regular HTML
-    return makeInternalLink($url, $text, '_blank');
+    return makeInternalLink($url, $text, '_blank', $accesskey);
 }
 
 /**
