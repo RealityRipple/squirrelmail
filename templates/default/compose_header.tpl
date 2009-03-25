@@ -5,6 +5,10 @@
  * Description
  * 
  * The following variables are available in this template:
+ *    $accesskey_compose_to      - The access key to be used for the To field
+ *    $accesskey_compose_cc      - The access key to be used for the Cc field
+ *    $accesskey_compose_bcc     - The access key to be used for the Bcc field
+ *    $accesskey_compose_subject - The access key to be used for the Subject field
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -48,7 +52,7 @@ extract($t);
    <label for="to"><?php echo _("To"); ?>:</label>
   </td>
   <td class="fieldValue">
-   <input type="text" name="send_to" id="to" value="<?php echo $to; ?>" size="50" <?php echo $input_onfocus; ?> />
+   <input type="text" name="send_to" id="to" value="<?php echo $to; ?>" size="50" <?php if ($accesskey_compose_to != 'NONE') echo 'accesskey="' . $accesskey_compose_to . '" '; echo $input_onfocus; ?> />
   </td>
  </tr>
  <tr>
@@ -56,7 +60,7 @@ extract($t);
    <label for="send_to_cc"><?php echo _("Cc"); ?>:</label>
   </td>
   <td class="fieldValue">
-   <input type="text" name="send_to_cc" id="send_to_cc" value="<?php echo $cc; ?>" size="50" <?php echo $input_onfocus; ?> />
+   <input type="text" name="send_to_cc" id="send_to_cc" value="<?php echo $cc; ?>" size="50" <?php if ($accesskey_compose_cc != 'NONE') echo 'accesskey="' . $accesskey_compose_cc . '" '; echo $input_onfocus; ?> />
   </td>
  </tr>
  <tr>
@@ -64,7 +68,7 @@ extract($t);
    <label for="send_to_bcc"><?php echo _("Bcc"); ?>:</label>
   </td>
   <td class="fieldValue">
-   <input type="text" name="send_to_bcc" id="send_to_bcc" value="<?php echo $bcc; ?>" size="50" <?php echo $input_onfocus; ?> />
+   <input type="text" name="send_to_bcc" id="send_to_bcc" value="<?php echo $bcc; ?>" size="50" <?php if ($accesskey_compose_bcc != 'NONE') echo 'accesskey="' . $accesskey_compose_bcc . '" '; echo $input_onfocus; ?> />
   </td>
  </tr>
  <tr>
@@ -72,7 +76,7 @@ extract($t);
    <label for="subject"><?php echo _("Subject"); ?>:</label>
   </td>
   <td class="fieldValue">
-   <input type="text" name="subject" id="subject" value="<?php echo $subject; ?>" size="50" <?php echo $input_onfocus; ?> />
+   <input type="text" name="subject" id="subject" value="<?php echo $subject; ?>" size="50" <?php if ($accesskey_compose_subject != 'NONE') echo 'accesskey="' . $accesskey_compose_subject . '" '; echo $input_onfocus; ?> />
   </td>
  </tr>
 </table>

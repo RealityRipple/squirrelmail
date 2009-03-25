@@ -1216,6 +1216,15 @@ function showInputForm ($session, $values=false) {
     $oTemplate->assign('bcc', htmlspecialchars($send_to_bcc));
     $oTemplate->assign('subject', htmlspecialchars($subject));
 
+    // access keys...
+    //
+    global $accesskey_compose_to, $accesskey_compose_cc,
+           $accesskey_compose_bcc, $accesskey_compose_subject;
+    $oTemplate->assign('accesskey_compose_to', $accesskey_compose_to);
+    $oTemplate->assign('accesskey_compose_cc', $accesskey_compose_cc);
+    $oTemplate->assign('accesskey_compose_bcc', $accesskey_compose_bcc);
+    $oTemplate->assign('accesskey_compose_subject', $accesskey_compose_subject);
+
     $oTemplate->display('compose_header.tpl');
 
     if ($location_of_buttons == 'between') {
@@ -1258,6 +1267,12 @@ function showInputForm ($session, $values=false) {
     $oTemplate->assign('input_onfocus', 'onfocus="'.join(' ', $onfocus_array).'"');
     $oTemplate->assign('body', $body_str);
     $oTemplate->assign('show_bottom_send', $location_of_buttons!='bottom');
+
+    // access keys...
+    //
+    global $accesskey_compose_body, $accesskey_compose_send;
+    $oTemplate->assign('accesskey_compose_body', $accesskey_compose_body);
+    $oTemplate->assign('accesskey_compose_send', $accesskey_compose_send);
 
     $oTemplate->display ('compose_body.tpl');
 
@@ -1315,6 +1330,14 @@ function showInputForm ($session, $values=false) {
         $oTemplate->assign('max_file_size', empty($max) ? -1 : $max);
         $oTemplate->assign('attachments', $attach);
 
+        // access keys...
+        //
+        global $accesskey_compose_attach_browse, $accesskey_compose_attach,
+               $accesskey_compose_delete_attach;
+        $oTemplate->assign('accesskey_compose_attach_browse', $accesskey_compose_attach_browse);
+        $oTemplate->assign('accesskey_compose_attach', $accesskey_compose_attach);
+        $oTemplate->assign('accesskey_compose_delete_attach', $accesskey_compose_delete_attach);
+
         $oTemplate->display('compose_attachments.tpl');
     } // End of file_uploads if-block
     /* End of attachment code */
@@ -1368,10 +1391,16 @@ function showComposeButtonRow() {
 
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
 
+    $address_book_button_attribs = array();
+    global $accesskey_compose_addresses;
+    if ($accesskey_compose_addresses != 'NONE')
+        $address_book_button_attribs['accesskey'] = $accesskey_compose_addresses;
     if ($use_javascript_addr_book && checkForJavascript()) {
-        $addr_book = addButton(_("Addresses"), null, array('onclick' => 'javascript:open_abook();'));
+        $addr_book = addButton(_("Addresses"),
+                               null,
+                               array_merge($address_book_button_attribs, array('onclick' => 'javascript:open_abook();')));
     } else {
-        $addr_book = addSubmit(_("Addresses"), 'html_addr_search');
+        $addr_book = addSubmit(_("Addresses"), 'html_addr_search', $address_book_button_attribs);
     }
 
     $oTemplate->assign('allow_priority', $default_use_priority==1);
@@ -1384,6 +1413,18 @@ function showComposeButtonRow() {
 
     $oTemplate->assign('drafts_enabled', $save_as_draft);
     $oTemplate->assign('address_book_button', $addr_book);
+
+    // access keys...
+    //
+    global $accesskey_compose_priority, $accesskey_compose_on_read,
+           $accesskey_compose_on_delivery, $accesskey_compose_signature,
+           $accesskey_compose_save_draft, $accesskey_compose_send;
+    $oTemplate->assign('accesskey_compose_priority', $accesskey_compose_priority);
+    $oTemplate->assign('accesskey_compose_on_read', $accesskey_compose_on_read);
+    $oTemplate->assign('accesskey_compose_on_delivery', $accesskey_compose_on_delivery);
+    $oTemplate->assign('accesskey_compose_signature', $accesskey_compose_signature);
+    $oTemplate->assign('accesskey_compose_save_draft', $accesskey_compose_save_draft);
+    $oTemplate->assign('accesskey_compose_send', $accesskey_compose_send);
 
     $oTemplate->display('compose_buttons.tpl');
 }

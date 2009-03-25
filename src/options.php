@@ -39,6 +39,7 @@ define('SMOPT_PAGE_MAIN', 'main');
 define('SMOPT_PAGE_PERSONAL', 'personal');
 define('SMOPT_PAGE_DISPLAY', 'display');
 define('SMOPT_PAGE_COMPOSE', 'compose');
+define('SMOPT_PAGE_ACCESSIBILITY', 'accessibility');
 define('SMOPT_PAGE_HIGHLIGHT', 'highlight');
 define('SMOPT_PAGE_FOLDER', 'folder');
 define('SMOPT_PAGE_ORDER', 'order');
@@ -149,6 +150,12 @@ switch ($optpage) {
         $optpage_loader = 'load_optpage_data_compose';
         $optpage_loadhook = 'optpage_loadhook_compose';
         break;
+    case SMOPT_PAGE_ACCESSIBILITY:
+        $optpage_name   = _("Accessibility Preferences");
+        $optpage_file   = SM_PATH . 'include/options/accessibility.php';
+        $optpage_loader = 'load_optpage_data_accessibility';
+        $optpage_loadhook = 'optpage_loadhook_accessibility';
+        break;
     case SMOPT_PAGE_HIGHLIGHT:
         $optpage_name   = _("Message Highlighting");
         $optpage_file   = SM_PATH . 'include/options/highlight.php';
@@ -227,6 +234,9 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
             break;
         case SMOPT_PAGE_COMPOSE:
             $save_hook_name = 'options_compose_save';
+            break;
+        case SMOPT_PAGE_ACCESSIBILITY:
+            $save_hook_name = 'options_accessibility_save';
             break;
         case SMOPT_PAGE_FOLDER:
             $save_hook_name = 'options_folder_save';
@@ -361,6 +371,14 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         'js'   => false
     );
 
+    /* Build a section for Accessibility Options. */
+    $optpage_blocks[] = array(
+        'name' => _("Accessibility Preferences"),
+        'url'  => 'options.php?optpage=' . SMOPT_PAGE_ACCESSIBILITY,
+        'desc' => _("You can configure features that improve interface usability."),
+        'js'   => false
+    );
+
     /* Build a section for plugins wanting to register an optionpage. */
     do_hook('optpage_register_block', $null);
 
@@ -406,6 +424,10 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         case SMOPT_PAGE_COMPOSE:
             $bottom_hook_name = 'options_compose_bottom';
             $submit_name = 'submit_compose';
+            break;
+        case SMOPT_PAGE_ACCESSIBILITY:
+            $bottom_hook_name = 'options_accessibility_bottom';
+            $submit_name = 'submit_accessibility';
             break;
         case SMOPT_PAGE_HIGHLIGHT:
             $bottom_hook_name = 'options_highlight_bottom';

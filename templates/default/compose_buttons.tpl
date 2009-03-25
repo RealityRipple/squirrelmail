@@ -5,6 +5,12 @@
  * Description
  * 
  * The following variables are available in this template:
+ *    $accesskey_compose_priority    - The access key to be use for the Priority list
+ *    $accesskey_compose_on_read     - The access key to be use for the On Read checkbox
+ *    $accesskey_compose_on_delivery - The access key to be use for the On Delivery checkbox
+ *    $accesskey_compose_signature   - The access key to be use for the Signature button
+ *    $accesskey_compose_save_draft  - The access key to be use for the Save Draft button
+ *    $accesskey_compose_send        - The access key to be use for the Send button
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -31,7 +37,7 @@ extract($t);
    <label for="mailprio"><?php echo _("Priority"); ?>:</label>
   </td>
   <td class="fieldValue">
-   <select name="mailprio" id="mailprio">
+   <select name="mailprio" id="mailprio"<?php if ($accesskey_compose_priority != 'NONE') echo ' accesskey="' . $accesskey_compose_priority . '"'; ?>>
     <?php
         foreach ($priority_list as $value=>$name) {
             echo '<option value="'.$value.'"'. ($value==$current_priority ? ' selected="selected"' : '') .'>'.$name.'</option>';
@@ -51,9 +57,9 @@ extract($t);
    <?php echo _("Receipts"); ?>:
   </td>
   <td class="fieldValue">
-    <input type="checkbox" name="request_mdn" id="request_mdn" value="1" <?php if ($read_receipt) echo ' checked="checked"'; ?> /><label for="request_mdn"><?php echo _("On Read"); ?></label>
+    <input type="checkbox" name="request_mdn" id="request_mdn" value="1" <?php if ($read_receipt) echo ' checked="checked"'; ?> <?php if ($accesskey_compose_on_read != 'NONE') echo 'accesskey="' . $accesskey_compose_on_read . '" '; ?>/><label for="request_mdn"><?php echo _("On Read"); ?></label>
     &nbsp;
-    <input type="checkbox" name="request_dr" id="request_dr" value="1" <?php if ($delivery_receipt) echo ' checked="checked"'; ?> /><label for="request_dr"><?php echo _("On Delivery"); ?></label>
+    <input type="checkbox" name="request_dr" id="request_dr" value="1" <?php if ($delivery_receipt) echo ' checked="checked"'; ?> <?php if ($accesskey_compose_on_delivery != 'NONE') echo 'accesskey="' . $accesskey_compose_on_delivery . '" '; ?>/><label for="request_dr"><?php echo _("On Delivery"); ?></label>
   </td>
  </tr>
         <?php
@@ -61,16 +67,16 @@ extract($t);
  ?>
  <tr>
   <td colspan="2" class="buttons">
-   <input type="submit" name="sigappend" value="<?php echo _("Signature"); ?>" />&nbsp;
+   <input type="submit" name="sigappend" <?php if ($accesskey_compose_signature != 'NONE') echo 'accesskey="' . $accesskey_compose_signature . '" '; ?>value="<?php echo _("Signature"); ?>" />&nbsp;
    <?php echo $address_book_button; ?>&nbsp;
    <?php
     if ($drafts_enabled) {
         ?>
-   <input type="submit" name="draft" value="<?php echo _("Save Draft"); ?>" />&nbsp;
+   <input type="submit" name="draft" <?php if ($accesskey_compose_save_draft != 'NONE') echo 'accesskey="' . $accesskey_compose_save_draft . '" '; ?>value="<?php echo _("Save Draft"); ?>" />&nbsp;
         <?php
     }
    ?>
-   <input type="submit" name="<?php echo unique_widget_name('send'); ?>" value="<?php echo _("Send"); ?>" />&nbsp;
+   <input type="submit" <?php if (!unique_widget_name('send', TRUE) && $accesskey_compose_send != 'NONE') echo 'accesskey="' . $accesskey_compose_send . '" '; ?>name="<?php echo unique_widget_name('send'); ?>" value="<?php echo _("Send"); ?>" />&nbsp;
    <?php if (!empty($plugin_output['compose_button_row'])) echo $plugin_output['compose_button_row']; ?>
   </td>
  </tr>
