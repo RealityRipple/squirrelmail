@@ -276,6 +276,21 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sOnload = '') {
     $oTemplate->assign('urlMailbox', $urlMailbox);
     $oTemplate->assign('startMessage', $startMessage);
     $oTemplate->assign('hide_sm_attributions', $hide_sm_attributions);
+
+    // access keys
+    //
+    global $accesskey_menubar_compose, $accesskey_menubar_addresses,
+           $accesskey_menubar_folders, $accesskey_menubar_options,
+           $accesskey_menubar_search, $accesskey_menubar_help,
+           $accesskey_menubar_signout;
+    $oTemplate->assign('accesskey_menubar_compose', $accesskey_menubar_compose);
+    $oTemplate->assign('accesskey_menubar_addresses', $accesskey_menubar_addresses);
+    $oTemplate->assign('accesskey_menubar_folders', $accesskey_menubar_folders);
+    $oTemplate->assign('accesskey_menubar_options', $accesskey_menubar_options);
+    $oTemplate->assign('accesskey_menubar_search', $accesskey_menubar_search);
+    $oTemplate->assign('accesskey_menubar_help', $accesskey_menubar_help);
+    $oTemplate->assign('accesskey_menubar_signout', $accesskey_menubar_signout);
+
     $oTemplate->display('page_header.tpl');
 
     global $null;

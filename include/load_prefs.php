@@ -353,6 +353,15 @@ $delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_disp
  * Access keys
  * @since 1.5.2
  */
+$accesskey_menubar_compose = getPref($data_dir, $username, 'accesskey_menubar_compose', 'c');
+$accesskey_menubar_addresses = getPref($data_dir, $username, 'accesskey_menubar_addresses', 'NONE');
+$accesskey_menubar_folders = getPref($data_dir, $username, 'accesskey_menubar_folders', 'NONE');
+$accesskey_menubar_options = getPref($data_dir, $username, 'accesskey_menubar_options', 'o');
+$accesskey_menubar_search = getPref($data_dir, $username, 'accesskey_menubar_search', 'NONE');
+$accesskey_menubar_help = getPref($data_dir, $username, 'accesskey_menubar_help', 'NONE');
+$accesskey_menubar_signout = getPref($data_dir, $username, 'accesskey_menubar_signout', 'z');
+
+
 $accesskey_read_msg_reply = getPref($data_dir, $username, 'accesskey_read_msg_reply', 'r');
 $accesskey_read_msg_reply_all = getPref($data_dir, $username, 'accesskey_read_msg_reply_all', 'a');
 $accesskey_read_msg_forward = getPref($data_dir, $username, 'accesskey_read_msg_forward', 'f');
@@ -361,12 +370,13 @@ $accesskey_read_msg_delete = getPref($data_dir, $username, 'accesskey_read_msg_d
 $accesskey_read_msg_bypass_trash = getPref($data_dir, $username, 'accesskey_read_msg_bypass_trash', 'b');
 $accesskey_read_msg_move_to = getPref($data_dir, $username, 'accesskey_read_msg_move_to', 't');
 $accesskey_read_msg_move = getPref($data_dir, $username, 'accesskey_read_msg_move', 'm');
-$accesskey_read_msg_copy = getPref($data_dir, $username, 'accesskey_read_msg_copy', 'c');
+$accesskey_read_msg_copy = getPref($data_dir, $username, 'accesskey_read_msg_copy', 'y');
+
 
 $accesskey_compose_identity = getPref($data_dir, $username, 'accesskey_compose_identity', 'f');
 $accesskey_compose_to = getPref($data_dir, $username, 'accesskey_compose_to', 't');
-$accesskey_compose_cc = getPref($data_dir, $username, 'accesskey_compose_cc', 'c');
-$accesskey_compose_bcc = getPref($data_dir, $username, 'accesskey_compose_bcc', 'o');
+$accesskey_compose_cc = getPref($data_dir, $username, 'accesskey_compose_cc', 'x');
+$accesskey_compose_bcc = getPref($data_dir, $username, 'accesskey_compose_bcc', 'y');
 $accesskey_compose_subject = getPref($data_dir, $username, 'accesskey_compose_subject', 'j');
 $accesskey_compose_priority = getPref($data_dir, $username, 'accesskey_compose_priority', 'p');
 $accesskey_compose_on_read = getPref($data_dir, $username, 'accesskey_compose_on_read', 'r');
