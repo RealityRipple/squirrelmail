@@ -10,7 +10,7 @@
 |--------------------------------------------------*/
 
 // Node object
-function Node(id, pid, name, url, title, target, icon, iconOpen, open) {
+function Node(id, pid, name, url, title, target, icon, iconOpen, accesskey, open) {
 	this.id = id;
 	this.pid = pid;
 	this.name = name;
@@ -19,6 +19,7 @@ function Node(id, pid, name, url, title, target, icon, iconOpen, open) {
 	this.target = target;
 	this.icon = icon;
 	this.iconOpen = iconOpen;
+	this.accesskey = accesskey;
 	this._io = open || false;
 	this._is = false;
 	this._ls = false;
@@ -66,8 +67,8 @@ function dTree(objName, imagePath) {
 };
 
 // Adds a new node to the node array
-dTree.prototype.add = function(id, pid, name, url, title, target, icon, iconOpen, open) {
-	this.aNodes[this.aNodes.length] = new Node(id, pid, name, url, title, target, icon, iconOpen, open);
+dTree.prototype.add = function(id, pid, name, url, title, target, icon, iconOpen, accesskey, open) {
+	this.aNodes[this.aNodes.length] = new Node(id, pid, name, url, title, target, icon, iconOpen, accesskey, open);
 };
 
 // Open/close all nodes
@@ -133,6 +134,7 @@ dTree.prototype.node = function(node, nodeId) {
 		str += '<a id="s' + this.obj + nodeId + '" class="' + ((this.config.useSelection) ? ((node._is ? 'nodeSel' : 'node')) : 'node') + '" href="' + node.url + '"';
 		if (node.title) str += ' title="' + node.title + '"';
 		if (node.target) str += ' target="' + node.target + '"';
+		if (node.accesskey) str += ' accesskey="' + node.accesskey + '"';
 		if (this.config.useStatusText) str += ' onmouseover="window.status=\'' + node.name + '\';return true;" onmouseout="window.status=\'\';return true;" ';
 		if (this.config.useSelection && ((node._hc && this.config.folderLinks) || !node._hc))
 			str += ' onclick="javascript: ' + this.obj + '.s(' + nodeId + ');"';
