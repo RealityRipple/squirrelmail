@@ -363,14 +363,61 @@ function load_optpage_data_accessibility() {
     $optgrps[SMOPT_GRP_ACCESSKEYS_OPTIONS] = _("Access Keys For Options Screen");
     $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS] = array();
 
-//FIXME -- TODO...
-//    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
-//        'name'    => 'accesskey_options_XXXXXXXXXXXXXXXXXXXXXXX',
-//        'caption' => _("XXXXXXXXXXXXXXX"),
-//        'type'    => SMOPT_TYPE_STRLIST,
-//        'refresh' => SMOPT_REFRESH_NONE,
-//        'posvals' => $my_a_to_z,
-//    );
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+        'name'    => 'accesskey_options_personal',
+        'caption' => _("Personal Information"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+        'name'    => 'accesskey_options_display',
+        'caption' => _("Display Preferences"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+        'name'    => 'accesskey_options_highlighting',
+        'caption' => _("Message Highlighting"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+        'name'    => 'accesskey_options_folders',
+        'caption' => _("Folder Preferences"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+        'name'    => 'accesskey_options_index_order',
+        'caption' => _("Index Order"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+        'name'    => 'accesskey_options_compose',
+        'caption' => _("Compose Preferences"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+        'name'    => 'accesskey_options_accessibility',
+        'caption' => _("Accessibility Preferences"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
 
 
     /* Assemble all this together and return it as our result. */

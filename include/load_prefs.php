@@ -396,6 +396,15 @@ $accesskey_folders_purge_trash = getPref($data_dir, $username, 'accesskey_folder
 $accesskey_folders_inbox = getPref($data_dir, $username, 'accesskey_folders_inbox', 'i');
 
 
+$accesskey_options_personal = getPref($data_dir, $username, 'accesskey_options_personal', 'p');
+$accesskey_options_display = getPref($data_dir, $username, 'accesskey_options_display', 'd');
+$accesskey_options_highlighting = getPref($data_dir, $username, 'accesskey_options_highlighting', 'h');
+$accesskey_options_folders = getPref($data_dir, $username, 'accesskey_options_folders', 'f');
+$accesskey_options_index_order = getPref($data_dir, $username, 'accesskey_options_index_order', 'x');
+$accesskey_options_compose = getPref($data_dir, $username, 'accesskey_options_compose', 'e');
+$accesskey_options_accessibility = getPref($data_dir, $username, 'accesskey_options_accessibility', 'a');
+
+
 /**
  * Height of iframe that displays html formated emails
  * @since 1.5.1
