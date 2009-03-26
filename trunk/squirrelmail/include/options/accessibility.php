@@ -12,8 +12,10 @@
  */
 
 /** Define the group constants for this options page. */
-define('SMOPT_GRP_ACCESSKEYS_READ_MESSAGE', 0);
-define('SMOPT_GRP_ACCESSKEYS_COMPOSE', 1);
+define('SMOPT_GRP_ACCESSKEYS_MENUBAR', 0);
+define('SMOPT_GRP_ACCESSKEYS_MAILBOX', 1);
+define('SMOPT_GRP_ACCESSKEYS_READ_MESSAGE', 2);
+define('SMOPT_GRP_ACCESSKEYS_COMPOSE', 3);
 
 /**
  * This function builds an array with all the information about
@@ -40,6 +42,81 @@ function load_optpage_data_accessibility() {
     /******************************************************/
     /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
     /******************************************************/
+
+    /*** Load the Access Key Options for the Menubar into the array ***/
+    $optgrps[SMOPT_GRP_ACCESSKEYS_MENUBAR] = _("Access Keys For Top Menu (All Screens)");
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR] = array();
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR][] = array(
+        'name'    => 'accesskey_menubar_compose',
+        'caption' => _("Compose"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR][] = array(
+        'name'    => 'accesskey_menubar_addresses',
+        'caption' => _("Addresses"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR][] = array(
+        'name'    => 'accesskey_menubar_folders',
+        'caption' => _("Folders"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR][] = array(
+        'name'    => 'accesskey_menubar_options',
+        'caption' => _("Options"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR][] = array(
+        'name'    => 'accesskey_menubar_search',
+        'caption' => _("Search"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR][] = array(
+        'name'    => 'accesskey_menubar_help',
+        'caption' => _("Help"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MENUBAR][] = array(
+        'name'    => 'accesskey_menubar_signout',
+        'caption' => _("Sign Out"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+
+    /*** Load the Access Key Options for the Mailbox page into the array ***/
+    $optgrps[SMOPT_GRP_ACCESSKEYS_MAILBOX] = _("Access Keys For Message List Screen");
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX] = array();
+
+//FIXME -- TODO...
+//    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+//        'name'    => 'accesskey_mailbox_XXXXXXXXXXXXXXXXXXXXXXX',
+//        'caption' => _("XXXXXXXXXXXXXXX"),
+//        'type'    => SMOPT_TYPE_STRLIST,
+//        'refresh' => SMOPT_REFRESH_NONE,
+//        'posvals' => $my_a_to_z,
+//    );
+
 
     /*** Load the Access Key Options for the Read Message page into the array ***/
     $optgrps[SMOPT_GRP_ACCESSKEYS_READ_MESSAGE] = _("Access Keys For Read Message Screen");

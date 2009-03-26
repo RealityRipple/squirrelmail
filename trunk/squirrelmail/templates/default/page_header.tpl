@@ -51,13 +51,21 @@ $options_str = $options_link_default;
 $search_str = $search_link_default;
 $help_str = $help_link_default;
 
-$compose_link	= makeComposeLink ('src/compose.php?mailbox='.$urlMailbox.'&amp;startMessage='.$startMessage, $compose_str);
-$signout_link	= makeInternalLink ('src/signout.php', $signout_str, $frame_top);
-$address_link	= makeInternalLink ('src/addressbook.php', $address_str);
-$folders_link	= makeInternalLink ('src/folders.php', $folders_str);
-$search_link	= makeInternalLink ('src/search.php?mailbox='.$urlMailbox, $search_str);
-$options_link	= makeInternalLink ('src/options.php', $options_str);
-$help_link		= makeInternalLink ('src/help.php', $help_str);
+$compose_link = makeComposeLink('src/compose.php?mailbox=' . $urlMailbox
+                                . '&amp;startMessage=' . $startMessage,
+                                $compose_str, '', $accesskey_menubar_compose);
+$signout_link = makeInternalLink('src/signout.php', $signout_str, $frame_top,
+                                 $accesskey_menubar_signout);
+$address_link = makeInternalLink('src/addressbook.php', $address_str, '',
+                                 $accesskey_menubar_addresses);
+$folders_link = makeInternalLink('src/folders.php', $folders_str, '',
+                                 $accesskey_menubar_folders);
+$search_link  = makeInternalLink('src/search.php?mailbox='.$urlMailbox,
+                                 $search_str, '', $accesskey_menubar_search);
+$options_link = makeInternalLink('src/options.php', $options_str, '',
+                                 $accesskey_menubar_options);
+$help_link    = makeInternalLink('src/help.php', $help_str, '',
+                                 $accesskey_menubar_help);
 
 ?>
 <body <?php if (!empty($onload)) echo ' onload="' . $onload . '"'; ?>>
