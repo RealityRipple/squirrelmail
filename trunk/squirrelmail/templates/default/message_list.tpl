@@ -456,6 +456,7 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
         $value      = (isset($aCol['value']))      ? $aCol['value']      : '';
         $target     = (isset($aCol['target']))     ? $aCol['target']     : '';
         if (!$show_personal_names
+         && !empty($title)
          && ($iCol == SQM_COL_FROM
           || $iCol == SQM_COL_TO
           || $iCol == SQM_COL_CC
