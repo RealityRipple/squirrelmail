@@ -87,6 +87,8 @@ extract($t);
             case 'submit':
                 if ($widget_name != 'moveButton' && $widget_name != 'copyButton' && $widget_name != 'delete' && $widget_name != 'undeleteButton') { // add these later in another table cell
                     echo '<input type="submit" name="' . $widget_name . '" value="' . $widget_attrs['value'] . '" class="message_control_button"';
+                    if ($widget_attrs['accesskey'] != 'NONE')
+                        echo ' accesskey="' . $widget_attrs['accesskey'] . '"';
                     if (!empty($widget_attrs['extra_attrs'])) {
                         foreach ($widget_attrs['extra_attrs'] as $attr => $val) {
                             echo ' ' . $attr . '="' . $val . '"';
@@ -98,6 +100,8 @@ extract($t);
             case 'checkbox':
                 if ($widget_name != 'bypass_trash') {
                     echo '<input type="checkbox" name="' . $widget_name . '" id="' . $widget_name . '"';
+                    if ($widget_attrs['accesskey'] != 'NONE')
+                        echo ' accesskey="' . $widget_attrs['accesskey'] . '"';
                     if (!empty($widget_attrs['extra_attrs'])) {
                         foreach ($widget_attrs['extra_attrs'] as $attr => $val) {
                             echo ' ' . $attr . '="' . $val . '"';
@@ -107,7 +111,7 @@ extract($t);
                 }
                 break;
             case 'hidden':
-                echo '<input type="hidden" name="'.$widget_name.'" value="'. $widget_attrs['value']."\" />\n";
+                echo '<input type="hidden" name="'.$widget_name.'" value="'. $widget_attrs['value']."\" />";
                 break;
             default: break;
             }
@@ -117,12 +121,12 @@ extract($t);
               <td class="message_control_delete">
 <?php
         if (isset($aFormElements['delete'])) {
-            echo '<input type="submit" name="delete" value="' . $aFormElements['delete']['value'] . '" class="message_control_button" />&nbsp;';
+            echo '<input type="submit" name="delete" value="' . $aFormElements['delete']['value'] . '" class="message_control_button" ' . ($aFormElements['delete']['accesskey'] != 'NONE' ? 'accesskey="' . $aFormElements['delete']['accesskey'] . '" ' : '') . '/>&nbsp;';
             if (isset($aFormElements['bypass_trash'])) {
-                echo '<input type="checkbox" name="bypass_trash" id="bypass_trash" /><label for="bypass_trash">' . $aFormElements['bypass_trash']['value'] . '</label>&nbsp;';
+                echo '<input type="checkbox" name="bypass_trash" id="bypass_trash" ' . ($aFormElements['bypass_trash']['accesskey'] != 'NONE' ? 'accesskey="' . $aFormElements['bypass_trash']['accesskey'] . '" ' : '') . '/><label for="bypass_trash">' . $aFormElements['bypass_trash']['value'] . '</label>&nbsp;';
             }
             if (isset($aFormElements['undeleteButton'])) {
-                echo '<input type="submit" name="undeleteButton" value="' . $aFormElements['undeleteButton']['value'] . '" class="message_control_button" />&nbsp;';
+                echo '<input type="submit" name="undeleteButton" value="' . $aFormElements['undeleteButton']['value'] . '" class="message_control_button" ' . ($aFormElements['undeleteButton']['accesskey'] != 'NONE' ? 'accesskey="' . $aFormElements['undeleteButton']['accesskey'] . '" ' : '') . '/>&nbsp;';
             }
 ?>
 
@@ -133,15 +137,15 @@ extract($t);
         if (isset($aFormElements['moveButton']) || isset($aFormElements['copyButton'])) {
 ?>
               <td class="message_control_move">
-                    <select name="targetMailbox">
+                    <select name="targetMailbox"<?php if ($aFormElements['targetMailbox']['accesskey'] != 'NONE') echo ' accesskey="' . $aFormElements['targetMailbox']['accesskey'] . '"'; ?>>
                        <?php echo $aFormElements['targetMailbox']['options_list'];?>
                     </select>
 <?php
             if (isset($aFormElements['moveButton'])) {
-                echo '<input type="submit" name="moveButton" value="' . $aFormElements['moveButton']['value'] . '" class="message_control_button" />';
+                echo '<input type="submit" name="moveButton" value="' . $aFormElements['moveButton']['value'] . '" class="message_control_button" ' . ($aFormElements['moveButton']['accesskey'] != 'NONE' ? 'accesskey="' . $aFormElements['moveButton']['accesskey'] . '" ' : '') . '/>';
             }
             if (isset($aFormElements['copyButton'])) {
-                echo '<input type="submit" name="copyButton" value="' . $aFormElements['copyButton']['value'] . '" class="message_control_button" />';
+                echo '<input type="submit" name="copyButton" value="' . $aFormElements['copyButton']['value'] . '" class="message_control_button" ' . ($aFormElements['copyButton']['accesskey'] != 'NONE' ? 'accesskey="' . $aFormElements['copyButton']['accesskey'] . '" ' : '') . '/>';
             }
 ?>
 

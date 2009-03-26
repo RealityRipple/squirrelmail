@@ -20,14 +20,17 @@ include_once(SM_PATH . 'functions/forms.php');
  /**
   * Generate a paginator link.
   *
-  * @param string  $box Mailbox name
+  * @param string  $box       Mailbox name
   * @param integer $start_msg Message Offset
-  * @param string  $text text used for paginator link
+  * @param string  $text      The text used for paginator link
+  * @param string  $accesskey The access key for the link, if any
   * @return string
   */
-function get_paginator_link($box, $start_msg, $text) {
+function get_paginator_link($box, $start_msg, $text, $accesskey='NONE') {
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
-    return create_hyperlink("$php_self?startMessage=$start_msg&amp;mailbox=$box", $text);
+    return create_hyperlink("$php_self?startMessage=$start_msg&amp;mailbox=$box",
+                            $text, '', '', '', '', '',
+                            array('accesskey' => $accesskey));
 }
 
 
@@ -47,6 +50,8 @@ function get_paginator_link($box, $start_msg, $text) {
  *
  */
 function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, $javascript_on, $page_selector) {
+
+    static $accesskeys_constructed = FALSE;
 
     /* This will be used as a space. */
     global $oTemplate, $nbsp;
@@ -80,16 +85,27 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
     $prev_grp = $iOffset - $iLimit;
 
     if (!$bShowAll) {
+
         /* Compute the basic previous and next strings. */
+
+        global $accesskey_mailbox_previous, $accesskey_mailbox_next;
         if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
-            $prv_str = get_paginator_link($box, $prev_grp, '<');
-            $nxt_str = get_paginator_link($box, $next_grp, '>');
+            $prv_str = get_paginator_link($box, $prev_grp, '<',
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_previous));
+            $nxt_str = get_paginator_link($box, $next_grp, '>',
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_next));
         } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
-            $prv_str = get_paginator_link($box, $prev_grp, '<');
+            $prv_str = get_paginator_link($box, $prev_grp, '<',
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_previous));
             $nxt_str = '>';
         } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
             $prv_str = '<';
-            $nxt_str = get_paginator_link($box, $next_grp, '>');
+            $nxt_str = get_paginator_link($box, $next_grp, '>',
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_next));
         }
 
         /* Page selector block. Following code computes page links. */
@@ -103,7 +119,8 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
             $last_grp = (($tot_pgs - 1) * $iLimit) + 1;
         }
     } else {
-        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"));
+        global $accesskey_mailbox_all_paginate;
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
     }
 
     /* Put all the pieces of the paginator string together. */
@@ -115,7 +132,8 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
     if ( $prv_str || $nxt_str ) {
 
         /* Compute the 'show all' string. */
-        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"));
+        global $accesskey_mailbox_all_paginate;
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
 
         $result .= '[' . get_paginator_link($box, 1, '<<') . ']';
         $result .= '[' . $prv_str . ']';
@@ -158,6 +176,9 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
     if ($result == '') {
         $result = '&nbsp;';
     }
+
+    $accesskeys_constructed = TRUE;
+
     /* Return our final magical paginator string. */
     return ($result);
 }
@@ -179,6 +200,8 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
  *
  */
 function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_selector, $page_selector_max) {
+
+    static $accesskeys_constructed = FALSE;
 
     /* This will be used as a space. */
     global $oTemplate, $nbsp;
@@ -204,17 +227,27 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
     $prev_grp = $iOffset - $iLimit;
 
     if (!$bShowAll) {
+
         /* Compute the basic previous and next strings. */
 
+        global $accesskey_mailbox_previous, $accesskey_mailbox_next;
         if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
-            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
-            $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
+            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"),
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_previous));
+            $nxt_str = get_paginator_link($box, $next_grp, _("Next"),
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_next));
         } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
-            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
+            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"),
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_previous));
             $nxt_str = _("Next");
         } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
             $prv_str = _("Previous");
-            $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
+            $nxt_str = get_paginator_link($box, $next_grp, _("Next"),
+                                          ($accesskeys_constructed
+                                          ? '' : $accesskey_mailbox_next));
         }
 
         /* Page selector block. Following code computes page links. */
@@ -335,7 +368,8 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
             $last_grp = (($tot_pgs - 1) * $iLimit) + 1;
         }
     } else {
-        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"));
+        global $accesskey_mailbox_all_paginate;
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
     }
 
     /* Put all the pieces of the paginator string together. */
@@ -347,7 +381,8 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
     if ( $prv_str || $nxt_str ) {
 
         /* Compute the 'show all' string. */
-        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"));
+        global $accesskey_mailbox_all_paginate;
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
 
         $result .= '[';
         $result .= ($prv_str != '' ? $prv_str . $nbsp . $sep . $nbsp : '');
@@ -362,6 +397,9 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
     if ($result == '') {
         $result = $nbsp;
     }
+
+    $accesskeys_constructed = TRUE;
+
     /* Return our final magical compact paginator string. */
     return ($result);
 }

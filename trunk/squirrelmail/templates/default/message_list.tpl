@@ -70,6 +70,8 @@
  *                                 email address as a tool tip;
  *                                 When turned off, this logic
  *                                 should be inverted
+ *    $accesskey_mailbox_toggle_selected The access key to use for the toggle all checkbox
+ *    $accesskey_mailbox_thread The access key to use for the Thread/Unthread links
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -134,7 +136,10 @@ if ($pageOffset < $end_msg) {
                        */
                       $paginator_str = $this->fetch('paginator.tpl');
                       echo $paginator_str . '<small>[<a href="' . $thread_link_uri
-                                          . '">' . $thread_name . '</a>]</small>&nbsp;&nbsp;';
+                                          . ($accesskey_mailbox_thread != 'NONE'
+                                          ? '" accesskey="' . $accesskey_mailbox_thread . '">'
+                                          : '">')
+                                          . $thread_name . '</a>]</small>&nbsp;&nbsp;';
                       if (!empty($plugin_output['mailbox_paginator_after'])) echo $plugin_output['mailbox_paginator_after'];
                   ?>
 <!-- end paginator and thread link string -->
@@ -200,10 +205,12 @@ if ($pageOffset < $end_msg) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
                   $checked = ($checkall ? ' checked="checked" ' : '');
+                  $accesskey = ($accesskey_mailbox_toggle_selected == 'NONE' ? ''
+                                : ' accesskey="' . $accesskey_mailbox_toggle_selected . '" ');
                   echo '<input type="checkbox" name="toggleAll" id="toggleAll" title="'
                      . _("Toggle All") . '" onclick="toggle_all(\''
                      . $form_name . '\', \'msg\', ' . $fancy_index_highlite
-                     . '); return false;" ' . $checked . '/>' . "\n";
+                     . '); return false;" ' . $checked . $accesskey . '/>' . "\n";
               } else {
                   $link = $baseurl 
                         . "&amp;startMessage=$pageOffset&amp;checkall=" 

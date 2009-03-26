@@ -110,14 +110,141 @@ function load_optpage_data_accessibility() {
     $optgrps[SMOPT_GRP_ACCESSKEYS_MAILBOX] = _("Access Keys For Message List Screen");
     $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX] = array();
 
-//FIXME -- TODO...
-//    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
-//        'name'    => 'accesskey_mailbox_XXXXXXXXXXXXXXXXXXXXXXX',
-//        'caption' => _("XXXXXXXXXXXXXXX"),
-//        'type'    => SMOPT_TYPE_STRLIST,
-//        'refresh' => SMOPT_REFRESH_NONE,
-//        'posvals' => $my_a_to_z,
-//    );
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_previous',
+        'caption' => _("Previous"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_next',
+        'caption' => _("Next"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_all_paginate',
+        'caption' => _("Show All/Paginate"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_thread',
+        'caption' => _("Thread View/Unthreaded View"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_flag',
+        'caption' => _("Flag"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_unflag',
+        'caption' => _("Unflag"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_read',
+        'caption' => _("Read"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_unread',
+        'caption' => _("Unread"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_forward',
+        'caption' => _("Forward"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_delete',
+        'caption' => _("Delete"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_expunge',
+        'caption' => _("Expunge"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_undelete',
+        'caption' => _("Undelete"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_bypass_trash',
+        'caption' => _("Bypass Trash"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_move_to',
+        'caption' => _("Move To"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_move',
+        'caption' => _("Move"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_copy',
+        'caption' => _("Copy"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_MAILBOX][] = array(
+        'name'    => 'accesskey_mailbox_toggle_selected',
+        'caption' => _("Toggle Selected"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
 
 
     /*** Load the Access Key Options for the Read Message page into the array ***/

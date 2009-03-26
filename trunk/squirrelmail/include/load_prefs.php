@@ -405,6 +405,25 @@ $accesskey_options_compose = getPref($data_dir, $username, 'accesskey_options_co
 $accesskey_options_accessibility = getPref($data_dir, $username, 'accesskey_options_accessibility', 'a');
 
 
+$accesskey_mailbox_previous = getPref($data_dir, $username, 'accesskey_mailbox_previous', 'p');
+$accesskey_mailbox_next = getPref($data_dir, $username, 'accesskey_mailbox_next', 'n');
+$accesskey_mailbox_all_paginate = getPref($data_dir, $username, 'accesskey_mailbox_all_paginate', 'a');
+$accesskey_mailbox_thread = getPref($data_dir, $username, 'accesskey_mailbox_thread', 'h');
+$accesskey_mailbox_flag = getPref($data_dir, $username, 'accesskey_mailbox_flag', 'l');
+$accesskey_mailbox_unflag = getPref($data_dir, $username, 'accesskey_mailbox_unflag', 'g');
+$accesskey_mailbox_read = getPref($data_dir, $username, 'accesskey_mailbox_read', 'r');
+$accesskey_mailbox_unread = getPref($data_dir, $username, 'accesskey_mailbox_unread', 'u');
+$accesskey_mailbox_forward = getPref($data_dir, $username, 'accesskey_mailbox_forward', 'f');
+$accesskey_mailbox_delete = getPref($data_dir, $username, 'accesskey_mailbox_delete', 'd');
+$accesskey_mailbox_expunge = getPref($data_dir, $username, 'accesskey_mailbox_expunge', 'x');
+$accesskey_mailbox_undelete = getPref($data_dir, $username, 'accesskey_mailbox_undelete', 'e');
+$accesskey_mailbox_bypass_trash = getPref($data_dir, $username, 'accesskey_mailbox_bypass_trash', 'b');
+$accesskey_mailbox_move_to = getPref($data_dir, $username, 'accesskey_mailbox_move_to', 't');
+$accesskey_mailbox_move = getPref($data_dir, $username, 'accesskey_mailbox_move', 'm');
+$accesskey_mailbox_copy = getPref($data_dir, $username, 'accesskey_mailbox_copy', 'y');
+$accesskey_mailbox_toggle_selected = getPref($data_dir, $username, 'accesskey_mailbox_toggle_selected', 's');
+
+
 /**
  * Height of iframe that displays html formated emails
  * @since 1.5.1

@@ -357,6 +357,10 @@ if ($aMailbox['EXISTS'] > 0) {
     global $show_personal_names;
     $oTemplate->assign('show_personal_names', $show_personal_names);
 
+    global $accesskey_mailbox_toggle_selected, $accesskey_mailbox_thread;
+    $oTemplate->assign('accesskey_mailbox_toggle_selected', $accesskey_mailbox_toggle_selected);
+    $oTemplate->assign('accesskey_mailbox_thread', $accesskey_mailbox_thread);
+
     $oTemplate->display('message_list.tpl');
 
 } else {
