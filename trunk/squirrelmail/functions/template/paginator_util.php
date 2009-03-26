@@ -30,7 +30,9 @@ function get_paginator_link($box, $start_msg, $text, $accesskey='NONE') {
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
     return create_hyperlink("$php_self?startMessage=$start_msg&amp;mailbox=$box",
                             $text, '', '', '', '', '',
-                            array('accesskey' => $accesskey));
+                            ($accesskey == 'NONE'
+                            ? array()
+                            : array('accesskey' => $accesskey)));
 }
 
 
@@ -92,20 +94,20 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
         if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
             $prv_str = get_paginator_link($box, $prev_grp, '<',
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_previous));
+                                          ? 'NONE' : $accesskey_mailbox_previous));
             $nxt_str = get_paginator_link($box, $next_grp, '>',
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_next));
+                                          ? 'NONE' : $accesskey_mailbox_next));
         } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
             $prv_str = get_paginator_link($box, $prev_grp, '<',
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_previous));
+                                          ? 'NONE' : $accesskey_mailbox_previous));
             $nxt_str = '>';
         } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
             $prv_str = '<';
             $nxt_str = get_paginator_link($box, $next_grp, '>',
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_next));
+                                          ? 'NONE' : $accesskey_mailbox_next));
         }
 
         /* Page selector block. Following code computes page links. */
@@ -120,7 +122,8 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
         }
     } else {
         global $accesskey_mailbox_all_paginate;
-        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
+$accesskey_mailbox_all_paginate)));
     }
 
     /* Put all the pieces of the paginator string together. */
@@ -133,7 +136,7 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
 
         /* Compute the 'show all' string. */
         global $accesskey_mailbox_all_paginate;
-        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' => $accesskey_mailbox_all_paginate)));
 
         $result .= '[' . get_paginator_link($box, 1, '<<') . ']';
         $result .= '[' . $prv_str . ']';
@@ -234,20 +237,20 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
         if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
             $prv_str = get_paginator_link($box, $prev_grp, _("Previous"),
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_previous));
+                                          ? 'NONE' : $accesskey_mailbox_previous));
             $nxt_str = get_paginator_link($box, $next_grp, _("Next"),
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_next));
+                                          ? 'NONE' : $accesskey_mailbox_next));
         } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
             $prv_str = get_paginator_link($box, $prev_grp, _("Previous"),
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_previous));
+                                          ? 'NONE' : $accesskey_mailbox_previous));
             $nxt_str = _("Next");
         } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
             $prv_str = _("Previous");
             $nxt_str = get_paginator_link($box, $next_grp, _("Next"),
                                           ($accesskeys_constructed
-                                          ? '' : $accesskey_mailbox_next));
+                                          ? 'NONE' : $accesskey_mailbox_next));
         }
 
         /* Page selector block. Following code computes page links. */
@@ -369,7 +372,8 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
         }
     } else {
         global $accesskey_mailbox_all_paginate;
-        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
+$accesskey_mailbox_all_paginate)));
     }
 
     /* Put all the pieces of the paginator string together. */
@@ -382,7 +386,8 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
 
         /* Compute the 'show all' string. */
         global $accesskey_mailbox_all_paginate;
-        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', array('accesskey' => ($accesskeys_constructed ? 'NONE' : $accesskey_mailbox_all_paginate)));
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
+$accesskey_mailbox_all_paginate)));
 
         $result .= '[';
         $result .= ($prv_str != '' ? $prv_str . $nbsp . $sep . $nbsp : '');

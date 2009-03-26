@@ -172,7 +172,7 @@ EOS;
  * @param string $target    The target frame for this link
  * @param string $accesskey The access key to be used, if any
  */
-function makeInternalLink($path, $text, $target='', $accesskey='') {
+function makeInternalLink($path, $text, $target='', $accesskey='NONE') {
     global $base_uri, $oTemplate;
 //    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
 
@@ -187,7 +187,9 @@ function makeInternalLink($path, $text, $target='', $accesskey='') {
 
     return create_hyperlink($base_uri . $path, $text, $target,
                             '', '', '', '',
-                            (empty($accesskey) ? array() : array('accesskey' => $accesskey)));
+                            ($accesskey == 'NONE'
+                            ? array()
+                            : array('accesskey' => $accesskey)));
 }
 
 /**
