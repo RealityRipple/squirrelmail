@@ -162,12 +162,21 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
     }
     $pre .= $folder_icon;
 
+    // calculate if access key is needed
+    //
+    if ($box['IsInbox']) {
+        global $accesskey_folders_inbox;
+        $accesskey = $accesskey_folders_inbox;
+    }
+    else $accesskey = '';
+    
     /*
      * The Trash folder should only be displayed if message recycling has
      * been enabled, i.e. when deleted is a message moved to the trash or
      * deleted forever?
      */
     $view_link = '<a href="'.$box['ViewLink']['URL'].'" ' .
+                 ($accesskey == '' ? '' : 'accesskey="' . $accesskey . '" ') .
                  'target="'.$box['ViewLink']['Target'].'" ' .
                  'style="text-decoration:none">';
 
@@ -261,7 +270,7 @@ extract($t);
      <td style="text-align:center">
       <span class="sqm_folderHeader"><?php echo _("Folders"); ?></span><br />
       <span class="sqm_clock"><?php echo $clock; ?></span>
-      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" target="left"><?php echo _("Check mail"); ?></a>]</small></span>
+      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" <?php if ($accesskey_folders_refresh != 'NONE') echo 'accesskey="' . $accesskey_folders_refresh . '" '; ?>target="left"><?php echo _("Check Mail"); ?></a>]</small></span>
      </td>
     </tr>
    </table>

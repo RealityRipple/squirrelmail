@@ -16,6 +16,8 @@ define('SMOPT_GRP_ACCESSKEYS_MENUBAR', 0);
 define('SMOPT_GRP_ACCESSKEYS_MAILBOX', 1);
 define('SMOPT_GRP_ACCESSKEYS_READ_MESSAGE', 2);
 define('SMOPT_GRP_ACCESSKEYS_COMPOSE', 3);
+define('SMOPT_GRP_ACCESSKEYS_FOLDER_LIST', 4);
+define('SMOPT_GRP_ACCESSKEYS_OPTIONS', 5);
 
 /**
  * This function builds an array with all the information about
@@ -326,6 +328,49 @@ function load_optpage_data_accessibility() {
         'refresh' => SMOPT_REFRESH_NONE,
         'posvals' => $my_a_to_z,
     );
+
+
+    /*** Load the Access Key Options for the Folder List page into the array ***/
+    $optgrps[SMOPT_GRP_ACCESSKEYS_FOLDER_LIST] = _("Access Keys For Folder List Screen");
+    $optvals[SMOPT_GRP_ACCESSKEYS_FOLDER_LIST] = array();
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_FOLDER_LIST][] = array(
+        'name'    => 'accesskey_folders_refresh',
+        'caption' => _("Refresh/Check Mail"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_FOLDER_LIST][] = array(
+        'name'    => 'accesskey_folders_purge_trash',
+        'caption' => _("Purge Trash"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_FOLDER_LIST][] = array(
+        'name'    => 'accesskey_folders_inbox',
+        'caption' => _("INBOX"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+
+    /*** Load the Access Key Options for the main Options page into the array ***/
+    $optgrps[SMOPT_GRP_ACCESSKEYS_OPTIONS] = _("Access Keys For Options Screen");
+    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS] = array();
+
+//FIXME -- TODO...
+//    $optvals[SMOPT_GRP_ACCESSKEYS_OPTIONS][] = array(
+//        'name'    => 'accesskey_options_XXXXXXXXXXXXXXXXXXXXXXX',
+//        'caption' => _("XXXXXXXXXXXXXXX"),
+//        'type'    => SMOPT_TYPE_STRLIST,
+//        'refresh' => SMOPT_REFRESH_NONE,
+//        'posvals' => $my_a_to_z,
+//    );
 
 
     /* Assemble all this together and return it as our result. */
