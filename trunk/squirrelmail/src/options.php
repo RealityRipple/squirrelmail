@@ -323,60 +323,73 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     /******************************************/
     $optpage_blocks = array();
 
+    // access keys...
+    global $accesskey_options_personal, $accesskey_options_display,
+           $accesskey_options_highlighting, $accesskey_options_folders,
+           $accesskey_options_index_order, $accesskey_options_compose,
+           $accesskey_options_accessibility;
+
     /* Build a section for Personal Options. */
     $optpage_blocks[] = array(
-        'name' => _("Personal Information"),
-        'url'  => 'options.php?optpage=' . SMOPT_PAGE_PERSONAL,
-        'desc' => _("This contains personal information about yourself such as your name, your email address, etc."),
-        'js'   => false
+        'name'      => _("Personal Information"),
+        'url'       => 'options.php?optpage=' . SMOPT_PAGE_PERSONAL,
+        'desc'      => _("This contains personal information about yourself such as your name, your email address, etc."),
+        'js'        => false,
+        'accesskey' => $accesskey_options_personal,
     );
 
     /* Build a section for Display Options. */
     $optpage_blocks[] = array(
-        'name' => _("Display Preferences"),
-        'url'  => 'options.php?optpage=' . SMOPT_PAGE_DISPLAY,
-        'desc' => _("You can change the way that SquirrelMail looks and displays information to you, such as the colors, the language, and other settings."),
-        'js'   => false
+        'name'      => _("Display Preferences"),
+        'url'       => 'options.php?optpage=' . SMOPT_PAGE_DISPLAY,
+        'desc'      => _("You can change the way that SquirrelMail looks and displays information to you, such as the colors, the language, and other settings."),
+        'js'        => false,
+        'accesskey' => $accesskey_options_display,
     );
 
     /* Build a section for Message Highlighting Options. */
     $optpage_blocks[] = array(
-        'name' =>_("Message Highlighting"),
-        'url'  => 'options_highlight.php',
-        'desc' =>_("Based upon given criteria, incoming messages can have different background colors in the message list. This helps to easily distinguish who the messages are from, especially for mailing lists."),
-        'js'   => false
+        'name'      =>_("Message Highlighting"),
+        'url'       => 'options_highlight.php',
+        'desc'      =>_("Based upon given criteria, incoming messages can have different background colors in the message list. This helps to easily distinguish who the messages are from, especially for mailing lists."),
+        'js'        => false,
+        'accesskey' => $accesskey_options_highlighting,
     );
 
     /* Build a section for Folder Options. */
     $optpage_blocks[] = array(
-        'name' => _("Folder Preferences"),
-        'url'  => 'options.php?optpage=' . SMOPT_PAGE_FOLDER,
-        'desc' => _("These settings change the way your folders are displayed and manipulated."),
-        'js'   => false
+        'name'      => _("Folder Preferences"),
+        'url'       => 'options.php?optpage=' . SMOPT_PAGE_FOLDER,
+        'desc'      => _("These settings change the way your folders are displayed and manipulated."),
+        'js'        => false,
+        'accesskey' => $accesskey_options_folders,
     );
 
     /* Build a section for Index Order Options. */
     $optpage_blocks[] = array(
-        'name' => _("Index Order"),
-        'url'  => 'options_order.php',
-        'desc' => _("The order of the message index can be rearranged and changed to contain the headers in any order you want."),
-        'js'   => false
+        'name'      => _("Index Order"),
+        'url'       => 'options_order.php',
+        'desc'      => _("The order of the message index can be rearranged and changed to contain the headers in any order you want."),
+        'js'        => false,
+        'accesskey' => $accesskey_options_index_order,
     );
 
     /* Build a section for Compose Options. */
     $optpage_blocks[] = array(
-        'name' => _("Compose Preferences"),
-        'url'  => 'options.php?optpage=' . SMOPT_PAGE_COMPOSE,
-        'desc' => _("Control the behaviour and layout of writing new mail messages, replying to and forwarding messages."),
-        'js'   => false
+        'name'      => _("Compose Preferences"),
+        'url'       => 'options.php?optpage=' . SMOPT_PAGE_COMPOSE,
+        'desc'      => _("Control the behaviour and layout of writing new mail messages, replying to and forwarding messages."),
+        'js'        => false,
+        'accesskey' => $accesskey_options_compose,
     );
 
     /* Build a section for Accessibility Options. */
     $optpage_blocks[] = array(
-        'name' => _("Accessibility Preferences"),
-        'url'  => 'options.php?optpage=' . SMOPT_PAGE_ACCESSIBILITY,
-        'desc' => _("You can configure features that improve interface usability."),
-        'js'   => false
+        'name'      => _("Accessibility Preferences"),
+        'url'       => 'options.php?optpage=' . SMOPT_PAGE_ACCESSIBILITY,
+        'desc'      => _("You can configure features that improve interface usability."),
+        'js'        => false,
+        'accesskey' => $accesskey_options_accessibility,
     );
 
     /* Build a section for plugins wanting to register an optionpage. */
@@ -388,6 +401,9 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     $js_optpage_blocks = array();
     $reg_optpage_blocks = array();
     foreach ($optpage_blocks as $cur_optpage) {
+        if (!isset($cur_optpage['accesskey'])) {
+            $cur_optpage['accesskey'] = 'NONE';
+        }
         if (!isset($cur_optpage['js']) || !$cur_optpage['js']) {
             $reg_optpage_blocks[] = $cur_optpage;
         } else if (checkForJavascript()) {

@@ -8,10 +8,11 @@
  *      $page_title - string containing the title element for this page
  *      $options    - array containing option blocks to be displayed.  Each
  *                    element in the array will contain the following fields:
- *          $el['url']  - The URL of the link to display that option page
- *          $el['name'] - The name of the option page
- *          $el['desc'] - string containing the description of that option block
- *          $el['js']   - boolean TRUE if the element requires javascript being enabled. 
+ *          $el['url']       - The URL of the link to display that option page
+ *          $el['name']      - The name of the option page
+ *          $el['desc']      - string containing the description of that option block
+ *          $el['js']        - boolean TRUE if the element requires javascript being enabled. 
+ *          $el['accesskey'] - an access key, if one exists (if not, it will be "NONE")
  *
  * @copyright &copy; 2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -38,7 +39,7 @@ extract($t);
    <table cellspacing="0">
     <tr>
      <td class="optionName">
-      <a href=<?php echo '"'.$option['url'].'"'; ?>><?php echo $option['name']; ?></a>
+      <a href=<?php echo '"'.$option['url'].'"'; if ($option['accesskey'] != 'NONE') echo ' accesskey="' . $option['accesskey'] . '"'; ?>><?php echo $option['name']; ?></a>
      </td>
     </tr>
     <tr>
