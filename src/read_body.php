@@ -666,29 +666,20 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
         $oTemplate->assign('can_be_copied', false);
     }
 
-    // access keys... only add to the bottom menubar, because adding
+    // access keys... only add to the top menubar, because adding
     // them twice makes them less functional (press access key, *then*
-    // press <enter> to make it work), and we always have a bottom
-    // menubar, even on the non-JavaScript printable screen
+    // press <enter> to make it work)
     //
-    // the one exception we'll make to this is the "move to" (folder
-    // selection) since the user can get confused if the focus for
-    // that access key does not land in the folder select widget at
-    // the top of the page
-    //
-    // FIXME: this also can be confusing for the "as attachment" and "bypass trash" checkboxes, but they are not being excepted like "move to" because pressing their access keys will only focus on them and not check them, which might be even more confusing to naive users or those that can't see the focus indication on the checkbox - this is a compromise, the best I can think of at this time
-    //
-    global $accesskey_read_msg_move_to;
-    if (!$nav_on_top) {
+    if ($nav_on_top) {
         global $accesskey_read_msg_reply, $accesskey_read_msg_reply_all,
                $accesskey_read_msg_forward, $accesskey_read_msg_as_attach,
                $accesskey_read_msg_delete, $accesskey_read_msg_bypass_trash,
-               $accesskey_read_msg_move;
+               $accesskey_read_msg_move, $accesskey_read_msg_move_to;
     } else {
         $accesskey_read_msg_reply = $accesskey_read_msg_reply_all =
         $accesskey_read_msg_forward = $accesskey_read_msg_as_attach =
         $accesskey_read_msg_delete = $accesskey_read_msg_bypass_trash =
-        $accesskey_read_msg_move = 'NONE';
+        $accesskey_read_msg_move = $accesskey_read_msg_move_to = 'NONE';
     }
     $oTemplate->assign('accesskey_read_msg_reply', $accesskey_read_msg_reply);
     $oTemplate->assign('accesskey_read_msg_reply_all', $accesskey_read_msg_reply_all);
