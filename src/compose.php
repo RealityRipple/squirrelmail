@@ -1219,7 +1219,9 @@ function showInputForm ($session, $values=false) {
     // access keys...
     //
     global $accesskey_compose_to, $accesskey_compose_cc,
-           $accesskey_compose_bcc, $accesskey_compose_subject;
+           $accesskey_compose_identity, $accesskey_compose_bcc,
+           $accesskey_compose_subject;
+    $oTemplate->assign('accesskey_compose_identity', $accesskey_compose_identity);
     $oTemplate->assign('accesskey_compose_to', $accesskey_compose_to);
     $oTemplate->assign('accesskey_compose_cc', $accesskey_compose_cc);
     $oTemplate->assign('accesskey_compose_bcc', $accesskey_compose_bcc);
