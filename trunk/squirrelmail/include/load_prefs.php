@@ -391,6 +391,11 @@ $accesskey_compose_attach = getPref($data_dir, $username, 'accesskey_compose_att
 $accesskey_compose_delete_attach = getPref($data_dir, $username, 'accesskey_compose_delete_attach', 'l');
 
 
+$accesskey_folders_refresh = getPref($data_dir, $username, 'accesskey_folders_refresh', 'NONE');
+$accesskey_folders_purge_trash = getPref($data_dir, $username, 'accesskey_folders_purge_trash', 'NONE');
+$accesskey_folders_inbox = getPref($data_dir, $username, 'accesskey_folders_inbox', 'i');
+
+
 /**
  * Height of iframe that displays html formated emails
  * @since 1.5.1

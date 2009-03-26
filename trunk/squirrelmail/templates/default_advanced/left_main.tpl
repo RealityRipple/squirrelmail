@@ -226,11 +226,19 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $parent_node=-1) {
         }
         
         if ($display_folder) {
+
+            if ($box['IsInbox']) {
+                global $accesskey_folders_inbox;
+                $accesskey = $accesskey_folders_inbox;
+            }
+            else $accesskey = '';
+
             $out .= 'mailboxes.add('.$counter.', '.$parent_node.', ' .
                                        '"'.addslashes($name).'", "'.$url.'", "'.$title.'", ' .
                                        '"'.$target.'", ' .
                                        '"'.getIconPath($icon_theme_path, $img).'", ' .
-                                       '"'.getIconPath($icon_theme_path, $img_open).'"' .
+                                       '"'.getIconPath($icon_theme_path, $img_open).'", ' .
+                                       '"'.$accesskey.'"' .
                                        ');'."\n";
         }
     }
@@ -283,7 +291,7 @@ extract($t);
      <td style="text-align:center">
       <span class="sqm_folderHeader"><?php echo _("Folders"); ?></span><br />
       <span class="sqm_clock"><?php echo $clock; ?></span>
-      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" target="left"><?php echo _("Check mail"); ?></a>]</small></span>
+      <span class="sqm_refreshButton"><small>[<a href="../src/left_main.php" <?php if ($accesskey_folders_refresh != 'NONE') echo 'accesskey="' . $accesskey_folders_refresh . '" '; ?>target="left"><?php echo _("Check Mail"); ?></a>]</small></span>
      </td>
     </tr>
    </table>
@@ -291,13 +299,16 @@ extract($t);
  </tr>
 </table>
 <p>
-<a href="javascript:mailboxes.openAll()"><?php echo _("Open all") ?></a>
+<a href="javascript:mailboxes.openAll()"><?php echo _("Open All") ?></a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="javascript:mailboxes.closeAll()"><?php echo _("Close all") ?></a>
+<a href="javascript:mailboxes.closeAll()"><?php echo _("Close All") ?></a>
 <?php
 if ($settings['messageRecyclingEnabled']) {
     echo '<br />';
-    echo '<a href="empty_trash.php">' . _("Purge trash") . '</a>';
+    echo '<a href="empty_trash.php"';
+    if ($accesskey_folders_purge_trash != 'NONE')
+        echo ' accesskey="' . $accesskey_folders_purge_trash . '"';
+    echo '>' . _("Purge Trash") . '</a>';
 }
 ?>
 </p>

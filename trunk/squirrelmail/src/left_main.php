@@ -205,6 +205,12 @@ $settings['messageRecyclingEnabled'] = $move_to_trash;
 $settings['collapsableFoldersEnabled'] = $collapse_folders==1;
 $oTemplate->assign('settings', $settings);
 
+//access keys
+//
+$oTemplate->assign('accesskey_folders_refresh', $accesskey_folders_refresh);
+$oTemplate->assign('accesskey_folders_purge_trash', $accesskey_folders_purge_trash);
+$oTemplate->assign('accesskey_folders_inbox', $accesskey_folders_inbox);
+
 $oTemplate->display('left_main.tpl');
 
 sqimap_logout($imapConnection);
