@@ -5,10 +5,11 @@
  * Description
  * 
  * The following variables are available in this template:
- *    $accesskey_compose_to      - The access key to be used for the To field
- *    $accesskey_compose_cc      - The access key to be used for the Cc field
- *    $accesskey_compose_bcc     - The access key to be used for the Bcc field
- *    $accesskey_compose_subject - The access key to be used for the Subject field
+ *    $accesskey_compose_identity - The access key to be used for the From field
+ *    $accesskey_compose_to       - The access key to be used for the To field
+ *    $accesskey_compose_cc       - The access key to be used for the Cc field
+ *    $accesskey_compose_bcc      - The access key to be used for the Bcc field
+ *    $accesskey_compose_subject  - The access key to be used for the Subject field
  *
  * @copyright &copy; 1999-2006 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -35,7 +36,7 @@ extract($t);
    <label for="identity"><?php echo _("From"); ?>:</label>
   </td>
   <td class="fieldValue">
-   <select name="identity" id="identity">
+   <select name="identity" <?php if ($accesskey_compose_identity != 'NONE') echo 'accesskey="' . $accesskey_compose_identity . '" '; ?>id="identity">
         <?php
         foreach ($identities as $id=>$ident) {
             echo '<option value="'.$id.'"'. ($identity_def==$id ? ' selected="selected"' : '') .'>'. $ident .'</option>';
