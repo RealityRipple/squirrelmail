@@ -87,7 +87,8 @@ extract($t);
             case 'submit':
                 if ($widget_name != 'moveButton' && $widget_name != 'copyButton' && $widget_name != 'delete' && $widget_name != 'undeleteButton') { // add these later in another table cell
                     echo '<input type="submit" name="' . $widget_name . '" value="' . $widget_attrs['value'] . '" class="message_control_button"';
-                    if ($widget_attrs['accesskey'] != 'NONE')
+                    if (isset($widget_attrs['accesskey'])
+                      && $widget_attrs['accesskey'] != 'NONE')
                         echo ' accesskey="' . $widget_attrs['accesskey'] . '"';
                     if (!empty($widget_attrs['extra_attrs'])) {
                         foreach ($widget_attrs['extra_attrs'] as $attr => $val) {
