@@ -280,6 +280,8 @@ Version 1.5.2 - SVN
   - Added Bengali (Bangladesh) translation (Thanks to Jamil Ahmed).
   - Implemented accesskeys on primary pages; is user-configurable in the
     Options -> Accessibility Preferences page 
+  - Moved documentation to doc/ directory and added example .htaccess
+    files in all directories that browsers don't need direct access to
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
