@@ -50,7 +50,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Reply"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -59,7 +58,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Reply All"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -68,7 +66,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Forward"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -77,7 +74,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("As Attachment"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -86,7 +82,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Delete"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -95,7 +90,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Bypass Trash"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -104,7 +98,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Move To"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -113,7 +106,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Move"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -122,7 +114,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Copy"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -132,11 +123,18 @@ function load_optpage_data_accessibility() {
     $optvals[SMOPT_GRP_ACCESSKEYS_COMPOSE] = array();
 
     $optvals[SMOPT_GRP_ACCESSKEYS_COMPOSE][] = array(
+        'name'    => 'accesskey_compose_identity',
+        'caption' => _("From"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $my_a_to_z,
+    );
+
+    $optvals[SMOPT_GRP_ACCESSKEYS_COMPOSE][] = array(
         'name'    => 'accesskey_compose_to',
         'caption' => _("To"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -145,7 +143,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Cc"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -154,7 +151,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Bcc"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -163,7 +159,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Subject"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -172,7 +167,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Priority"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -181,7 +175,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("On Read"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -190,7 +183,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("On Delivery"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -199,7 +191,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Signature"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -208,7 +199,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Addresses"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -217,7 +207,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Save Draft"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -226,7 +215,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Send"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -235,7 +223,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Body"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -244,7 +231,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Browse"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -253,7 +239,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Attach"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
@@ -262,7 +247,6 @@ function load_optpage_data_accessibility() {
         'caption' => _("Delete Selected Attachments"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
         'posvals' => $my_a_to_z,
     );
 
