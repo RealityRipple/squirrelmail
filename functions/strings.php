@@ -745,7 +745,7 @@ function quoteimap($str) {
  *
  * @since 1.4.2
  */
-function makeComposeLink($url, $text = null, $target='', $accesskey='') {
+function makeComposeLink($url, $text = null, $target='', $accesskey='NONE') {
     global $compose_new_win, $compose_width, 
            $compose_height, $oTemplate;
 
@@ -770,7 +770,9 @@ function makeComposeLink($url, $text = null, $target='', $accesskey='') {
         return create_hyperlink('javascript:void(0)', $text, '',
                                 "comp_in_new('$compuri','$compose_width','$compose_height')",
                                 '', '', '',
-                                (empty($accesskey) ? array() : array('accesskey' => $accesskey)));
+                                ($accesskey == 'NONE'
+                                ? array()
+                                : array('accesskey' => $accesskey)));
     }
 
     // otherwise, just open new window using regular HTML
