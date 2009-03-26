@@ -1002,8 +1002,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
 
     /* future admin control over displayable buttons */
     $aAdminControl = array(
-                           'markUnflagged' => 1,
                            'markFlagged'   => 1,
+                           'markUnflagged' => 1,
                            'markRead'      => 1,
                            'markUnread'    => 1,
                            'forward'       => 1,
@@ -1018,8 +1018,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     /* user prefs control */
     $aUserControl = array (
 
-                           'markUnflagged' => $show_flag_buttons,
                            'markFlagged'   => $show_flag_buttons,
+                           'markUnflagged' => $show_flag_buttons,
                            'markRead'      => 1,
                            'markUnread'    => 1,
                            'forward'       => 1,
@@ -1060,17 +1060,37 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                           );
     /* Button strings */
     $aButtonStrings = array(
-                           'markUnflagged' => _("Unflag"),
-                           'markFlagged'   => _("Flag"),
-                           'markRead'      => _("Read"),
-                           'markUnread'    => _("Unread"),
-                           'forward'       => _("Forward"),
-                           'delete'    => _("Delete"),
-                           'undeleteButton'  => _("Undelete"),
-                           'bypass_trash'  => _("Bypass Trash"),
-                           'expungeButton' => _("Expunge"),
-                           'moveButton'          => _("Move"),
-                           'copyButton'          => _("Copy")
+                           'markFlagged'    => _("Flag"),
+                           'markUnflagged'  => _("Unflag"),
+                           'markRead'       => _("Read"),
+                           'markUnread'     => _("Unread"),
+                           'forward'        => _("Forward"),
+                           'delete'         => _("Delete"),
+                           'undeleteButton' => _("Undelete"),
+                           'bypass_trash'   => _("Bypass Trash"),
+                           'expungeButton'  => _("Expunge"),
+                           'moveButton'     => _("Move"),
+                           'copyButton'     => _("Copy")
+                           );
+    /* Button access keys */
+    global $accesskey_mailbox_flag, $accesskey_mailbox_unflag,
+           $accesskey_mailbox_read, $accesskey_mailbox_unread,
+           $accesskey_mailbox_forward, $accesskey_mailbox_delete,
+           $accesskey_mailbox_undelete, $accesskey_mailbox_bypass_trash,
+           $accesskey_mailbox_expunge, $accesskey_mailbox_move,
+           $accesskey_mailbox_copy, $accesskey_mailbox_move_to;
+    $aButtonAccessKeys = array(
+                           'markFlagged'    => $accesskey_mailbox_flag,
+                           'markUnflagged'  => $accesskey_mailbox_unflag,
+                           'markRead'       => $accesskey_mailbox_read,
+                           'markUnread'     => $accesskey_mailbox_unread,
+                           'forward'        => $accesskey_mailbox_forward,
+                           'delete'         => $accesskey_mailbox_delete,
+                           'undeleteButton' => $accesskey_mailbox_undelete,
+                           'bypass_trash'   => $accesskey_mailbox_bypass_trash,
+                           'expungeButton'  => $accesskey_mailbox_expunge,
+                           'moveButton'     => $accesskey_mailbox_move,
+                           'copyButton'     => $accesskey_mailbox_copy,
                            );
 
 
@@ -1082,8 +1102,8 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
     foreach($aAdminControl as $k => $v) {
         if ($v & $aUserControl[$k] & $aImapControl[$k]) {
             switch ($k) {
-              case 'markUnflagged':
               case 'markFlagged':
+              case 'markUnflagged':
               case 'markRead':
               case 'markUnread':
               case 'delete':
@@ -1091,23 +1111,24 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
               case 'expungeButton':
               case 'forward':
                 $aFormElements[$k] 
-                    = array('value' => $aButtonStrings[$k], 'type' => 'submit');
+                    = array('value' => $aButtonStrings[$k], 'type' => 'submit', 'accesskey' => (isset($aButtonAccessKeys[$k]) ? $aButtonAccessKeys[$k] : 'NONE'));
                 break;
               case 'bypass_trash':
                 $aFormElements[$k] 
-                    = array('value' => $aButtonStrings[$k], 'type' => 'checkbox');
+                    = array('value' => $aButtonStrings[$k], 'type' => 'checkbox', 'accesskey' => (isset($aButtonAccessKeys[$k]) ? $aButtonAccessKeys[$k] : 'NONE'));
                 break;
               case 'moveButton':
               case 'copyButton':
                 $aFormElements['targetMailbox']
                     = array('options_list' => sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes),
-                            'type' => 'select');
+                            'type' => 'select',
+                            'accesskey' => $accesskey_mailbox_move_to);
                 $aFormElements['mailbox']       
                     = array('value' => $aMailbox['NAME'], 'type' => 'hidden');
                 $aFormElements['startMessage']  
                     = array('value' => $aMailbox['PAGEOFFSET'], 'type' => 'hidden');
                 $aFormElements[$k]              
-                    = array('value' => $aButtonStrings[$k], 'type' => 'submit');
+                    = array('value' => $aButtonStrings[$k], 'type' => 'submit', 'accesskey' => (isset($aButtonAccessKeys[$k]) ? $aButtonAccessKeys[$k] : 'NONE'));
                 break;
             }
         }
