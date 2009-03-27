@@ -293,15 +293,11 @@ just one example using Apache's Redirect directive:
 9. Version-specific upgrade issues
 ==================================
 
-Upgrading from any version older than 1.2.2 to version 1.2.2 or later
----------------------------------------------------------------------
+Upgrading from the 1.4 release series to the 1.5 release series
+---------------------------------------------------------------
 
-The names used by some translations were changed starting in version 1.2.2.
-In most cases, you won't see any problems due to this change, however,
-the Norwegian Nynorsk (no_NO_ny) translation might need to be fixed.  If
-you decide to retain the same preferences from your old installation, any
-users who have a "language" preference set to "no_NO_ny" will need to
-have it manually changed to "nn_NO".
+The plugin API changed substantially in version 1.5.2.  At the least,
+you should NOT copy your old plugins when making this kind of upgrade.
 
 Upgrading from the 1.2 release series to the 1.4 release series
 ---------------------------------------------------------------
@@ -325,4 +321,21 @@ The "Index Order" options and SquirrelSpell user dictionaries will not be
 preserved if you use the same user preferences, although we discourage the
 use of the same preference sets between major release numbers (e.g., 1.4.x
 and 1.5.x).
+
+Upgrading from any version older than 1.2.2 to version 1.2.2 or later
+---------------------------------------------------------------------
+
+The names used by some translations were changed starting in version 1.2.2.
+In most cases, you won't see any problems due to this change, however,
+the Norwegian Nynorsk (no_NO_ny) translation might need to be fixed.  If
+you decide to retain the same preferences from your old installation, any
+users who have a "language" preference set to "no_NO_ny" will need to
+have it manually changed to "nn_NO".
+
+Upgrading from any version older than 1.0.5 to version 1.0.5 or later
+---------------------------------------------------------------------
+
+Some important security upgrades were made to the preferences system
+in version 1.0.5.  It is NOT recommended that you retain user preferences
+when upgrading from versions older than 1.0.5.
 
