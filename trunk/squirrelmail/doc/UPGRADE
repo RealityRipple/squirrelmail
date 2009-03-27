@@ -203,11 +203,12 @@ SquirrelMail version 1.0.5.
 4.  Run the configuration utility
 =================================
 
-Although not strictly necessary, we STRONGLY recommend that you run
-config/conf.pl to see the new configuration options available with the
-new version, as well as to verify that all of your old options are set
-properly.  In SquirrelMail versions 1.5.2 and above, this also ensures
-that your plugins are properly registered with SquirrelMail.
+Although not strictly necessary for minor upgrades, we STRONGLY
+recommend that you run config/conf.pl to see the new configuration
+options available with the new version, as well as to verify that
+all of your old options are set properly.  In SquirrelMail versions
+1.5.2 and above, this also ensures that your plugins are properly
+registered with SquirrelMail.
 
 Always save your options, even if you haven't changed anything.  This
 will ensure that any problems with your configuration that have been
