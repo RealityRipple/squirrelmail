@@ -256,8 +256,7 @@ Or to create a gzipped tar archive:
 
 Then make sure that you REMOVE the old directory so users can no longer
 access it - if you don't do this, you may be leaving yourself exposed
-to known security exploits.  Of course, don't remove it yet - that's
-your last step after you've been able to make your new installation work.
+to known security exploits.
 
 
 8. How to point the web server to different SquirrelMail installations
