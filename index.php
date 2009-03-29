@@ -5,7 +5,7 @@
  *
  * Redirects to the login page.
  *
- * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -22,4 +22,3 @@ if( ! file_exists ( 'config/config.php' ) ) {
 // If we are, go ahead to the login page.
 header('Location: src/login.php');
 
-?>
