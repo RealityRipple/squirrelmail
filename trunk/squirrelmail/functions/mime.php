@@ -706,7 +706,7 @@ function sqimap_base64_decode(&$string) {
  *                           all be converted to LF; if "CRLF",
  *                           line endings will all be converted
  *                           to CRLF.  If given as an empty value,
- *                           the global $default_force_crlf will
+ *                           the global $force_crlf_default will
  *                           be consulted (it can be specified in
  *                           config/config_local.php).  Otherwise,
  *                           any other value will cause the string
