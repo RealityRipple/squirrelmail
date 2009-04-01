@@ -539,6 +539,70 @@ class Message {
                 }
             }
         }
+        return $this->handleRfc2231($properties);
+    }
+
+    /**
+     * Joins RFC-2231 continuations, converts encoding to RFC-2047 style
+     * @param array $properties
+     * @return array
+     */
+    function handleRfc2231($properties) {
+
+        /* STAGE 1: look for multi-line parameters, convert to the single line
+           form, and normalize values */
+
+        $cont = array();
+        foreach($properties as $key=>$value) {
+            /* Look for parameters followed by "*", a number, and an optional "*"
+               at the end. */
+            if (preg_match('/^(.*\*)(\d+)(|\*)$/', $key, $matches)) {
+                unset($properties[$key]);
+                $prop_name = $matches[1];
+                if (!isset($cont[$prop_name])) $cont[$prop_name] = array();
+
+                /* An asterisk at the end of parameter name indicates that there
+                   may be an encoding information present, and the parameter
+                   value is percent-hex encoded. If parameter is not encoded, we
+                   encode it to simplify further processing.
+                */
+                if ($matches[3] == '') $value = rawurlencode($value);
+                /* Use the number from parameter name as segment index */
+                $cont[$prop_name][$matches[2]] = $value;
+            }
+        }
+        foreach($cont as $key=>$values) {
+            /* Sort segments of multi-line parameters by index number. */
+            ksort($values);
+            /* Join segments. We can do it safely, because:
+               - All segments are encoded.
+               - Per RFC-2231, chapter 4.1 notes.
+            */
+            $value = implode('', $values);
+            /* Add language and character set field delimiters if not present,
+               as required per RFC-2231, chapter 4.1, note #5. */
+            if (strpos($value, "'") === false) $value = "''".$value;
+            $properties[$key] = $value;
+        }
+
+        /* STAGE 2: Convert single line RFC-2231 encoded parameters, and
+           previously converted multi-line parameters, to RFC-2047 encoding */
+
+        foreach($properties as $key=>$value) {
+            if ($idx = strpos($key, '*')) {
+                unset($properties[$key]);
+                /* Extract the charset & language. */
+                $charset = substr($value,0,strpos($value,"'"));
+                $value = substr($value,strlen($charset)+1);
+                $language = substr($value,0,strpos($value,"'"));
+                $value = substr($value,strlen($language)+1);
+                /* No character set defaults to US-ASCII */
+                if (!$charset) $charset = 'US-ASCII';
+                if ($language) $language = '*'.$language;
+                /* Convert to RFC-2047 base64 encoded string. */
+                $properties[substr($key, 0, $idx)] = '=?'.$charset.$language.'?B?'.base64_encode(rawurldecode($value)).'?=';
+            }
+        }
         return $properties;
     }
 
