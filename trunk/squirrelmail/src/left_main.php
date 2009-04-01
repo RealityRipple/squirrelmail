@@ -72,7 +72,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
     $autocreate = array($sent_folder, $trash_folder, $draft_folder);
     $folders_created = false;
     foreach( $autocreate as $folder ) {
-        if ($folder != '') {
+        if ($folder != '' && $folder != SMPREF_NONE) {
             /**
              * If $show_only_subscribed_folders is true, don't use 
              * $mailboxes array for checking if mailbox exists.
