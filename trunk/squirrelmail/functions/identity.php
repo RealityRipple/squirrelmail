@@ -243,9 +243,9 @@ function build_from_header($identity = 0) {
     if ( isset($from_name) ) {
         $from_name_encoded = encodeHeader($from_name);
         if ($from_name_encoded != $from_name) {
-            return $from_name_encoded .' <'.$from_mail.'>';
+            return '"' . $from_name_encoded . '" <' . $from_mail . '>';
         }
-        return '"'.$from_name .'" <'.$from_mail.'>';
+        return '"' . $from_name . '" <' . $from_mail . '>';
     }
     return $from_mail;
 }

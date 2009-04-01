@@ -67,13 +67,13 @@ class AddressStructure {
                 if ($encoded && !$is_encoded) {
                     $personal_encoded = encodeHeader($personal);
                     if ($personal !== $personal_encoded) {
-                        $personal = $personal_encoded;
+                        $personal = '"' . $personal_encoded . '"';
                     } else {
-                        $personal = '"'.$this->personal.'"';
+                        $personal = '"' . $this->personal . '"';
                     }
                 } else {
                     if (!$is_encoded) {
-                        $personal = '"'.$this->personal.'"';
+                        $personal = '"' . $this->personal . '"';
                     }
                 }
                 $addr = ($email ? $personal . ' <' .$email.'>'
