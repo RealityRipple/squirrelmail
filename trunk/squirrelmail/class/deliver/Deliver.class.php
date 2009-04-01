@@ -858,7 +858,7 @@ class Deliver {
      * @return string $result with timezone and offset
      */
     function timezone () {
-        global $invert_time;
+        global $invert_time, $show_timezone_name;
 
         $diff_second = date('Z');
         if ($invert_time) {
@@ -872,9 +872,24 @@ class Deliver {
         $diff_second = abs($diff_second);
         $diff_hour = floor ($diff_second / 3600);
         $diff_minute = floor (($diff_second-3600*$diff_hour) / 60);
-        $zonename = '('.strftime('%Z').')';
-        $result = sprintf ("%s%02d%02d %s", $sign, $diff_hour, $diff_minute,
-                       $zonename);
+
+        // If an administrator wants to add the timezone name to the
+        // end of the date header, they can set $show_timezone_name
+        // to boolean TRUE in config/config_local.php, but that is
+        // NOT RFC-822 compliant (see section 5.1).  Moreover, some
+        // Windows users reported that strftime('%Z') was returning
+        // the full zone name (not the abbreviation) which in some
+        // cases included 8-bit characters (not allowed as is in headers).
+        // The PHP manual actually does NOT promise what %Z will return
+        // for strftime!:  "The time zone offset/abbreviation option NOT
+        // given by %z (depends on operating system)"
+        //
+        if ($show_timezone_name) {
+            $zonename = '('.strftime('%Z').')';
+            $result = sprintf ("%s%02d%02d %s", $sign, $diff_hour, $diff_minute, $zonename);
+        } else {
+            $result = sprintf ("%s%02d%02d", $sign, $diff_hour, $diff_minute);
+        }
         return ($result);
     }
 
