@@ -510,12 +510,11 @@ function get_location () {
     $port = '';
     if (! strstr($host, ':')) {
         // Note: HTTP_X_FORWARDED_PROTO could be sent from the client and
-        //       therefore possibly spoofed/hackable - for now, the
-        //       administrator can tell SM to ignore this value by setting
-        //       $sq_ignore_http_x_forwarded_headers to boolean TRUE in
-        //       config/config_local.php, but in the future we may
-        //       want to default this to TRUE and make administrators
-        //       who use proxy systems turn it off (see 1.5.2+).
+        //       therefore possibly spoofed/hackable.  Thus, SquirrelMail
+        //       ignores such headers by default.  The administrator
+        //       can tell SM to use such header values by setting
+        //       $sq_ignore_http_x_forwarded_headers to boolean FALSE
+        //       in config/config.php or by using config/conf.pl.
         global $sq_ignore_http_x_forwarded_headers;
         if ($sq_ignore_http_x_forwarded_headers
          || !sqgetGlobalVar('HTTP_X_FORWARDED_PROTO', $forwarded_proto, SQ_SERVER))
