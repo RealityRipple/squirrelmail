@@ -570,7 +570,8 @@ class Deliver {
          * webmail installation does not prevent changes in user's email address.
          * See SquirrelMail bug tracker #847107 for more details about it.
          *
-         * Add $hide_squirrelmail_header as a candidate for config_local.php
+         * Add hide_squirrelmail_header as a candidate for config_local.php
+         * (must be defined as a constant:  define('hide_squirrelmail_header', 1);
          * to allow completely hiding SquirrelMail participation in message
          * processing; This is dangerous, especially if users can modify their
          * account information, as it makes mapping a sent message back to the
