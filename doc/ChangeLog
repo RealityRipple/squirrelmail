@@ -282,6 +282,7 @@ Version 1.5.2 - SVN
     Options -> Accessibility Preferences page 
   - Moved documentation to doc/ directory and added example .htaccess
     files in all directories that browsers don't need direct access to
+  - Added RFC 2231 support.  Thanks to Piotr Pawlow. (#2501379)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
