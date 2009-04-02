@@ -87,7 +87,7 @@ if ($ent_id) {
     /* raw message */
     $type0 = 'message';
     $type1 = 'rfc822';
-    $encoding = 'US-ASCII';
+    $encoding = '7bit';
     $header = $message->header;
 }
 
