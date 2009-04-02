@@ -206,7 +206,7 @@ function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
     if ($special_encoding) {
         $mime_header->encoding = $special_encoding;
     } else {
-        $mime_header->encoding = 'us-ascii';
+        $mime_header->encoding = '7bit';
     }
     if ($default_charset) {
         $mime_header->parameters['charset'] = $default_charset;
@@ -230,7 +230,7 @@ function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
     $mime_header = new MessageHeader;
     $mime_header->type0 = 'message';
     $mime_header->type1 = 'disposition-notification';
-    $mime_header->encoding = 'us-ascii';
+    $mime_header->encoding = '7bit';
     $part2->mime_header = $mime_header;
 
     $composeMessage = new Message();

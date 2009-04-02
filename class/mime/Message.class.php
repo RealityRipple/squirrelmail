@@ -357,7 +357,7 @@ class Message {
                                 $hdr = new MessageHeader();
                                 $hdr->type0 = 'text';
                                 $hdr->type1 = 'plain';
-                                $hdr->encoding = 'us-ascii';
+                                $hdr->encoding = '7bit';
                             } else {
                                 $msg->header->type0 = 'multipart';
                                 $msg->type0 = 'multipart';
