@@ -189,7 +189,7 @@ Version 1.5.2 - SVN
   - Fix Priority and Receipt compose options being reset after return from
     HTML addressbook, and allow returning from an empty address book (#1673056).
   - Do not special case the 'None' folder.
-  - Fixes for filters issues (#1634735).
+  - Fixes for filters issues. (#1634735)
   - session_id reporting session id when no active session (#1685031).
   - Added sq_change_text_domain() for plugins to use when switching text
     domains.  If plugins use this function, it fixes #1434043.
@@ -271,18 +271,22 @@ Version 1.5.2 - SVN
   - Make address book file permissions 0600 - same as preference files
   - Added compatibility with Dovecot's bigint UIDs
   - Ensure that hash directory computation is the same on both 32 and
-    64 bit architectures (#2596879).
+    64 bit architectures. (#2596879)
   - Allow multiple addresses in one abook entry (separate with commas),
     although we HIGHLY DISCOURAGE grouping in this manner - note amongst
     other issues that can come up, sizing for large groups will be a
-    problem (#2611967)
+    problem. (#2611967)
   - Added Tamil translation (Thanks to Kengatharaiyer Sarveswaran).
   - Added Bengali (Bangladesh) translation (Thanks to Jamil Ahmed).
   - Implemented accesskeys on primary pages; is user-configurable in the
     Options -> Accessibility Preferences page 
   - Moved documentation to doc/ directory and added example .htaccess
-    files in all directories that browsers don't need direct access to
+    files in all directories to which browsers don't need direct access.
   - Added RFC 2231 support.  Thanks to Piotr Pawlow. (#2501379)
+  - Date headers in outgoing messages have been brought into RFC 822
+    compliance (removed time zone name). (#1849410) 
+  - Default Content-Transfer-Encoding is now RFC-compliant "7bit"
+    instead of "us-ascii". (#1942060)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
