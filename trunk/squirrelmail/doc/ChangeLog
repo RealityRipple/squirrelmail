@@ -287,6 +287,9 @@ Version 1.5.2 - SVN
     compliance (removed time zone name). (#1849410) 
   - Default Content-Transfer-Encoding is now RFC-compliant "7bit"
     instead of "us-ascii". (#1942060)
+  - Outgoing attachments that have lines longer than allowed per RFC
+    are now encoded so they are not corrupted by artificial line folds.
+    Thanks to Kelly Fallon. (#2226470, $1473714)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
