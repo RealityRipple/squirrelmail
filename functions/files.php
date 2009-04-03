@@ -263,3 +263,33 @@ function list_files($directory_path, $extensions='', $return_filenames_only=TRUE
 }
 
 
+/**
+ * Determine if there are lines in a file longer than a given length
+ *
+ * @param string $filename   The full file path of the file to inspect
+ * @param int    $max_length If any lines in the file are GREATER THAN
+ *                           this number, this function returns TRUE.
+ *
+ * @return boolean TRUE as explained above, otherwise, (no long lines
+ *                 found) FALSE is returned.
+ *
+ */
+function file_has_long_lines($filename, $max_length) {
+
+    $FILE = @fopen($filename, 'rb');
+
+    if ($FILE) {
+        while (!feof($FILE)) {
+            $buffer = fgets($FILE, 4096);
+            if (strlen($buffer) > $max_length) {
+                fclose($FILE);
+                return TRUE;
+            }
+        }
+        fclose($FILE);
+    }
+
+    return FALSE;
+}
+
+
