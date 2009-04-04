@@ -290,6 +290,7 @@ Version 1.5.2 - SVN
   - Outgoing attachments that have lines longer than allowed per RFC
     are now encoded so they are not corrupted by artificial line folds.
     Thanks to Kelly Fallon. (#2226470, $1473714)
+  - Completed a massive update to contrib/flat2sql.pl.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
