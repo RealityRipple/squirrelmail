@@ -1299,23 +1299,6 @@ function truncateWithEntities($s, $iTrimAt) {
 
 
 /**
- * This should go in imap_mailbox.php
- * @param string $mailbox
- */
-function handleAsSent($mailbox) {
-    global $handleAsSent_result;
-
-    /* First check if this is the sent or draft folder. */
-    $handleAsSent_result = isSentMailbox($mailbox) || isDraftMailbox($mailbox);
-
-    /* Then check the result of the handleAsSent hook. */
-    do_hook('check_handleAsSent_result', $mailbox);
-
-    /* And return the result. */
-    return $handleAsSent_result;
-}
-
-/**
  * Process messages list form and handle the cache gracefully. If $sButton and
  * $aUid are provided as argument then you can fake a message list submit and
  * use it i.e. in read_body.php for del move next and update the cache
