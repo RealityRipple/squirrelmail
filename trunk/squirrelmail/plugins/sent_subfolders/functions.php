@@ -12,26 +12,23 @@
  * @subpackage sent_subfolders
  */
 
-function sent_subfolders_check_handleAsSent_do() {
+function sent_subfolders_check_handleAsSent_do($mailbox) {
     global $handleAsSent_result, $sent_subfolders_base,
            $use_sent_subfolders;
 
-    // FIXME: hardcoded folder
-    $sent_subfolders_base = 'INBOX.Sent';
-    $args = func_get_arg(0);
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
     /* Only check the folder string if we have been passed a mailbox. */
-    if ($use_sent_subfolders && (count($args) > 1)) {
+    if ($use_sent_subfolders && !empty($mailbox)) {
         /* Chop up the folder strings as needed. */
         $base_str = $sent_subfolders_base . $delimiter;
-        $mbox_str = substr($args[1], 0, strlen($base_str));
+        $mbox_str = substr($mailbox, 0, strlen($base_str));
 
         /* Perform the comparison. */
         $handleAsSent_result =
             ( $handleAsSent_result
             || ($base_str == $mbox_str)
-            || ($sent_subfolders_base == $args[1])
+            || ($sent_subfolders_base == $mailbox)
             );
     }
 }

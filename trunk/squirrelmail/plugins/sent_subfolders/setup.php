@@ -57,9 +57,9 @@ function squirrelmail_plugin_init_sent_subfolders() {
         'sent_subfolders_special_mailbox';
 }
 
-function sent_subfolders_check_handleAsSent() {
+function sent_subfolders_check_handleAsSent($mailbox) {
     include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
-    sent_subfolders_check_handleAsSent_do();
+    sent_subfolders_check_handleAsSent_do($mailbox);
 }
 
 /**
