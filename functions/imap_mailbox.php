@@ -284,6 +284,34 @@ function isDraftMailbox($box,$include_subs=true) {
 }
 
 /**
+ * Is the given folder "sent-like" in nature?
+ *
+ * The most obvious use of this is to know what folders you usually
+ * want to show the To field instead of the From field on the mailbox list
+ *
+ * This function returns TRUE if the given folder is the sent
+ * folder (or any of its subfolders) or if it is the draft
+ * folder (or any of its subfolders)
+ *
+ * @param string $mailbox
+ *
+ * @return boolean See explanation above
+ *
+ */
+function handleAsSent($mailbox) {
+    global $handleAsSent_result;
+
+    /* First check if this is the sent or draft folder. */
+    $handleAsSent_result = isSentMailbox($mailbox) || isDraftMailbox($mailbox);
+
+    /* Then check the result of the handleAsSent hook. */
+    do_hook('check_handleAsSent_result', $mailbox);
+
+    /* And return the result. */
+    return $handleAsSent_result;
+}
+
+/**
  * Expunges a mailbox
  *
  * WARNING: Select mailbox before calling this function.
