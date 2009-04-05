@@ -368,6 +368,7 @@ function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
     $sort_opcodes = array ('DATE', 'FROM', 'SUBJECT', 'SIZE');
     if ($internal_date_sort == true)
         $sort_opcodes[0] = 'ARRIVAL';
+// FIXME: Why are these commented out?  I have no idea what this code does, but both of these functions sound more robust than the simple string check that's being used now.  Someone who understands this code should either fix this or remove these lines completely or document why they are here commented out
 //        if (handleAsSent($mailbox))
 //        if (isSentFolder($mailbox))
     if ($mailbox == $sent_folder)
