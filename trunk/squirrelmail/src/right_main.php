@@ -128,8 +128,8 @@ $aMailboxPref[MBX_PREF_COLUMNS] = $index_order;
 /**
  * Replace From => To  in case it concerns a draft or sent folder
  */
-if (($mailbox == $sent_folder || $mailbox == $draft_folder) &&
-    !in_array(SQM_COL_TO,$aMailboxPref[MBX_PREF_COLUMNS])) {
+if (handleAsSent($mailbox)
+ && !in_array(SQM_COL_TO,$aMailboxPref[MBX_PREF_COLUMNS])) {
     $aNewOrder = array(); // nice var name ;)
     foreach($aMailboxPref[MBX_PREF_COLUMNS] as $iCol) {
         if ($iCol == SQM_COL_FROM) {
