@@ -629,7 +629,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
     // If Draft folder - create Resume link
     $resume_draft = $edit_as_new = false;
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
-        $resume_draft = true; 'smaction_draft';
+        $resume_draft = true;
     } else if (handleAsSent($mailbox)) {
         $edit_as_new = true;
     }
