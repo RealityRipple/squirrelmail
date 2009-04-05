@@ -58,7 +58,7 @@ function squirrelmail_plugin_init_sent_subfolders() {
 }
 
 function sent_subfolders_check_handleAsSent() {
-    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php);
+    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
     sent_subfolders_check_handleAsSent_do();
 }
 
@@ -66,7 +66,7 @@ function sent_subfolders_check_handleAsSent() {
  * Loads sent_subfolders settings
  */
 function sent_subfolders_load_prefs() {
-    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php);
+    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
     sent_subfolders_load_prefs_do();
 }
 
@@ -74,7 +74,7 @@ function sent_subfolders_load_prefs() {
  * Adds sent_subfolders options in folder preferences
  */
 function sent_subfolders_optpage_loadhook_folders() {
-    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php);
+    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
     sent_subfolders_optpage_loadhook_folders_do();
 }
 
@@ -85,7 +85,7 @@ function sent_subfolders_optpage_loadhook_folders() {
  * creates required imap folders
  */
 function sent_subfolders_update_sentfolder() {
-    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php);
+    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
     sent_subfolders_update_sentfolder_do();
 }
 
@@ -96,6 +96,6 @@ function sent_subfolders_update_sentfolder() {
  * @return boolean 1 - is part of sent_subfolders, 0 - is not part of sent_subfolders
  */
 function sent_subfolders_special_mailbox($mb) {
-    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php);
+    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
     return sent_subfolders_special_mailbox_do($mb);
 }
