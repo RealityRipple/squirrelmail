@@ -24,8 +24,9 @@ function squirrelmail_plugin_init_sent_subfolders() {
         = 'sent_subfolders_check_handleAsSent';
 
     /* The hooks to automatically update sent subfolders. */
-    $squirrelmail_plugin_hooks['left_main_before']['sent_subfolders']
-        = 'sent_subfolders_update_sentfolder';
+// hook isn't in 1.5.x; isn't absolutely necessary to run on the folder list anyway
+//    $squirrelmail_plugin_hooks['left_main_before']['sent_subfolders']
+//        = 'sent_subfolders_update_sentfolder';
     $squirrelmail_plugin_hooks['compose_send']['sent_subfolders']
         = 'sent_subfolders_update_sentfolder';
 
