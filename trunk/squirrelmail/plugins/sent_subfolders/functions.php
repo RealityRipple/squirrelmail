@@ -12,11 +12,25 @@
  * @subpackage sent_subfolders
  */
 
+define('SMPREF_SENT_SUBFOLDERS_DISABLED',  0);
+define('SMPREF_SENT_SUBFOLDERS_YEARLY',    1);
+define('SMPREF_SENT_SUBFOLDERS_QUARTERLY', 2);
+define('SMPREF_SENT_SUBFOLDERS_MONTHLY',   3);
+define('SMOPT_GRP_SENT_SUBFOLDERS','SENT_SUBFOLDERS');
+
 function sent_subfolders_check_handleAsSent_do($mailbox) {
-    global $handleAsSent_result, $sent_subfolders_base,
-           $use_sent_subfolders;
+
+    global $handleAsSent_result;
+
+    // don't need to bother if it's already special
+    if ($handleAsSent_result) return;
 
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+
+    $use_sent_subfolders = getPref($data_dir, $username,
+                                   'use_sent_subfolders', SMPREF_OFF);
+    $sent_subfolders_base = getPref($data_dir, $username,
+                                    'sent_subfolders_base', SMPREF_NONE);
 
     /* Only check the folder string if we have been passed a mailbox. */
     if ($use_sent_subfolders && !empty($mailbox)) {
@@ -25,36 +39,18 @@ function sent_subfolders_check_handleAsSent_do($mailbox) {
         $mbox_str = substr($mailbox, 0, strlen($base_str));
 
         /* Perform the comparison. */
-        $handleAsSent_result =
-            ( $handleAsSent_result
-            || ($base_str == $mbox_str)
-            || ($sent_subfolders_base == $mailbox)
-            );
+        $handleAsSent_result = ( ($base_str == $mbox_str)
+                              || ($sent_subfolders_base == $mailbox) );
     }
-}
-
-/**
- * Loads sent_subfolders settings
- */
-function sent_subfolders_load_prefs_do() {
-    global $use_sent_subfolders, $data_dir, $username,
-           $sent_subfolders_setting, $sent_subfolders_base;
-
-    $use_sent_subfolders = getPref
-    ($data_dir, $username, 'use_sent_subfolders', SMPREF_OFF);
-
-    $sent_subfolders_setting = getPref
-    ($data_dir, $username, 'sent_subfolders_setting', SMPREF_SENT_SUBFOLDERS_DISABLED);
-
-    $sent_subfolders_base = getPref
-    ($data_dir, $username, 'sent_subfolders_base', SMPREF_NONE);
 }
 
 /**
  * Adds sent_subfolders options in folder preferences
  */
 function sent_subfolders_optpage_loadhook_folders_do() {
-    global $username, $optpage_data, $imapServerAddress, $imapPort, $show_contain_subfolders_option;
+
+    global $username, $optpage_data, $imapServerAddress, $imapPort,
+           $show_contain_subfolders_option;
 
     /* Get some imap data we need later. */
     $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
@@ -65,6 +61,10 @@ function sent_subfolders_optpage_loadhook_folders_do() {
     $optgrp = _("Sent Subfolders Options");
     $optvals = array();
 
+    global $sent_subfolders_setting;
+    $sent_subfolders_setting = getPref($data_dir, $username,
+                                       'sent_subfolders_setting',
+                                       SMPREF_SENT_SUBFOLDERS_DISABLED);
     $optvals[] = array(
         'name'    => 'sent_subfolders_setting',
         'caption' => _("Use Sent Subfolders"),
@@ -80,6 +80,9 @@ function sent_subfolders_optpage_loadhook_folders_do() {
     $filtered_folders=array_filter($boxes, "filter_folders");
     $sent_subfolders_base_values = array('whatever'=>$filtered_folders);
 
+    global $sent_subfolders_base;
+    $sent_subfolders_base = getPref($data_dir, $username,
+                                    'sent_subfolders_base', SMPREF_NONE);
     $optvals[] = array(
         'name'    => 'sent_subfolders_base',
         'caption' => _("Base Sent Folder"),
@@ -119,7 +122,7 @@ function filter_folders($fldr) {
  * Saves sent_subfolder_options
  */
 function save_option_sent_subfolders_setting($option) {
-    global $data_dir, $username, $use_sent_subfolders;
+    global $data_dir, $username;
 
     /* Set use_sent_subfolders as either on or off. */
     if ($option->new_value == SMPREF_SENT_SUBFOLDERS_DISABLED) {
@@ -140,12 +143,19 @@ function save_option_sent_subfolders_setting($option) {
  * creates required imap folders
  */
 function sent_subfolders_update_sentfolder_do() {
-    global $sent_folder, $username;
-    global $sent_subfolders_base, $sent_subfolders_setting;
-    global $data_dir, $imapServerAddress, $imapPort;
-    global $use_sent_subfolders, $move_to_sent;
+    global $sent_folder, $username,
+           $data_dir, $imapServerAddress, $imapPort,
+           $move_to_sent;
 
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+
+    $use_sent_subfolders = getPref($data_dir, $username,
+                                   'use_sent_subfolders', SMPREF_OFF);
+    $sent_subfolders_setting = getPref($data_dir, $username,
+                                       'sent_subfolders_setting',
+                                       SMPREF_SENT_SUBFOLDERS_DISABLED);
+    $sent_subfolders_base = getPref($data_dir, $username,
+                                    'sent_subfolders_base', SMPREF_NONE);
 
     if ($use_sent_subfolders || $move_to_sent) {
         $year = date('Y');
@@ -283,8 +293,9 @@ function sent_subfolders_special_mailbox_do($mb) {
 
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
-    $use_sent_subfolders = getPref
-        ($data_dir, $username, 'use_sent_subfolders', SMPREF_OFF);
+    $use_sent_subfolders = getPref($data_dir, $username, 'use_sent_subfolders', SMPREF_OFF);
+
+//FIXME: why "na" as the default?  Shouldn't this be SMPREF_NONE as it is elsewhere in this file?
     $sent_subfolders_base = getPref($data_dir, $username, 'sent_subfolders_base', 'na');
 
     /**
