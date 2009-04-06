@@ -258,7 +258,13 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sOnload = '') {
         $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
                     readShortMailboxName($mailbox, $delimiter)));
         if (getPref($data_dir, $username, 'translate_special_folders')) {
-            $shortBoxName = _($shortBoxName);
+            global $sent_folder, $trash_folder, $draft_folder;
+            if ($mailbox == $sent_folder)
+                $shortBoxName = _("Sent");
+            else if ($mailbox == $trash_folder)
+                $shortBoxName = _("Trash");
+            else if ($mailbox == $sent_folder)
+                $shortBoxName = _("Drafts");
         }
         $urlMailbox = urlencode($mailbox);
     } else {
