@@ -20,7 +20,7 @@ define('SMOPT_GRP_SENT_SUBFOLDERS','SENT_SUBFOLDERS');
 
 function sent_subfolders_check_handleAsSent_do($mailbox) {
 
-    global $handleAsSent_result;
+    global $handleAsSent_result, $data_dir, $username;
 
     // don't need to bother if it's already special
     if ($handleAsSent_result) return;
@@ -49,8 +49,8 @@ function sent_subfolders_check_handleAsSent_do($mailbox) {
  */
 function sent_subfolders_optpage_loadhook_folders_do() {
 
-    global $username, $optpage_data, $imapServerAddress, $imapPort,
-           $show_contain_subfolders_option;
+    global $data_dir, $username, $optpage_data, $imapServerAddress,
+           $imapPort, $show_contain_subfolders_option;
 
     /* Get some imap data we need later. */
     $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
