@@ -13,14 +13,6 @@
  */
 
 /**
- */
-define('SMPREF_SENT_SUBFOLDERS_DISABLED',  0);
-define('SMPREF_SENT_SUBFOLDERS_YEARLY',    1);
-define('SMPREF_SENT_SUBFOLDERS_QUARTERLY', 2);
-define('SMPREF_SENT_SUBFOLDERS_MONTHLY',   3);
-define('SMOPT_GRP_SENT_SUBFOLDERS','SENT_SUBFOLDERS');
-
-/**
  * Adds plugin to SquirrelMail's hooks
  */
 function squirrelmail_plugin_init_sent_subfolders() {
@@ -28,46 +20,27 @@ function squirrelmail_plugin_init_sent_subfolders() {
     global $squirrelmail_plugin_hooks;
 
     /* The hooks to make the sent subfolders display correctly. */
-    $squirrelmail_plugin_hooks
-    ['check_handleAsSent_result']['sent_subfolders'] =
-        'sent_subfolders_check_handleAsSent';
+    $squirrelmail_plugin_hooks['check_handleAsSent_result']['sent_subfolders']
+        = 'sent_subfolders_check_handleAsSent';
 
     /* The hooks to automatically update sent subfolders. */
-    $squirrelmail_plugin_hooks
-    ['left_main_before']['sent_subfolders'] =
-        'sent_subfolders_update_sentfolder';
-
-    $squirrelmail_plugin_hooks
-    ['compose_send']['sent_subfolders'] =
-        'sent_subfolders_update_sentfolder';
-
-    /* The hook to load the sent subfolders prefs. */
-    $squirrelmail_plugin_hooks
-    ['loading_prefs']['sent_subfolders'] =
-        'sent_subfolders_load_prefs';
+    $squirrelmail_plugin_hooks['left_main_before']['sent_subfolders']
+        = 'sent_subfolders_update_sentfolder';
+    $squirrelmail_plugin_hooks['compose_send']['sent_subfolders']
+        = 'sent_subfolders_update_sentfolder';
 
     /* The hooks to handle sent subfolders options. */
-    $squirrelmail_plugin_hooks
-    ['optpage_loadhook_folder']['sent_subfolders'] =
-        'sent_subfolders_optpage_loadhook_folders';
+    $squirrelmail_plugin_hooks['optpage_loadhook_folder']['sent_subfolders']
+        = 'sent_subfolders_optpage_loadhook_folders';
 
     /* mark base sent folder as special mailbox */
-    $squirrelmail_plugin_hooks
-    ['special_mailbox']['sent_subfolders'] =
-        'sent_subfolders_special_mailbox';
+    $squirrelmail_plugin_hooks['special_mailbox']['sent_subfolders']
+        = 'sent_subfolders_special_mailbox';
 }
 
 function sent_subfolders_check_handleAsSent($mailbox) {
     include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
     sent_subfolders_check_handleAsSent_do($mailbox);
-}
-
-/**
- * Loads sent_subfolders settings
- */
-function sent_subfolders_load_prefs() {
-    include_once(SM_PATH . 'plugins/sent_subfolders/functions.php');
-    sent_subfolders_load_prefs_do();
 }
 
 /**
