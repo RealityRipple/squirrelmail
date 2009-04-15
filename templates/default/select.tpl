@@ -28,7 +28,7 @@
   * int     $size     The desired height of multiple select boxes (not
   *                   applicable when $multiple is FALSE)
   *
-  * @copyright &copy; 1999-2008 The SquirrelMail Project Team
+  * @copyright &copy; 1999-2009 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail

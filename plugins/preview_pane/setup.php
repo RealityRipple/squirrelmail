@@ -1,22 +1,20 @@
 <?php
 
 /**
-  * SquirrelMail Preview Pane Plugin
-  *
-  * @copyright &copy; 1999-2007 The SquirrelMail Project Team
-  * @author Paul Lesneiwski <paul@squirrelmail.org>
-  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id$
-  * @package plugins
-  * @subpackage preview_pane
-  *
-  */
+ * SquirrelMail Preview Pane Plugin
+ *
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @author Paul Lesneiwski <paul@squirrelmail.org>
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @package plugins
+ * @subpackage preview_pane
+ */
 
 
 /**
-  * Register this plugin with SquirrelMail
-  *
-  */
+ * Register this plugin with SquirrelMail
+ */
 function squirrelmail_plugin_init_preview_pane() 
 {
 
@@ -40,9 +38,8 @@ if (!defined('SM_PATH'))
 
 
 /**
-  * Returns info about this plugin
-  *
-  */
+ * Returns info about this plugin
+ */
 function preview_pane_info()
 {
 
@@ -63,9 +60,8 @@ function preview_pane_info()
 
 
 /**
-  * Returns version info about this plugin
-  *
-  */
+ * Returns version info about this plugin
+ */
 function preview_pane_version()
 {
 
@@ -77,9 +73,8 @@ function preview_pane_version()
 
 
 /**
-  * Build user options for display on "Display Preferences" page
-  *
-  */
+ * Build user options for display on "Display Preferences" page
+ */
 function preview_pane_show_options() 
 {
 
@@ -91,12 +86,11 @@ function preview_pane_show_options()
 
 
 /**
-  * Construct button that clears out any preview pane 
-  * contents and inserts JavaScript function used by 
-  * message subject link onclick handler.  Also disallows 
-  * the message list to be loaded into the bottom frame.
-  *
-  */
+ * Construct button that clears out any preview pane 
+ * contents and inserts JavaScript function used by 
+ * message subject link onclick handler.  Also disallows 
+ * the message list to be loaded into the bottom frame.
+ */
 function preview_pane_message_list() 
 {
 
@@ -108,10 +102,9 @@ function preview_pane_message_list()
 
 
 /**
-  * Points message targets to open in the preview pane
-  * (and possibly refresh message list as well)
-  *
-  */
+ * Points message targets to open in the preview pane
+ * (and possibly refresh message list as well)
+ */
 function preview_pane_change_message_target($args)
 {
 
@@ -123,10 +116,9 @@ function preview_pane_change_message_target($args)
 
 
 /**
-  * Adds preview pane open/close (and clear) buttons next to
-  * "provider link"
-  *
-  */
+ * Adds preview pane open/close (and clear) buttons next to
+ * "provider link"
+ */
 function preview_pane_open_close_buttons()
 {
 

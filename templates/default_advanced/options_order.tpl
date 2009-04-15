@@ -18,7 +18,7 @@
  *      $remove         - URL foundation to remove a field from the ordering.
  *      $add            - URL foundation to add a field to the ordering.
  * 
- * @copyright &copy; 1999-2006 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

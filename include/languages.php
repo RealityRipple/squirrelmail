@@ -14,7 +14,7 @@
  * existing PHP installation and implements fallback functions when required
  * functions are not available. Scripts in functions/ directory should not
  * setup anything when they are loaded.
- * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

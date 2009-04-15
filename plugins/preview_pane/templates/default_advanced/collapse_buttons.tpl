@@ -13,7 +13,7 @@
   *    + $base_uri         - The SquirrelMail base URI
   *    + $previewPane_size - The user's configured size of the preview pane
   *
-  * @copyright &copy; 1999-2007 The SquirrelMail Project Team
+  * @copyright &copy; 1999-2009 The SquirrelMail Project Team
   * @author Paul Lesneiwski <paul@squirrelmail.org>
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$

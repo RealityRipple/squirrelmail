@@ -5,7 +5,7 @@
  *
  * Functions
  *
- * @copyright &copy; 2001-2007 The SquirrelMail Project Team
+ * @copyright &copy; 2001-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

@@ -35,7 +35,7 @@
  *  octdec(a-374)*64^5 + octdec(b-200)*64^4 + octdec(c-200)*64^3 +
  *  + octdec(d-200)*64^2 + octdec(e-200)*64 + octdec(f-200)
  *</pre>
- * @copyright &copy; 2003-2006 The SquirrelMail Project Team
+ * @copyright &copy; 2003-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
