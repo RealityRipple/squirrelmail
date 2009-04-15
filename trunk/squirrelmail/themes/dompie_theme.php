@@ -7,7 +7,7 @@
  * Comment: Has a dark blue left-bar and a white/grey right frame.
  *
  * @author M.J. Prinsen
- * @copyright &copy; 2001-2007 The SquirrelMail Project Team
+ * @copyright &copy; 2001-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

@@ -1,22 +1,20 @@
 <?php
 
 /**
-  * SquirrelMail Preview Pane Plugin
-  *
-  * @copyright &copy; 1999-2007 The SquirrelMail Project Team
-  * @author Paul Lesneiwski <paul@squirrelmail.org>
-  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id$
-  * @package plugins
-  * @subpackage preview_pane
-  *
-  */
+ * SquirrelMail Preview Pane Plugin
+ *
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @author Paul Lesneiwski <paul@squirrelmail.org>
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @package plugins
+ * @subpackage preview_pane
+ */
 
 
 /**
-  * Build user options for display on "Display Preferences" page
-  *
-  */
+ * Build user options for display on "Display Preferences" page
+ */
 function preview_pane_show_options_do() 
 {
 
@@ -72,12 +70,11 @@ function preview_pane_show_options_do()
 
 
 /**
-  * This function determines if the preview pane is in use 
-  * (and JavaScript is available)
-  *
-  * @return boolean TRUE if the preview pane should be showing currently.
-  *
-  */
+ * This function determines if the preview pane is in use 
+ * (and JavaScript is available)
+ *
+ * @return boolean TRUE if the preview pane should be showing currently.
+ */
 function show_preview_pane() 
 {
    global $data_dir, $username;
@@ -87,10 +84,9 @@ function show_preview_pane()
 
 
 /**
-  * Adds preview pane open/close (and clear) buttons next to
-  * "provider link"
-  *
-  */
+ * Adds preview pane open/close (and clear) buttons next to
+ * "provider link"
+ */
 function preview_pane_open_close_buttons_do()
 {
 
@@ -128,12 +124,11 @@ function preview_pane_open_close_buttons_do()
 
 
 /**
-  * Construct button that clears out any preview pane
-  * contents and inserts JavaScript function used by 
-  * message subject link onclick handler.  Also disallows 
-  * the message list to be loaded into the bottom frame.
-  *
-  */
+ * Construct button that clears out any preview pane
+ * contents and inserts JavaScript function used by 
+ * message subject link onclick handler.  Also disallows 
+ * the message list to be loaded into the bottom frame.
+ */
 function preview_pane_message_list_do()
 {
 
@@ -214,10 +209,9 @@ function preview_pane_message_list_do()
 
 
 /**
-  * Points message targets to open in the preview pane
-  * (and possibly refresh message list as well)
-  *
-  */
+ * Points message targets to open in the preview pane
+ * (and possibly refresh message list as well)
+ */
 function preview_pane_change_message_target_do($args)
 {
 

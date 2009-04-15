@@ -3,7 +3,7 @@
 /**
  * iso-8859-1 html entities table
  *
- * @copyright &copy; 2004-2006 The SquirrelMail Project Team
+ * @copyright &copy; 2004-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

@@ -4,7 +4,7 @@
  * Grabs the text from the SquirrelMail field and submits it to
  * the squirrelspell.
  *
- * @copyright &copy; 2001-2006 The SquirrelMail Project Team
+ * @copyright &copy; 2001-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  */

@@ -8,7 +8,7 @@
  *          contrast colorset, easy to read with very little eye strain.
  *
  * @author Ray Black
- * @copyright &copy; 2000-2007 The SquirrelMail Project Team
+ * @copyright &copy; 2000-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

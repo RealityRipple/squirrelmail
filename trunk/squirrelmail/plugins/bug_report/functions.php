@@ -2,7 +2,7 @@
 /**
  * functions for bug_report plugin
  *
- * @copyright &copy; 2004-2008 The SquirrelMail Project Team
+ * @copyright &copy; 2004-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

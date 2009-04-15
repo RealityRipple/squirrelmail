@@ -11,7 +11,7 @@
  *    $accesskey_compose_bcc      - The access key to be used for the Bcc field
  *    $accesskey_compose_subject  - The access key to be used for the Subject field
  *
- * @copyright &copy; 1999-2006 The SquirrelMail Project Team
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
