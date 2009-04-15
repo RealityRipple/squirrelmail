@@ -1344,31 +1344,31 @@ function showInputForm ($session, $values=false) {
     } // End of file_uploads if-block
     /* End of attachment code */
 
-//FIXME: no direct echoing to browser, no HTML output in core!
-    echo addHidden('username', $username).
-         addHidden('smaction', $action).
-         addHidden('mailbox', $mailbox);
+    $oTemplate->assign('username', $username);
+    $oTemplate->assign('smaction', $action);
+    $oTemplate->assign('mailbox', $mailbox);
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
-//FIXME: no direct echoing to browser, no HTML output in core!
-    echo addHidden('composesession', $composesession).
-        addHidden('querystring', $queryString).
-        (!empty($attach_array) ?
-         addHidden('attachments', urlencode(serialize($attach_array))) : '').
-        "</form>\n";
+    $oTemplate->assign('querystring', $queryString);
+    $oTemplate->assign('composesession', $composesession);
+    $oTemplate->assign('send_button_count', unique_widget_name('send', TRUE));
+    if (!empty($attach_array))
+        $oTemplate->assign('attachments', urlencode(serialize($attach_array)));
+
+    $aUserNotices = array();
+
+    // File uploads are off, so we didn't show that part of the form.
+    // To avoid bogus bug reports, tell the user why. 
     if (!(bool) ini_get('file_uploads')) {
-        /* File uploads are off, so we didn't show that part of the form.
-           To avoid bogus bug reports, tell the user why. */
-//FIXME: no direct echoing to browser, no HTML output in core!
-        echo '<p style="text-align:center">'
-            . _("Because PHP file uploads are turned off, you can not attach files to this message. Please see your system administrator for details.")
-            . "</p>\r\n";
+        $aUserNotices[] = _("Because PHP file uploads are turned off, you can not attach files to this message. Please see your system administrator for details.");
     }
+
+    $oTemplate->assign('user_notices', $aUserNotices);
+
+    $oTemplate->display('compose_form_close.tpl');
 
     if ($compose_new_win=='1') {
         $oTemplate->display('compose_newwin_close.tpl');
     }
-
-    do_hook('compose_bottom', $null);
 
     $oErrorHandler->setDelayedErrors(false);
     $oTemplate->display('footer.tpl');
