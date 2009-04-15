@@ -61,7 +61,7 @@ extract($t);
 <input type="hidden" name="subject" value="<?php echo htmlspecialchars($subject); ?>" />
 <input type="hidden" name="body" value="<?php echo htmlspecialchars($body); ?>" />
 <input type="hidden" name="mailbox" value="<?php echo htmlspecialchars($mailbox); ?>" />
-<input type="submit" name="send" value="<?php echo _("Send Mail"); ?>" />
+<input type="submit" name="send1" value="<?php echo _("Send Mail"); ?>" />
 <br />
 </form>
 
