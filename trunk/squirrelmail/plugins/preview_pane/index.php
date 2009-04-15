@@ -3,17 +3,15 @@
 /**
  * index.php
  *
- * Copyright (c) 1999-2003 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
  * This file simply takes any attempt to view source files and sends those
- * people to the login screen. At this point no attempt is made to see if
- * the person is logged or not.
+ * people to the login screen. At this point no attempt is made to see if the
+ * person is logged in or not.
  *
- * $Id: index.php,v 1.5 2002/12/31 12:49:33 kink Exp $
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id: index.php 12128 2007-01-13 20:15:44Z kink $
+ * @package plugins
+ * @subpackage preview_pane
  */
 
-header("Location:../index.php");
-
-/* pretty impressive huh? */
-
+header('Location: ../index.php');
