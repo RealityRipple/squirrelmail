@@ -7,7 +7,7 @@
  *
  * @author Marc Groot Koerkamp
  * @copyright &copy; 2002 Marc Groot Koerkamp, The Netherlands
- * @copyright &copy; 2002-2007 The SquirrelMail Project Team
+ * @copyright &copy; 2002-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -49,4 +49,3 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"
      '</form></div>'.
      '</body>'.
      "</html>\n";
-?>
