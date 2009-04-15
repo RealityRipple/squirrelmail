@@ -7,7 +7,7 @@
  *
  * @author Marc Groot Koerkamp
  * @copyright &copy; 2002 Marc Groot Koerkamp, The Netherlands
- * @copyright &copy; 2002-2007 The SquirrelMail Project Team
+ * @copyright &copy; 2002-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -36,4 +36,3 @@ echo '<frame src="message_details_bottom.php?mailbox=' . urlencode($mailbox)
     . '&amp;passed_ent_id=' . $passed_ent_id
     . '" name="bottom_frame" frameborder="0" />';
 echo  '</frameset>'."\n"."</html>\n";
-?>
