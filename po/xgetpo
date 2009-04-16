@@ -50,8 +50,6 @@ xgettext ${XGETTEXT_OPTIONS} -j \
 # ** Plugins
     
 xgettext ${XGETTEXT_OPTIONS} -j \
-    plugins/abook_take/*.php --output=po/squirrelmail.pot
-xgettext ${XGETTEXT_OPTIONS} -j \
     plugins/administrator/*.php --output=po/squirrelmail.pot
 xgettext ${XGETTEXT_OPTIONS} -j \
     plugins/bug_report/*.php --output=po/squirrelmail.pot
