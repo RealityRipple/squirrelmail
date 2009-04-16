@@ -270,7 +270,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
     }
 
     if ($mailfetch_lmos == 'on') {
-        Mail_Fetch_Status(_("Leaving mail on server..."));
+        Mail_Fetch_Status(_("Leaving mails on server..."));
     } else {
         Mail_Fetch_Status(_("Deleting mails from server..."));
     }
