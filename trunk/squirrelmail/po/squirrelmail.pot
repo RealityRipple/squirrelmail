@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2008-05-16 06:30+0200\n"
+"POT-Creation-Date: 2009-04-16 12:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -348,6 +348,9 @@ msgstr ""
 msgid "Compose Preferences"
 msgstr ""
 
+msgid "Accessibility Preferences"
+msgstr ""
+
 msgid "Message Highlighting"
 msgstr ""
 
@@ -411,6 +414,9 @@ msgstr ""
 msgid ""
 "Control the behaviour and layout of writing new mail messages, replying to "
 "and forwarding messages."
+msgstr ""
+
+msgid "You can configure features that improve interface usability."
 msgstr ""
 
 #, php-format
@@ -702,6 +708,10 @@ msgstr ""
 
 #, php-format
 msgid "Database error: %s"
+msgstr ""
+
+#, php-format
+msgid "Unknown field name: %s"
 msgstr ""
 
 msgid "Address book is read-only"
@@ -1023,6 +1033,9 @@ msgid ""
 "your system administrator to resolve this issue."
 msgstr ""
 
+msgid "Illegal filesystem access was requested"
+msgstr ""
+
 msgid "Illegal folder name."
 msgstr ""
 
@@ -1049,9 +1062,6 @@ msgid "Subscription Unsuccessful - Folder does not exist."
 msgstr ""
 
 msgid "You have not selected a folder to unsubscribe. Please do so."
-msgstr ""
-
-msgid "Illegal filesystem access was requested"
 msgstr ""
 
 msgid "ERROR: Could not complete request."
@@ -1164,10 +1174,10 @@ msgstr ""
 msgid "Thread View"
 msgstr ""
 
-msgid "Unflag"
+msgid "Flag"
 msgstr ""
 
-msgid "Flag"
+msgid "Unflag"
 msgstr ""
 
 msgid "Read"
@@ -1412,6 +1422,90 @@ msgstr ""
 msgid "Your session has expired, but will be resumed after logging in again."
 msgstr ""
 
+msgid "Not used"
+msgstr ""
+
+msgid "Access Keys For Top Menu (All Screens)"
+msgstr ""
+
+msgid "Folders"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Sign Out"
+msgstr ""
+
+msgid "Access Keys For Message List Screen"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Show All/Paginate"
+msgstr ""
+
+msgid "Thread View/Unthreaded View"
+msgstr ""
+
+msgid "Move To"
+msgstr ""
+
+msgid "Toggle Selected"
+msgstr ""
+
+msgid "Access Keys For Read Message Screen"
+msgstr ""
+
+msgid "Reply"
+msgstr ""
+
+msgid "Reply All"
+msgstr ""
+
+msgid "As Attachment"
+msgstr ""
+
+msgid "Access Keys For Compose Screen"
+msgstr ""
+
+msgid "On Read"
+msgstr ""
+
+msgid "On Delivery"
+msgstr ""
+
+msgid "Save Draft"
+msgstr ""
+
+msgid "Send"
+msgstr ""
+
+msgid "Browse"
+msgstr ""
+
+msgid "Attach"
+msgstr ""
+
+msgid "Delete Selected Attachments"
+msgstr ""
+
+msgid "Access Keys For Folder List Screen"
+msgstr ""
+
+msgid "Refresh/Check Mail"
+msgstr ""
+
+msgid "Purge Trash"
+msgstr ""
+
+msgid "Access Keys For Options Screen"
+msgstr ""
+
 msgid "General Message Composition"
 msgstr ""
 
@@ -1571,6 +1665,9 @@ msgstr ""
 msgid "Maximum Number of Pages to Show"
 msgstr ""
 
+msgid "Show Names Instead of Email Addresses"
+msgstr ""
+
 msgid "Always Show Full Date"
 msgstr ""
 
@@ -1614,6 +1711,12 @@ msgid "Enable Mail Delivery Notification"
 msgstr ""
 
 msgid "Show 'Delete &amp; Prev/Next' Links"
+msgstr ""
+
+msgid "Address Book Display Options"
+msgstr ""
+
+msgid "Number of Addresses per Page"
 msgstr ""
 
 msgid "Special Folder Options"
@@ -1827,15 +1930,6 @@ msgid "Prefix Signature with '-- ' Line"
 msgstr ""
 
 msgid "XP"
-msgstr ""
-
-msgid "Take Address"
-msgstr ""
-
-msgid "Address Book Take"
-msgstr ""
-
-msgid "Try to verify addresses"
 msgstr ""
 
 msgid "Config File Version"
@@ -3075,9 +3169,6 @@ msgstr ""
 msgid "Contact Listowner"
 msgstr ""
 
-msgid "Help"
-msgstr ""
-
 #, php-format
 msgid ""
 "This will send a message to %s requesting help for this list. You will "
@@ -3143,32 +3234,32 @@ msgstr ""
 msgid "Server does not support UIDL."
 msgstr ""
 
-msgid "Fetching list of messages..."
+msgid "Fetching list of mails..."
 msgstr ""
 
-msgid "Login OK: No new messages"
+msgid "Login OK: No new mails"
 msgstr ""
 
 msgid "Login OK: Inbox EMPTY"
 msgstr ""
 
 #, php-format
-msgid "Login OK: Inbox contains %s message"
-msgid_plural "Login OK: Inbox contains %s messages"
+msgid "Login OK: Inbox contains %s mail"
+msgid_plural "Login OK: Inbox contains %s mails"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Leaving mail on server..."
+msgid "Leaving mails on server..."
 msgstr ""
 
-msgid "Deleting messages from server..."
+msgid "Deleting mails from server..."
 msgstr ""
 
 #, php-format
-msgid "Fetching message %s."
+msgid "Fetching mail %s."
 msgstr ""
 
-msgid "Error Appending Message!"
+msgid "Error Appending Mail!"
 msgstr ""
 
 msgid "Closing POP"
@@ -3180,11 +3271,11 @@ msgstr ""
 msgid "Saving UIDL"
 msgstr ""
 
-msgid "Message appended to mailbox"
+msgid "Mail appended to mailbox"
 msgstr ""
 
 #, php-format
-msgid "Message %d deleted from remote server!"
+msgid "Mail %d deleted from remote server!"
 msgstr ""
 
 msgid "Delete failed:"
@@ -3334,10 +3425,10 @@ msgstr ""
 msgid "Save Message"
 msgstr ""
 
-msgid "View Message details"
+msgid "View Message Details"
 msgstr ""
 
-msgid "NewMail Options"
+msgid "New Mail Options"
 msgstr ""
 
 msgid ""
@@ -3347,22 +3438,25 @@ msgstr ""
 
 #, php-format
 msgid "%s New Message"
-msgid_plural "%s New Messages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
+
+#, php-format
+msgid "%s New Messages"
+msgstr ""
 
 msgid "New Mail Notification"
 msgstr ""
 
 msgid ""
-"The NewMail plugin will follow the Folder Preferences option &quot;Enable "
-"Unread Message Notification&quot;"
+"Based on the Folder Preferences option &quot;Enable Unread Message "
+"Notification&quot;, you can be notified when new messages arrive in your "
+"account."
 msgstr ""
 
 #, php-format
 msgid ""
 "Selecting the %s option will enable the showing of a popup window when "
-"unseen mail is in your folders (requires JavaScript)."
+"unseen mail is in one of your folders (requires JavaScript)."
 msgstr ""
 
 msgid "Show popup window on new mail"
@@ -3381,9 +3475,10 @@ msgstr ""
 
 #, php-format
 msgid ""
-"Selecting the %s option will change the title in some browsers to let you "
-"know when you have new mail (requires JavaScript). This will always tell you "
-"if you have new mail, even if you have %s enabled."
+"Selecting the %s option will change the browser title bar to let you know "
+"when you have new mail (requires JavaScript and may only work in some "
+"browsers). This will always tell you if you have new mail, even if you have %"
+"s enabled."
 msgstr ""
 
 msgid "Change title on supported browsers"
@@ -3510,7 +3605,7 @@ msgstr ""
 msgid "There are some restrictions in Sent Subfolder options."
 msgstr ""
 
-msgid "Sent Subfolders plugin is misconfigured."
+msgid "Sent subfolders options are misconfigured."
 msgstr ""
 
 msgid "Report as Spam"
@@ -4282,13 +4377,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Edit Selected"
-msgstr ""
-
-msgid "Delete Selected"
-msgstr ""
-
-msgid "Compose to Selected"
+msgid "Compose To"
 msgstr ""
 
 msgid "Toggle All"
@@ -4309,31 +4398,16 @@ msgstr ""
 msgid "New attachment"
 msgstr ""
 
-msgid "Attach"
-msgstr ""
-
 msgid "Max."
-msgstr ""
-
-msgid "Delete selected attachments"
-msgstr ""
-
-msgid "Send"
 msgstr ""
 
 msgid "Receipts"
 msgstr ""
 
-msgid "On Read"
-msgstr ""
-
-msgid "On Delivery"
-msgstr ""
-
-msgid "Save Draft"
-msgstr ""
-
 msgid "Add"
+msgstr ""
+
+msgid "Delete Selected"
 msgstr ""
 
 msgid "THIS FOLDER IS EMPTY"
@@ -4370,9 +4444,6 @@ msgstr ""
 msgid "Are you sure you want to delete %s?"
 msgstr ""
 
-msgid "Folders"
-msgstr ""
-
 msgid "Create Folder"
 msgstr ""
 
@@ -4400,13 +4471,7 @@ msgstr ""
 msgid "No folders were found to subscribe to."
 msgstr ""
 
-msgid "Previous"
-msgstr ""
-
 msgid "Table of Contents"
-msgstr ""
-
-msgid "Next"
 msgstr ""
 
 msgid "Top"
@@ -4415,7 +4480,7 @@ msgstr ""
 msgid "Purge"
 msgstr ""
 
-msgid "Check mail"
+msgid "Check Mail"
 msgstr ""
 
 msgid "Name:"
@@ -4492,9 +4557,6 @@ msgstr ""
 msgid "Current Folder"
 msgstr ""
 
-msgid "Sign Out"
-msgstr ""
-
 msgid "Requested"
 msgstr ""
 
@@ -4513,18 +4575,6 @@ msgid "Resume Draft"
 msgstr ""
 
 msgid "Edit Message as New"
-msgstr ""
-
-msgid "Reply"
-msgstr ""
-
-msgid "Reply All"
-msgstr ""
-
-msgid "As Attachment"
-msgstr ""
-
-msgid "Move To"
 msgstr ""
 
 msgid "Delete &amp; Previous"
@@ -4548,10 +4598,10 @@ msgid ""
 "SquirrelMail."
 msgstr ""
 
-msgid "less"
+msgid "more"
 msgstr ""
 
-msgid "more"
+msgid "less"
 msgstr ""
 
 msgid "and subfolders"
@@ -4596,13 +4646,10 @@ msgstr ""
 msgid "Folder List"
 msgstr ""
 
-msgid "Open all"
+msgid "Open All"
 msgstr ""
 
-msgid "Close all"
-msgstr ""
-
-msgid "Purge trash"
+msgid "Close All"
 msgstr ""
 
 msgid "The SquirrelMail logo"
