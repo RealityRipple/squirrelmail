@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2009-04-16 12:20+0200\n"
+"POT-Creation-Date: 2009-04-17 14:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -3234,32 +3234,32 @@ msgstr ""
 msgid "Server does not support UIDL."
 msgstr ""
 
-msgid "Fetching list of mails..."
+msgid "Fetching list of messages..."
 msgstr ""
 
-msgid "Login OK: No new mails"
+msgid "Login OK: No new messages"
 msgstr ""
 
 msgid "Login OK: Inbox EMPTY"
 msgstr ""
 
 #, php-format
-msgid "Login OK: Inbox contains %s mail"
-msgid_plural "Login OK: Inbox contains %s mails"
+msgid "Login OK: Inbox contains %s message"
+msgid_plural "Login OK: Inbox contains %s messages"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Leaving mails on server..."
+msgid "Leaving messages on server..."
 msgstr ""
 
-msgid "Deleting mails from server..."
+msgid "Deleting messages from server..."
 msgstr ""
 
 #, php-format
-msgid "Fetching mail %s."
+msgid "Fetching message %s."
 msgstr ""
 
-msgid "Error Appending Mail!"
+msgid "Error Appending Message!"
 msgstr ""
 
 msgid "Closing POP"
@@ -3271,11 +3271,11 @@ msgstr ""
 msgid "Saving UIDL"
 msgstr ""
 
-msgid "Mail appended to mailbox"
+msgid "Message appended to mailbox"
 msgstr ""
 
 #, php-format
-msgid "Mail %d deleted from remote server!"
+msgid "Message %d deleted from remote server!"
 msgstr ""
 
 msgid "Delete failed:"
