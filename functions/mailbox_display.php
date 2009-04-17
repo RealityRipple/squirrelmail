@@ -624,17 +624,19 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     $aFlagColumn = array('seen' => false,
                                          'deleted'=>false,
                                          'answered'=>false,
+                                         'forwarded'=>false,
                                          'flagged' => false,
                                          'draft' => false);
 
                     if(!is_array($value)) $value = array();
                     foreach ($value as $sFlag => $v) {
                         switch ($sFlag) {
-                          case '\\seen'    : $aFlagColumn['seen']     = true; break;
-                          case '\\deleted' : $aFlagColumn['deleted']  = true; break;
-                          case '\\answered': $aFlagColumn['answered'] = true; break;
-                          case '\\flagged' : $aFlagColumn['flagged']  = true; break;
-                          case '\\draft'   : $aFlagColumn['draft']    = true; break;
+                          case '\\seen'    : $aFlagColumn['seen']      = true; break;
+                          case '\\deleted' : $aFlagColumn['deleted']   = true; break;
+                          case '\\answered': $aFlagColumn['answered']  = true; break;
+                          case '$forwarded': $aFlagColumn['forwarded'] = true; break;
+                          case '\\flagged' : $aFlagColumn['flagged']   = true; break;
+                          case '\\draft'   : $aFlagColumn['draft']     = true; break;
                           default:  break;
                         }
                     }
@@ -1420,6 +1422,7 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
                         $message = $aMailbox['MSG_HEADERS'][$iUid]['MESSAGE_OBJECT'];
                         $message->is_seen = false;
                         $message->is_answered = false;
+                        $message->is_forwarded = false;
                         $message->is_deleted = false;
                         $message->is_flagged = false;
                         $message->is_mdnsent = false;
@@ -1428,6 +1431,8 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
                                 $message->is_seen = true;
                             else if (strtolower($flag) == '\\answered' && $value)
                                 $message->is_answered = true;
+                            else if (strtolower($flag) == '$forwarded' && $value)
+                                $message->is_forwarded = true;
                             else if (strtolower($flag) == '\\deleted' && $value)
                                 $message->is_deleted = true;
                             else if (strtolower($flag) == '\\flagged' && $value)
