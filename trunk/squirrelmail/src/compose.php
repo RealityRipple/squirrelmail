@@ -87,6 +87,7 @@ sqgetGlobalVar('html_addr_search',$html_addr_search, $SQ_GLOBAL);
 sqgetGlobalVar('mail_sent',$mail_sent, $SQ_GLOBAL);
 sqgetGlobalVar('passed_id',$passed_id, $SQ_GLOBAL, NULL, SQ_TYPE_BIGINT);
 sqgetGlobalVar('passed_ent_id',$passed_ent_id, $SQ_GLOBAL);
+sqgetGlobalVar('fwduid',$fwduid, $SQ_GLOBAL, '');
 
 sqgetGlobalVar('attach',$attach, SQ_POST);
 sqgetGlobalVar('draft',$draft, SQ_POST);
@@ -336,7 +337,7 @@ if (sqsession_is_registered('session_expired_post')) {
             'subject', 'newmail', 'send_to_bcc', 'passed_id', 'mailbox', 
             'from_htmladdr_search', 'identity', 'draft_id', 'delete_draft', 
             'mailprio', 'edit_as_new', 'attachments', 'composesession', 
-            'request_mdn', 'request_dr');
+            'request_mdn', 'request_dr', 'fwduid');
 
         foreach ($compo_var_list as $var) {
             if ( isset($session_expired_post[$var]) && !isset($$var) ) {
@@ -1080,7 +1081,7 @@ function showInputForm ($session, $values=false) {
         $body, $startMessage, $action, $attachments,
         $use_signature, $signature, $prefix_sig, $session_expired,
         $editor_size, $editor_height, $subject, $newmail,
-        $use_javascript_addr_book, $passed_id, $mailbox,
+        $use_javascript_addr_book, $passed_id, $mailbox, $fwduid,
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
         $username, $data_dir, $identity, $idents, $delete_draft,
         $mailprio, $compose_new_win, $saved_draft, $mail_sent, $sig_first,
@@ -1180,6 +1181,11 @@ function showInputForm ($session, $values=false) {
     if (isset($passed_id)) {
 //FIXME: DON'T ECHO HTML FROM CORE!
         echo addHidden('passed_id', $passed_id);
+    }
+
+    if (isset($fwduid)) {
+//FIXME: DON'T ECHO HTML FROM CORE!
+        echo addHidden('fwduid', $fwduid);
     }
 
     if ($saved_draft == 'yes') {
@@ -1687,7 +1693,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
 
         // mark as replied or forwarded if applicable
         //
-        global $what, $iAccount, $startMessage, $passed_id, $mailbox;
+        global $what, $iAccount, $startMessage, $passed_id, $fwduid, $mailbox;
 
         if ($action=='reply' || $action=='reply_all' || $action=='forward' || $action=='forward_as_attachment') {
             require(SM_PATH . 'functions/mailbox_display.php');
@@ -1715,10 +1721,22 @@ function deliverMessage(&$composeMessage, $draft=false) {
                 if (in_array('$forwarded',$aMailbox['PERMANENTFLAGS'], true) ||
                     in_array('\\*',$aMailbox['PERMANENTFLAGS'])) {
 
-                    $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '$Forwarded', true, false);
-                    if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
-                        if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
-                            $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
+                    // when forwarding as an attachment from the message
+                    // list, passed_id is not used, need to get UID(s)
+                    // from the query string
+                    //
+                    if (empty($passed_id) && !empty($fwduid))
+                        $ids = explode('_', $fwduid);
+                    else
+                        $ids = array($passed_id);
+
+                    $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, $ids, '$Forwarded', true, false);
+
+                    foreach ($ids as $id) {
+                        if (isset($aUpdatedMsgs[$id]['FLAGS'])) {
+                            if (isset($aMailbox['MSG_HEADERS'][$id])) {
+                                $aMailbox['MSG_HEADERS'][$id]['FLAGS'] = $aMsg['FLAGS'];
+                            }
                         }
                     }
                 }
