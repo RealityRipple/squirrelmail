@@ -87,6 +87,11 @@ class Message {
      */
     var $is_answered = 0;
     /**
+     * Message forward status
+     * @var boolean
+     */
+    var $is_forwarded = 0;
+    /**
      * Message \deleted status
      * @var boolean
      */

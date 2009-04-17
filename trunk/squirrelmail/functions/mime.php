@@ -92,6 +92,9 @@ function mime_structure ($bodystructure, $flags=array()) {
                     if (strtolower($flag) == '\\flagged') {
                         $msg->is_flagged = true;
                     }
+                    else if (strtolower($flag) == '$forwarded') {
+                        $msg->is_forwarded = true;
+                    }
                     break;
                 case 'M':
                     if (strtolower($flag) == '$mdnsent') {

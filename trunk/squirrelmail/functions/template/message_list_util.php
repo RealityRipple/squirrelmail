@@ -99,38 +99,79 @@ function getFlagIcon ($aFlags, $icon_theme_path) {
      * 13 = flagged aswered seen
      * 14 = flagged answered deleted
      * 15 = flagged anserwed deleted seen
+     * ...
+     * 32 = forwarded
+     * 33 = forwarded seen
+     * 34 = forwarded deleted
+     * 35 = forwarded deleted seen
+     * ...
+     * 41 = flagged forwarded seen
+     * 42 = flagged forwarded deleted
+     * 43 = flagged forwarded deleted seen
      */
 
     /**
      * Use static vars to avoid initialisation of the array on each displayed row
      */
+    global $nbsp;
     static $flag_icons, $flag_values;
     if (!isset($flag_icons)) {
         // This is by no means complete...
-        $flag_icons = array (   //     Image icon name               Text Icon  Alt/Title Text
-                                array ('msg_new.png',                '&nbsp;',  '('._("New").')') ,
-                                array ('msg_read.png',               '&nbsp;',  '('._("Read").')'),
-                                array ('msg_new_deleted.png',        _("D"),    '('._("Deleted").')'),
-                                array ('msg_read_deleted.png',       _("D"),    '('._("Deleted").')'),
-                                array ('msg_new_reply.png',          _("A"),    '('._("Answered").')'),
-                                array ('msg_read_reply.png',         _("A"),    '('._("Answered").')'),
-                                array ('msg_read_deleted_reply.png', _("D"),    '('._("Answered").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')'),
-                                array ('flagged.png',                _("F"),    '('._("Flagged").')')
-                            );
+        $flag_icons = array (  
+        //      Image icon name                  Text Icon   Alt/Title Text
+        //      ---------------                  ---------   --------------
+        array ('msg_new.png',                    $nbsp,      '('._("New").')') ,
+        array ('msg_read.png',                   $nbsp,      '('._("Read").')'),
+        array ('msg_new_deleted.png',            _("D"),     '('._("Deleted").')'),
+        array ('msg_read_deleted.png',           _("D"),     '('._("Deleted").')'),
+        array ('msg_new_reply.png',              _("A"),     '('._("Answered").')'),
+        array ('msg_read_reply.png',             _("A"),     '('._("Answered").')'),
+        array ('msg_new_deleted_reply.png',      _("D"),     '('._("Answered").')'),
+        array ('msg_read_deleted_reply.png',     _("D"),     '('._("Answered").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        array ('msg_new_forwarded.png',          _("O"),     '('._("Forwarded").')'),
+        array ('msg_read_forwarded.png',         _("O"),     '('._("Forwarded").')'),
+        array ('msg_new_deleted_forwarded.png',  _("D"),     '('._("Forwarded").')'),
+        array ('msg_read_deleted_forwarded.png', _("D"),     '('._("Forwarded").')'),
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        FALSE,
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
+        );
         
-        $flag_values = array('seen'     => 1,
-                             'deleted'  => 2,
-                             'answered' => 4,
-                             'flagged'  => 8,
-                             'draft'    => 16);
+        $flag_values = array('seen'      => 1,
+                             'deleted'   => 2,
+                             'answered'  => 4,
+                             'flagged'   => 8,
+                             'draft'     => 16,
+                             'forwarded' => 32);
     }
 
     /**
@@ -143,16 +184,18 @@ function getFlagIcon ($aFlags, $icon_theme_path) {
          switch ($flag) {
             case 'deleted':
             case 'answered':
+            case 'forwarded':
             case 'seen':
             case 'flagged': if ($flagvalue) $index += $flag_values[$flag]; break;
             default: break;
         }
     }
     
-    if (isset($flag_icons[$index])) {
+    if (!empty($flag_icons[$index])) {
         $data = $flag_icons[$index];
     } else {
-        $data = end($flag_icons);
+//FIXME: previously this default was set to the last value of the $flag_icons array (when it was index 15 - flagged anserwed deleted seen) but I don't understand why... am changing it to flagged (index 15 just shows (only) the flag icon anyway)
+        $data = $flag_icons[8]; // default to just flagged
     }
 
     $icon = getIcon($icon_theme_path, $data[0], $data[1], $data[2]);
