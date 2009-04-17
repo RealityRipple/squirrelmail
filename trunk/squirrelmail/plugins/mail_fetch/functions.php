@@ -211,7 +211,7 @@ function mail_fetch_login_function() {
                     $response=(implode('',$response));
                     $message=(implode('',$message));
                     if ($response != 'OK') {
-                        $outMsg .= _("Error Appending Mail!")." ".htmlspecialchars($message);
+                        $outMsg .= _("Error Appending Message!")." ".htmlspecialchars($message);
 
                         if ($mailfetch_lmos == 'on') {
                             setPref($data_dir,$username,"mailfetch_uidl_$i_loop", $msglist[$i-1]);
@@ -227,7 +227,7 @@ function mail_fetch_login_function() {
                     }
                 } else {
                     echo "$Line";
-                    $outMsg .= _("Error Appending Mail!");
+                    $outMsg .= _("Error Appending Message!");
                 }
             }
 
