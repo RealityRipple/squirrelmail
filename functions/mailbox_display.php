@@ -1385,7 +1385,8 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
             if (count($aMsgHeaders)) {
                 $composesession = attachSelectedMessages($imapConnection,$aMsgHeaders);
                 // dirty hack, add info to $aMailbox
-                $aMailbox['FORWARD_SESSION'] = $composesession;
+                $aMailbox['FORWARD_SESSION']['SESSION_NUMBER'] = $composesession;
+                $aMailbox['FORWARD_SESSION']['UIDS'] = $aUid;
             }
             break;
           default:

@@ -1374,16 +1374,20 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
             $compose_height = '550';
         }
         // do not use &amp;, it will break the query string and $session will not be detected!!!
-        $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
-                    '&session='.$aMailbox['FORWARD_SESSION'];
+        $comp_uri = $base_uri . 'src/compose.php?mailbox='. urlencode($mailbox)
+                  . '&session='.$aMailbox['FORWARD_SESSION']['SESSION_NUMBER']
+                  . '&smaction=forward_as_attachment'
+                  . '&fwduid=' . implode('_', $aMailbox['FORWARD_SESSION']['UIDS']);
         displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri', $compose_width, $compose_height);", false);
     } else {
         // save mailboxstate
         sqsession_register($aMailbox,'aLastSelectedMailbox');
         session_write_close();
         // we have to redirect to the compose page
-        $location = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
-                    '&session='.$aMailbox['FORWARD_SESSION'];
+        $location = $base_uri . 'src/compose.php?mailbox='. urlencode($mailbox)
+                  . '&session='.$aMailbox['FORWARD_SESSION']['SESSION_NUMBER']
+                  . '&smaction=forward_as_attachment'
+                  . '&fwduid=' . implode('_', $aMailbox['FORWARD_SESSION']['UIDS']);
         header("Location: $location");
         exit;
     }
