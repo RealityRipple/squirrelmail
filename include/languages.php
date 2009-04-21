@@ -1053,7 +1053,7 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
  *  ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
  *  LOCALE    - Full locale name (in xx_XX.charset format). It can use array with more than one locale name since 1.4.5 and 1.5.1
  *  DIR       - Text direction. Used to define Right-to-Left languages. Possible values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'
- *  XTRA_CODE - translation uses special functions. See doc/i18n.txt
+ *  XTRA_CODE - translation uses special functions. See http://example.com/sm_cvs/documentation/devel/devel-3.html
  *
  * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
  *
