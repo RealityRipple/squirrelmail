@@ -1,1 +1,1 @@
-See: http://example.com/sm_cvs/documentation/devel/devel-3.html
+See: http://www.squirrelmail.org/docs/devel/devel-3.html
