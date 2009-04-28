@@ -258,14 +258,14 @@ function checkForPrefs($data_dir, $username, $filename = '') {
             ( is_readable($default_pref) && !@copy($default_pref, $filename) ) ||
             !@touch($filename)
         ) {
-            $uid = 'httpd';
+            $uid = 'that the web server is running as';
             if (function_exists('posix_getuid')){
                 $user_data = posix_getpwuid(posix_getuid());
                 $uid = $user_data['name'];
             }
             $errTitle = _("Could not create initial preference file!");
             $errString = $errTitle . "\n" .
-                       sprintf( _("%s should be writable by user %s."), $data_dir, $uid ) . "\n" .
+                       sprintf( _("%s should be writable by the user %s."), $data_dir, $uid ) . "\n" .
                        _("Please contact your system administrator and report this error.") ;
             logout_error( $errString, $errTitle );
             exit;
