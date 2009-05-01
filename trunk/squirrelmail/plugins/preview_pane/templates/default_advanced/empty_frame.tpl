@@ -6,7 +6,7 @@
   * Template for showing a blank frame.
   *
   * @copyright &copy; 1999-2009 The SquirrelMail Project Team
-  * @author Paul Lesneiwski <paul@squirrelmail.org>
+  * @author Paul Lesniewski <paul@squirrelmail.org>
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package plugins
