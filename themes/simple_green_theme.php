@@ -4,7 +4,7 @@
  * Name: Simple-Green
  * Date: 2004/09/20
  *
- * @author Paul Lesneiwski
+ * @author Paul Lesniewski
  * @copyright &copy; 2004-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
