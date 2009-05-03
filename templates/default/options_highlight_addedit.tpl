@@ -205,7 +205,8 @@ td.color_ff00ff   { background: #ff00ff; }
      <td class="fieldValue">
       <?php echo _("Other"); ?>:
       <input type="text" name="newcolor_input" value="<?php echo $color_input; ?>" size="7" id="newcolor_input" />
-      <?php echo _("Ex: 63aa7f"); ?>
+      <?php // i18n: This is an example on how to write a color in RGB.
+      echo _("Ex: 63aa7f"); ?>
      </td>
     </tr>
     <tr>
