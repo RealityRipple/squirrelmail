@@ -155,7 +155,9 @@ function sqsession_unregister ($name) {
 
     unset($_SESSION[$name]);
 
-    session_unregister("$name");
+    // starts throwing warnings in PHP 5.3.0 and is
+    // removed in PHP 6 and is redundant anyway
+    //session_unregister("$name");
 }
 
 /**
