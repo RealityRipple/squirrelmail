@@ -60,23 +60,30 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n"
     ."</head><body>";
 
 if (sqgetGlobalVar('submit',$submit,SQ_POST)) {
+    $continue = TRUE;
     if (! sqgetGlobalVar('secret',$secret,SQ_POST) ||
-        empty($secret))
-        echo "<p>You must enter encryption key.</p>\n";
+        empty($secret)) {
+        $continue = FALSE;
+        echo "<p>You must enter an encryption key.</p>\n";
+    }
     if (! sqgetGlobalVar('enc_string',$enc_string,SQ_POST) ||
-        empty($enc_string))
-        echo "<p>You must enter encrypted string.</p>\n";
+        empty($enc_string)) {
+        $continue = FALSE;
+        echo "<p>You must enter an encrypted string.</p>\n";
+    }
 
-    if (isset($enc_string) && ! base64_decode($enc_string)) {
-        echo "<p>Encrypted string should be BASE64 encoded.<br />\n"
-            ."Please enter all characters that are listed after header name.</p>\n";
-    } elseif (isset($secret)) {
-        $string=OneTimePadDecrypt($enc_string,base64_encode($secret));
+    if ($continue) {
+        if (isset($enc_string) && ! base64_decode($enc_string)) {
+            echo "<p>Encrypted string should be BASE64 encoded.<br />\n"
+                ."Please enter all characters that are listed after header name.</p>\n";
+        } elseif (isset($secret)) {
+            $string=OneTimePadDecrypt($enc_string,base64_encode($secret));
 
-        if (sqgetGlobalVar('ip_addr',$is_addr,SQ_POST)) {
-            $string=hex2ip($string);
+            if (sqgetGlobalVar('ip_addr',$is_addr,SQ_POST)) {
+                $string=hex2ip($string);
+            }
+            echo "<p>Decoded string: ".htmlspecialchars($string)."</p>\n";
         }
-        echo "<p>Decoded string: ".$string."</p>\n";
     }
     echo "<hr />";
 }
@@ -85,7 +92,7 @@ if (sqgetGlobalVar('submit',$submit,SQ_POST)) {
 <p>
 Secret key: <input type="password" name="secret"><br />
 Encrypted string: <input type="text" name="enc_string"><br />
-Check, if it is an address string: <input type="checkbox" name="ip_addr" /><br />
+<label for="ip_addr">Check here if you are decoding an address string (FromHash/ProxyHash): </label><input type="checkbox" name="ip_addr" id="ip_addr" /><br />
 <button type="submit" name="submit" value="submit">Submit</button>
 </p>
 </form>
