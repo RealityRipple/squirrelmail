@@ -263,10 +263,21 @@ if (function_exists('get_magic_quotes_gpc') && @get_magic_quotes_gpc()) {
 }
 
 
-/* strip any tags added to the url from PHP_SELF.
-This fixes hand crafted url XXS expoits for any
-   page that uses PHP_SELF as the FORM action */
-$_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
+/**
+ * Strip any tags added to the url from PHP_SELF.
+ * This fixes hand crafted url XXS expoits for any
+ * page that uses PHP_SELF as the FORM action
+ * Update: strip_tags() won't catch something like
+ * src/right_main.php?sort=0&startMessage=1&mailbox=INBOX&xxx="><script>window.open("http://example.com")</script>
+ * or
+ * contrib/decrypt_headers.php/%22%20onmouseover=%22alert(%27hello%20world%27)%22%3E
+ * because it doesn't bother with broken tags.
+ * htmlspecialchars() is the preferred method.
+ * QUERY_STRING also needs the same treatment since it is
+ * used in php_self().
+ */
+$_SERVER['PHP_SELF'] = htmlspecialchars($_SERVER['PHP_SELF']);
+$_SERVER['QUERY_STRING'] = htmlspecialchars($_SERVER['QUERY_STRING']);
 
 $PHP_SELF = php_self();
 
@@ -791,6 +802,7 @@ function checkForJavascript($reset = FALSE) {
   if ( !$reset && sqGetGlobalVar('javascript_on', $javascript_on, SQ_SESSION) )
     return $javascript_on;
 
+  //FIXME: this isn't used anywhere else in this function; can we remove it?  why is it here?
   $user_is_logged_in = FALSE;
   if ( $reset || !isset($javascript_setting) )
     $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
