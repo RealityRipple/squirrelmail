@@ -32,12 +32,6 @@ if (!isset($frame_top)) {
     $frame_top = '_top';
 }
 
-/* If a user hits reload on the last page, $base_uri isn't set
- * because it was deleted with the session. */
-if (! sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
-    $base_uri = sqm_baseuri();
-}
-
 $login_uri = 'login.php';
 
 do_hook('logout', $login_uri);
