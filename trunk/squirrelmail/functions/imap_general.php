@@ -1367,7 +1367,8 @@ function sqimap_append_checkresponse($response, $sMailbox, $sid='', $query='') {
                 if ($sRsp == 'NO' || $sRsp == 'BAD') {
                     // for the moment disabled. Enable after 1.5.1 release.
                     // Notices could give valueable information about the mailbox
-                    // sqm_trigger_imap_error('SQM_IMAP_APPEND_NOTICE',$imapquery,$sRsp,$sMsg);
+                    // Update: seems this was forgotten, but now it is finally enabled
+                    sqm_trigger_imap_error('SQM_IMAP_APPEND_NOTICE',$imapquery,$sRsp,$sMsg);
                 }
                 $bDone = false;
             case $imapsid:
