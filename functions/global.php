@@ -442,8 +442,28 @@ function sqsession_destroy() {
 
     global $base_uri, $_COOKIE, $_SESSION;
 
-    if (isset($_COOKIE[session_name()]) && session_name()) sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri);
+    if (isset($_COOKIE[session_name()]) && session_name()) {
+        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri);
+
+        /*
+         * Make sure to kill /src and /src/ cookies, just in case there are
+         * some left-over or malicious ones set in user's browser.
+         * NB: Note that an attacker could try to plant a cookie for one
+         *     of the /plugins/* directories.  Such cookies can block
+         *     access to certain plugin pages, but they do not influence
+         *     or fixate the $base_uri cookie, so we don't worry about
+         *     trying to delete all of them here.
+         */
+        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src');
+        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src/');
+    }
+
     if (isset($_COOKIE['key']) && $_COOKIE['key']) sqsetcookie('key','SQMTRASH',1,$base_uri);
+
+    /* Make sure new session id is generated on subsequent session_start() */
+    unset($_COOKIE[session_name()]);
+    unset($_GET[session_name()]);
+    unset($_POST[session_name()]);
 
     $sessid = session_id();
     if (!empty( $sessid )) {

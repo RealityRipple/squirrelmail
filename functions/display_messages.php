@@ -37,6 +37,7 @@ function error_message($message, $mailbox, $sort, $startMessage) {
  * Displays error message
  * 
  * Second argument ($color array) is changed to boolean $return_output as of 1.5.2.
+ *
  * @param string $message error message
  * @param boolean $return_output When TRUE, output is returned to caller
  *                               instead of being sent to browser (OPTIONAL;
@@ -57,9 +58,7 @@ function plain_error_message($message, $return_output=FALSE) {
  */
 function logout_error( $errString, $errTitle = '' ) {
     global $frame_top, $org_logo, $org_logo_width, $org_logo_height, $org_name,
-           $hide_sm_attributions, $squirrelmail_language, $oTemplate;
-
-    $base_uri = sqm_baseuri();
+           $hide_sm_attributions, $squirrelmail_language, $oTemplate, $base_uri;
 
     $login_link = array (
                             'URI'   => $base_uri . 'src/login.php',

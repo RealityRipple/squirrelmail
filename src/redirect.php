@@ -70,11 +70,23 @@ if ($force_username_lowercase) {
 $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
 /* From now on we are logged it. If the login failed then sqimap_login handles it */
 
-/* regenerate the session id to avoid session hyijacking */
-//FIXME!  IMPORTANT!  SOMEONE PLEASE EXPLAIN THE SECURITY CONCERN HERE; THIS session_destroy() BORKS ANY SESSION INFORMATION ADDED ON THE LOGIN PAGE (SPECIFICALLY THE SESSION RESTORE DATA, BUT ALSO ANYTHING ADDED BY PLUGINS, ETC)... I HAVE DISABLED THIS (AND NOTE THAT THE LOGIN PAGE ALREADY EXECUTES A session_destroy() (see includes/init.php)), SO PLEASE, WHOEVER ADDED THIS, PLEASE ANALYSE THIS SITUATION AND COMMENT ON IF IT IS OK LIKE THIS!!  WHAT HIJACKING ISSUES ARE WE SUPPOSED TO BE PREVENTING HERE?
-//sqsession_destroy();
-//@sqsession_is_active();
-//session_regenerate_id();
+/**
+ * Regenerate session id to make sure that authenticated session uses
+ * different ID than one used before user authenticated.  This is a
+ * countermeasure against session fixation attacks.
+ * NB: session_regenerate_id() was added in PHP 4.3.2 (and new session
+ *     cookie is only sent out in this call as of PHP 4.3.3), but PHP 4
+ *     is not vulnerable to session fixation problems in SquirrelMail
+ *     because it prioritizes $base_uri subdirectory cookies differently
+ *     than PHP 5, which is otherwise vulnerable.  If we really want to,
+ *     we could define our own session_regenerate_id() when one does not
+ *     exist, but there seems to be no reason to do so.
+ */
+sqsession_is_active();
+if (function_exists('session_regenerate_id')) {
+    session_regenerate_id();
+}
+
 /**
 * The cookie part. session_start and session_regenerate_session normally set
 * their own cookie. SquirrelMail sets another cookie which overwites the
