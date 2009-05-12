@@ -293,6 +293,8 @@ Version 1.5.2 - SVN
   - Completed a massive update to contrib/flat2sql.pl.
   - Display visual indication of forwarded messages.
   - Added Khmer translation (Thanks to Khoem Sokhem).
+  - Removed use of session_unregister() for compatibility with PHP 5.3.0
+    and PHP 6
   - Remove ability for HTML emails to use CSS positioning to overlay
     SquirrelMail content (Thanks to Luc Beurton). (#2723196) [CVE-2009-1581]
   - Fixed improper sanitizing of PHP_SELF and the lack of sanitizing of
