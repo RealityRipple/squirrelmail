@@ -1484,7 +1484,21 @@ function saveAttachedFiles($session) {
     $composeMessage->initAttachment($type, $name, $localfilename);
 }
 
-/* parse values like 8M and 2k into bytes */
+/**
+  * Parse strings such as "8M" and "2k" into their corresponding size in bytes
+  *
+  * NOTE: This function only recognizes the suffixes "K", "M" and "G"
+  *       and will probably break very easily if the given size is in
+  *       some completely different format.
+  *
+  * @param string $ini_size The input string to be converted
+  *
+  * @return mixed Boolean FALSE if something went wrong (the value passed in
+  *               was empty?, the suffix was not recognized?), otherwise, the
+  *               converted size in bytes (just the number (as an integer),
+  *               no unit identifier included)
+  *
+  */
 function getByteSize($ini_size) {
 
     if(!$ini_size) {
@@ -1506,6 +1520,8 @@ function getByteSize($ini_size) {
             case 'K':
                 $bytesize = 1024;
                 break;
+             default:
+                return FALSE;
         }
 
         return ($bytesize * (int)substr($ini_size, 0, -1));
