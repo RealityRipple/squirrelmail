@@ -21,7 +21,10 @@ define('PAGE_NAME', 'configtest');
 // This script could really use some restructuring as it has grown quite rapidly
 // but is not very 'clean'. Feel free to get some structure into this thing.
 
-/** force verbose error reporting and turn on display of errors */
+// force verbose error reporting and turn on display of errors, but not before
+// getting their original values
+$php_display_errors_original_value = ini_get('display_errors');
+$php_error_reporting_original_value = ini_get('error_reporting');
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 
@@ -203,9 +206,9 @@ if(!check_php_version(4,1,0)) {
 
 echo $IND . 'PHP version ' . PHP_VERSION . ' OK. (You have: ' . phpversion() . ". Minimum: 4.1.0)<br />\n";
 
-echo $IND . 'display_errors: ' . ini_get('display_errors') . "<br />\n";
+echo $IND . 'display_errors: ' . $php_display_errors_original_value . " (overridden with 1 for this page only)<br />\n";
 
-echo $IND . 'error_reporting: ' . ini_get('error_reporting') . "<br />\n";
+echo $IND . 'error_reporting: ' . $php_error_reporting_original_value . " (overridden with 2047 for this page only)<br />\n";
 
 $safe_mode = ini_get('safe_mode');
 if ($safe_mode) {
