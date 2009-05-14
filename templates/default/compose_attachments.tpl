@@ -28,16 +28,18 @@ extract($t);
    <?php echo _("New attachment");?>:
   </td>
   <td class="fieldValue">
+   <?php
+    if($max_file_size != -1) {
+        echo '<input type="hidden" name="MAX_FILE_SIZE" value="' . $max_file_size . '" />';
+    }
+   ?>
    <input type="file" name="attachfile" size="48" <?php if ($accesskey_compose_attach_browse != 'NONE') echo 'accesskey="' . $accesskey_compose_attach_browse . '" '; ?>/>
    &nbsp;
    <input type="submit" name="attach" <?php if ($accesskey_compose_attach != 'NONE') echo 'accesskey="' . $accesskey_compose_attach . '" '; ?>value="<?php echo _("Attach"); ?>" />
    &nbsp;
    <?php
     if($max_file_size != -1) {
-        ?>
-   <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size; ?>" />
-   (<?php echo _("Max."); ?> <?php echo humanReadableSize($max_file_size); ?>)
-        <?php
+       echo '(' . _("Max.") . ' ' . humanReadableSize($max_file_size) . ')';
     }
    ?>
   </td>
