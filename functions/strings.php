@@ -655,12 +655,16 @@ function OneTimePadCreate ($length=100) {
 }
 
 /**
- * Returns a string showing the size of the message/attachment.
- *
- * @param int $bytes the filesize in bytes
- * @return string the filesize in human readable format
- * @since 1.0
- */
+  * Returns a string showing a byte size figure in
+  * a more easily digested (readable) format
+  *
+  * @param int $bytes the size in bytes
+  *
+  * @return string The size in human readable format
+  *
+  * @since 1.0
+  *
+  */
 function show_readable_size($bytes) {
     $bytes /= 1024;
     $type = _("KiB");
@@ -678,7 +682,8 @@ function show_readable_size($bytes) {
         settype($bytes, 'integer');
     }
 
-    return $bytes . '&nbsp;' . $type;
+    global $nbsp;
+    return $bytes . $nbsp . $type;
 }
 
 /**
