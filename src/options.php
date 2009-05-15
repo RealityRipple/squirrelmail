@@ -291,7 +291,8 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             $notice.= "</ul>\n" . _("Some of your preference changes were not applied.") . "\n";
         } else {
             /* Display a message indicating a successful save. */
-            $notice = _("Successfully Saved Options") . ": $optpage_name</b><br />\n";
+            // i18n: The %s represents the name of the option page saving the options
+            $notice = sprintf(_("Successfully Saved Options: %s"), $optpage_name) . "<br />\n";
         }
 
         /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
