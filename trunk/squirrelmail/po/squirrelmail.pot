@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2009-04-17 14:34+0200\n"
+"POT-Creation-Date: 2009-05-15 16:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -369,7 +369,9 @@ msgstr ""
 msgid "Some of your preference changes were not applied."
 msgstr ""
 
-msgid "Successfully Saved Options"
+#. i18n: The %s represents the name of the option page saving the options
+#, php-format
+msgid "Successfully Saved Options: %s"
 msgstr ""
 
 #, php-format
@@ -1009,7 +1011,7 @@ msgid "Could not create initial preference file!"
 msgstr ""
 
 #, php-format
-msgid "%s should be writable by user %s."
+msgid "%s should be writable by the user %s."
 msgstr ""
 
 msgid "Signature is too big."
@@ -4527,6 +4529,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
+#. i18n: This is an example on how to write a color in RGB, literally meaning "For example: 63aa7f".
 msgid "Ex: 63aa7f"
 msgstr ""
 
