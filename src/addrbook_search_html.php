@@ -82,7 +82,7 @@ function addr_display_result($res, $includesource = true) {
          addHidden('html_addr_search_done', 'true');
     addr_insert_hidden();
     
-    $oTemplate->assign('use_js', false);
+    $oTemplate->assign('compose_addr_pop', false);
     $oTemplate->assign('include_abook_name', $includesource);
     $oTemplate->assign('addresses', formatAddressList($res));
     
@@ -114,7 +114,7 @@ if (isset($session)) {
     echo addHidden('session', $session);
 }
 
-$oTemplate->assign('use_js', false);
+$oTemplate->assign('compose_addr_pop', false);
 $oTemplate->assign('backends', getBackends());
 
 $oTemplate->display('addressbook_search_form.tpl');
