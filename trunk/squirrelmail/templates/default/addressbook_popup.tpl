@@ -20,7 +20,7 @@ extract($t);
 
 /** Begin template **/
 ?>
-<frameset rows="80,*" border="0">
+<frameset rows="95,*" border="0">
     <frame name="abookmain"
            marginwidth="0"
            scrolling="no"

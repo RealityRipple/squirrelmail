@@ -123,6 +123,16 @@ function insert_javascript() {
         }
     }
 
+    function CheckAll(ch) {
+        var chkObj = "";
+        for (var i = 0; i < document.addressbook.elements.length; i++) {
+            chkObj = document.addressbook.elements[i];
+            if (chkObj.type == "checkbox" && chkObj.name.substr(0,16) == "send_to_search[" + ch) {
+                chkObj.checked = !(chkObj.checked);
+            }
+        }
+    }
+
 // --></script>
 <?php
 } /* End of included JavaScript */

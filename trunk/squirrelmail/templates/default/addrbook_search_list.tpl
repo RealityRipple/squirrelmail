@@ -39,14 +39,24 @@ extract($t);
 $colspan = $include_abook_name ? 5 : 4;
 ?>
 <?php
-if ($use_js) {
+if ($javascript_on) {
     insert_javascript(); 
 }
 ?>
 <div id="addressList">
 <table cellspacing="0">
  <tr>
-  <td class="colHeader" style="width:1%"></td>
+  <td class="colHeader" style="width:1%; font-size: 8pt; white-space: nowrap;">
+<?php
+if ($javascript_on && !$compose_addr_pop) {
+?>
+    <input type="checkbox" id="checkAllTo" onClick="CheckAll('T');"><label for="checkAllTo"><?php echo _("All");?></label> &nbsp;
+    <input type="checkbox" id="checkAllCc" onClick="CheckAll('C');"><label for="checkAllCc"><?php echo _("Cc");?></label> &nbsp;
+    <input type="checkbox" id="checkAllBcc" onClick="CheckAll('B');"><label for="checkAllBcc"><?php echo _("Bcc");?></label>
+<?php
+}
+?>
+  </td>
   <td class="colHeader"><?php echo _("Name"); ?></td>
   <td class="colHeader"><?php echo _("E-mail"); ?></td>
   <td class="colHeader"><?php echo _("Info"); ?></td>
@@ -60,12 +70,19 @@ if ($use_js) {
     if (count($addresses) == 0) {
         echo '<tr><td class="abookEmpty" colspan="'.$colspan.'">'._("Address book is empty").'</td></tr>'."\n";
     }
+
+    if ($compose_addr_pop) {
+      $addr_str = '<a href="javascript:to_and_close(\'%1$s\')">%1$s</a>';
+    } else {
+      $addr_str = '%1$s';
+    }
+    
     foreach ($addresses as $index=>$contact) {
         ?>
  <tr class=<?php echo '"'.(($index+1)%2 ? 'even' : 'odd').'"'; ?>>
   <td class="abookCompose" style="width:1%">
    <?php
-    if ($use_js) {
+    if ($compose_addr_pop) {
         ?>
    <a href="javascript:to_address('<?php echo $contact['JSEmail']; ?>')"><?php echo _("To"); ?></a> |
    <a href="javascript:cc_address('<?php echo $contact['JSEmail']; ?>')"><?php echo _("Cc"); ?></a> |
@@ -81,7 +98,7 @@ if ($use_js) {
    ?> 
   </td>
   <td class="abookField"><?php echo $contact['FullName']; ?></td>
-  <td class="abookField"><a href="javascript:to_and_close('<?php echo $contact['JSEmail']; ?>')"><?php echo $contact['Email']; ?></a></td>
+  <td class="abookField"><?php echo sprintf($addr_str, $contact['Email']); ?></td>
   <td class="abookField"><?php echo $contact['Info']; ?></td>
         <?php 
         if ($include_abook_name) {
@@ -94,9 +111,11 @@ if ($use_js) {
 ?>
 </table>
 <?php
-if (!$use_js) {
+if (!$compose_addr_pop) {
     echo '<input type="submit" name="addr_search_done" value="'. _("Use Addresses") .'" />'."\n";
     echo '<input type="submit" name="addr_search_cancel" value="'. _("Cancel") .'" />'."\n";
+} else {
+    echo '<input type="submit" onClick="javascript:parent.close();" name="close_window" value="' . _("Close Window") . '" />'. "\n";
 }
 ?>
 </div>

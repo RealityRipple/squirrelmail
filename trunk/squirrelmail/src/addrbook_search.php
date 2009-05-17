@@ -38,7 +38,7 @@ function display_result($res, $includesource = true) {
 
     if(sizeof($res) <= 0) return;
 
-    $oTemplate->assign('use_js', true);
+    $oTemplate->assign('compose_addr_pop', true);
     $oTemplate->assign('include_abook_name', $includesource);
     $oTemplate->assign('addresses', formatAddressList($res));
     
@@ -83,7 +83,7 @@ $abook = addressbook_init($showerr);
 if ($show == 'form' && ! isset($listall)) {
     echo "<form name=\"sform\" target=\"abookres\" action=\"addrbook_search.php\" method=\"post\">\n";
     
-    $oTemplate->assign('use_js', true);
+    $oTemplate->assign('compose_addr_pop', true);
     $oTemplate->assign('backends', getBackends());
     $oTemplate->display('addressbook_search_form.tpl');
     
