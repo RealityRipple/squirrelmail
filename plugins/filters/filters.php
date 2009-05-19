@@ -592,7 +592,7 @@ function load_filters() {
     for ($i = 0; $fltr = getPref($data_dir, $username, 'filter' . $i); $i++) {
         $ary = explode(',', $fltr);
         $filters[$i]['where'] = $ary[0];
-        $filters[$i]['what'] = $ary[1];
+        $filters[$i]['what'] = str_replace('###COMMA###', ',', $ary[1]);
         $filters[$i]['folder'] = $ary[2];
     }
     return $filters;

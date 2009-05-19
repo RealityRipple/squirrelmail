@@ -52,7 +52,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
     }
 
     if ($complete_post) {
-        $filter_what = str_replace(',', ' ', $filter_what);
+        $filter_what = str_replace(',', '###COMMA###', $filter_what);
         $filter_what = str_replace("\\\\", "\\", $filter_what);
         $filter_what = str_replace("\\\"", '"', $filter_what);
         $filter_what = str_replace('"', '&quot;', $filter_what);
