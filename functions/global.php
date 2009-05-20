@@ -580,6 +580,7 @@ function sqsetcookie($sName, $sValue='deleted', $iExpire=0, $sPath="", $sDomain=
  * session_regenerate_id replacement for PHP < 4.3.2
  *
  * This code is borrowed from Gallery, session.php version 1.53.2.1
+FIXME: I saw this code on php.net (in the manual); that's where it comes from originally, but I don't think we need it - it's just redundant to all the hard work we already did seeding the random number generator IMO.  I think we can just call to GenerateRandomString() and dump the rest.
  */
 if (!function_exists('session_regenerate_id')) {
 
