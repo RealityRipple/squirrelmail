@@ -622,8 +622,17 @@ if($useSendmail) {
     if ($use_smtp_tls===2) {
         // if something breaks, script should close smtp connection on exit.
 
+
+        // format EHLO argument correctly if needed
+        //
+        if (preg_match('/\d+\.\d+\.\d+\.\d+/', $client_ip))
+            $helohost = '[' . $client_ip . ']';
+        else // some day might add IPv6 here
+            $helohost = $client_ip;
+
+
         // say helo
-        fwrite($stream,"EHLO $client_ip\r\n");
+        fwrite($stream,"EHLO $helohost\r\n");
 
         $ehlo=array();
         $ehlo_error = false;
