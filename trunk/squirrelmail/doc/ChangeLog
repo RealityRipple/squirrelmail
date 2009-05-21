@@ -304,7 +304,8 @@ Version 1.5.2 - SVN
     also includes general cleanup of that page (Thanks to Niels Teusink).
     [also CVE-2009-1578]
   - Fixed unsanitized shell command in example IMAP username mapping
-    function (map_yp_alias) (Thanks to Niels Teusink). [CVE-2009-1579]
+    function (map_yp_alias) (Thanks to Niels Teusink).
+    [CVE-2009-1579, CVE-2009-1381]
   - Fixed session fixation issues where someone who can modify a user's
     cookies could gain control of their login session.  The SquirrelMail
     base URI is now uniformly generated, extraneous cookies are cleaned
