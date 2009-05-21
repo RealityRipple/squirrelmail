@@ -625,7 +625,7 @@ if($useSendmail) {
 
         // format EHLO argument correctly if needed
         //
-        if (preg_match('/\d+\.\d+\.\d+\.\d+/', $client_ip))
+        if (preg_match('/^\d+\.\d+\.\d+\.\d+$/', $client_ip))
             $helohost = '[' . $client_ip . ']';
         else // some day might add IPv6 here
             $helohost = $client_ip;
