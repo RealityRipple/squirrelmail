@@ -313,7 +313,8 @@ Version 1.5.2 - SVN
   - Cleanup variable name in address search for compose to clearup confusion.
   - Remove Javascript from address search page when JavaScript is disabled.
   - Add "Check All" function to address book when using "in-page" addressbook.
-  - Fixed the Filters plugin to allow commas in filter criteria text
+  - Fixed the Filters plugin to allow commas in filter criteria text.
+  - In SMTP, when we EHLO with an IP, wrap it in brackets (#2793154).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
