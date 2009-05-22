@@ -32,7 +32,6 @@ extract($t);
 /** Begin template **/
 ?>
 <div id="help">
-<a name="pagetop"></a>
 <table cellspacing="0" class="table1">
  <tr>
   <td class="header1">
