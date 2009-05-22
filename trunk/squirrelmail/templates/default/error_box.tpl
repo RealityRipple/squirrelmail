@@ -60,4 +60,4 @@ extract($t);
  </tr>
 </table>
 </div>
-<br>
+<br />

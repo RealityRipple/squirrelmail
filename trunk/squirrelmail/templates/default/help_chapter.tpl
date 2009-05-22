@@ -98,4 +98,4 @@ extract($t);
   </td>
  </tr>
 </table>
-</dib>
+</div>
