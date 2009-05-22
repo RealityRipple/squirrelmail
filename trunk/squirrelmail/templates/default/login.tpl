@@ -47,17 +47,17 @@ extract($t);
   </td>
  </tr>
  <tr>
-  <td class="sqm_loginFieldName">
+  <td class="sqm_loginFieldName"><label for="login_username">
    <?php echo _("Name:"); ?>
-  </td>
+  </label></td>
   <td class="sqm_loginFieldInput">
    <input type="text" name="<?php global $username_form_name; echo $username_form_name; ?>" value="<?php echo $login_field_value; ?>" id="login_username" onfocus="alreadyFocused=true;" />
   </td>
  </tr>
  <tr>
-  <td class="sqm_loginFieldName">
+  <td class="sqm_loginFieldName"><label for="secretkey">
    <?php echo _("Password:"); ?>
-  </td>
+  </label></td>
   <td class="sqm_loginFieldInput">
    <input type="password" name="<?php global $password_form_name; echo $password_form_name; ?>" value="" id="secretkey" onfocus="alreadyFocused=true;" />
    <?php echo $login_extra; ?>
