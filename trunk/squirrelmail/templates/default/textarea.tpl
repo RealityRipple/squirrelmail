@@ -28,20 +28,10 @@
 //
 extract($t);
 
-
-if (isset($aAttribs['id'])) {
-    $label_open = '<label for="' . $aAttribs['id'] . '">';
-    $label_close = '</label>';
-} else {
-    $label_open = '';
-    $label_close = '';
-}
-
-
 echo '<textarea name="' . $name . '" rows="' . $rows . '" cols="' . $cols . '"';
 foreach ($aAttribs as $key => $value) {
     echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
 }
-echo '>' . $label_open . $text . $label_close . "</textarea>\n";
+echo '>' . $text . "</textarea>\n";
 
 
