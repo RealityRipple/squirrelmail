@@ -61,15 +61,11 @@ foreach ($option_groups as $option) {
             echo   "<tr>\n" .
                    " <td class=\"optionName\"" . ($opt->caption_wrap ? '' : ' style="white-space:nowrap"') . ">\n  ";
 
-            if ($opt->type == SMOPT_TYPE_BOOLEAN_CHECKBOX
-             || $opt->type == SMOPT_TYPE_BOOLEAN) {
-                echo '<label for="new_' . $opt->name . '">'
-                   . $opt->caption . '</label>';
-            } else if ($opt->type == SMOPT_TYPE_TEXTAREA && !empty($opt->trailing_text)) {
-                echo $opt->caption . '<br /><small>' . $opt->trailing_text . '</small>';
-            } else {
-                echo $opt->caption;
+            echo '<label for="new_' . $opt->name . '">' . $opt->caption;
+            if ($opt->type == SMOPT_TYPE_TEXTAREA && !empty($opt->trailing_text)) {
+                echo '<br /><small>' . $opt->trailing_text . '</small>';
             }
+            echo '</label>';
 
             echo   "\n </td>\n" .
                    " <td class=\"optionValue\">\n" .

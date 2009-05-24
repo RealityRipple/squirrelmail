@@ -190,6 +190,7 @@ function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttri
              . htmlspecialchars($v);
     }
 
+    if (! isset($aAttribs['id'])) $aAttribs['id'] = $sName;
 
     // make sure $default is an array, since multiple select lists
     // need the chance to have more than one default... 
@@ -292,6 +293,10 @@ function addTextArea($sName, $sText = '', $iCols = 40, $iRows = 10, $aAttribs = 
 
     // add default css
     else if (!isset($aAttribs['class'])) $aAttribs['class'] = 'sqmtextarea';
+    
+    if ( empty( $aAttribs['id'] ) ) {
+        $aAttribs['id'] = strtr($sName,'[]','__');
+    }
 
     global $oTemplate;
 
