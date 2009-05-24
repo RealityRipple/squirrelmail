@@ -141,7 +141,13 @@ function get_system_specs() {
         $body.= '  Capabilities: ';
         if ($imap_capabilities = sqimap_capability($imap_stream)) {
             foreach ($imap_capabilities as $capability => $value) {
-                $body.= $capability . (is_bool($value) ? ' ' : "=$value ");
+            	if (is_array($value)) {
+            		foreach($value as $val) {
+            			$body .= $capability . "=$val ";
+            		}
+            	} else {
+                	$body.= $capability . (is_bool($value) ? ' ' : "=$value ");
+            	}
             }
         }
         $body.="\n";

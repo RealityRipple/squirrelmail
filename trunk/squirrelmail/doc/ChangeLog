@@ -316,6 +316,8 @@ Version 1.5.2 - SVN
   - Add "Check All" function to address book when using "in-page" addressbook.
   - Fixed the Filters plugin to allow commas in filter criteria text.
   - In SMTP, when we EHLO with an IP, wrap it in brackets (#2793154).
+  - Bug Report plugin not handling multiple same key capabilities (thread/auth)
+    (#2796007).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
