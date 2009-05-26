@@ -147,7 +147,7 @@ function sq_textdomain($domain) {
  * @param mixed $locale option contains array with possible locales or string with one locale
  * @return string name of set locale or false, if all locales fail.
  * @since 1.4.5 and 1.5.1
- * @see http://www.php.net/setlocale
+ * @see http://php.net/setlocale
  */
 function sq_setlocale($category,$locale) {
     if (is_string($locale)) {
@@ -565,7 +565,7 @@ function set_up_language($sm_language, $do_search = false, $default = false,
          * mbstring.func_overload fix (#929644).
          *
          * php mbstring extension can replace standard string functions with their multibyte
-         * equivalents. See http://www.php.net/ref.mbstring#mbstring.overload. This feature
+         * equivalents. See http://php.net/ref.mbstring#mbstring.overload. This feature
          * was added in php v.4.2.0
          *
          * Some SquirrelMail functions work with 8bit strings in bytes. If interface is forced
@@ -1058,7 +1058,7 @@ if (! sqgetGlobalVar('squirrelmail_language',$squirrelmail_language,SQ_COOKIE)) 
  *  ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
  *  LOCALE    - Full locale name (in xx_XX.charset format). It can use array with more than one locale name since 1.4.5 and 1.5.1
  *  DIR       - Text direction. Used to define Right-to-Left languages. Possible values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'
- *  XTRA_CODE - translation uses special functions. See http://www.squirrelmail.org/docs/devel/devel-3.html
+ *  XTRA_CODE - translation uses special functions. See http://squirrelmail.org/docs/devel/devel-3.html
  *
  * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
  *
