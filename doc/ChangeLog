@@ -318,6 +318,7 @@ Version 1.5.2 - SVN
   - In SMTP, when we EHLO with an IP, wrap it in brackets (#2793154).
   - Bug Report plugin not handling multiple same key capabilities (thread/auth)
     (#2796007).
+  - Removed the shut down DSBL blocklists (#2796734).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
