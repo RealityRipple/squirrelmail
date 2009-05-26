@@ -142,7 +142,7 @@ function filters_LoadCache () {
 
 /**
  * Uses the BulkQuery executable to query all the RBLs at once
- * @param array $filters Array of SPAM Fitlers
+ * @param array $filters Array of SPAM Filters
  * @param array $IPs Array of IP Addresses
  * @access private
  */
@@ -218,6 +218,7 @@ function start_filters($hook_args) {
         }
     }
 
+    // No user filters, and no spam filters, no need to continue //
     if (!$AllowSpamFilters && empty($filters)) {
         return;
     }
@@ -311,12 +312,12 @@ function user_filters($imap_stream) {
 
 /**
  * Creates and runs the IMAP command to filter messages
+ * @param string $imap_stream TODO: Document this parameter
  * @param string $where Which part of the message to search (TO, CC, SUBJECT, etc...)
  * @param string $what String to search for
  * @param string $where_to Folder it will move to
  * @param string $user_scan Whether to search all or just unseen
  * @param string $should_expunge
- * @param boolean $where Which part of location to search
  * @access private
  */
 function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_scan,
@@ -354,7 +355,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
 
     // see comments in squirrelmail sqimap_search function
     if ($imap_server_type == 'macosx' || $imap_server_type == 'hmailserver') {
-         $search_str .= ' ' . $where . ' ' . $what;
+        $search_str .= ' ' . $where . ' ' . $what;
         /* read data back from IMAP */
         $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, TRUE);
     } else {
@@ -451,7 +452,7 @@ function spam_filters($imap_stream) {
             for ($i = 0, $iCnt = count($read); $i < $iCnt; ++$i) {
                 if (preg_match("/^\* SEARCH (.+)$/", $read[$i], $regs)) {
                     $search_array = explode(' ', trim($regs[1]));
-                break;
+                    break;
                 }
             }
         }
@@ -492,14 +493,15 @@ function spam_filters($imap_stream) {
                             $aSpamIds[] = $MsgNum;
                             $isspam = true;
                         }
+
                         if ($bulkquery) {
                             array_shift($aMatch);
-                            $IP = explode('.',$aMatch);
+                            $IP = explode('.', $aMatch);
                             foreach ($filters as $key => $value) {
                                 if ($filters[$key]['enabled'] && $filters[$key]['dns']) {
                                     if (strlen($SpamFilters_DNScache[$IP.'.'.$filters[$key]['dns']]) == 0) {
-                                       $IPs[$IP] = true;
-                                       break;
+                                        $IPs[$IP] = true;
+                                        break;
                                     }
                                 }
                             }
@@ -516,7 +518,7 @@ function spam_filters($imap_stream) {
     }
     // Lookie!  It's spam!  Yum!
     if (count($aSpamIds) && sqimap_mailbox_exists($imap_stream, $filters_spam_folder)) {
-        sqimap_msgs_list_move ($imap_stream, $aSpamIds, $filters_spam_folder);
+        sqimap_msgs_list_move($imap_stream, $aSpamIds, $filters_spam_folder);
         sqimap_mailbox_expunge($imap_stream, 'INBOX');
     }
 
@@ -547,9 +549,11 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
     foreach ($filters as $key => $value) {
         if ($filters[$key]['enabled']) {
             if ($filters[$key]['dns']) {
+
                 /**
-                 * RFC allows . on end of hostname to force domain lookup
-                 * to not use search domain from resolv.conf
+                 * RFC allows . on end of hostname to force domain lookup to
+                 * not use search domain from resolv.conf, i.e. to ensure
+                 * search domain isn't used if no hostname is found
                  */
                 $filter_revip = $d . '.' . $c . '.' . $b . '.' . $a . '.' .
                                 $filters[$key]['dns'] . '.';
@@ -569,7 +573,7 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
 
                 /**
                  * gethostbyname returns ip if resolved, or returns original
-                 * host query if no resolution
+                 * host supplied to function if there is no resolution
                  */
                 if ($SpamFilters_DNScache[$filter_revip]['L'] != $filter_revip) {
                     return 1;
@@ -887,7 +891,6 @@ function filter_swap($id1, $id2) {
  * @access private
  */
 function update_for_folder ($args) {
-
     $old_folder = $args[0];
     $new_folder = $args[2];
     $action = $args[1];
