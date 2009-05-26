@@ -148,7 +148,7 @@ function attachment_common_link_text(&$Args) {
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
     // if htmlspecialchars() breaks something - find other way to encode & in url.
-    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. $QUERY_STRING;
     $Args[0]['attachment_common']['href'] =
           set_url_var($Args[0]['attachment_common']['href'],
           'ent_id',$Args[4]);
@@ -192,7 +192,7 @@ function attachment_common_link_html(&$Args) {
     global $base_uri;
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. htmlspecialchars($QUERY_STRING).
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. $QUERY_STRING.
         /* why use the overridetype? can this be removed */
         /* override_type might be needed only when we want view other type of messages as html */
        '&amp;override_type0=text&amp;override_type1=html';
