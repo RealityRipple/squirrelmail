@@ -143,6 +143,7 @@ function get_abook_paginator($abook_page_selector, $abook_page_selector_max,
                                                            $current_page_args)
                                . '][';
         else
+            // i18n: "<<" is for the first page in the paginator. "<" is for the previous page.
             $paginator_string .= _("<<") . '][' . _("<") . '][';
         if ($page_number < $total_pages)
             $paginator_string .= make_abook_paginator_link($page_number + 1,
@@ -154,6 +155,7 @@ function get_abook_paginator($abook_page_selector, $abook_page_selector_max,
                                                            $current_page_args)
                                . ']';
         else
+            // i18n: ">>" is for the last page in the paginator. ">" is for the next page.
             $paginator_string .= _(">") . '][' . _(">>") . ']';
     }
 
