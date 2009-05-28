@@ -122,12 +122,15 @@ function getFlagIcon ($aFlags, $icon_theme_path) {
         //      ---------------                  ---------   --------------
         array ('msg_new.png',                    $nbsp,      '('._("New").')') ,
         array ('msg_read.png',                   $nbsp,      '('._("Read").')'),
+        // i18n: "D" is short for "Deleted". Make sure that two icon strings aren't translated to the same character (only in 1.5).
         array ('msg_new_deleted.png',            _("D"),     '('._("Deleted").')'),
         array ('msg_read_deleted.png',           _("D"),     '('._("Deleted").')'),
+        // i18n: "A" is short for "Answered". Make sure that two icon strings aren't translated to the same character (only in 1.5).
         array ('msg_new_reply.png',              _("A"),     '('._("Answered").')'),
         array ('msg_read_reply.png',             _("A"),     '('._("Answered").')'),
         array ('msg_new_deleted_reply.png',      _("D"),     '('._("Answered").')'),
         array ('msg_read_deleted_reply.png',     _("D"),     '('._("Answered").')'),
+        // i18n: "F" is short for "Flagged". Make sure that two icon strings aren't translated to the same character (only in 1.5).
         array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
         array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
         array ('flagged.png',                    _("F"),     '('._("Flagged").')'),
@@ -152,6 +155,7 @@ function getFlagIcon ($aFlags, $icon_theme_path) {
         FALSE,
         FALSE,
         FALSE,
+        // i18n: "O" is short for "Forwarded". Make sure that two icon strings aren't translated to the same character (only in 1.5).
         array ('msg_new_forwarded.png',          _("O"),     '('._("Forwarded").')'),
         array ('msg_read_forwarded.png',         _("O"),     '('._("Forwarded").')'),
         array ('msg_new_deleted_forwarded.png',  _("D"),     '('._("Forwarded").')'),
