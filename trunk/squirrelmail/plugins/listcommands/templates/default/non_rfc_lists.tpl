@@ -1,22 +1,22 @@
 <?php
 
 /**
-  * non_rfc_lists.tpl
-  *
-  * Template for listcommands non-RFC-compliant list subscriptions 
-  * management screen
-  *
-  * The following variables are available in this template:
-  *      + $lists - The lists that the user currently has 
-  *                 configured (an array of list addresses, 
-  *                 keyed by an ID number)
-  *
-  * @copyright &copy; 1999-2009 The SquirrelMail Project Team
-  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id$
-  * @package plugins
-  * @subpackage listcommands
-  */
+ * non_rfc_lists.tpl
+ *
+ * Template for listcommands non-RFC-compliant list subscriptions 
+ * management screen
+ *
+ * The following variables are available in this template:
+ *      + $lists - The lists that the user currently has 
+ *                 configured (an array of list addresses, 
+ *                 keyed by an ID number)
+ *
+ * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @package plugins
+ * @subpackage listcommands
+ */
 
 
 // retrieve the template vars
@@ -33,7 +33,7 @@ extract($t);
     </td>
   </tr>
   <tr>
-    <td colspan="2"><?php echo _("Manage the (non-RFC-compliant) mailing lists that you are subscribed to for the purpose of providing one-click list replies when responding to list messages.  You only need to enter any lists you are subscribed to that do not already comply with RFC 2369.") . '<br /><br />' . _("When entering a new list, input the full email address for the address from which list postings are delivered."); ?><br /><br /></td>
+    <td colspan="2"><?php echo _("Manage the (non-RFC-compliant) mailing lists that you are subscribed to for the purpose of providing one-click list replies when responding to list messages. You only need to enter any lists you are subscribed to that do not already comply with RFC 2369.") . '<br /><br />' . _("When entering a new list, input the full email address for the address from which list postings are delivered."); ?><br /><br /></td>
   </tr>
   <tr>
     <td align="right">
