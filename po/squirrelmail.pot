@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2009-05-26 13:37+0200\n"
+"POT-Creation-Date: 2009-05-28 08:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -697,6 +697,109 @@ msgstr ""
 msgid "Title &amp; Org. / Dept."
 msgstr ""
 
+msgid "Error"
+msgstr ""
+
+msgid "Terminating SquirrelMail due to a fatal error"
+msgstr ""
+
+msgid "Email delivery error"
+msgstr ""
+
+#, php-format
+msgid "Can't execute command '%s'."
+msgstr ""
+
+msgid ""
+"Secure SMTP (TLS) is enabled in SquirrelMail configuration, but used PHP "
+"version does not support it."
+msgstr ""
+
+msgid "Can't open SMTP stream."
+msgstr ""
+
+msgid "TLS session is already activated."
+msgstr ""
+
+msgid ""
+"SMTP STARTTLS is enabled in SquirrelMail configuration, but used SMTP server "
+"does not support it"
+msgstr ""
+
+msgid "Unable to start TLS."
+msgstr ""
+
+msgid ""
+"SMTP STARTTLS is enabled in SquirrelMail configuration, but used PHP version "
+"does not support functions that allow to enable encryption on open socket."
+msgstr ""
+
+msgid "Service not available, closing channel"
+msgstr ""
+
+msgid "A password transition is needed"
+msgstr ""
+
+msgid "Requested mail action not taken: mailbox unavailable"
+msgstr ""
+
+msgid "Requested action aborted: error in processing"
+msgstr ""
+
+msgid "Requested action not taken: insufficient system storage"
+msgstr ""
+
+msgid "Temporary authentication failure"
+msgstr ""
+
+msgid "Syntax error; command not recognized"
+msgstr ""
+
+msgid "Syntax error in parameters or arguments"
+msgstr ""
+
+msgid "Command not implemented"
+msgstr ""
+
+msgid "Bad sequence of commands"
+msgstr ""
+
+msgid "Command parameter not implemented"
+msgstr ""
+
+msgid "Authentication required"
+msgstr ""
+
+msgid "Authentication mechanism is too weak"
+msgstr ""
+
+msgid "Authentication failed"
+msgstr ""
+
+msgid "Encryption required for requested authentication mechanism"
+msgstr ""
+
+msgid "Requested action not taken: mailbox unavailable"
+msgstr ""
+
+msgid "User not local; please try forwarding"
+msgstr ""
+
+msgid "Requested mail action aborted: exceeding storage allocation"
+msgstr ""
+
+msgid "Requested action not taken: mailbox name not allowed"
+msgstr ""
+
+msgid "Transaction failed"
+msgstr ""
+
+msgid "Unknown response"
+msgstr ""
+
+msgid "(no subject)"
+msgstr ""
+
 msgid "Personal Address Book"
 msgstr ""
 
@@ -1116,9 +1219,6 @@ msgid ""
 "does not support STARTTLS."
 msgstr ""
 
-msgid "Unable to start TLS."
-msgstr ""
-
 msgid ""
 "IMAP STARTTLS is enabled in SquirrelMail configuration, but used PHP version "
 "does not support functions that allow to enable encryption on open socket."
@@ -1165,9 +1265,6 @@ msgid ""
 msgstr ""
 
 msgid "Unknown recipient"
-msgstr ""
-
-msgid "(no subject)"
 msgstr ""
 
 msgid "Unthread View"
@@ -1280,101 +1377,94 @@ msgstr ""
 msgid "MiB"
 msgstr ""
 
-msgid "Error"
+msgid "Nickname"
 msgstr ""
 
-msgid "Terminating SquirrelMail due to a fatal error"
+msgid "Sort by nickname"
 msgstr ""
 
-msgid "Email delivery error"
+msgid "Sort by name"
 msgstr ""
 
-#, php-format
-msgid "Can't execute command '%s'."
+msgid "Sort by email"
 msgstr ""
 
-msgid ""
-"Secure SMTP (TLS) is enabled in SquirrelMail configuration, but used PHP "
-"version does not support it."
+msgid "Info"
 msgstr ""
 
-msgid "Can't open SMTP stream."
+msgid "Sort by info"
 msgstr ""
 
-msgid "TLS session is already activated."
+msgid "Paginate"
 msgstr ""
 
-msgid ""
-"SMTP STARTTLS is enabled in SquirrelMail configuration, but used SMTP server "
-"does not support it"
+msgid "All"
 msgstr ""
 
-msgid ""
-"SMTP STARTTLS is enabled in SquirrelMail configuration, but used PHP version "
-"does not support functions that allow to enable encryption on open socket."
+#. i18n: "<<" is for the first page in the paginator. "<" is for the previous page.
+msgid "<<"
 msgstr ""
 
-msgid "Service not available, closing channel"
+msgid "<"
 msgstr ""
 
-msgid "A password transition is needed"
+#. i18n: ">>" is for the last page in the paginator. ">" is for the next page.
+msgid ">"
 msgstr ""
 
-msgid "Requested mail action not taken: mailbox unavailable"
+msgid ">>"
 msgstr ""
 
-msgid "Requested action aborted: error in processing"
+msgid "Previous"
 msgstr ""
 
-msgid "Requested action not taken: insufficient system storage"
+msgid "Next"
 msgstr ""
 
-msgid "Temporary authentication failure"
+msgid "Go"
 msgstr ""
 
-msgid "Syntax error; command not recognized"
+#. i18n: "D" is short for "Deleted". Make sure that two icon strings aren't translated to the same character (only in 1.5).
+msgid "D"
 msgstr ""
 
-msgid "Syntax error in parameters or arguments"
+#. i18n: "A" is short for "Answered". Make sure that two icon strings aren't translated to the same character (only in 1.5).
+msgid "A"
 msgstr ""
 
-msgid "Command not implemented"
+#. i18n: "F" is short for "Flagged". Make sure that two icon strings aren't translated to the same character (only in 1.5).
+msgid "F"
 msgstr ""
 
-msgid "Bad sequence of commands"
+#. i18n: "O" is short for "Forwarded". Make sure that two icon strings aren't translated to the same character (only in 1.5).
+msgid "O"
 msgstr ""
 
-msgid "Command parameter not implemented"
+msgid "Forwarded"
 msgstr ""
 
-msgid "Authentication required"
+msgid "High priority"
 msgstr ""
 
-msgid "Authentication mechanism is too weak"
+msgid "Low priority"
 msgstr ""
 
-msgid "Authentication failed"
+msgid "Normal priority"
 msgstr ""
 
-msgid "Encryption required for requested authentication mechanism"
+msgid "Attachment"
 msgstr ""
 
-msgid "Requested action not taken: mailbox unavailable"
+msgid "No attachment"
 msgstr ""
 
-msgid "User not local; please try forwarding"
+msgid "Show All"
 msgstr ""
 
-msgid "Requested mail action aborted: exceeding storage allocation"
+msgid "Default"
 msgstr ""
 
-msgid "Requested action not taken: mailbox name not allowed"
-msgstr ""
-
-msgid "Transaction failed"
-msgstr ""
-
-msgid "Unknown response"
+msgid "XP"
 msgstr ""
 
 msgid "Thread sorting is not supported by your IMAP server."
@@ -1440,12 +1530,6 @@ msgid "Sign Out"
 msgstr ""
 
 msgid "Access Keys For Message List Screen"
-msgstr ""
-
-msgid "Previous"
-msgstr ""
-
-msgid "Next"
 msgstr ""
 
 msgid "Show All/Paginate"
@@ -1611,9 +1695,6 @@ msgid "Font size"
 msgstr ""
 
 msgid "Default font size"
-msgstr ""
-
-msgid "Default"
 msgstr ""
 
 msgid "Language"
@@ -1929,9 +2010,6 @@ msgid "Use Signature"
 msgstr ""
 
 msgid "Prefix Signature with '-- ' Line"
-msgstr ""
-
-msgid "XP"
 msgstr ""
 
 msgid "Config File Version"
@@ -2484,9 +2562,6 @@ msgid "Could not write calendar file %s"
 msgstr ""
 
 msgid "TODAY"
-msgstr ""
-
-msgid "Go"
 msgstr ""
 
 msgid "l, F j Y"
@@ -3184,10 +3259,37 @@ msgstr ""
 msgid "Unknown action: %s"
 msgstr ""
 
-msgid "Select Server:"
+msgid "Mailinglist"
 msgstr ""
 
-msgid "All"
+msgid "From:"
+msgstr ""
+
+msgid "Send Mail"
+msgstr ""
+
+msgid ""
+"Manage the (non-RFC-compliant) mailing lists that you are subscribed to for "
+"the purpose of providing one-click list replies when responding to list "
+"messages.  You only need to enter any lists you are subscribed to that do "
+"not already comply with RFC 2369."
+msgstr ""
+
+msgid ""
+"When entering a new list, input the full email address for the address from "
+"which list postings are delivered."
+msgstr ""
+
+msgid "Enter new mailing list"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Existing mailing lists"
+msgstr ""
+
+msgid "Select Server:"
 msgstr ""
 
 msgid "Password for"
@@ -3574,6 +3676,24 @@ msgstr ""
 msgid "Loading the sound..."
 msgstr ""
 
+msgid "Show Message Preview Pane"
+msgstr ""
+
+msgid "Split Preview Pane Vertically"
+msgstr ""
+
+msgid "Message Preview Pane Size"
+msgstr ""
+
+msgid "Always Refresh Message List<br />When Using Preview Pane"
+msgstr ""
+
+msgid "Automatically Hide Preview Pane<br />When Not Reading Messages"
+msgstr ""
+
+msgid "Clear Preview"
+msgstr ""
+
 msgid "Sent Subfolders Options"
 msgstr ""
 
@@ -3830,6 +3950,21 @@ msgid "Error Decrypting Dictionary"
 msgstr ""
 
 msgid "Invalid SquirrelSpell module."
+msgstr ""
+
+#, php-format
+msgid "Could not run the spellchecker command (%s)."
+msgstr ""
+
+msgid "Error while writing to pipe."
+msgstr ""
+
+#, php-format
+msgid "Could not open temporary file '%s'."
+msgstr ""
+
+#, php-format
+msgid "Error while writing to temporary file '%s'."
 msgstr ""
 
 msgid "SquirrelSpell is misconfigured."
@@ -4334,9 +4469,6 @@ msgstr ""
 msgid "Add to Address Book"
 msgstr ""
 
-msgid "Nickname"
-msgstr ""
-
 msgid "Must be unique"
 msgstr ""
 
@@ -4353,9 +4485,6 @@ msgid "Add to:"
 msgstr ""
 
 msgid "Add Address"
-msgstr ""
-
-msgid "Info"
 msgstr ""
 
 msgid "Source"
@@ -4395,9 +4524,6 @@ msgid "Max."
 msgstr ""
 
 msgid "Receipts"
-msgstr ""
-
-msgid "Add"
 msgstr ""
 
 msgid "Delete Selected"
@@ -4488,9 +4614,6 @@ msgid "Viewing Message: %s (%s total)"
 msgstr ""
 
 msgid "Message Flags"
-msgstr ""
-
-msgid "Attachment"
 msgstr ""
 
 msgid "Click here to change the sorting of the message list"
@@ -4638,6 +4761,12 @@ msgid "Viewing a text attachment"
 msgstr ""
 
 msgid "Folder List"
+msgstr ""
+
+msgid "Today's Fortune"
+msgstr ""
+
+msgid "Mailing List"
 msgstr ""
 
 msgid "Open All"
