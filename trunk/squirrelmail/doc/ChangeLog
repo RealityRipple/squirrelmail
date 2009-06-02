@@ -319,6 +319,7 @@ Version 1.5.2 - SVN
   - Bug Report plugin not handling multiple same key capabilities (thread/auth)
     (#2796007).
   - Removed the shut down DSBL blocklists (#2796734).
+  - Fixed broken RFC1918 reference in contrib/.htaccess and doc/.htaccess (#2798839).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
