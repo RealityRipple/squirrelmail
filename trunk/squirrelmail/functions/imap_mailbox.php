@@ -110,8 +110,7 @@ function compact_mailboxes_response($ary) {
      */
     for ($i = 0, $iCnt=count($ary); $i < $iCnt; $i++) {
         if (isset($ary[$i + 1]) && substr($ary[$i], -3) == "}\r\n") {
-            if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                 $ary[$i], $regs)) {
+            if (preg_match('/^(\* [A-Z]+.*)\{[0-9]+\}([ \n\r\t]*)$/', $ary[$i], $regs)) {
                 $ary[$i] = $regs[1] . '"' . addslashes(trim($ary[$i+1])) . '"' . $regs[2];
                 array_splice($ary, $i+1, 2);
             }
@@ -676,8 +675,7 @@ function sqimap_mailbox_parse ($line) {
         $boxesall[$g]['id'] = $g;
 
         $boxesall[$g]['flags'] = array();
-        if (isset($line[$g])) {
-            ereg("\(([^)]*)\)",$line[$g],$regs);
+        if (isset($line[$g]) && preg_match('/\(([^)]*)\)/',$line[$g],$regs) ) {
             /**
              * Since 1.5.1 flags are stored with RFC3501 naming
              * and also the old way for backwards compatibility
