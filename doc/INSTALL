@@ -148,8 +148,7 @@ b. Setting up directories
   deletes everything in the attachment directory.  Something similar
   to the following will be good enough:
 
-    $ cd /var/local/squirrelmail/attach
-    $ rm -f *
+    $ cd /var/local/squirrelmail/attach && rm -f *
 
   However, this will delete attachments that are currently in use by people
   sending email when the cron job runs.  You can either (1) make sure that
@@ -162,7 +161,7 @@ b. Setting up directories
   attachment directory is the same as your data directory) might look like
   this:
 
-    $ rm `find /var/local/squirrelmail/attach -atime +2 | grep -v "\." | grep -v _`
+    $ find /var/local/squirrelmail/attach -type f -atime +2 -exec rm {} \;
 
   Remember to be careful with whatever method you do use, and to test out
   the command before it potentially wipes out everyone's preferences.
