@@ -354,7 +354,7 @@ function sqWordWrap(&$line, $wrap, $charset='') {
     if (isset($regs[2])) {
         $words = explode(' ', $regs[2]);
     } else {
-        $words = '';
+        $words = array();
     }
 
     $i = 0;
