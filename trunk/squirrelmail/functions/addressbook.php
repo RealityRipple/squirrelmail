@@ -54,6 +54,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         /* File */
         $filename = getHashedFile($username, $data_dir, "$username.abook");
         $r = $abook->add_backend('local_file', Array('filename' => $filename,
+                                                     'umask' => 0077,
                                                      'line_length' => $abook_file_line_length,
                                                      'create'   => true));
         if(!$r && $showerr) {
