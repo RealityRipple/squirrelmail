@@ -349,7 +349,7 @@ function sqWordWrap(&$line, $wrap, $charset='') {
         }
     }
 
-    ereg("^([\t >]*)([^\t >].*)?$", $line, $regs);
+    preg_match('/^([\t >]*)([^\t >].*)?$/', $line, $regs);
     $beginning_spaces = $regs[1];
     if (isset($regs[2])) {
         $words = explode(' ', $regs[2]);

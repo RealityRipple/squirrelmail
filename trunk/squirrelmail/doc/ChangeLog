@@ -320,6 +320,7 @@ Version 1.5.2 - SVN
     (#2796007).
   - Removed the shut down DSBL blocklists (#2796734).
   - Fixed broken RFC1918 reference in contrib/.htaccess and doc/.htaccess (#2798839).
+  - Stop using deprecated ereg functions. (#2820952)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

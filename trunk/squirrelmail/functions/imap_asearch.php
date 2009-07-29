@@ -190,7 +190,7 @@ function sqimap_asearch_parse_date($what)
     global $imap_asearch_months;
 
     $what = trim($what);
-    $what = ereg_replace('[ /\\.,]+', '-', $what);
+    $what = preg_replace('/[ \/\\.,]+/', '-', $what);
     if ($what) {
         preg_match('/^([0-9]+)-+([^\-]+)-+([0-9]+)$/', $what, $what_parts);
         if (count($what_parts) == 4) {
@@ -232,7 +232,7 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
         default:
         case 'anum':
             $what = str_replace(' ', '', $what);
-            $what = ereg_replace('[^0-9]+[^KMG]$', '', strtoupper($what));
+            $what = preg_replace('/[^0-9]+[^KMG]$/', '', strtoupper($what));
             if ($what != '') {
                 switch (substr($what, -1)) {
                     case 'G':
@@ -268,7 +268,7 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
             $criteria = $opcode . ' ' . sqimap_asearch_encode_string($what, $charset) . ' ';
         break;
         case 'asequence':
-            $what = ereg_replace('[^0-9:\(\)]+', '', $what);
+            $what = preg_replace('/[^0-9:()]+/', '', $what);
             if ($what != '')
                 $criteria = $opcode . ' ' . $what . ' ';
         break;

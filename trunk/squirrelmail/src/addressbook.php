@@ -111,7 +111,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
         if (!$r) {
             /* Remove backend name from error string */
             $errstr = $abook->error;
-            $errstr = ereg_replace('^\[.*\] *', '', $errstr);
+            $errstr = preg_replace('/^\[.*\] */', '', $errstr);
 
             $formerror = $errstr;
             $showaddrlist = false;

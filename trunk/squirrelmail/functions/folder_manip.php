@@ -226,7 +226,7 @@ function folders_delete_do ($imapConnection, $delimiter, $folder_name)
 
     /** lets see if we CAN move folders to the trash.. otherwise,
         ** just delete them **/
-    if ($delete_folder || eregi('^'.$trash_folder.'.+', $folder_name) ) {
+    if ($delete_folder || preg_match('/^' . $trash_folder . '.+/i', $folder_name) ) {
         $can_move_to_trash = FALSE;
     } else {
     /* Otherwise, check if trash folder exits and support sub-folders */
