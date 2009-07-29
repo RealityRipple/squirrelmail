@@ -731,7 +731,7 @@ class AddressBook {
         }
 
         /* Blocks use of space, :, |, #, " and ! in nickname */
-        if (eregi('[ \\:\\|\\#\\"\\!]', $userdata['nickname'])) {
+        if (preg_match('/[ :|#"!]/', $userdata['nickname'])) {
             $this->error = _("Nickname contains illegal characters");
             return false;
         }
@@ -831,7 +831,7 @@ class AddressBook {
             return false;
         }
 
-        if (eregi('[\\: \\|\\#"\\!]', $userdata['nickname'])) {
+        if (preg_match('/[: |#"!]/', $userdata['nickname'])) {
             $this->error = _("Nickname contains illegal characters");
             return false;
         }

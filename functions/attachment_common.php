@@ -265,7 +265,12 @@ function attachment_common_octet_stream(&$Args) {
 //FIXME: or at least we can move this hook up to the top of this file where $FileExtensionToMimeType is defined.  What else is this hook here for?  What plugins use it?
     do_hook('attachment_common-load_mime_types', $null);
 
-    ereg('\\.([^\\.]+)$', $Args[6], $Regs);
+    preg_match('/\.([^.]+)$/', $Args[7], $Regs);
+
+    $Ext = '';
+    if (is_array($Regs) && isset($Regs[1])) {
+       $Ext = $Regs[1];
+    }
 
     $Ext = strtolower($Regs[1]);
 

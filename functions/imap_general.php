@@ -1075,8 +1075,8 @@ function sqimap_get_delimiter ($imap_stream = false) {
              * TODO: remove this in favour of the information from sqimap_get_namespace()
              */
             $read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b);
-            if (eregi('\\* NAMESPACE +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL)', $read[0], $data)) {
-                if (eregi('^\\( *\\((.*)\\) *\\)', $data[1], $data2)) {
+            if (preg_match('/\* NAMESPACE +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL)/i', $read[0], $data)) {
+                if (preg_match('/^\( *\((.*)\) *\)/', $data[1], $data2)) {
                     $pn = $data2[1];
                 }
                 $pna = explode(')(', $pn);
@@ -1138,7 +1138,7 @@ function sqimap_parse_namespace(&$input) {
     $ns_strings = array(1=>'personal', 2=>'users', 3=>'shared');
     $namespace = array();
 
-    if(ereg('NAMESPACE (\(\(.*\)\)|NIL) (\(\(.*\)\)|NIL) (\(\(.*\)\)|NIL)', $input, $regs) !== false) {
+    if (preg_match('/NAMESPACE (\(\(.*\)\)|NIL) (\(\(.*\)\)|NIL) (\(\(.*\)\)|NIL)/', $input, $regs)) {
         for($i=1; $i<=3; $i++) {
             if($regs[$i] == 'NIL') {
                 $namespace[$ns_strings[$i]] = array();
@@ -1174,7 +1174,7 @@ function sqimap_parse_namespace(&$input) {
  */
 function sqimap_encode_mailbox_name($what)
 {
-    if (ereg("[\"\\\r\n]", $what))
+    if (preg_match('/["\\\r\n]/', $what))
         return '{' . strlen($what) . "}\r\n" . $what;        /* 4.3 literal form */
     return '"' . $what . '"';        /* 4.3 quoted string form */
 }

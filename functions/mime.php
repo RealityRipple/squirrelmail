@@ -140,7 +140,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
     } while($topline && ($topline[0] == '*') && !preg_match('/\* [0-9]+ FETCH.*/i', $topline)) ;
 
     $wholemessage = implode('', $data);
-    if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
+    if (preg_match('/\{([^\}]*)\}/', $topline, $regs)) {
         $ret = substr($wholemessage, 0, $regs[1]);
         /* There is some information in the content info header that could be important
          * in order to parse html messages. Let's get them here.
@@ -148,7 +148,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
 //        if ($ret{0} == '<') {
 //            $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message, TRUE);
 //        }
-    } else if (ereg('"([^"]*)"', $topline, $regs)) {
+    } else if (preg_match('/"([^"]*)"/', $topline, $regs)) {
         $ret = $regs[1];
     } else if ((stristr($topline, 'nil') !== false) && (empty($wholemessage))) {
         $ret = $wholemessage;
@@ -2734,7 +2734,7 @@ function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
         $filename =
             call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_downloadfilename', $filename, $HTTP_USER_AGENT);
     } else {
-        $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', str_replace('&nbsp;', ' ', $filename));
+        $filename = preg_replace('/[\\\/:*?"<>|;]/', '_', str_replace('&nbsp;', ' ', $filename));
     }
 
     // A Pox on Microsoft and it's Internet Explorer!

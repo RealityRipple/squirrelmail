@@ -105,9 +105,3 @@ $SQSPELL_APP_DEFAULT = 'English';
 $SQSPELL_WORDS_FILE =
    getHashedFile($username, $data_dir, "$username.words");
 
-/**
- * Function used for checking words in user's dictionary
- * @global string $SQSPELL_EREG
- * @deprecated It is not used since 1.5.1 (sqspell 0.5)
- */
-$SQSPELL_EREG = 'ereg';
