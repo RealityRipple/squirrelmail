@@ -321,6 +321,7 @@ Version 1.5.2 - SVN
   - Removed the shut down DSBL blocklists (#2796734).
   - Fixed broken RFC1918 reference in contrib/.htaccess and doc/.htaccess (#2798839).
   - Stop using deprecated ereg functions. (#2820952)
+  - Remove personal data from Message ID seed. (#880029/847107)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
