@@ -35,10 +35,12 @@ function replaceBlock (&$in, $replace, $start, $end) {
  */
 /* Here's enough: */
 global $IP_RegExp_Match, $Host_RegExp_Match, $Email_RegExp_Match;
+//FIXME: these were written for use in an ereg().... they are now being used in preg()... we need to run some tests to make sure they are fully working still
 $IP_RegExp_Match = '\\[?[0-9]{1,3}(\\.[0-9]{1,3}){3}\\]?';
 $Host_RegExp_Match = '(' . $IP_RegExp_Match .
     '|[0-9a-z]([-.]?[0-9a-z])*\\.[a-z][a-z]+)';
-$atext = '([a-z0-9!#$&%*+/=?^_`{|}~-]|&amp;)';
+// NB: the backslash in the following line escapes the forward slash, which assumes that the regular expression will be enclosed in /.../
+$atext = '([a-z0-9!#$&%*+\/=?^_`{|}~-]|&amp;)';
 $dot_atom = $atext . '+(\.' . $atext . '+)*';
 $Email_RegExp_Match = $dot_atom . '(%' . $Host_RegExp_Match . ')?@' .
                       $Host_RegExp_Match;
