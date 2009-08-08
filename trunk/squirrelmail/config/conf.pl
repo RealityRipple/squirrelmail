@@ -5335,12 +5335,13 @@ sub set_defaults {
 # the SM directory tree, the SM_PATH variable will be
 # prepended to the path, if not, then the path will be
 # converted to an absolute path, e.g.
-#   '../images/logo.gif'      --> SM_PATH . 'images/logo.gif'
-#   '../../someplace/data'    --> '/absolute/path/someplace/data'
-#   'images/logo.gif'         --> SM_PATH . 'config/images/logo.gif'
-#   '/absolute/path/logo.gif' --> '/absolute/path/logo.gif'
-#   'http://whatever/'        --> 'http://whatever'
-#   $some_var/path            --> "$some_var/path"
+#   '../images/logo.gif'        --> SM_PATH . 'images/logo.gif'
+#   '../../someplace/data'      --> '/absolute/path/someplace/data'
+#   'images/logo.gif'           --> SM_PATH . 'config/images/logo.gif'
+#   '/absolute/path/logo.gif'   --> '/absolute/path/logo.gif'
+#   'C:\absolute\path\logo.gif' --> 'C:\absolute\path\logo.gif'
+#   'http://whatever/'          --> 'http://whatever'
+#   $some_var/path              --> "$some_var/path"
 sub change_to_SM_path() {
     my ($old_path) = @_;
     my $new_path = '';
@@ -5351,7 +5352,7 @@ sub change_to_SM_path() {
     # If the path is absolute, don't bother.
     return "\'" . $old_path . "\'"  if ( $old_path eq '');
     return "\'" . $old_path . "\'"  if ( $old_path =~ /^(\/|http)/ );
-    return "\'" . $old_path . "\'"  if ( $old_path =~ /^\w:\// );
+    return "\'" . $old_path . "\'"  if ( $old_path =~ /^\w:(\\|\/)/ );
     return $old_path                if ( $old_path =~ /^\'(\/|http)/ );
     return $old_path                if ( $old_path =~ /^\'\w:\// );
     return $old_path                if ( $old_path =~ /^SM_PATH/);
