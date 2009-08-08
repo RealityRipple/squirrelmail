@@ -223,7 +223,7 @@ function attachment_common_link_image(&$Args) {
     
     $attachment_common_show_images_list[] = $info;
 
-    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/image.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/image.php?'. $QUERY_STRING;
     $Args[0]['attachment_common']['href'] =
           set_url_var($Args[0]['attachment_common']['href'],
           'ent_id',$Args[4]);
@@ -242,7 +242,7 @@ function attachment_common_link_vcard(&$Args) {
     global $base_uri;
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/vcard.php?'. htmlspecialchars($QUERY_STRING);
+    $Args[0]['attachment_common']['href'] = $base_uri  . 'src/vcard.php?'. $QUERY_STRING;
     $Args[0]['attachment_common']['href'] =
           set_url_var($Args[0]['attachment_common']['href'],
           'ent_id',$Args[4]);
