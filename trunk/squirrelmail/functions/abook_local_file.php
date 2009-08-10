@@ -589,7 +589,7 @@ class abook_local_file extends addressbook_backend {
     function quotevalue($value) {
         /* Quote the field if it contains | or ". Double quotes need to
          * be replaced with "" */
-        if(stristr('"', $value) || stristr('|', $value)) {
+        if(stristr($value, '"') || stristr($value, '|')) {
             $value = '"' . str_replace('"', '""', $value) . '"';
         }
         return $value;
