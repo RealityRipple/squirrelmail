@@ -23,6 +23,7 @@ require('../include/init.php');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'functions/identity.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /* make sure that page is not available when $edit_identity is false */
 if (!$edit_identity) {
@@ -37,9 +38,13 @@ if (!sqgetGlobalVar('identities', $identities, SQ_SESSION)) {
 sqgetGlobalVar('newidentities', $newidentities, SQ_POST);
 sqgetGlobalVar('smaction', $smaction, SQ_POST);
 sqgetGlobalVar('return', $return, SQ_POST);
+sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
 
 // First lets see if there are any actions to perform //
 if (!empty($smaction) && is_array($smaction)) {
+
+    // first do a security check
+    sm_validate_security_token($submitted_token, 3600, TRUE);
 
     $doaction = '';
     $identid = 0;
@@ -93,7 +98,8 @@ $a['Signature'] = '';
 $i[count($i)] = $a;
 
 //FIXME: NO HTML IN THE CORE
-echo '<form name="f" action="options_identities.php" method="post">' . "\n";
+echo '<form name="f" action="options_identities.php" method="post">' . "\n"
+   . addHidden('smtoken', sm_generate_security_token()) . "\n";
 
 $oTemplate->assign('identities', $i);
 $oTemplate->display('options_advidentity_list.tpl');

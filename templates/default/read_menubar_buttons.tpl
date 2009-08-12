@@ -123,6 +123,7 @@ if ($nav_on_top) {
     if ($can_be_deleted) {
         ?>
     <form name="deleteMessageForm" action="<?php echo $move_delete_form_action; ?>" method="post">
+     <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
      <?php echo $delete_form_extra; ?>
      <small>
      <input type="submit" name="delete" <?php if ($accesskey_read_msg_delete != 'NONE') echo 'accesskey="' . $accesskey_read_msg_delete . '" '; ?>value="<?php echo _("Delete"); ?>" />
@@ -139,6 +140,7 @@ if ($nav_on_top) {
     if ($can_be_moved) {
         ?>
     <form name="moveMessageForm" action="<?php echo $move_delete_form_action; ?>" method="post">
+     <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
      <?php echo $move_form_extra; ?>
      <small>
      <?php echo _("Move To"); ?>:

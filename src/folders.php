@@ -30,6 +30,7 @@ displayPageHeader($color);
 /* get globals we may need */
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('smaction', $action, SQ_POST);
+sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
 
 /* end of get globals */
 
@@ -40,6 +41,10 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
     switch ($action)
     {
         case 'create':
+
+            // first, validate security token
+            sm_validate_security_token($submitted_token, 3600, TRUE);
+
             sqgetGlobalVar('folder_name',  $folder_name,  SQ_POST);
             sqgetGlobalVar('subfolder',    $subfolder,    SQ_POST);
             sqgetGlobalVar('contain_subs', $contain_subs, SQ_POST);
@@ -54,6 +59,10 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
                 sqgetGlobalVar('old_name',    $old_name, SQ_POST);
                 folders_rename_getname($imapConnection, $delimiter, $old_name);
             } else {
+
+                // first, validate security token
+                sm_validate_security_token($submitted_token, 3600, TRUE);
+
                 sqgetGlobalVar('orig',        $orig,     SQ_POST);
                 sqgetGlobalVar('old_name',    $old_name, SQ_POST);
                 folders_rename_do($imapConnection, $delimiter, $orig, $old_name, $new_name);
@@ -66,6 +75,10 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             }
             sqgetGlobalVar('folder_name',  $folder_name,  SQ_POST);
             if ( sqgetGlobalVar('confirmed', $dummy, SQ_POST) ) {
+
+                // first, validate security token
+                sm_validate_security_token($submitted_token, 3600, TRUE);
+
                 folders_delete_do($imapConnection, $delimiter, $folder_name);
                 $td_str =  _("Deleted folder successfully.");
             } else {
@@ -73,11 +86,19 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             }
             break;
         case 'subscribe':
+
+            // first, validate security token
+            sm_validate_security_token($submitted_token, 3600, TRUE);
+
             sqgetGlobalVar('folder_names',  $folder_names,  SQ_POST);
             folders_subscribe($imapConnection, $folder_names);
             $td_str =  _("Subscribed successfully.");
             break;
         case 'unsubscribe':
+
+            // first, validate security token
+            sm_validate_security_token($submitted_token, 3600, TRUE);
+
             sqgetGlobalVar('folder_names',  $folder_names,  SQ_POST);
             folders_unsubscribe($imapConnection, $folder_names);
             $td_str =  _("Unsubscribed successfully.");

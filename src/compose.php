@@ -138,6 +138,8 @@ if ( !sqgetGlobalVar('smaction',$action) )
     if ( sqgetGlobalVar('smaction_edit_new',$tmp) )   $action = 'edit_as_new';
 }
 
+sqgetGlobalVar('smtoken', $submitted_token, $SQ_GLOBAL, '');
+
 /**
  * Here we decode the data passed in from mailto.php.
  */
@@ -412,6 +414,11 @@ if (empty($mailbox)) {
 }
 
 if ($draft) {
+
+    // validate security token
+    //
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     /*
      * Set $default_charset to correspond with the user's selection
      * of language interface.
@@ -466,6 +473,11 @@ if ($draft) {
 }
 
 if ($send) {
+
+    // validate security token
+    //
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     if (isset($_FILES['attachfile']) &&
             $_FILES['attachfile']['tmp_name'] &&
             $_FILES['attachfile']['tmp_name'] != 'none') {
@@ -587,6 +599,11 @@ if ($send) {
         /* sqimap_logout($imapConnection); */
     }
 } elseif (isset($html_addr_search_done)) {
+
+    // validate security token
+    //
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
     }
@@ -631,6 +648,11 @@ if ($send) {
      */
     include_once('./addrbook_search_html.php');
 } elseif (isset($attach)) {
+
+    // validate security token
+    //
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
     } else {
@@ -642,6 +664,11 @@ if ($send) {
     showInputForm($session);
 }
 elseif (isset($sigappend)) {
+
+    // validate security token
+    //
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     $signature = $idents[$identity]['signature'];
 
     $body .= "\n\n".($prefix_sig==true? "-- \n":'').$signature;
@@ -652,6 +679,11 @@ elseif (isset($sigappend)) {
     }
     showInputForm($session);
 } elseif (isset($do_delete)) {
+
+    // validate security token
+    //
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
     } else {
@@ -1161,6 +1193,9 @@ function showInputForm ($session, $values=false) {
 
 //FIXME: NO HTML IN CORE!
     echo ">\n";
+
+//FIXME: DON'T ECHO HTML FROM CORE!
+    echo addHidden('smtoken', sm_generate_security_token());
 
 //FIXME: DON'T ECHO HTML FROM CORE!
     echo addHidden('startMessage', $startMessage);

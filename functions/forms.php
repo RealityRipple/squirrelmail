@@ -313,20 +313,26 @@ function addTextArea($sName, $sText = '', $iCols = 40, $iRows = 10, $aAttribs = 
 /**
  * Make a <form> start-tag.
  *
- * @param string $sAction  form handler URL
- * @param string $sMethod  http method used to submit form data. 'get' or 'post'
- * @param string $sName    form name used for identification (used for backward 
- *                         compatibility). Use of id is recommended instead.
- * @param string $sEnctype content type that is used to submit data. html 4.01 
- *                         defaults to 'application/x-www-form-urlencoded'. Form 
- *                         with file field needs 'multipart/form-data' encoding type.
- * @param string $sCharset charset that is used for submitted data
- * @param array  $aAttribs (since 1.5.1) extra attributes
+ * @param string  $sAction   form handler URL
+ * @param string  $sMethod   http method used to submit form data. 'get' or 'post'
+ * @param string  $sName     form name used for identification (used for backward 
+ *                           compatibility). Use of id is recommended instead.
+ * @param string  $sEnctype  content type that is used to submit data. html 4.01 
+ *                           defaults to 'application/x-www-form-urlencoded'. Form 
+ *                           with file field needs 'multipart/form-data' encoding type.
+ * @param string  $sCharset  charset that is used for submitted data
+ * @param array   $aAttribs  (since 1.5.1) extra attributes
+ * @param boolean $bAddToken (since 1.5.2) When given as a string or as boolean TRUE,
+ *                           a hidden input is also added to the form containing a
+ *                           security token.  When given as TRUE, the input name is
+ *                           "smtoken"; otherwise the name is the string that is
+ *                           given for this parameter.  When FALSE, no hidden token
+ *                           input field is added.  (OPTIONAL; default not used)
  *
  * @return string html formated form start string
  *
  */
-function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCharset = '', $aAttribs = array()) {
+function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCharset = '', $aAttribs = array(), $bAddToken = FALSE) {
 
     global $oTemplate;
 
@@ -338,7 +344,14 @@ function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCha
     $oTemplate->assign('enctype', $sEnctype);
     $oTemplate->assign('charset', $sCharset);
 
-    return $oTemplate->fetch('form.tpl');
+    $sForm = $oTemplate->fetch('form.tpl');
+
+    if ($bAddToken) {
+        $sForm .= addHidden((is_string($bAddToken) ? $bAddToken : 'smtoken'),
+                            sm_generate_security_token());
+    }
+
+    return $sForm;
 }
 
 /**

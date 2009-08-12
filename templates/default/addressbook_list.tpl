@@ -65,6 +65,7 @@ $source = $addresses[$current_backend];
 $colspan = $abook_has_extra_field ? 6 : 5;
 ?>
 <form action="<?php echo $form_action; ?>" method="post" id="address_book_form" name="address_book_form">
+<input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
 <div id="addressList">
 <table cellspacing="0">
  <tr>

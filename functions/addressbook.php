@@ -192,7 +192,7 @@ function abook_create_form($form_url, $name, $title, $button,
 
     global $oTemplate;
 
-    $output = addForm($form_url, 'post', 'f_add');
+    $output = addForm($form_url, 'post', 'f_add', '', '', array(), TRUE);
 
     if ($button == _("Update address")) {
         $edit = true;
