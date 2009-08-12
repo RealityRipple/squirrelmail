@@ -491,6 +491,8 @@ $icon_theme_def = ''                   if ( !$icon_theme_def );
 $disable_plugins = 'false'             if ( !$disable_plugins );
 $disable_plugins_user = ''             if ( !$disable_plugins_user );
 $only_secure_cookies = 'true'          if ( !$only_secure_cookies );
+$disable_security_tokens = 'false'     if ( !$disable_security_tokens );
+$check_referrer = ''                   if ( !$check_referrer );
 $ask_user_info = 'true'                if ( !$ask_user_info );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
@@ -720,6 +722,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "15. Time zone configuration      : $WHT$time_zone_type$NRM\n";
         print "16. Location base                : $WHT$config_location_base$NRM\n";
         print "17. Only secure cookies if poss. : $WHT$only_secure_cookies$NRM\n";
+        print "18. Disable secure forms         : $WHT$disable_security_tokens$NRM\n";
+        print "19. Page referal requirement     : $WHT$check_referrer$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -994,6 +998,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 15 ) { $time_zone_type           = command318(); }
             elsif ( $command == 16 ) { $config_location_base     = command_config_location_base(); }
             elsif ( $command == 17 ) { $only_secure_cookies = command319(); }
+            elsif ( $command == 18 ) { $disable_security_tokens  = command320(); }
+            elsif ( $command == 19 ) { $check_referrer           = command321(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 )     { $use_icons      = commandB3(); }
 #            elsif ( $command == 3 )  { $icon_theme_def = command53(); }
@@ -2768,6 +2774,63 @@ sub command319 {
     }
     return $only_secure_cookies;
 }
+
+
+# disable_security_tokens (since 1.5.2)
+sub command320 {
+    print "This option allows you to turn off the security checks in the forms\n";
+    print "that SquirrelMail generates.  It is NOT RECOMMENDED that you disable\n";
+    print "this feature - otherwise, your users may be exposed to phishing and\n";
+    print "other attacks.\n";
+    print "Unless you know what you are doing, you should leave this set to \"NO\".\n";
+    print "\n";
+
+    if ( lc($disable_security_tokens) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Disable secure forms? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $disable_security_tokens = <STDIN>;
+    if ( ( $disable_security_tokens =~ /^y\n/i ) || ( ( $disable_security_tokens =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $disable_security_tokens = 'true';
+    } else {
+        $disable_security_tokens = 'false';
+    }
+    return $disable_security_tokens;
+}
+
+
+
+# check_referrer (since 1.1.5.2)
+sub command321 {
+    print "This option allows you to enable referal checks for all page requests\n";
+    print "made to SquirrelMail.  This can help ensure that page requests came\n";
+    print "from the same server and not from an attacker's site (usually the\n";
+    print "result of a XSS or phishing attack).  To enable referal checking,\n";
+    print "this setting can be set to the domain where your SquirrelMail is\n";
+    print "being hosted (usually the same as the Domain setting under Server\n";
+    print "Settings).  For example, it could be \"example.com\", or if you\n";
+    print "use a plugin (such as Login Manager) to host SquirrelMail on more\n";
+    print "than one domain, you can set this to \"###DOMAIN###\" to tell it\n";
+    print "to use the current domain.\n";
+    print "\n";
+    print "However, in some cases (where proxy servers are in use, etc.), the\n";
+    print "domain might be different.\n";
+    print "\n";
+    print "NOTE that referal checks are not foolproof - they can be spoofed by\n";
+    print "browsers, and some browsers intentionally don't send referal\n";
+    print "information (in which case, the check is silently bypassed)\n";
+    print "\n";
+
+    print "Referal requirement? [$WHT$check_referrer$NRM]: $WHT";
+    $new_check_referrer = <STDIN>;
+    chomp($new_check_referrer);
+    $check_referrer = $new_check_referrer;
+
+    return $check_referrer;
+}
+
 
 
 sub command_userThemes {
@@ -5090,7 +5153,11 @@ sub save_data {
         # string
         print CF "\$session_name          = '$session_name';\n";
         # boolean
-        print CF "\$only_secure_cookies   = $only_secure_cookies;\n";
+        print CF "\$only_secure_cookies     = $only_secure_cookies;\n";
+        print CF "\$disable_security_tokens = $disable_security_tokens;\n";
+
+        # string
+        print CF "\$check_referrer          = '$check_referrer';\n";
 
         print CF "\n";
 
