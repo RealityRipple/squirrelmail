@@ -1305,9 +1305,10 @@ function sm_get_user_security_tokens($purge_old=TRUE)
   *
   * WARNING: If the administrator has turned the token system
   *          off by setting $disable_security_tokens to TRUE in
-  *          config/config_local.php, this function will not
-  *          store tokens in the user preferences (but it will
-  *          still generate and return a random string).
+  *          config/config.php or the configuration tool, this
+  *          function will not store tokens in the user
+  *          preferences (but it will still generate and return
+  *          a random string).
   *
   * @return void
   *
@@ -1357,8 +1358,8 @@ function sm_generate_security_token()
   *
   * WARNING: If the administrator has turned the token system
   *          off by setting $disable_security_tokens to TRUE in
-  *          config/config_local.php, this function will always
-  *          return TRUE.
+  *          config/config.php or the configuration tool, this
+  *          function will always return TRUE.
   *
   * @param string  $token           The token to validate
   * @param int     $validity_period The number of seconds tokens are valid
