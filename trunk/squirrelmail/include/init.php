@@ -118,7 +118,7 @@ if(!empty($_SERVER['UNIQUE_ID'])) {
 }
 
 $seed .= uniqid(mt_rand(),TRUE);
-$seed .= implode( '', stat( __FILE__) );
+$seed .= implode('', stat( __FILE__));
 
 // mt_srand() uses an integer to seed, so we need to distill our
 // very large seed to something useful (without taking a sub-string,
@@ -571,16 +571,28 @@ switch (PAGE_NAME) {
 
 
         /**
-         * Check if we are logged in
+         * Check if we are logged in and does optional referrer check
          */
         require(SM_PATH . 'functions/auth.php');
 
-        if ( !sqsession_is_registered('user_is_logged_in') ) {
+        global $check_referrer, $domain;
+        if (!sqgetGlobalVar('HTTP_REFERER', $referrer, SQ_SERVER)) $referrer = '';
+        if ($check_referrer == '###DOMAIN###') $check_referrer = $domain;
+        if (!empty($check_referrer)) {
+            $ssl_check_referrer = 'https://' . $check_referrer;
+            $check_referrer = 'http://' . $check_referrer;
+        }
+        if (!sqsession_is_registered('user_is_logged_in')
+         || ($check_referrer && !empty($referrer)
+          && strpos(strtolower($referrer), strtolower($check_referrer)) !== 0
+          && strpos(strtolower($referrer), strtolower($ssl_check_referrer)) !== 0)) {
 
             // use $message to indicate what logout text the user
             // will see... if 0, typical "You must be logged in"
             // if 1, information that the user session was saved
-            // and will be resumed after (re)login
+            // and will be resumed after (re)login, if 2, there
+            // seems to have been a XSS or phishing attack (bad
+            // referrer)
             //
             $message = 0;
 
@@ -597,6 +609,13 @@ switch (PAGE_NAME) {
                 if ($session_expired_location == 'compose')
                     $message = 1;
             }
+
+            // was bad referrer the reason we were rejected?
+            //
+            if (sqsession_is_registered('user_is_logged_in')
+             && $check_referrer && !empty($referrer))
+                $message = 2;
+
             // signout page will deal with users who aren't logged
             // in on its own; don't show error here
             //
@@ -622,8 +641,10 @@ switch (PAGE_NAME) {
             set_up_language($squirrelmail_language, true);
             if (!$message)
                 logout_error( _("You must be logged in to access this page.") );
-            else
+            else if ($message == 1)
                 logout_error( _("Your session has expired, but will be resumed after logging in again.") );
+            else if ($message == 2)
+                logout_error( _("The current page request appears to have originated from an unrecognized source.") );
             exit;
         }
 

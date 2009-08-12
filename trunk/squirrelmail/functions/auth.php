@@ -24,13 +24,44 @@
  * and PAGE_NAME in session and returns false. POST information is saved in
  * 'session_expired_post' variable, PAGE_NAME is saved in 'session_expired_location'.
  *
+ * This function optionally checks the referrer of this page request.  If the
+ * administrator wants to impose a check that the referrer of this page request
+ * is another page on the same domain (otherwise, the page request is likely
+ * the result of a XSS or phishing attack), then they need to specify the
+ * acceptable referrer domain in a variable named $check_referrer in
+ * config/config.php (or the configuration tool) for which the value is
+ * usually the same as the $domain setting (for example:
+ *    $check_referrer = 'example.com';
+ * However, in some cases (where proxy servers are in use, etc.), the
+ * acceptable referrer might be different.  If $check_referrer is set to
+ * "###DOMAIN###", then the current value of $domain is used (useful in
+ * situations where $domain might change at runtime (when using the Login
+ * Manager plugin to host multiple domains with one SquirrelMail installation,
+ * for example)):
+ *    $check_referrer = '###DOMAIN###';
+ * NOTE HOWEVER, that referrer checks are not foolproof - they can be spoofed
+ * by browsers, and some browsers intentionally don't send them, in which
+ * case SquirrelMail silently ignores referrer checks.  
+ *
  * Script that uses this function instead of is_logged_in() function, must handle user
  * level messages.
  * @return boolean
  * @since 1.5.1
  */
 function sqauth_is_logged_in() {
-    if ( sqsession_is_registered('user_is_logged_in') ) {
+
+    global $check_referrer, $domain;
+    if (!sqgetGlobalVar('HTTP_REFERER', $referrer, SQ_SERVER)) $referrer = '';
+    if ($check_referrer == '###DOMAIN###') $check_referrer = $domain;
+    if (!empty($check_referrer)) {
+        $ssl_check_referrer = 'https://' . $check_referrer;
+        $check_referrer = 'http://' . $check_referrer;
+    }
+    if (sqsession_is_registered('user_is_logged_in')
+     && (!$check_referrer || empty($referrer)
+      || ($check_referrer && !empty($referrer)
+       && (strpos(strtolower($referrer), strtolower($check_referrer)) === 0
+        || strpos(strtolower($referrer), strtolower($ssl_check_referrer)) === 0)))) {
         return true;
     }
 
