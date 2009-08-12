@@ -67,6 +67,7 @@ extract($t);
  </tr>
 </table>
 <form action="../src/addressbook.php" method="post" name="f_add">
+<input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
 <input type="hidden" name="addaddr[firstname]" value="<?php echo $firstname; ?>" />
 <input type="hidden" name="addaddr[lastname]" value="<?php echo $lastname; ?>" />
 <table cellspacing="0" class="table1">

@@ -103,8 +103,9 @@ function process_optionmode_link($optpage) {
 
 /* get the globals that we may need */
 sqgetGlobalVar('optpage',     $optpage);
-sqgetGlobalVar('optmode',     $optmode,      SQ_FORM);
-sqgetGlobalVar('optpage_data',$optpage_data, SQ_POST);
+sqgetGlobalVar('optmode',     $optmode,         SQ_FORM);
+sqgetGlobalVar('optpage_data',$optpage_data,    SQ_POST);
+sqgetGlobalVar('smtoken',     $submitted_token, SQ_POST, '');
 /* end of getting globals */
 
 /* Make sure we have an Option Page set. Default to main. */
@@ -198,6 +199,12 @@ if ( !@is_file( $optpage_file ) ) {
 /***********************************************************/
 /*** Next, process anything that needs to be processed. ***/
 /***********************************************************/
+
+// security check before saving anything...
+//FIXME: what about SMOPT_MODE_LINK??
+if ($optmode == SMOPT_MODE_SUBMIT) {
+   sm_validate_security_token($submitted_token, 3600, TRUE);
+}
 
 $optpage_save_error=array();
 
@@ -464,7 +471,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     }
 
     // Begin output form
-    echo addForm('options.php', 'post', 'option_form')
+    echo addForm('options.php', 'post', 'option_form', '', '', array(), TRUE)
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT);
 

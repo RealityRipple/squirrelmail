@@ -31,6 +31,7 @@ require_once(SM_PATH . 'functions/forms.php');
 /** lets get the global vars we may need */
 
 /* From the address form */
+sqgetGlobalVar('smtoken',       $submitted_token, SQ_POST, '');
 sqgetGlobalVar('addaddr',       $addaddr,       SQ_POST);
 sqgetGlobalVar('editaddr',      $editaddr,      SQ_POST);
 sqgetGlobalVar('deladdr',       $deladdr,       SQ_POST);
@@ -96,6 +97,9 @@ $form_url = 'addressbook.php';
 
 /* Handle user's actions */
 if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST') {
+
+    // first, validate security token
+    sm_validate_security_token($submitted_token, 3600, TRUE);
 
     /**************************************************
      * Add new address                                *

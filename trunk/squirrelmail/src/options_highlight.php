@@ -32,6 +32,7 @@ sqGetGlobalVar('newcolor_input', $newcolor_input);
 sqGetGlobalVar('color_type', $color_type);
 sqGetGlobalVar('match_type', $match_type);
 sqGetGlobalVar('value', $value);
+sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
 
 /* end of get globals */
 
@@ -52,6 +53,10 @@ if (! isset($message_highlight_list)) {
 if (isset($theid) && ($action == 'delete') ||
                      ($action == 'up')     ||
                      ($action == 'down')) {
+
+    // security check
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     $new_rules = array();
     switch($action) {
         case('delete'):
@@ -85,6 +90,9 @@ if (isset($theid) && ($action == 'delete') ||
     header( 'Location: ' .get_location(). '/options_highlight.php' );
     exit;
 } else if ($action == 'save') {
+
+    // security check
+    sm_validate_security_token($submitted_token, 3600, TRUE);
 
     if ($color_type == 1) $newcolor = $newcolor_choose;
     elseif ($color_type == 2) $newcolor = $newcolor_input;
@@ -336,7 +344,7 @@ if ($action == 'edit' || $action == 'add') {
     $oTemplate->assign('color_radio', ($selected_choose ? 1 : ($selected_input ? 2 : 0)));
     $oTemplate->assign('color_input', ($selected_input ? $color : ''));
     
-    echo addForm('options_highlight.php', 'post', 'f').
+    echo addForm('options_highlight.php', 'post', 'f', '', '', array(), TRUE).
          addHidden('action', 'save');
     if($action == 'edit') {
         echo addHidden('theid', (isset($theid)?$theid:''));

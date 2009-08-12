@@ -78,7 +78,8 @@ function addr_display_result($res, $includesource = true) {
     global $PHP_SELF, $oTemplate, $oErrorHandler;
     
 
-    echo addForm($PHP_SELF, 'post', 'addressbook').
+//FIXME: no HTML output from core
+    echo addForm($PHP_SELF, 'post', 'addressbook', '', '', array(), TRUE).
          addHidden('html_addr_search_done', 'true');
     addr_insert_hidden();
     
@@ -172,7 +173,7 @@ if ($addrquery == '' || ! empty($listall)) {
 if ($addrquery == '' || sizeof($res) == 0) {
 //FIXME don't echo HTML from core -- especially convoluted given that there is template code immediately above AND below this block
     echo '<div style="text-align: center;">'.
-        addForm('compose.php','post','k');
+        addForm('compose.php','post','k', '', '', array(), TRUE);
     addr_insert_hidden();
     echo '<input type="submit" value="' . _("Return") . '" name="return" />' . "\n" .
          '</form></div></nobr>';

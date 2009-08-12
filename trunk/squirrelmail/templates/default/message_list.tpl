@@ -118,6 +118,7 @@ if ($pageOffset < $end_msg) {
 ?>
 <div id="message_list">
 <form id="<?php echo $form_name;?>" name="<?php echo $form_name;?>" method="post" action="<?php echo $php_self;?>">
+<input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
 <table class="table_empty" cellspacing="0">
   <tr>
    <td>

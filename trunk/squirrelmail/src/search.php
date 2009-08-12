@@ -806,7 +806,8 @@ function asearch_print_form($imapConnection, &$boxes, $mailbox_array, $biop_arra
 
     $oTemplate->assign('criteria', $c);
     
-    echo '<form action="../src/search.php" name="form_asearch">' . "\n";
+    echo '<form action="../src/search.php" name="form_asearch">' . "\n"
+       . addHidden('smtoken', sm_generate_security_token()) . "\n";
     $oTemplate->display('search_advanced.tpl');
     echo "</form>\n";
 }
@@ -866,7 +867,8 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
     $oTemplate->assign('where_sel', $where);
     $oTemplate->assign('what_val', $what);
         
-    echo '<form action="../src/search.php" name="form_asearch">' . "\n";
+    echo '<form action="../src/search.php" name="form_asearch">' . "\n"
+       . addHidden('smtoken', sm_generate_security_token()) . "\n";
     $oTemplate->display('search.tpl');
     echo "</form>\n";
 }
@@ -891,6 +893,7 @@ function sqimap_asearch_get_selectable_unformatted_mailboxes(&$boxes)
 
 /* ------------------------ main ------------------------ */
 /* get globals we will need */
+sqgetGlobalVar('smtoken', $submitted_token, SQ_GET, '');
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 if (!sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
@@ -1179,6 +1182,10 @@ if ((empty($submit)) && (!empty($where_array))) {
 if (!isset($submit)) {
     $submit = '';
 } else {
+
+    // first validate security token
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     switch ($submit) {
       case $search_button_text:
         if (asearch_check_query($where_array, $what_array, $exclude_array) == '') {

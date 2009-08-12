@@ -31,6 +31,7 @@ extract($t);
 ?>
 <div class="dialogbox">
 <form action="folders.php" method="post">
+<input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
 <table cellspacing="0" class="wrapper">
 <?php
 if ( $dialog_type == 'rename' ) {

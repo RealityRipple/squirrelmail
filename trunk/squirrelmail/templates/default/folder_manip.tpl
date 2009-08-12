@@ -52,6 +52,7 @@ extract($t);
     <tr>
      <td>
       <form method="post" action="folders.php" name="cf" id="cf">
+      <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
       <input type="hidden" name="smaction" value="create" />
       <input type="text" name="folder_name" size="25" value="" />
       <br />
@@ -157,6 +158,7 @@ extract($t);
         if (!empty($rendel_folder_list)) {
             ?>
       <form method="post" action="folders.php" name="uf" id="uf">
+      <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
       <input type="hidden" name="smaction" value="unsubscribe" />
       <select name="folder_names[]" multiple="multiple" size="8">
        <?php echo $rendel_folder_list ?>
@@ -175,6 +177,7 @@ extract($t);
         if ($no_list_for_subscribe) {
             ?>
       <form method="post" action="folders.php" name="sf" id="sf">
+      <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
       <input type="hidden" name="smaction" value="subscribe" />
       <input type="text" name="folder_names[]" size="25" />
       <input type="submit" value="<?php echo _("Subscribe") ?>" />
@@ -183,6 +186,7 @@ extract($t);
         } elseif (!empty($subbox_option_list)) {
             ?>
       <form method="post" action="folders.php" name="sf" id="sf">
+      <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token(); ?>" />
       <input type="hidden" name="smaction" value="subscribe" />
       <div>
             <?php
