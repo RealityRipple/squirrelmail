@@ -554,7 +554,8 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                        '&amp;startMessage='.$startMessage.'&amp;show_more=0'.
                        "&amp;where=$where&amp;what=$what" .
-                       '&amp;delete_id='.$passed_id;
+                       '&amp;delete_id='.$passed_id .
+                       '&amp;smtoken='.sm_generate_security_token();
             }
 
             if ($next >= 0) {
@@ -562,7 +563,8 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                        '&amp;startMessage='.$startMessage.'&amp;show_more=0'.
                        "&amp;where=$where&amp;what=$what" .
-                       '&amp;delete_id='.$passed_id;
+                       '&amp;delete_id='.$passed_id .
+                       '&amp;smtoken='.sm_generate_security_token();
             }
         }
     }
