@@ -674,13 +674,13 @@ function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$actio
     $oTemplate->assign('expand_collapse_toggle', '../src/search.php?'.$show_pref.'='.($show_flag==1 ? 0 : 1));
     $oTemplate->assign('query_list', $a);
     
-    $oTemplate->assign('save_recent', '../src/search.php?submit=save_recent&rownum=');
-    $oTemplate->assign('do_recent', '../src/search.php?submit=search_recent&rownum=');
-    $oTemplate->assign('forget_recent', '../src/search.php?submit=forget_recent&rownum=');
+    $oTemplate->assign('save_recent', '../src/search.php?submit=save_recent&smtoken=' . sm_generate_security_token() . '&rownum=');
+    $oTemplate->assign('do_recent', '../src/search.php?submit=search_recent&smtoken=' . sm_generate_security_token() . '&rownum=');
+    $oTemplate->assign('forget_recent', '../src/search.php?submit=forget_recent&smtoken=' . sm_generate_security_token() . '&rownum=');
     
-    $oTemplate->assign('edit_saved', '../src/search.php?submit=edit_saved&rownum=');
-    $oTemplate->assign('do_saved', '../src/search.php?submit=search_saved&rownum=');
-    $oTemplate->assign('delete_saved', '../src/search.php?submit=delete_saved&rownum=');
+    $oTemplate->assign('edit_saved', '../src/search.php?submit=edit_saved&smtoken=' . sm_generate_security_token() . '&rownum=');
+    $oTemplate->assign('do_saved', '../src/search.php?submit=search_saved&smtoken=' . sm_generate_security_token() . '&rownum=');
+    $oTemplate->assign('delete_saved', '../src/search.php?submit=delete_saved&smtoken=' . sm_generate_security_token() . '&rownum=');
     
     $oTemplate->display('search_list.tpl');
 }
