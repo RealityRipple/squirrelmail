@@ -53,7 +53,7 @@ function addr_insert_hidden() {
    }
 
    if (is_object($composeMessage) && $composeMessage->entities)
-       echo addHidden('attachments', serialize($composeMessage->entities));
+       echo addHidden('attachments', urlencode(serialize($composeMessage->entities)));
 
    echo addHidden('session', $session).
         addHidden('subject', $subject).
