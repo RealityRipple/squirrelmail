@@ -66,7 +66,7 @@ extract($t);
    &nbsp;&nbsp;
    <input type="submit" name="listall" value=<?php echo '"'._("List all").'"'; ?> />
    <?php
-    if ($use_js) {
+    if ($javascript_on && $compose_addr_pop) {
         ?>
    &nbsp;&nbsp;
    <input type="submit" onclick="parent.close()" value=<?php echo '"'._("Close").'"'; ?> />
