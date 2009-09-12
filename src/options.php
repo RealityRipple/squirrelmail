@@ -105,7 +105,7 @@ function process_optionmode_link($optpage) {
 sqgetGlobalVar('optpage',     $optpage);
 sqgetGlobalVar('optmode',     $optmode,         SQ_FORM);
 sqgetGlobalVar('optpage_data',$optpage_data,    SQ_POST);
-sqgetGlobalVar('smtoken',     $submitted_token, SQ_POST, '');
+sqgetGlobalVar('smtoken',     $submitted_token, SQ_FORM, '');
 /* end of getting globals */
 
 /* Make sure we have an Option Page set. Default to main. */
