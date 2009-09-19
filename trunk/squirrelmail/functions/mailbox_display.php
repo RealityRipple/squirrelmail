@@ -975,7 +975,7 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
         $source_url = $php_self;
     }
 
-    $baseurl = $source_url.'?mailbox=' . urlencode($aMailbox['NAME']) .'&amp;account='.$aMailbox['ACCOUNT'];
+    $baseurl = $source_url.'?mailbox=' . urlencode($aMailbox['NAME']) .'&amp;account='.$aMailbox['ACCOUNT'] . (strpos($source_url, 'src/search.php') ? '&amp;smtoken=' . sm_generate_security_token() : '');
     $where = urlencode($aMailbox['SEARCH'][$iSetIndx][0]);
     $what = urlencode($aMailbox['SEARCH'][$iSetIndx][1]);
     $baseurl .= '&amp;where=' . $where .  '&amp;what=' .  $what;
