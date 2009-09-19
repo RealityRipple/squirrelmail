@@ -28,7 +28,8 @@ include_once(SM_PATH . 'functions/forms.php');
   */
 function get_paginator_link($box, $start_msg, $text, $accesskey='NONE') {
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
-    return create_hyperlink("$php_self?startMessage=$start_msg&amp;mailbox=$box",
+    return create_hyperlink("$php_self?startMessage=$start_msg&amp;mailbox=$box"
+                            . (strpos($php_self, 'src/search.php') ? '&amp;smtoken=' . sm_generate_security_token() : ''),
                             $text, '', '', '', '', '',
                             ($accesskey == 'NONE'
                             ? array()
@@ -122,8 +123,7 @@ function get_compact_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll, 
         }
     } else {
         global $accesskey_mailbox_all_paginate;
-        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
-$accesskey_mailbox_all_paginate)));
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box" . (strpos($php_self, 'src/search.php') ? '&amp;smtoken=' . sm_generate_security_token() : ''), _("Paginate"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' => $accesskey_mailbox_all_paginate)));
     }
 
     /* Put all the pieces of the paginator string together. */
@@ -136,12 +136,12 @@ $accesskey_mailbox_all_paginate)));
 
         /* Compute the 'show all' string. */
         global $accesskey_mailbox_all_paginate;
-        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' => $accesskey_mailbox_all_paginate)));
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box" . (strpos($php_self, 'src/search.php') ? '&amp;smtoken=' . sm_generate_security_token() : ''), _("Show All"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' => $accesskey_mailbox_all_paginate)));
 
         $result .= '[' . get_paginator_link($box, 1, '<<') . ']';
         $result .= '[' . $prv_str . ']';
 
-        $pg_url = $php_self . '?mailbox=' . $box;
+        $pg_url = $php_self . '?mailbox=' . $box . (strpos($php_self, 'src/search.php') ? '&smtoken=' . sm_generate_security_token() : '');
 
         $result .= '[' . $nxt_str . ']';
         $result .= '[' . get_paginator_link($box, $last_grp, '>>') . ']';
@@ -372,7 +372,7 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll,$page_sel
         }
     } else {
         global $accesskey_mailbox_all_paginate;
-        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box", _("Paginate"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
+        $pg_str = create_hyperlink("$php_self?showall=0&amp;startMessage=1&amp;mailbox=$box" . (strpos($php_self, 'src/search.php') ? '&amp;smtoken=' . sm_generate_security_token() : ''), _("Paginate"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
 $accesskey_mailbox_all_paginate)));
     }
 
@@ -386,7 +386,7 @@ $accesskey_mailbox_all_paginate)));
 
         /* Compute the 'show all' string. */
         global $accesskey_mailbox_all_paginate;
-        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box", _("Show All"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
+        $all_str = create_hyperlink("$php_self?showall=1&amp;startMessage=1&amp;mailbox=$box" . (strpos($php_self, 'src/search.php') ? '&amp;smtoken=' . sm_generate_security_token() : ''), _("Show All"), '', '', '', '', '', ($accesskeys_constructed ? array() : array('accesskey' =>
 $accesskey_mailbox_all_paginate)));
 
         $result .= '[';
