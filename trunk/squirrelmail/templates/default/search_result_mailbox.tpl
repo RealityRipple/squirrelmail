@@ -9,7 +9,7 @@
  * The following variables are available in this template:
  *      $mailbox_name - Sanitized name of the mailbox.
  *
- * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @copyright 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

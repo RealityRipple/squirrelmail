@@ -6,7 +6,7 @@
  * Date:    July 13, 2000
  *
  * @author Casey A. Peel
- * @copyright &copy; 2000-2009 The SquirrelMail Project Team
+ * @copyright 2000-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

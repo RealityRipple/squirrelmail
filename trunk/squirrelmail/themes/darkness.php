@@ -5,7 +5,7 @@
  * Like black?
  *
  * @author Tyler Akins
- * @copyright &copy; 2001-2009 The SquirrelMail Project Team
+ * @copyright 2001-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

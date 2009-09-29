@@ -8,8 +8,8 @@
  * Modified by SquirrelMail developers to match documentation guidelines.
  *
  * @author Saku Lehtiö
- * @copyright &copy; 2005 Saku Lehtiö
- * @copyright &copy; 2005-2009 The SquirrelMail Project Team
+ * @copyright 2005 Saku Lehtiö
+ * @copyright 2005-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

@@ -6,7 +6,7 @@
  * Comment: This is a theme using Tan as its main color.
  *
  * @author Luke Ehresman
- * @copyright &copy; 2000-2009 The SquirrelMail Project Team
+ * @copyright 2000-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
