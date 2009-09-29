@@ -14,6 +14,10 @@
  */
 
 /**
+ * These constants are used in the function sqgetGlobalVar(). See
+ * sqgetGlobalVar() for a description of what they mean.
+ *
+ * @since 1.4.0
  */
 define('SQ_INORDER',0);
 define('SQ_GET',1);
@@ -263,19 +267,24 @@ function sqGetGlobalVarMultiple($name, &$value, $indicator_field,
 
 
 /**
- * Search for the var $name in $_SESSION, $_POST, $_GET, $_COOKIE, or $_SERVER
- * and set it in provided var.
+ * Search for the variable $name in one or more of the global variables
+ * $_SESSION, $_POST, $_GET, $_COOKIE, and $_SERVER, and set the value of it in
+ * the variable $vaule.
  *
- * If $search is not provided, or if it is SQ_INORDER, it will search $_SESSION,
- * then $_POST, then $_GET. If $search is SQ_FORM it will search $_POST and
- * $_GET.  Otherwise, use one of the defined constants to look for a var in one
- * place specifically.
+ * $search must be one of the defined constants below. The default is
+ * SQ_INORDER. Both SQ_INORDER and SQ_FORM stops on the first match.
  *
- * Note: $search is an int value equal to one of the constants defined above.
+ * SQ_INORDER searches $_SESSION, then $_POST, and then $_GET.
+ * SQ_FORM searches $_POST and then $_GET.
+ * SQ_COOKIE searches $_COOKIE only.
+ * SQ_GET searches $_GET only.
+ * SQ_POST searches $_POST only.
+ * SQ_SERVER searches $_SERVER only.
+ * SQ_SESSION searches $_SESSION only.
  *
  * Example:
- * sqgetGlobalVar('username',$username,SQ_SESSION);
- * // No quotes around last param, it's a constant - not a string!
+ * sqgetGlobalVar('username', $username, SQ_SESSION);
+ * // No quotes around the last parameter, it's a constant - not a string!
  *
  * @param string name the name of the var to search
  * @param mixed value the variable to return
@@ -287,69 +296,108 @@ function sqGetGlobalVarMultiple($name, &$value, $indicator_field,
  *
  * @return bool whether variable is found.
  */
-function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $typecast = false) {
+function sqgetGlobalVar($name, &$value, $search = SQ_INORDER, $default = NULL, $typecast = FALSE) {
+    // The return value defaults to FALSE, i.e. the variable wasn't found.
+    $result = FALSE;
 
-    $result = false;
-
+    // Search the global variables to find a match.
     switch ($search) {
-        /* we want the default case to be first here,
-           so that if a valid value isn't specified,
-           all three arrays will be searched. */
-      default:
-      case SQ_INORDER: // check session, post, get
-      case SQ_SESSION:
-        if( isset($_SESSION[$name]) ) {
-            $value = $_SESSION[$name];
-            $result = TRUE;
+        default:
+            // The default needs to be first here so SQ_INORDER will be used if
+            // $search isn't a valid constant.
+        case SQ_INORDER:
+            // Search $_SESSION, then $_POST, and then $_GET. Stop on the first
+            // match.
+        case SQ_SESSION:
+            if (isset($_SESSION[$name])) {
+                // If a match is found, set the specified variable to the found
+                // value, indicate a match, and stop the search.
+                $value = $_SESSION[$name];
+                $result = TRUE;
+                break;
+            } elseif ($search == SQ_SESSION) {
+                // Only stop the search if SQ_SESSION is set. SQ_INORDER will
+                // continue with the next clause.
+                break;
+            }
+        case SQ_FORM:
+            // Search $_POST and then $_GET. Stop on the first match.
+        case SQ_POST:
+            if (isset($_POST[$name])) {
+                // If a match is found, set the specified variable to the found
+                // value, indicate a match, and stop the search.
+                $value = $_POST[$name];
+                $result = TRUE;
+                break;
+            } elseif ($search == SQ_POST) {
+                // Only stop the search if SQ_POST is set. SQ_INORDER and
+                // SQ_FORM will continue with the next clause.
+                break;
+            }
+        case SQ_GET:
+            if (isset($_GET[$name])) {
+                // If a match is found, set the specified variable to the found
+                // value, indicate a match, and stop the search.
+                $value = $_GET[$name];
+                $result = TRUE;
+                break;
+            }
+            // Stop the search regardless of if SQ_INORDER, SQ_FORM, or SQ_GET
+            // is set. All three of them ends here.
             break;
-        } elseif ( $search == SQ_SESSION ) {
+        case SQ_COOKIE:
+            if (isset($_COOKIE[$name])) {
+                // If a match is found, set the specified variable to the found
+                // value, indicate a match, and stop the search.
+                $value = $_COOKIE[$name];
+                $result = TRUE;
+                break;
+            }
+            // Stop the search.
             break;
-        }
-      case SQ_FORM:   // check post, get
-      case SQ_POST:
-        if( isset($_POST[$name]) ) {
-            $value = $_POST[$name];
-            $result = TRUE;
+        case SQ_SERVER:
+            if (isset($_SERVER[$name])) {
+                // If a match is found, set the specified variable to the found
+                // value, indicate a match, and stop the search.
+                $value = $_SERVER[$name];
+                $result = TRUE;
+                break;
+            }
+            // Stop the search.
             break;
-        } elseif ( $search == SQ_POST ) {
-          break;
-        }
-      case SQ_GET:
-        if ( isset($_GET[$name]) ) {
-            $value = $_GET[$name];
-            $result = TRUE;
-            break;
-        }
-        /* NO IF HERE. FOR SQ_INORDER CASE, EXIT after GET */
-        break;
-      case SQ_COOKIE:
-        if ( isset($_COOKIE[$name]) ) {
-            $value = $_COOKIE[$name];
-            $result = TRUE;
-            break;
-        }
-        break;
-      case SQ_SERVER:
-        if ( isset($_SERVER[$name]) ) {
-            $value = $_SERVER[$name];
-            $result = TRUE;
-            break;
-        }
-        break;
     }
+
     if ($result && $typecast) {
+        // Only typecast if it's requested and a match is found. The default is
+        // not to typecast, which will happen if a valid constant isn't
+        // specified.
         switch ($typecast) {
-            case SQ_TYPE_INT: $value = (int) $value; break;
-            case SQ_TYPE_STRING: $value = (string) $value; break;
-            case SQ_TYPE_BOOL: $value = (bool) $value; break;
+            case SQ_TYPE_INT:
+                // Typecast the value and stop.
+                $value = (int) $value;
+                break;
+            case SQ_TYPE_STRING:
+                // Typecast the value and stop.
+                $value = (string) $value;
+                break;
+            case SQ_TYPE_BOOL:
+                // Typecast the value and stop.
+                $value = (bool) $value;
+                break;
             case SQ_TYPE_BIGINT:
+                // Typecast the value and stop.
                 $value = (preg_match('/^[0-9]+$/', $value) ? $value : '0');
                 break;
-            default: break;
+            default:
+                // The default is to do nothing.
+                break;
         }
     } else if (!$result && !is_null($default)) {
+        // If no match is found and a default value is specified, set it.
         $value = $default;
     }
+
+    // Return if a match was found or not.
     return $result;
 }
 
