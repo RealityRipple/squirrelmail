@@ -1604,7 +1604,7 @@ if ($submit == $search_button_text) {
                  */
                 if ($aMailbox['EXISTS'] > 0) {
                     if ($iError) {
-                       // TODO
+                       // TODO: Implement an error handler in the search page.
                        echo "ERROR occured, errorhandler will be implemented very soon";
                     } else {
                         foreach ($aTemplate as $k => $v) {
