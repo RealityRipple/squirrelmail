@@ -8,7 +8,7 @@
   * The following variables are available in this template:
   * array  $attributes  The table attributes
   *
-  * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+  * @copyright 1999-2009 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id: table_data.tpl 12078 2007-01-07 07:28:11Z pdontthink $
   * @package squirrelmail

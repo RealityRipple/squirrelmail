@@ -6,7 +6,7 @@
  * Squirrelspell setup file, as defined by the SquirrelMail-1.2 API.
  *
  * @author Konstantin Riabitsev <icon at duke.edu>
- * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @copyright 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

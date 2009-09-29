@@ -5,7 +5,7 @@
  *
  * This is a standard SquirrelMail 1.2 API for plugins.
  *
- * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @copyright 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

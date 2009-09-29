@@ -6,7 +6,7 @@
  * This file is intended to contain helper functions for template sets
  * that would like to use them.
  *
- * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @copyright 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

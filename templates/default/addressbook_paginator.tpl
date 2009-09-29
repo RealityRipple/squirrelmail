@@ -24,7 +24,7 @@
   *                                  changing one of them); structured as an
   *                                  associative array of key/value pairs
   *
-  * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+  * @copyright 1999-2009 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id: addressbook_list.tpl 13146 2008-05-15 19:00:03Z pdontthink $
   * @package squirrelmail

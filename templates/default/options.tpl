@@ -11,7 +11,7 @@
  *                       ['name']     - The name of the option group
  *                       ['options']  - array of squirrelOption objects
  *
- * @copyright &copy; 1999-2009 The SquirrelMail Project Team
+ * @copyright 1999-2009 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
