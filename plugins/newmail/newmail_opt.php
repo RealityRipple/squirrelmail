@@ -18,7 +18,7 @@
  */
 require('../../include/init.php');
 
-/** 
+/**
  * Make sure plugin is activated!
  */
 global $plugins;
@@ -65,6 +65,7 @@ echo '</td></tr>' .
             html_tag( 'td', '', 'center', $color[4] ) . "\n" . '<hr style="width: 25%; height: 1px;" />' . "\n";
 
 echo '<form action="'.sqm_baseuri().'src/options.php" method="post" enctype="multipart/form-data">' . "\n" .
+        '<input type="hidden" name="smtoken" value="' . sm_generate_security_token() . '">' . "\n" .
         html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n";
 
 /* newmail_unseen_notify */
@@ -206,7 +207,7 @@ if ($newmail_allowsound) {
             . html_tag('td',_("Uploaded Media File:"),'right','','style="white-space: nowrap;"')
             . html_tag('td',($newmail_userfile_name!='' ? htmlspecialchars($newmail_userfile_name) : _("unavailable")))
             ."</tr>\n";
-    
+
         if ($newmail_userfile_name!='') {
             echo '<tr>'
                 .'<td colspan="2" align="center">'
