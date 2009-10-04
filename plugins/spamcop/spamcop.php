@@ -136,6 +136,7 @@ echo "</p>";
       $report_email = 'quick.' . $spamcop_id . '@spam.spamcop.net';
    $form_action = sqm_baseuri() . 'src/compose.php';
 ?>  <form method="post" action="<?php echo $form_action?>">
+  <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token() ?>" />
   <input type="hidden" name="mailbox" value="<?php echo htmlspecialchars($mailbox) ?>" />
   <input type="hidden" name="spamcop_is_composing" value="<?php echo htmlspecialchars($passed_id) ?>" />
   <input type="hidden" name="send_to" value="<?php echo htmlspecialchars($report_email)?>" />
@@ -143,7 +144,7 @@ echo "</p>";
   <input type="hidden" name="identity" value="0" />
   <input type="hidden" name="session" value="<?php echo $session?>" />
 <?php
-  echo '<input type="submit" name="send" value="' . _("Send Spam Report") . "\" />\n";
+  echo '<input type="submit" name="send1" value="' . _("Send Spam Report") . "\" />\n";
 } else {
    $spam_message = mime_fetch_body ($imap_stream, $passed_id, $passed_ent_id, 50000);
 
