@@ -23,6 +23,7 @@ $msg = '<p>'
   . '</p>'
   . '<form method="post">'
   . '<input type="hidden" name="MOD" value="lang_change" />'
+  . '<input type="hidden" name="smtoken" value="' . sm_generate_security_token() . '" />'
   . '<blockquote><p>';
 /**
  * Present a nice listing.
