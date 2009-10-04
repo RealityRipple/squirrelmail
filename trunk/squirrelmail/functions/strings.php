@@ -1310,7 +1310,7 @@ function sm_get_user_security_tokens($purge_old=TRUE)
   *          preferences (but it will still generate and return
   *          a random string).
   *
-  * @return void
+  * @return string A security token
   *
   * @since 1.4.19 and 1.5.2
   *
