@@ -62,16 +62,7 @@
 /** extract template variables **/
 extract($t);
 
-/*FIXME: This is a place where Marc's idea for putting all the buttons and 
-         links and other widgets into an array is sorely needed instead of
-         hard-coding everything.  Whomever implements that, PLEASE, PLEASE
-         look at how the preview pane plugin code is used in this same template
-         file for the *default_advanced* set to change some links and buttons 
-         and make sure your implementation can support it (tip: it may or may 
-         not be OK to let a plugin do the modification of the widgets, since 
-         a template set can turn on the needed plugin, but that might not be 
-         the most clear way to solve said issue).*/
-
+/*FIXME: This is a place where Marc's idea for putting all the buttons and links and other widgets into an array is sorely needed instead of hard-coding everything.  Whomever implements that, PLEASE, PLEASE look at how the preview pane plugin code is used in this same template file for the *default_advanced* set to change some links and buttons and make sure your implementation can support it (tip: it may or may not be OK to let a plugin do the modification of the widgets, since a template set can turn on the needed plugin, but that might not be the most clear way to solve said issue).*/
 
 /** Begin template **/
 if ($nav_on_top) {
