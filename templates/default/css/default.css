@@ -325,6 +325,7 @@ td.error_header {
 
 .table_messageList	{
     background: #ffffcc /* __COLOR5__*/;
+    width:100%;
 }
 
 .table_messageList	tr.headerRow	{
