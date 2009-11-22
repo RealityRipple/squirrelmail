@@ -324,6 +324,7 @@ Version 1.5.2 - SVN
   - Remove personal data from Message ID seed. (#880029/847107)
   - Implemented page referal verification mechanism. (Secunia Advisory SA34627)
   - Implemented security token system. (Secunia Advisory SA34627)
+  - Fix issue with multi-part related messages not showing all attachments (#2830140).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
