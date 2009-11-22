@@ -1123,8 +1123,7 @@ class Message {
                 }
 
                 if (!$exclude) {
-                    if (($entity->type0 == 'multipart') &&
-                        ($entity->type1 != 'related')) {
+                    if ($entity->type0 == 'multipart') {
                         $result = $entity->getAttachments($exclude_id, $result);
                     } else if ($entity->type0 != 'multipart') {
                         $result[] = $entity;
