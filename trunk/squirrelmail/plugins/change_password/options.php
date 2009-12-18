@@ -53,6 +53,11 @@ if (file_exists(SM_PATH . 'plugins/change_password/backend/'.$cpw_backend.'.php'
 
 /* the form was submitted, go for it */
 if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
+
+    // security check
+    sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
+    sm_validate_security_token($submitted_token, 3600, TRUE);
+
     /* perform basic checks */
     $Messages = cpw_check_input();
 
@@ -83,6 +88,7 @@ if (isset($Messages) && count($Messages) > 0) {
 
 ?><tr><td>
     <?php echo addForm($_SERVER['PHP_SELF'], 'post'); ?>
+    <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token() ?>" />
     <table>
       <tr>
         <th align="right"><?php echo _("Current Password:")?></th>
