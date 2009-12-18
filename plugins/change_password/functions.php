@@ -105,7 +105,7 @@ function cpw_do_change()
 
     /* make sure we write the session data before we redirect */
     session_write_close();
-    header('Location: '.SM_PATH. 'src/options.php?optmode=submit&optpage=change_password&plugin_change_password=1');
+    header('Location: '.SM_PATH. 'src/options.php?optmode=submit&optpage=change_password&plugin_change_password=1&smtoken=' . sm_generate_security_token());
     exit;
 }
 
