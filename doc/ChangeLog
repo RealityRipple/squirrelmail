@@ -325,6 +325,7 @@ Version 1.5.2 - SVN
   - Implemented page referal verification mechanism. (Secunia Advisory SA34627)
   - Implemented security token system. (Secunia Advisory SA34627)
   - Fix issue with multi-part related messages not showing all attachments (#2830140).
+  - Fix for security token missing in newmail plugin (#2919418).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
