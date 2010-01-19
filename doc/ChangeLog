@@ -326,6 +326,8 @@ Version 1.5.2 - SVN
   - Implemented security token system. (Secunia Advisory SA34627)
   - Fix issue with multi-part related messages not showing all attachments (#2830140).
   - Fix for security token missing in newmail plugin (#2919418).
+  - Fix for mailto: urls containing + characters, thanks to Michael Puls II for the 
+    patch.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
