@@ -678,21 +678,38 @@ if (!function_exists('session_regenerate_id')) {
  * @since 1.2.3
  */
 function php_self () {
-    // PHP 4.4.4 apparently gives the wrong value here - missing the query string
-    // this code is commented out in the 1.4.x code, so we'll do the same here
-    //if ( sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER) && !empty($req_uri) ) {
-    //  return $req_uri;
-    //}
 
-    if ( sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER) && !empty($php_self) ) {
+    if (sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER)
+     && !empty($php_self)) {
 
-      // need to add query string to end of PHP_SELF to match REQUEST_URI
-      //
-      if ( sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER) && !empty($query_string) ) {
-         $php_self .= '?' . $query_string;
-      }
+        // need to add query string to end of PHP_SELF to match REQUEST_URI
+        //
+        if (sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER)
+         && !empty($query_string)) {
+            $php_self .= '?' . $query_string;
+        }
 
-      return $php_self;
+        return $php_self;
+    }
+
+    // some versions of PHP, perhaps specifically in use with lighttpd,
+    // return a blank string for PHP_SELF, so we use REQUEST_URI as a backup:
+    // 
+    else if (sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER)
+          && !empty($req_uri)) {
+
+        // some versions of PHP (such as 4.4.4) don't include the query
+        // string in REQUEST_URI, but most do... here's a fix for the
+        // odd ones out (assuming QUERY_STRING is reliable in those cases)
+        //
+        if (strpos($req_uri, '?') === FALSE
+         && sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER)
+         && !empty($query_string)) {
+
+            $req_uri .= '?' . $query_string;
+        }
+        
+        return $req_uri;
     }
 
     return '';
