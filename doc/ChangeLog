@@ -328,6 +328,8 @@ Version 1.5.2 - SVN
   - Fix for security token missing in newmail plugin (#2919418).
   - Fix for mailto: urls containing + characters, thanks to Michael Puls II for the 
     patch.
+  - Make base URL autodetection more robust; fixes some lighttpd issues
+    (probably #1741469).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
