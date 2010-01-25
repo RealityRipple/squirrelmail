@@ -10,7 +10,7 @@
  * optional. User must be authenticated ($key in cookie. $username and
  * $onetimepad in session).
  *
- * @copyright 1999-2009 The SquirrelMail Project Team
+ * @copyright 1999-2010 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

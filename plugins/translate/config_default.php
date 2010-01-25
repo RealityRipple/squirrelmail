@@ -3,7 +3,7 @@
 /**
  * Default SquirrelMail translate plugin configuration
  *
- * @copyright 2004-2009 The SquirrelMail Project Team
+ * @copyright 2004-2010 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

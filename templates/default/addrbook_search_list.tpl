@@ -23,7 +23,7 @@
  *              $el['JSEmail']   - email address scrubbed for use with
  *                                 javascript functions.
  *
- * @copyright 1999-2009 The SquirrelMail Project Team
+ * @copyright 1999-2010 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

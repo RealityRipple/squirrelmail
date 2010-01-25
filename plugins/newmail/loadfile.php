@@ -5,7 +5,7 @@
  *
  * Script loads user's media file.
  *
- * @copyright 2001-2009 The SquirrelMail Project Team
+ * @copyright 2001-2010 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
