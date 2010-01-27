@@ -276,6 +276,7 @@ if (function_exists('get_magic_quotes_gpc') && @get_magic_quotes_gpc()) {
  * QUERY_STRING also needs the same treatment since it is
  * used in php_self().
  */
+$_SERVER['REQUEST_URI'] = htmlspecialchars($_SERVER['REQUEST_URI']);
 $_SERVER['PHP_SELF'] = htmlspecialchars($_SERVER['PHP_SELF']);
 $_SERVER['QUERY_STRING'] = htmlspecialchars($_SERVER['QUERY_STRING']);
 
