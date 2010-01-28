@@ -32,15 +32,16 @@ function calendar_do() {
 function calendar_header() {
     global $color,$year,$day,$month;
 
+// FIXME: Don't echo HTML from core.  This whole function should probably be moved into a template file
     echo html_tag( 'table', '', '', $color[0], 'border="0" width="100%" cellspacing="0" cellpadding="2"' ) .
          html_tag( 'tr' ) .
          html_tag( 'td', '', 'left', '', 'width="100%"' );
 
-    displayInternalLink("plugins/calendar/calendar.php?year=$year&amp;month=$month",_("Month View"),"right");
+    echo makeInternalLink("plugins/calendar/calendar.php?year=$year&amp;month=$month",_("Month View"),"right");
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink("plugins/calendar/day.php?year=$year&amp;month=$month&amp;day=$day",_("Day View"),"right");
+    echo makeInternalLink("plugins/calendar/day.php?year=$year&amp;month=$month&amp;day=$day",_("Day View"),"right");
     echo "&nbsp;&nbsp;\n";
-    // displayInternalLink("plugins/calendar/event_create.php?year=$year&amp;month=$month&amp;day=$day",_("Add Event"),"right");
+    // echo makeInternalLink("plugins/calendar/event_create.php?year=$year&amp;month=$month&amp;day=$day",_("Add Event"),"right");
     // echo "&nbsp;&nbsp;\n";
     echo '</td></tr>';
 
