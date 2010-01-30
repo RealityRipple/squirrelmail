@@ -958,6 +958,7 @@ function encodeHeader ($string) {
     for($i = 0; $i < $j; ++$i) {
         switch($string{$i})
         {
+            case '"':
             case '=':
             case '<':
             case '>':
