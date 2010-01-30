@@ -65,9 +65,9 @@ class AddressStructure {
             }
             if ($personal) {
                 if ($encoded && !$is_encoded) {
-                    $personal_encoded = encodeHeader($personal);
+                    $personal_encoded = encodeHeader('"' . $personal . '"');
                     if ($personal !== $personal_encoded) {
-                        $personal = '"' . $personal_encoded . '"';
+                        $personal = $personal_encoded;
                     } else {
                         $personal = '"' . $this->personal . '"';
                     }

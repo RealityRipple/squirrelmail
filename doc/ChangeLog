@@ -330,6 +330,7 @@ Version 1.5.2 - SVN
     patch.
   - Make base URL autodetection more robust; fixes some lighttpd issues
     (probably #1741469).
+  - Encoded From headers now properly quoted (#2830141).
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
