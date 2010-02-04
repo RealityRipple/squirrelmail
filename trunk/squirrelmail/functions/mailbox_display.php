@@ -566,7 +566,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                         }
                         $sTmp = decodeHeader($sTmp);
                         if (isset($aColumnDesc[$k]['truncate']) && $aColumnDesc[$k]['truncate']) {
-                            $sTrunc = truncateWithEntities($sTmp, $aColumnDesc[$k]['truncate']);
+                            $sTrunc = sm_truncate_string($sTmp, $aColumnDesc[$k]['truncate'], '...', TRUE);
                             if ($sTrunc != $sTmp) {
                                 if (!$title) {
                                     $title = $sTmp;
@@ -591,7 +591,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     $iIndent = (isset($aIndentArray[$aId[$i]])) ? $aIndentArray[$aId[$i]] : 0;
                     // FIXME: don't break 8bit symbols and html entities during truncation
                     if (isset($aColumnDesc[$k]['truncate']) && $aColumnDesc[$k]['truncate']) {
-                        $sTmp = truncateWithEntities($value, $aColumnDesc[$k]['truncate']-$iIndent);
+                        $sTmp = sm_truncate_string($value, $aColumnDesc[$k]['truncate']-$iIndent, '...', TRUE);
                         // drop any double spaces since these will be displayed in the title
                         $title = ($sTmp != $value) ? preg_replace('/\s{2,}/', ' ', $value) : '';
                         $value = $sTmp;
@@ -1250,53 +1250,6 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
 
     return $aTemplate;
 
-}
-
-
-/**
- * Truncates a string and take care of html encoded characters
- *
- * @param string  $s string to truncate
- * @param int $iTrimAt Trim at nn characters
- * @return string  Trimmed string
- */
-function truncateWithEntities($s, $iTrimAt) {
-    global $languages, $squirrelmail_language;
-
-    $ent_strlen = strlen($s);
-    if (($iTrimAt <= 0) || ($ent_strlen <= $iTrimAt))
-        return $s;
-
-    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_strimwidth')) {
-        return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_strimwidth', $s, $iTrimAt);
-    } else {
-        /*
-         * see if this is entities-encoded string
-         * If so, Iterate through the whole string, find out
-         * the real number of characters, and if more
-         * than $iTrimAt, substr with an updated trim value.
-         */
-        $trim_val = $iTrimAt;
-        $ent_offset = 0;
-        $ent_loc = 0;
-        while ( $ent_loc < $trim_val && (($ent_loc = strpos($s, '&', $ent_offset)) !== false) &&
-                (($ent_loc_end = strpos($s, ';', $ent_loc+3)) !== false) ) {
-            $trim_val += ($ent_loc_end-$ent_loc);
-            $ent_offset  = $ent_loc_end+1;
-        }
-
-        if (($trim_val > $iTrimAt) && ($ent_strlen > $trim_val) && (strpos($s,';',$trim_val) < ($trim_val + 6))) {
-            $i = strpos($s,';',$trim_val);
-            if ($i !== false) {
-                $trim_val = strpos($s,';',$trim_val)+1;
-            }
-        }
-        // only print '...' when we're actually dropping part of the subject
-        if ($ent_strlen <= $trim_val)
-            return $s;
-    }
-    return substr_replace($s, '...', $trim_val);
 }
 
 
