@@ -1099,7 +1099,16 @@ function sq_str_pad($string, $width, $pad, $padtype, $charset='') {
  * @link http://www.php.net/substr
  * @link http://www.php.net/mb_substr
  */
-function sq_substr($string,$start,$length,$charset='auto') {
+function sq_substr($string,$start,$length=NULL,$charset='auto') {
+
+    // if $length is NULL, use the full string length...
+    // we have to do this to mimick the use of substr()
+    // where $length is not given
+    //
+    if (is_null($length))
+        $length = sq_strlen($length);
+
+
     // use automatic charset detection, if function call asks for it
     static $charset_auto, $bUse_mb;
 
@@ -1133,6 +1142,125 @@ function sq_substr($string,$start,$length,$charset='auto') {
 
     // use vanilla string functions as last option
     return substr($string,$start,$length);
+}
+
+/**
+  * This is a replacement for PHP's substr_replace() that is
+  * multibyte-aware.
+  *
+  * @param string $string      The string to operate upon
+  * @param string $replacement The string to be inserted
+  * @param int    $start       The offset at which to begin substring replacement
+  * @param int    $length      The number of characters after $start to remove
+  *                            NOTE that if you need to specify a charset but
+  *                            want to achieve normal substr_replace() behavior
+  *                            where $length is not specified, use NULL (OPTIONAL;
+  *                            default from $start to end of string)
+  * @param string $charset     The charset of the given string.  A value of NULL
+  *                            here will force the use of PHP's standard substr().
+  *                            (OPTIONAL; default is "auto", which indicates that
+  *                            the user's current charset should be used).
+  *
+  * @return string The manipulated string
+  *
+  * Of course, you can use more advanced (e.g., negative) values
+  * for $start and $length as needed - see the PHP manual for more
+  * information:  http://www.php.net/manual/function.substr-replace.php
+  *
+  */
+function sq_substr_replace($string, $replacement, $start, $length=NULL,
+                           $charset='auto')
+{
+
+   // NULL charset?  Just use substr_replace()
+   //
+   if (is_null($charset))
+      return is_null($length) ? substr_replace($string, $replacement, $start)
+                              : substr_replace($string, $replacement, $start, $length);
+
+
+   // use current character set?
+   //
+   if ($charset == 'auto')
+   {
+//FIXME: is there any reason why this cannot be a global flag used by all string wrapper functions?
+      static $auto_charset;
+      if (!isset($auto_charset))
+      {
+         global $default_charset;
+//FIXME - do we need this?
+global $squirrelmail_language;
+         set_my_charset();
+         $auto_charset = $default_charset;
+//FIXME - do we need this?
+if ($squirrelmail_language == 'ja_JP') $auto_charset = 'euc-jp';
+      }
+      $charset = $auto_charset;
+   }
+
+
+   // standardize character set name
+   //
+   $charset = strtolower($charset);
+
+
+/* ===== FIXME: this list is not used in 1.5.x, but if we need it, unless this differs between all our string function wrappers, we should store this info in the session
+   // only use mbstring with the following character sets
+   //
+   $sq_substr_replace_mb_charsets = array(
+      'utf-8',
+      'big5',
+      'gb2312',
+      'gb18030',
+      'euc-jp',
+      'euc-cn',
+      'euc-tw',
+      'euc-kr'
+   );
+
+
+   // now we can use our own implementation using
+   // mb_substr() and mb_strlen() if needed
+   //
+   if (in_array($charset, $sq_substr_replace_mb_charsets)
+    && in_array($charset, sq_mb_list_encodings()))
+===== */
+//FIXME: is there any reason why this cannot be a global array used by all string wrapper functions?
+   if (in_array($charset, sq_mb_list_encodings()))
+   {
+
+      $string_length = mb_strlen($string, $charset);
+
+      if ($start < 0)
+         $start = max(0, $string_length + $start);
+
+      else if ($start > $string_length)
+         $start = $string_length;
+
+      if ($length < 0)
+         $length = max(0, $string_length - $start + $length);
+
+      else if (is_null($length) || $length > $string_length)
+         $length = $string_length;
+
+      if ($start + $length > $string_length)
+         $length = $string_length - $start;
+
+      return mb_substr($string, 0, $start, $charset)
+           . $replacement
+           . mb_substr($string,
+                       $start + $length,
+                       $string_length, // FIXME: I can't see why this is needed:  - $start - $length,
+                       $charset);
+
+   }
+
+
+   // else use normal substr_replace()
+   //
+   return is_null($length) ? substr_replace($string, $replacement, $start)
+                           : substr_replace($string, $replacement, $start, $length);
+
 }
 
 /**
@@ -1249,6 +1377,88 @@ function sq_count8bit($string) {
  */
 function sq_trim_value ( &$value ) {
     $value = trim($value);
+}
+
+/**
+  * Truncates the given string so that it has at
+  * most $max_chars characters.  NOTE that a "character"
+  * may be a multibyte character, or (optionally), an
+  * HTML entity , so this function is different than
+  * using substr() or mb_substr().
+  *
+  * NOTE that if $elipses is given and used, the returned
+  *      number of characters will be $max_chars PLUS the
+  *      length of $elipses
+  *
+  * @param string  $string    The string to truncate
+  * @param int     $max_chars The maximum allowable characters
+  * @param string  $elipses   A string that will be added to
+  *                           the end of the truncated string
+  *                           (ONLY if it is truncated) (OPTIONAL;
+  *                           default not used)
+  * @param boolean $html_entities_as_chars Whether or not to keep
+  *                                        HTML entities together
+  *                                        (OPTIONAL; default ignore
+  *                                        HTML entities)
+  *
+  * @return string The truncated string
+  *
+  * @since 1.4.20 and 1.5.2 (replaced truncateWithEntities())
+  *
+  */
+function sm_truncate_string($string, $max_chars, $elipses='',
+                            $html_entities_as_chars=FALSE)
+{
+
+   // if the length of the string is less than
+   // the allowable number of characters, just
+   // return it as is (even if it contains any
+   // HTML entities, that would just make the
+   // actual length even smaller)
+   //
+   $actual_strlen = sq_strlen($string, 'auto');
+   if ($max_chars <= 0 || $actual_strlen <= $max_chars)
+      return $string;
+
+
+   // if needed, count the number of HTML entities in
+   // the string up to the maximum character limit,
+   // pushing that limit up for each entity found
+   //
+   $adjusted_max_chars = $max_chars;
+   if ($html_entities_as_chars)
+   {
+
+      $entity_pos = -1;
+      while (($entity_pos = sq_strpos($string, '&', $entity_pos + 1)) !== FALSE
+          && ($entity_end_pos = sq_strpos($string, ';', $entity_pos)) !== FALSE
+          && $entity_pos <= $adjusted_max_chars)
+      {
+         $adjusted_max_chars += $entity_end_pos - $entity_pos;
+      }
+
+
+      // this isn't necessary because sq_substr() would figure this
+      // out anyway, but we can avoid a sq_substr() call and we
+      // know that we don't have to add an elipses (this is now
+      // an accurate comparison, since $adjusted_max_chars, like
+      // $actual_strlen, does not take into account HTML entities)
+      //
+      if ($actual_strlen <= $adjusted_max_chars)
+         return $string;
+
+   }
+
+
+   // get the truncated string
+   //
+   $truncated_string = sq_substr($string, 0, $adjusted_max_chars);
+
+
+   // return with added elipses
+   //
+   return $truncated_string . $elipses;
+
 }
 
 /**
