@@ -40,6 +40,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 //FIXME: should change all header() calls in SM core to use $oTemplate->header()!!
     $oTemplate->header('Pragma: no-cache'); // http 1.0 (rfc1945)
     $oTemplate->header('Cache-Control: private, no-cache, no-store'); // http 1.1 (rfc2616)
+    /* prevent information leakage about read emails by forbidding Firefox
+     * to do preemptive DNS requests for any links in the message body. */
+    $oTemplate->header('X-DNS-Prefetch-Control: off');
 
     // don't show version as a security measure
     //$oTemplate->header('X-Powered-By: SquirrelMail/' . SM_VERSION, FALSE);
