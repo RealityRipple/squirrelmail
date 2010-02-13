@@ -964,6 +964,14 @@ if (isset($passed_ent_id) && $passed_ent_id) {
 }
 $header = $message->header;
 
+// gmail does not mark messages as read when retrieving the message body
+// even though RFC 3501, section 6.4.5 (FETCH Command) says:
+// "The \Seen flag is implicitly set; if this causes the flags to change,
+// they SHOULD be included as part of the FETCH responses."
+//
+if ($imap_server_type == 'gmail') {
+    sqimap_toggle_flag($imapConnection, $passed_id, '\\Seen', true, true);
+}
 
 /****************************************/
 /* Block for handling incoming url vars */
