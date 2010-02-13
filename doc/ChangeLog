@@ -333,8 +333,10 @@ Version 1.5.2 - SVN
   - Encoded From headers now properly quoted (#2830141).
   - Multibyte strings (notably subjects) are now handled correctly (#2824813,
     #2925731).
-  - Send X-DNS-Prefetch-Control: off header to browsers to prevent information
+  - X-DNS-Prefetch-Control: off header is now sent to browsers to prevent information
     leakage when Firefox does DNS prefetching for URL's contained in emails.
+  - Added the ability to configure Google Mail (Gmail) as the mail server
+    behind SquirrelMail.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
