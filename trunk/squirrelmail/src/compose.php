@@ -980,7 +980,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $body = '';
                 $strip_sigs = getPref($data_dir, $username, 'strip_sigs');
                 foreach ($rewrap_body as $line) {
-                    if ($strip_sigs && substr($line,0,3) == '-- ') {
+                    if ($strip_sigs && rtrim($line, "\r\n") == '-- ') {
                         break;
                     }
                     if (preg_match("/^(>+)/", $line, $matches)) {
