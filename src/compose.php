@@ -1173,21 +1173,24 @@ function showInputForm ($session, $values=false) {
     // Onsubmit text is enclosed inside of double quotes, so plugins
     // need to quote accordingly.
     if (checkForJavascript()) {
-        $onsubmit_text = ' onsubmit="';
         if (empty($compose_onsubmit))
             $compose_onsubmit = array();
         else if (!is_array($compose_onsubmit))
             $compose_onsubmit = array($compose_onsubmit);
 
+        $onsubmit_text = '';
         foreach ($compose_onsubmit as $text) {
             $text = trim($text);
-            if (substr($text, -1) != ';' && substr($text, -1) != '}')
-                $text .= '; ';
-            $onsubmit_text .= $text;
+            if (!empty($text)) {
+                if (substr($text, -1) != ';' && substr($text, -1) != '}')
+                    $text .= '; ';
+                $onsubmit_text .= $text;
+            }
         }
 
+        if (!empty($onsubmit_text))
 //FIXME: DON'T ECHO HTML FROM CORE!
-        echo $onsubmit_text . ' return true;"';
+            echo ' onsubmit="' . $onsubmit_text . ' return true;"';
     }
 
 
