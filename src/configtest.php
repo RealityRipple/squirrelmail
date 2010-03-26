@@ -212,6 +212,7 @@ echo $IND . 'error_reporting: ' . $php_error_reporting_original_value . " (overr
 
 $safe_mode = ini_get('safe_mode');
 if ($safe_mode) {
+    //FIXME: should show that safe_mode is off when it is (this only shows the safe_mode setting when it's on) (also might be generally helpful to show things like open_basedir, too or even add phpinfo() output or a link to another script that has phpinfo()
     echo $IND . 'safe_mode: ' . $safe_mode;
     if (empty($prefs_dsn) || empty($addrbook_dsn))
         echo ' (<font color="red">double check data and attachment directory ownership, etc!</font>)';
