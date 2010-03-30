@@ -676,12 +676,14 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
         global $accesskey_read_msg_reply, $accesskey_read_msg_reply_all,
                $accesskey_read_msg_forward, $accesskey_read_msg_as_attach,
                $accesskey_read_msg_delete, $accesskey_read_msg_bypass_trash,
-               $accesskey_read_msg_move, $accesskey_read_msg_move_to;
+               $accesskey_read_msg_move, $accesskey_read_msg_move_to,
+               $accesskey_read_msg_copy;
     } else {
         $accesskey_read_msg_reply = $accesskey_read_msg_reply_all =
         $accesskey_read_msg_forward = $accesskey_read_msg_as_attach =
         $accesskey_read_msg_delete = $accesskey_read_msg_bypass_trash =
-        $accesskey_read_msg_move = $accesskey_read_msg_move_to = 'NONE';
+        $accesskey_read_msg_move = $accesskey_read_msg_move_to =
+        $accesskey_read_msg_copy = 'NONE';
     }
     $oTemplate->assign('accesskey_read_msg_reply', $accesskey_read_msg_reply);
     $oTemplate->assign('accesskey_read_msg_reply_all', $accesskey_read_msg_reply_all);
@@ -691,6 +693,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
     $oTemplate->assign('accesskey_read_msg_bypass_trash', $accesskey_read_msg_bypass_trash);
     $oTemplate->assign('accesskey_read_msg_move_to', $accesskey_read_msg_move_to);
     $oTemplate->assign('accesskey_read_msg_move', $accesskey_read_msg_move);
+    $oTemplate->assign('accesskey_read_msg_copy', $accesskey_read_msg_copy);
 
     global $null;
     do_hook('read_body_menu', $null);
