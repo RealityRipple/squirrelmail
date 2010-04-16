@@ -206,6 +206,32 @@ if(!check_php_version(4,1,0)) {
 
 echo $IND . 'PHP version ' . PHP_VERSION . ' OK. (You have: ' . phpversion() . ". Minimum: 4.1.0)<br />\n";
 
+// try to determine information about the user and group the web server is running as
+//
+$webOwnerID = 'N/A';
+$webOwnerInfo = array('name' => 'N/A');
+if (function_exists('posix_getuid'))
+    $webOwnerID = posix_getuid();
+if ($webOwnerID === FALSE)
+    $webOwnerID = 'N/A';
+if ($webOwnerID !== 'N/A' && function_exists('posix_getpwuid'))
+    $webOwnerInfo = posix_getpwuid($webOwnerID);
+if (!$webOwnerInfo)
+    $webOwnerInfo = array('name' => 'N/A');
+$webGroupID = 'N/A';
+$webGroupInfo = array('name' => 'N/A');
+if (function_exists('posix_getgid'))
+    $webGroupID = posix_getgid();
+if ($webGroupID === FALSE)
+    $webGroupID = 'N/A';
+if ($webGroupID !== 'N/A' && function_exists('posix_getgrgid'))
+    $webGroupInfo = posix_getgrgid($webGroupID);
+if (!$webGroupInfo)
+    $webGroupInfo = array('name' => 'N/A');
+
+echo $IND . 'Running as ' . $webOwnerInfo['name'] . '(' . $webOwnerID
+          . ') / ' . $webGroupInfo['name'] . '(' . $webGroupID . ")<br />\n";
+
 echo $IND . 'display_errors: ' . $php_display_errors_original_value . " (overridden with 1 for this page only)<br />\n";
 
 echo $IND . 'error_reporting: ' . $php_error_reporting_original_value . " (overridden with 2047 for this page only)<br />\n";
