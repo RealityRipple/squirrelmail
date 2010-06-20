@@ -17,6 +17,10 @@ define('PAGE_NAME', 'right_main');
 
 //xdebug_start_profiling("/var/spool/xdebug/right_main.txt");
 
+/* Disable browser caching */
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: ' . gmdate(DATE_RFC1123, time()-1));
 
 /**
  * Include the SquirrelMail initialization file.
