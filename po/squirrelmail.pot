@@ -3763,7 +3763,7 @@ msgstr ""
 msgid "Quick email-based reporting"
 msgstr ""
 
-msgid "Thorough email-based reporting"
+msgid "Through email-based reporting"
 msgstr ""
 
 msgid "Web-based form"

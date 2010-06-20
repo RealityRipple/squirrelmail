@@ -180,6 +180,8 @@ function spamcop_enable_disable($option,$disable_action,$enable_action) {
  */
 function spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
                                       $passed_ent_id='', $imapConnection) {
+                                          
+    global $username, $attachment_dir;
 
     if (!$passed_ent_id) {
         $body_a = sqimap_run_command($imapConnection,
@@ -197,11 +199,14 @@ function spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed
         $body = implode('', $body_a) . "\r\n";
 
         $filename = sq_get_attach_tempfile();
-        $fp = fopen($filename, 'wb');
+        $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+        
+        $fp = fopen("$hashed_attachment_dir/$filename", 'wb');
         fwrite ($fp, $body);
         fclose($fp);
         $composeMessage->initAttachment('message/rfc822','email.txt',
                          $filename);
     }
+    
     return $composeMessage;
 }
