@@ -483,6 +483,7 @@ if ($send) {
             $_FILES['attachfile']['tmp_name'] != 'none') {
         $AttachFailure = saveAttachedFiles($session);
     }
+    
     if (checkInput(false) && !isset($AttachFailure)) {
         if ($mailbox == "All Folders") {
             /* We entered compose via the search results page */
