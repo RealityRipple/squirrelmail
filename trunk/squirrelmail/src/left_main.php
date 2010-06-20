@@ -15,6 +15,11 @@
 /** This is the left_main page */
 define('PAGE_NAME', 'left_main');
 
+/* Disable browser caching */
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: ' . gmdate(DATE_RFC1123, time()-1));
+
 /**
  * Include the SquirrelMail initialization file.
  */
@@ -45,9 +50,7 @@ $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 
  */
 if (!empty($left_refresh) &&
     !stristr($left_refresh, 'none')){
-    $xtra =  "\n<meta http-equiv=\"Expires\" content=\"Thu, 01 Dec 1994 16:00:00 GMT\" />\n" .
-             "<meta http-equiv=\"Pragma\" content=\"no-cache\" />\n".
-             "<meta http-equiv=\"REFRESH\" content=\"$left_refresh;URL=left_main.php\" />\n";
+    $xtra =  "\n<meta http-equiv=\"REFRESH\" content=\"$left_refresh;URL=left_main.php\" />\n";
 } else {
     $xtra = '';
 }
