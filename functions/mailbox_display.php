@@ -1532,6 +1532,17 @@ function attachSelectedMessages($imapConnection,$aMsgHeaders) {
             fclose($fp);
 
             $composeMessage->initAttachment('message/rfc822', $subject . '.eml', $filename);
+
+            // create subject for new message
+            //
+            $subject = decodeHeader($subject,false,false,true);
+            $subject = str_replace('"', "'", $subject);
+            $subject = trim($subject);
+            if (substr(strtolower($subject), 0, 4) != 'fwd:') {
+                $subject = 'Fwd: ' . $subject;
+            }
+            $composeMessage->rfc822_header->subject = $subject;
+
         }
     }
 

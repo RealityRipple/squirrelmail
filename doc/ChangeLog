@@ -344,6 +344,7 @@ Version 1.5.2 - SVN
     (reduces chances of session data growing too large)
   - Fixed minor vulnerability in Mail Fetch plugin [CVE-2010-1637/TEHTRI-SA-2010-009]
   - Now properly quote personal part of encoded addresses when replying.
+  - Now fill in default subject when forwarding as attachment (#2936541)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

@@ -734,6 +734,11 @@ elseif (isset($sigappend)) {
 
     $values = newMail($mailbox,$passed_id,$passed_ent_id, $action, $session);
 
+    // forward as attachment - subject is in the message in session
+    //
+    if ($action == 'forward_as_attachment' && empty($values['subject']))
+        $subject = $composeMessage->rfc822_header->subject;
+
     /* in case the origin is not read_body.php */
     if (isset($send_to)) {
         $values['send_to'] = $send_to;
@@ -945,6 +950,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             case ('forward_as_attachment'):
                 $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
                 $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
+                $subject = decodeHeader($orig_header->subject,false,false,true);
+                $subject = str_replace('"', "'", $subject);
+                $subject = trim($subject);
+                if (substr(strtolower($subject), 0, 4) != 'fwd:') {
+                    $subject = 'Fwd: ' . $subject;
+                }
                 $body = '';
                 break;
             case ('reply_all'):
