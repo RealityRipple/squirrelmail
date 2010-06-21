@@ -56,6 +56,8 @@ sqgetGlobalVar('mf_lmos',          $mf_lmos,          SQ_POST);
 sqgetGlobalVar('mf_auth',          $mf_auth,          SQ_POST);
 sqgetGlobalVar('mf_type',          $mf_type,          SQ_POST);
 sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
+$mf_port = trim($mf_port);
+$mf_server = trim($mf_server);
 
 
 /* end globals */
@@ -64,6 +66,19 @@ displayPageHeader( $color );
 
 switch( $mf_action ) {
  case 'add':
+
+     $mf_action = 'config';
+
+     // restrict port number if necessary
+     //
+     $message = validate_mail_fetch_port_number($mf_port);
+     if (!empty($message)) break;
+
+     // restrict server address if necessary
+     //
+     $message = validate_mail_fetch_server_address($mf_server);
+     if (!empty($message)) break;
+
      if ($mf_sn<1) $mf_sn=0;
      if (!isset($mf_server)) return;
      setPref($data_dir,$username,"mailfetch_server_$mf_sn", (isset($mf_server)?$mf_server:""));
@@ -88,10 +103,28 @@ switch( $mf_action ) {
      setPref($data_dir,$username,"mailfetch_type_$mf_sn",(isset($mf_type)?$mf_type:MAIL_FETCH_USE_PLAIN));
      $mf_sn++;
      setPref($data_dir,$username,'mailfetch_server_number', $mf_sn);
-     $mf_action = 'config';
      break;
+
+ // modify a server
+ //
  case 'confirm_modify':
-     //modify    a server
+
+     // restrict port number if necessary
+     //
+     $message = validate_mail_fetch_port_number($mf_port);
+     if (!empty($message)) {
+         $mf_action = 'Modify';
+         break;
+     }
+
+     // restrict server address if necessary
+     //
+     $message = validate_mail_fetch_server_address($mf_server);
+     if (!empty($message)) {
+         $mf_action = 'Modify';
+         break;
+     }
+
      if (!isset($mf_server)) return;
      setPref($data_dir,$username,"mailfetch_server_$mf_sn", (isset($mf_server)?$mf_server:""));
      setPref($data_dir,$username,"mailfetch_port_$mf_sn", (isset($mf_port)?$mf_port:110));
@@ -208,6 +241,14 @@ echo '<br /><form method="post" action="'.$PHP_SELF.'">' .
                       'right' )
                   ) ,
               'center', '', 'width="95%"' );
+
+// display error or other messages if necessary
+//
+if (!empty($message)) {
+    echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="5" cellspacing="1"' ) .
+         html_tag( 'tr',
+         html_tag( 'td', '<b>' . $message . '</b>', 'center', $color[2] ));
+}
 
 switch( $mf_action ) {
  case 'config':
