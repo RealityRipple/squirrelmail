@@ -100,12 +100,10 @@ if (!sqGetGlobalVar('rpc_action', $rpc_action, SQ_FORM)) {
   */
 $oTemplate->header('Content-Type: text/xml');
 $oTemplate->header('Content-Type: application/xml'); // required by IE
-//FIXME: which anti-cache headers do we want to use?
-$oTemplate->header('Cache-Control: no-cache');
-// $oTemplate->header("Expires: Sat, 1 Jan 2000 00:00:00 GMT");
-// $oTemplate->header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
-// $oTemplate->header("Cache-Control: no-cache, must-revalidate");
-// $oTemplate->header("Pragma: no-cache");
+$oTemplate->header('Pragma: no-cache');
+$oTemplate->header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0');
+$oTemplate->header('Expires: Sat, 1 Jan 2000 00:00:00 GMT');
+//TODO: is this needed? $oTemplate->header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . 'GMT');
 
 
 
