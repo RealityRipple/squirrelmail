@@ -15,11 +15,6 @@
 /** This is the left_main page */
 define('PAGE_NAME', 'left_main');
 
-/* Disable browser caching */
-header('Cache-Control: no-cache, no-store, must-revalidate');
-header('Pragma: no-cache');
-header('Expires: ' . gmdate(DATE_RFC1123, time()-1));
-
 /**
  * Include the SquirrelMail initialization file.
  */

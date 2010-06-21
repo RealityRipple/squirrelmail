@@ -337,7 +337,6 @@ Version 1.5.2 - SVN
     leakage when Firefox does DNS prefetching for URLs contained in emails.
   - Added the ability to configure Google Mail (Gmail) as the mail server
     behind SquirrelMail.
-  - Explicitly disable caching for left_main and right_main pages (#2983134).
   - Fix error with SpamCop reporting plugin not being able to send report as
     emails (#1795310).
   - Fix typo in SpamCop plugin.

@@ -24,9 +24,12 @@ include_once(SM_PATH . 'functions/imap_mailbox.php');
  * @param string xtra extra HTML to insert into the header
  * @param bool do_hook whether to execute hooks, default true
  * @param bool frames generate html frameset doctype (since 1.5.1)
+ * @param bool $browser_cache_ok When TRUE, it's OK to leave out the
+ *                               no-cache browser headers (OPTIONAL;
+ *                               default = FALSE, send no-cache headers)
  * @return void
  */
-function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE ) {
+function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE, $frames = FALSE, $browser_cache_ok=FALSE ) {
     global $squirrelmail_language, $sTemplateID, $oErrorHandler, $oTemplate;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
@@ -36,10 +39,15 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, 
         $chosen_theme, $chosen_theme_path, $user_themes, $user_theme_default;
 
-    /* add no cache headers here */
+    // add no cache headers here
+    //
+    if (!$browser_cache_ok) {
 //FIXME: should change all header() calls in SM core to use $oTemplate->header()!!
-    $oTemplate->header('Pragma: no-cache'); // http 1.0 (rfc1945)
-    $oTemplate->header('Cache-Control: private, no-cache, no-store'); // http 1.1 (rfc2616)
+        $oTemplate->header('Pragma: no-cache'); // http 1.0 (rfc1945)
+        $oTemplate->header('Cache-Control: private, no-cache, no-store, must-revalidate, max-age=0'); // http 1.1 (rfc2616)
+        $oTemplate->header('Expires: Sat, 1 Jan 2000 00:00:00 GMT');
+//TODO: is this needed? $oTemplate->header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . 'GMT');
+    }
     /* prevent information leakage about read emails by forbidding Firefox
      * to do preemptive DNS requests for any links in the message body. */
     $oTemplate->header('X-DNS-Prefetch-Control: off');

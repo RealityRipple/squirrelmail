@@ -23,7 +23,11 @@ require('../include/init.php');
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/strings.php');
 
+// Disable browser caching
+//
+header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0');
 header('Pragma: no-cache');
+header('Expires: Sat, 1 Jan 2000 00:00:00 GMT');
 $location = get_location();
 
 // session_set_cookie_params (0, $base_uri);
