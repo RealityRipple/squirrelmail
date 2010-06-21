@@ -340,6 +340,8 @@ Version 1.5.2 - SVN
   - Fix error with SpamCop reporting plugin not being able to send report as
     emails (#1795310).
   - Fix typo in SpamCop plugin.
+  - Reduced default time security tokens stay valid from 30 days to 2 days
+    (reduces chances of session data growing too large)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

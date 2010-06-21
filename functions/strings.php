@@ -1468,7 +1468,7 @@ function sm_truncate_string($string, $max_chars, $elipses='',
   *
   * @param boolean $purge_old Indicates if old tokens
   *                           should be purged from the
-  *                           list ("old" is 30 days or
+  *                           list ("old" is 2 days or
   *                           older unless the administrator
   *                           overrides that value using
   *                           $max_security_token_age in
@@ -1494,7 +1494,7 @@ function sm_get_user_security_tokens($purge_old=TRUE)
    //
    if ($purge_old)
    {
-      if (empty($max_token_age_days)) $max_token_age_days = 30;
+      if (empty($max_token_age_days)) $max_token_age_days = 2;
       $now = time();
       $discard_token_date = $now - ($max_token_age_days * 86400);
       $cleaned_tokens = array();
@@ -1562,7 +1562,7 @@ function sm_generate_security_token()
   * from the user's preferences if it was valid.  If the token
   * is too old but otherwise valid, it will still be rejected.
   *
-  * "Too old" is 30 days or older unless the administrator
+  * "Too old" is 2 days or older unless the administrator
   * overrides that value using $max_security_token_age in
   * config/config_local.php
   *
@@ -1628,7 +1628,7 @@ function sm_validate_security_token($token, $validity_period=0, $show_error=FALS
 
    // reject tokens that are too old
    //
-   if (empty($max_token_age_days)) $max_token_age_days = 30;
+   if (empty($max_token_age_days)) $max_token_age_days = 2;
    $old_token_date = $now - ($max_token_age_days * 86400);
    if ($timestamp < $old_token_date)
    {
