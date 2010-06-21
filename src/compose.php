@@ -196,12 +196,10 @@ function replyAllString($header) {
     $url_replytoallcc = '';
     foreach( $url_replytoall_ar as $email => $personal) {
         if ($personal) {
-            // if personal name contains address separator then surround
-            // the personal name with double quotes.
-            if (strpos($personal,',') !== false) {
-                $personal = '"'.$personal.'"';
-            }
-            $url_replytoallcc .= ", $personal <$email>";
+            // always quote personal name (can't just quote it if
+            // it contains a comma separator, since it might still
+            // be encoded)
+            $url_replytoallcc .= ", \"$personal\" <$email>";
         } else {
             $url_replytoallcc .= ', '. $email;
         }
@@ -955,20 +953,22 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 } else {
                     $send_to_cc = replyAllString($orig_header);
                     $send_to_cc = decodeHeader($send_to_cc,false,false,true);
+                    $send_to_cc = str_replace('""', '"', $send_to_cc);
                 }
             case ('reply'):
                 // skip this if send_to was already set right above here
                 if(!$send_to) {
                     $send_to = $orig_header->reply_to;
                     if (is_array($send_to) && count($send_to)) {
-                        $send_to = $orig_header->getAddr_s('reply_to');
+                        $send_to = $orig_header->getAddr_s('reply_to', ',', FALSE, TRUE);
                     } else if (is_object($send_to)) { /* unneccesarry, just for failsafe purpose */
-                        $send_to = $orig_header->getAddr_s('reply_to');
+                        $send_to = $orig_header->getAddr_s('reply_to', ',', FALSE, TRUE);
                     } else {
-                        $send_to = $orig_header->getAddr_s('from');
+                        $send_to = $orig_header->getAddr_s('from', ',', FALSE, TRUE);
                     }
                 }
                 $send_to = decodeHeader($send_to,false,false,true);
+                $send_to = str_replace('""', '"', $send_to);
                 $subject = decodeHeader($orig_header->subject,false,false,true);
                 $subject = str_replace('"', "'", $subject);
                 $subject = trim($subject);
