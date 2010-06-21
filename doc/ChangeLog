@@ -342,6 +342,7 @@ Version 1.5.2 - SVN
   - Fix typo in SpamCop plugin.
   - Reduced default time security tokens stay valid from 30 days to 2 days
     (reduces chances of session data growing too large)
+  - Fixed minor vulnerability in Mail Fetch plugin [CVE-2010-1637/TEHTRI-SA-2010-009]
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

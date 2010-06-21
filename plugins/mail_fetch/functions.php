@@ -22,7 +22,8 @@ include_once (SM_PATH . 'plugins/mail_fetch/constants.php');
 include_once (SM_PATH . 'plugins/mail_fetch/class.mail_fetch.php');
 
 /** declare plugin globals */
-global $mail_fetch_allow_unsubscribed;
+global $mail_fetch_allow_unsubscribed, $mail_fetch_allowable_ports,
+       $mail_fetch_block_server_pattern;
 
 /**
   * Add link to menu at top of content pane
@@ -417,3 +418,68 @@ function mail_fetch_check_noselect($imap_stream,$imap_folder) {
     }
     return false;
 }
+
+/**
+  * Validate a requested POP3 port number
+  *
+  * Allowable port numbers are configured in config.php
+  * (see config_example.php for an example and more
+  * rules about how the list of allowable port numbers
+  * can be specified)
+  *
+  * @param int $requested_port The port number given by the user
+  *
+  * @return string An error string is returned if the port
+  *                number is not allowable, otherwise an
+  *                empty string is returned.
+  *
+  */
+function validate_mail_fetch_port_number($requested_port) {
+    global $mail_fetch_allowable_ports;
+    if (empty($mail_fetch_allowable_ports))
+        $mail_fetch_allowable_ports = array(110, 995);
+
+    if (in_array('ALL', $mail_fetch_allowable_ports))
+        return '';
+
+    if (!in_array($requested_port, $mail_fetch_allowable_ports)) {
+        sq_change_text_domain('mail_fetch');
+        $error = _("Sorry, that port number is not allowed");
+        sq_change_text_domain('squirrelmail');
+        return $error;
+    }
+
+    return '';
+}
+
+/**
+  * Validate a requested POP3 server address
+  *
+  * Blocked server addresses are configured in config.php
+  * (see config_example.php for more details)
+  *
+  * @param int $requested_address The server address given by the user
+  *
+  * @return string An error string is returned if the server
+  *                address is not allowable, otherwise an
+  *                empty string is returned.
+  *
+  */
+function validate_mail_fetch_server_address($requested_address) {
+    global $mail_fetch_block_server_pattern;
+    if (empty($mail_fetch_block_server_pattern))
+        $mail_fetch_block_server_pattern = '/(^10\.)|(^192\.)|(^127\.)|(^localhost)/';
+
+    if ($mail_fetch_block_server_pattern == 'UNRESTRICTED')
+        return '';
+
+    if (preg_match($mail_fetch_block_server_pattern, $requested_address)) {
+        sq_change_text_domain('mail_fetch');
+        $error = _("Sorry, that server address is not allowed");
+        sq_change_text_domain('squirrelmail');
+        return $error;
+    }
+
+    return '';
+}
+
