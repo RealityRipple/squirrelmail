@@ -275,13 +275,17 @@ if (function_exists('get_magic_quotes_gpc') && @get_magic_quotes_gpc()) {
  * htmlspecialchars() is the preferred method.
  * QUERY_STRING also needs the same treatment since it is
  * used in php_self().
+ * Update again: the encoding of ampersands that occurs
+ * using htmlspecialchars() corrupts the query strings
+ * in normal URIs, so we have to let those through.
+FIXME: will the de-sanitizing of ampersands create any security/XSS problems?
  */
 if (isset($_SERVER['REQUEST_URI']))
-    $_SERVER['REQUEST_URI'] = htmlspecialchars($_SERVER['REQUEST_URI']);
+    $_SERVER['REQUEST_URI'] = str_replace('&amp;', '&', htmlspecialchars($_SERVER['REQUEST_URI']));
 if (isset($_SERVER['PHP_SELF']))
-    $_SERVER['PHP_SELF'] = htmlspecialchars($_SERVER['PHP_SELF']);
+    $_SERVER['PHP_SELF'] = str_replace('&amp;', '&', htmlspecialchars($_SERVER['PHP_SELF']));
 if (isset($_SERVER['QUERY_STRING']))
-    $_SERVER['QUERY_STRING'] = htmlspecialchars($_SERVER['QUERY_STRING']);
+    $_SERVER['QUERY_STRING'] = str_replace('&amp;', '&', htmlspecialchars($_SERVER['QUERY_STRING']));
 
 $PHP_SELF = php_self();
 
