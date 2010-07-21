@@ -1063,7 +1063,8 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
                     $filename = $message->getFilename();
                     break;
             }
-            $filename = str_replace('&#32;', ' ', decodeHeader($filename));
+//FIXME: added three args to the following, so as to set the last one to TRUE, to mimick a fix in 1.4.21 (#2994865), but didn't test this (note that in 1.4.21, the 2nd and 3rd args are FALSE, but here in this code, they weren't being specified (thus defaulting to TRUE), so I don't know if that means this code is outdated and should have been changed to FALSE, FALSE or if this code is completely different and the addition of the TRUE for arg #4 is wrong
+            $filename = str_replace('&#32;', ' ', decodeHeader($filename, true, true, true));
             if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
                     function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode')) {
                 $filename =  call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode', $filename);
