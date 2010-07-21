@@ -4162,9 +4162,7 @@ sub command94 {
 
 sub command95 {
     print "This is the name of the field in which you want to store the\n";
-    print "username of the person the prefs are for. It default to 'user'\n";
-    print "which clashes with a reserved keyword in PostgreSQL so this\n";
-    print "will need to be changed for that database at least\n";
+    print "username of the person the prefs are for. It defaults to 'user'\n";
     print "\n";
     print "[$WHT$prefs_user_field$NRM]: $WHT";
     $new_field = <STDIN>;
