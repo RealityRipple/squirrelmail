@@ -222,6 +222,14 @@ class dbPrefs {
         if (!empty($prefs_user_field)) {
             $this->user_field = $prefs_user_field;
         }
+
+        // the default user field is "user", which in PostgreSQL
+        // is an identifier and causes errors if not escaped
+        //
+        if ($this->db_type == SMDB_PGSQL) {
+           $this->user_field = '"' . $this->user_field . '"';
+        }
+
         if (!empty($prefs_key_field)) {
             $this->key_field = $prefs_key_field;
         }
