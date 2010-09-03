@@ -1429,10 +1429,20 @@ function sm_truncate_string($string, $max_chars, $elipses='',
    if ($html_entities_as_chars)
    {
 
-      $entity_pos = -1;
-      while (($entity_pos = sq_strpos($string, '&', $entity_pos + 1)) !== FALSE
+      // $loop_count is needed to prevent an endless loop
+      // which is caused by buggy mbstring versions that
+      // return 0 (zero) instead of FALSE in some rare
+      // cases.  Thanks, PHP.
+      // see: http://bugs.php.net/bug.php?id=52731
+      // also: tracker $3053349
+      //
+      $loop_count = 0;
+      $entity_pos = $entity_end_pos = -1;
+      while ($entity_end_pos + 1 < $actual_strlen
+          && ($entity_pos = sq_strpos($string, '&', $entity_end_pos + 1)) !== FALSE
           && ($entity_end_pos = sq_strpos($string, ';', $entity_pos)) !== FALSE
-          && $entity_pos <= $adjusted_max_chars)
+          && $entity_pos <= $adjusted_max_chars
+          && $loop_count++ < $max_chars)
       {
          $adjusted_max_chars += $entity_end_pos - $entity_pos;
       }

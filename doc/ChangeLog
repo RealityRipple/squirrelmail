@@ -4,6 +4,8 @@
 
 Version 1.5.2 - SVN
 -------------------
+  - Fixed system lock-ups caused by a combination of certain rare, malformed
+    message headers and buggy versions of PHP mbstring (#3053349, $2987016).
   - Fix broken set_url_var function in functions/html.php (#1729814).
   - Fix incorrect detection of auth mechanisms in conf.pl (#1727033).
   - The search expression in the LDAP backend of the Addressbook is now
