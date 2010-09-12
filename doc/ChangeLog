@@ -350,6 +350,8 @@ Version 1.5.2 - SVN
   - Fixed issues caused by use of PostgreSQL keyword "user" in SquirrelMail's
     default preferences database schema (#2943483).
   - Fixed attachment filename decoding problems (#2994865).
+  - Now allow multiple plugins to handle (add links for) a single
+    attachment MIME type.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

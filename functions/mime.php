@@ -575,9 +575,9 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
         }
 
         /* This executes the attachment hook with a specific MIME-type.
-         * If that doesn't have results, it tries if there's a rule
-         * for a more generic type. Finally, a hook for ALL attachment
-         * types is run as well.
+         * It also allows plugins to run if there's a rule for a more
+         * generic type. Finally, a hook for ALL attachment types is
+         * run as well.
          */
         // First remember the default link.
         $defaultlink_orig = $defaultlink;
@@ -587,19 +587,23 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
            argument, and arguments are passed by reference, so instead of
            returning any changes, changes should simply be made to the original
            arguments themselves. */
-        $temp = array(&$links, &$startMessage, &$id, &$urlMailbox, &$ent, 
+        $temp = array(&$links, &$startMessage, &$id, &$urlMailbox, &$ent,
                     &$defaultlink, &$display_filename, &$where, &$what);
         do_hook("attachment $type0/$type1", $temp);
-        if(count($links) <= 1 && $defaultlink == $defaultlink_orig) {
-            /* The API for this hook has changed as of 1.5.2 so that all plugin
-               arguments are passed in an array instead of each their own plugin
-               argument, and arguments are passed by reference, so instead of
-               returning any changes, changes should simply be made to the original
-               arguments themselves. */
-            $temp = array(&$links, &$startMessage, &$id, &$urlMailbox, &$ent, 
-                          &$defaultlink, &$display_filename, &$where, &$what);
-            do_hook("attachment $type0/*", $temp);
+        /* The API for this hook has changed as of 1.5.2 so that all plugin
+           arguments are passed in an array instead of each their own plugin
+           argument, and arguments are passed by reference, so instead of
+           returning any changes, changes should simply be made to the original
+           arguments themselves. */
+        $temp = array(&$links, &$startMessage, &$id, &$urlMailbox, &$ent,
+                      &$defaultlink, &$display_filename, &$where, &$what);
+        // Do not let a generic plugin change the default link if a more
+        // specialized one already did it...
+        if ($defaultlink != $defaultlink_orig) {
+            $dummy = '';
+            $temp[5] = &$dummy;
         }
+        do_hook("attachment $type0/*", $temp);
         /* The API for this hook has changed as of 1.5.2 so that all plugin
            arguments are passed in an array instead of each their own plugin
            argument, and arguments are passed by reference, so instead of
