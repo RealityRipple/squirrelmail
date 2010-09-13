@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: SquirrelMail DEVEL\n"
 "Report-Msgid-Bugs-To: SquirrelMail Internationalization <squirrelmail-"
 "i18n@lists.sourceforge.net>\n"
-"POT-Creation-Date: 2009-05-29 00:41+0200\n"
+"POT-Creation-Date: 2010-09-13 12:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -1377,6 +1377,18 @@ msgstr ""
 msgid "MiB"
 msgstr ""
 
+msgid ""
+"Fatal token generation error; please contact your system administrator or "
+"the SquirrelMail Team"
+msgstr ""
+
+msgid "This page request could not be verified and appears to have expired."
+msgstr ""
+
+msgid ""
+"The current page request appears to have originated from an untrusted source."
+msgstr ""
+
 msgid "Nickname"
 msgstr ""
 
@@ -1512,6 +1524,11 @@ msgid "IMAP server closed the connection."
 msgstr ""
 
 msgid "Your session has expired, but will be resumed after logging in again."
+msgstr ""
+
+msgid ""
+"The current page request appears to have originated from an unrecognized "
+"source."
 msgstr ""
 
 msgid "Not used"
@@ -3391,6 +3408,12 @@ msgstr ""
 msgid ""
 "This configures settings for downloading email from a POP3 mailbox to your "
 "account on this server."
+msgstr ""
+
+msgid "Sorry, that port number is not allowed"
+msgstr ""
+
+msgid "Sorry, that server address is not allowed"
 msgstr ""
 
 msgid "Remote POP server settings"
