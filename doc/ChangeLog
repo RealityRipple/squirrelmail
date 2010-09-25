@@ -352,6 +352,7 @@ Version 1.5.2 - SVN
   - Fixed attachment filename decoding problems (#2994865).
   - Now allow multiple plugins to handle (add links for) a single
     attachment MIME type.
+  - Fixed sqauth_read_password() for plugins on the login_verified hook.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
