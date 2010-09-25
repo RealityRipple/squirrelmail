@@ -93,6 +93,9 @@ function sqauth_is_logged_in() {
  * @since 1.5.1
  */
 function sqauth_read_password() {
+    global $currentHookName;
+    if ($currentHookName == 'login_verified') global $key;
+
     sqgetGlobalVar('key',         $key,       SQ_COOKIE);
     sqgetGlobalVar('onetimepad',  $onetimepad,SQ_SESSION);
 
