@@ -1525,7 +1525,7 @@ sub command112a {
 
 
 # SMTP authentication type
-# Possible choices: none, plain, cram-md5, digest-md5
+# Possible choices: none, login, plain, cram-md5, digest-md5
 sub command112b {
     if ($use_smtp_tls ne "0") {
         print "Auto-detection of login methods is unavailable when using TLS or STARTTLS.\n";
@@ -1566,9 +1566,23 @@ sub command112b {
                 print $sock "QUIT\r\n";
                 close $sock;
             }
+
             # Try login (SquirrelMail default)
             print "Testing login:\t\t";
             $tmp=detect_auth_support('SMTP',$host,'LOGIN');
+            if (defined($tmp)) {
+                if ($tmp eq 'YES') {
+                    print $WHT . "SUPPORTED$NRM\n";
+                } else {
+                    print $WHT . "NOT SUPPORTED$NRM\n";
+                }
+              } else {
+                  print $WHT . "ERROR DETECTING$NRM\n";
+              }
+
+            # Try plain
+            print "Testing plain:\t\t";
+            $tmp=detect_auth_support('SMTP',$host,'PLAIN');
             if (defined($tmp)) {
                 if ($tmp eq 'YES') {
                     print $WHT . "SUPPORTED$NRM\n";
@@ -1609,12 +1623,12 @@ sub command112b {
     print "\nWhat authentication mechanism do you want to use for SMTP connections?\n";
     print $WHT . "none" . $NRM . " - Your SMTP server does not require authorization.\n";
     print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
-    print $WHT . "plain" . $NRM . " - SASL PLAIN.  You already know it if you need this.\n";
+    print $WHT . "plain" . $NRM . " - SASL PLAIN. Plaintext. If you can do better, you probably should.\n";
     print $WHT . "cram-md5" . $NRM . " - Slightly better than plaintext.\n";
     print $WHT . "digest-md5" . $NRM . " - Privacy protection - better than cram-md5.\n";
     print $WHT . "\n*** YOUR SMTP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n" . $NRM;
     print "If you don't understand or are unsure, you probably want \"none\"\n\n";
-    print "none, login, cram-md5, or digest-md5 [$WHT$smtp_auth_mech$NRM]: $WHT";
+    print "none, login, plain, cram-md5, or digest-md5 [$WHT$smtp_auth_mech$NRM]: $WHT";
     $inval=<STDIN>;
     chomp($inval);
     if ($inval =~ /^none\b/i) {
