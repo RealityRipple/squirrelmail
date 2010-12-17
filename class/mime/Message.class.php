@@ -161,9 +161,9 @@ class Message {
                       $name = $header->getParameter('name');
                       if(!trim($name)) {
                           if (!trim( $header->id )) {
-                              $filename = 'untitled-[' . $this->entity_id . ']' ;
+                              $filename = 'untitled-[' . $this->entity_id . ']' . '.' . strtolower($header->type1);
                           } else {
-                              $filename = 'cid: ' . $header->id;
+                              $filename = 'cid: ' . $header->id . '.' . strtolower($header->type1);
                           }
                       } else {
                           $filename = $name;
@@ -178,9 +178,9 @@ class Message {
                   $filename = $header->getParameter('name');
                   if (!trim($filename)) {
                       if (!trim( $header->id )) {
-                          $filename = 'untitled-[' . $this->entity_id . ']' ;
+                          $filename = 'untitled-[' . $this->entity_id . ']' . '.' . strtolower($header->type1);
                       } else {
-                          $filename = 'cid: ' . $header->id;
+                          $filename = 'cid: ' . $header->id . '.' . strtolower($header->type1);
                       }
                   }
               }
