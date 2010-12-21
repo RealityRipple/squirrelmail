@@ -41,7 +41,7 @@ echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" ce
                     html_tag( 'tr' ) . "\n" .
                         html_tag( 'td', '', 'left', $color[4] ) . "<br />\n";
 
-echo html_tag( 'p',_("Based on the Folder Preferences option &quot;Enable Unread Message Notification&quot;, you can be notified when new messages arrive in your account.")) . "\n" .
+echo html_tag( 'p', sprintf(_("Based on the Folder Preferences option %s, you can be notified when new messages arrive in your account."), '&quot;' . _("Enable Unread Message Notification") . '&quot;')) . "\n" .
      html_tag( 'p',
         sprintf(_("Selecting the %s option will enable the showing of a popup window when unseen mail is in one of your folders (requires JavaScript)."), '&quot;'._("Show popup window on new mail").'&quot;')
      ) . "\n" .
