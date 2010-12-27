@@ -270,37 +270,70 @@ function digest_md5_parse_challenge($challenge) {
 }
 
 /**
- * Creates a HMAC digest that can be used for auth purposes
- * See RFCs 2104, 2617, 2831
- * Uses mhash() extension if available
- *
- * @param string $data Data to apply hash function to.
- * @param string $key Optional key, which, if supplied, will be used to
- * calculate data's HMAC.
- * @return string HMAC Digest string
- * @since 1.4.0
- */
+  * Creates a HMAC digest that can be used for authentication purposes
+  * See RFCs 2104, 2617, 2831
+  *
+  * Uses PHP's Hash extension if available (enabled by default in PHP
+  * 5.1.2+ - see http://www.php.net/manual/en/hash.requirements.php
+  * or, if installed on earlier PHP versions, the PECL hash module -
+  * see http://pecl.php.net/package/hash
+  *
+  * Otherwise, will attempt to use the Mhash extension - see
+  * http://www.php.net/manual/en/mhash.requirements.php
+  *
+  * Finally, a fall-back custom implementation is used if none of
+  * the above are available.
+  *
+  * @param string $data The data to be encoded/hashed
+  * @param string $key The (shared) secret key that will be used
+  *                    to build the keyed hash.  This argument is
+  *                    technically optional, but only for internal
+  *                    use (when the custom hash implementation is
+  *                    being used) - external callers should always
+  *                    specify a value for this argument.
+  *
+  * @return string The HMAC-MD5 digest string
+  * @since 1.4.0
+  *
+  */
 function hmac_md5($data, $key='') {
+
+    // use PHP's native Hash extension if possible
+    //
+    if (function_exists('hash_hmac'))
+        return pack('H*', hash_hmac('md5', $data, $key));
+
+
+    // otherwise, use (obsolete) mhash extension if available
+    //
     if (extension_loaded('mhash')) {
-        if ($key== '') {
-            $mhash=mhash(MHASH_MD5,$data);
-        } else {
-            $mhash=mhash(MHASH_MD5,$data,$key);
-        }
+
+        if ($key == '')
+            $mhash = mhash(MHASH_MD5, $data);
+        else
+            $mhash = mhash(MHASH_MD5, $data, $key);
+
         return $mhash;
     }
-    if (!$key) {
-        return pack('H*',md5($data));
-    }
-    $key = str_pad($key,64,chr(0x00));
-    if (strlen($key) > 64) {
-        $key = pack("H*",md5($key));
-    }
-    $k_ipad =  $key ^ str_repeat(chr(0x36), 64) ;
-    $k_opad =  $key ^ str_repeat(chr(0x5c), 64) ;
-    /* Heh, let's get recursive. */
-    $hmac=hmac_md5($k_opad . pack("H*",md5($k_ipad . $data)) );
+
+
+    // or, our own implementation...
+    //
+    if (!$key)
+        return pack('H*', md5($data));
+
+    $key = str_pad($key, 64, chr(0x00));
+
+    if (strlen($key) > 64)
+        $key = pack("H*", md5($key));
+
+    $k_ipad = $key ^ str_repeat(chr(0x36), 64);
+    $k_opad = $key ^ str_repeat(chr(0x5c), 64);
+
+    $hmac = hmac_md5($k_opad . pack('H*', md5($k_ipad . $data)));
+
     return $hmac;
+
 }
 
 /**
