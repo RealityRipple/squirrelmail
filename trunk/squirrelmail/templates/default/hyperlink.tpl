@@ -20,7 +20,7 @@
   *                    in double quotes as attribute values (optional; 
   *                    may not be present)
   *
-  * @copyright 1999-2010 The SquirrelMail Project Team
+  * @copyright 1999-2011 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail

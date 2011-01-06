@@ -8,7 +8,7 @@
  *    $accesskey_compose_body - The access key to use for the message body textarea
  *    $accesskey_compose_send - The access key to be use for the Send button
  *
- * @copyright 1999-2010 The SquirrelMail Project Team
+ * @copyright 1999-2011 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: compose_body.tpl 11743 2006-09-27 21:54:14Z stevetruckstuff $
  * @package squirrelmail

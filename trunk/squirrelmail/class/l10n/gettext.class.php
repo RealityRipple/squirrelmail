@@ -19,7 +19,7 @@
  * along with PHP-gettext; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * @copyright 2004-2010 The SquirrelMail Project Team
+ * @copyright 2004-2011 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
