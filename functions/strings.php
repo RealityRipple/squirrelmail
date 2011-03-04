@@ -731,7 +731,7 @@ function GenerateRandomString($size, $chars, $flags = 0) {
  * @since 1.0.3
  */
 function quoteimap($str) {
-    return preg_replace("/([\"\\\\])/", "\\\\$1", $str);
+    return str_replace(array('\\', '"'), array('\\\\', '\\"'), $str);
 }
 
 /**
