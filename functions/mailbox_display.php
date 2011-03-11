@@ -1041,7 +1041,7 @@ function showMessagesForMailbox($imapConnection, &$aMailbox,$aProps, &$iError) {
                    $trash_folder) ? true : false; //
 
     $showUndelete = (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY' &&
-                   in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true) && !$trash_folder) ? true : false;
+                   in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true) /* trash folder unrelated methinks: && !$trash_folder*/) ? true : false;
     $showMove   = ($aMailbox['RIGHTS'] != 'READ-ONLY') ? true : false;
     $showExpunge = (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY' &&
                    in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) ? true : false;
