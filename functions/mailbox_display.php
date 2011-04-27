@@ -578,7 +578,7 @@ function prepareMessageList(&$aMailbox, $aProps) {
                             $sTmp = $sTrunc;
                         }
                     }
-                    $value = ($sTmp) ? $sTmp : $sUnknown;
+                    $value = ($sTmp) ? (substr($sTmp, 0, 6) == '&quot;' && substr($sTmp, -6) == '&quot;' ? substr(substr($sTmp, 0, -6), 6) : $sTmp) : $sUnknown;
                     break;
                 case SQM_COL_SUBJ:
                     // subject is mime encoded, decode it.
