@@ -220,6 +220,7 @@ function isBoxBelow( $subbox, $parentbox ) {
  *
  * Since 1.4.3 hook supports more than one plugin.
  *
+//FIXME: make $subfolders_of_inbox_are_special a configuration setting in conf.pl and config.php
  * Since 1.4.22/1.5.2, the administrator can add
  * $subfolders_of_inbox_are_special = TRUE;
  * to config/config_local.php and all subfolders
