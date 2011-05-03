@@ -357,6 +357,9 @@ Version 1.5.2 - SVN
     (helps forwarded messages avoid spam filters) (Thanks to Petr
     Kletecka) (#3139004).
   - Added smtp_auth hook (Thanks to Emmanuel Dreyfus).
+  - Allow administrators to configure subfolders of user INBOXes to be
+    treated as special folders by adding $subfolders_of_inbox_are_special
+    to config_local.php.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

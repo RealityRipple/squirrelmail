@@ -47,5 +47,10 @@
  * 4.3.0.  Set to 'CRLF' or 'LF' or, to force line endings to be
  * unmolested, set to some other string, such as 'NOCHANGE'
  *
+ * $subfolders_of_inbox_are_special (boolean) can be set to TRUE
+ * if any subfolders of the INBOX should be treated as "special"
+ * (those that are displayed in a different color than other
+ * "normal" mailboxes).
+ *
  */
 
