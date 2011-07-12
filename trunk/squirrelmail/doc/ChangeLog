@@ -360,6 +360,8 @@ Version 1.5.2 - SVN
   - Allow administrators to configure subfolders of user INBOXes to be
     treated as special folders by adding $subfolders_of_inbox_are_special
     to config_local.php.
+  - Added clickjacking protection (thanks to Asbjorn Thorsen and Geir Hansen
+    for bringing this to our attention). [CVE-2010-4554]
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
