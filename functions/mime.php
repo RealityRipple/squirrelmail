@@ -2350,6 +2350,15 @@ function sq_sanitize($body,
             list($free_content, $curpos) =
                 sq_fixstyle($body, $gt+1, $message, $id, $mailbox);
             if ($free_content != FALSE){
+                $attary = sq_fixatts($tagname,
+                                     $attary,
+                                     $rm_attnames,
+                                     $bad_attvals,
+                                     $add_attr_to_tag,
+                                     $message,
+                                     $id,
+                                     $mailbox
+                                     );
                 $trusted .= sq_tagprint($tagname, $attary, $tagtype);
                 $trusted .= $free_content;
                 $trusted .= sq_tagprint($tagname, false, 2);
