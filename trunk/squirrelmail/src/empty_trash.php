@@ -30,6 +30,10 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 /* finished globals */
 
+// first do a security check
+sqgetGlobalVar('smtoken', $submitted_token, SQ_GET, '');
+sm_validate_security_token($submitted_token, 3600, TRUE);
+
 $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
 
 $mailbox = $trash_folder;

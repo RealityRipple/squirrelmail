@@ -196,7 +196,7 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
                 $end .= '&nbsp;<small>('.$unseen_str.')</small>';
             }
             $end .= "\n<small>" .
-                    '&nbsp;&nbsp;[<a href="empty_trash.php">'. _("Purge").'</a>]' .
+                    '&nbsp;&nbsp;[<a href="empty_trash.php?smtoken=' . sm_generate_security_token() . '">'. _("Purge").'</a>]' .
                     '</small>';
         }
     } else {
