@@ -305,7 +305,7 @@ extract($t);
 <?php
 if ($settings['messageRecyclingEnabled']) {
     echo '<br />';
-    echo '<a href="empty_trash.php"';
+    echo '<a href="empty_trash.php?smtoken=' . sm_generate_security_token() . '"';
     if ($accesskey_folders_purge_trash != 'NONE')
         echo ' accesskey="' . $accesskey_folders_purge_trash . '"';
     echo '>' . _("Purge Trash") . '</a>';

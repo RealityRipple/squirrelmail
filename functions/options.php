@@ -831,6 +831,21 @@ function save_option($option) {
         return;
     }
 
+    // if the widget is a selection list, make sure the new
+    // value is actually in the selection list and is not an
+    // injection attack
+    //
+    if ($option->type == SMOPT_TYPE_STRLIST
+     && !array_key_exists($option->new_value, $option->possible_values))
+        return;
+
+
+    // all other widgets except TEXTAREAs should never be allowed to have newlines
+    //
+    else if ($option->type != SMOPT_TYPE_TEXTAREA)
+        $option->new_value = str_replace(array("\r", "\n"), '', $option->new_value);
+
+
     global $data_dir;
 
     // edit lists: first add new elements to list, then
