@@ -364,7 +364,8 @@ Version 1.5.2 - SVN
     for bringing this to our attention). [CVE-2010-4554]
   - Fixed XSS holes in generic options inputs, XSS hole in the SquirrelSpell
     plugin, and added anti-CSRF protection to the empty trash feature (thanks
-    to Nicholas Carlini for finding all these issues). [CVE-2010-4555]
+    to Nicholas Carlini for finding all these issues).
+    [CVE-2011-2752, CVE-2011-2753, CVE-2010-4555]
   - Fixed XSS problem with unsanitized style tags in messages. [CVE-2011-2023]
 
 Version 1.5.1 (branched on 2006-02-12)
