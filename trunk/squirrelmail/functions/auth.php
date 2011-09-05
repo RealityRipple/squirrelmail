@@ -363,6 +363,12 @@ function get_smtp_user(&$user, &$pass) {
     // directly changing the arguments array contents 
     // in your plugin e.g., $args[0] = 'new_username';
     //
+    // NOTE: there is another hook in class/deliver/Deliver_SMTP.class.php
+    // called "smtp_authenticate" that allows a plugin to run its own
+    // custom authentication routine - this hook here is thus slightly
+    // mis-named but is too old to change.  Be careful that you do not
+    // confuse your hook names.
+    //
     $temp = array(&$user, &$pass);
     do_hook('smtp_auth', $temp);
 }
