@@ -212,6 +212,12 @@ class Deliver_SMTP extends Deliver {
         // FIXME: check ehlo response before using authentication
 
         // Try authentication by a plugin
+        //
+        // NOTE: there is another hook in functions/auth.php called "smtp_auth" 
+        // that allows a plugin to specify a different set of login credentials 
+        // (so is slightly mis-named, but is too old to change), so be careful 
+        // that you do not confuse your hook names.
+        //
         $smtp_auth_args = array(
             'auth_mech' => $smtp_auth_mech,
             'user' => $user,
@@ -220,7 +226,7 @@ class Deliver_SMTP extends Deliver {
             'port' => $port,
             'stream' => $stream,
         );
-        if (boolean_hook_function('smtp_auth', $smtp_auth_args, 1)) {
+        if (boolean_hook_function('smtp_authenticate', $smtp_auth_args, 1)) {
             // authentication succeeded
         } else if (( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) {
             // Doing some form of non-plain auth
