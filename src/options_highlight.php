@@ -32,7 +32,7 @@ sqGetGlobalVar('newcolor_input', $newcolor_input);
 sqGetGlobalVar('color_type', $color_type);
 sqGetGlobalVar('match_type', $match_type);
 sqGetGlobalVar('value', $value);
-sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
+sqgetGlobalVar('smtoken', $submitted_token, SQ_FORM, '');
 
 /* end of get globals */
 
@@ -151,11 +151,13 @@ foreach($message_highlight_list as $index=>$rule) {
 
 $oTemplate->assign('current_rules', $rules);
 
+$token = sm_generate_security_token();
+
 $oTemplate->assign('add_rule', 'options_highlight.php?action=add');
 $oTemplate->assign('edit_rule', 'options_highlight.php?action=edit&amp;theid=');
-$oTemplate->assign('delete_rule', 'options_highlight.php?action=delete&amp;theid=');
-$oTemplate->assign('move_up', 'options_highlight.php?action=up&amp;theid=');
-$oTemplate->assign('move_down', 'options_highlight.php?action=down&amp;theid=');
+$oTemplate->assign('delete_rule', 'options_highlight.php?action=delete&amp;smtoken=' . $token . '&amp;theid=');
+$oTemplate->assign('move_up', 'options_highlight.php?action=up&amp;smtoken=' . $token . '&amp;theid=');
+$oTemplate->assign('move_down', 'options_highlight.php?action=down&amp;smtoken=' . $token . '&amp;theid=');
 
 $oTemplate->display('options_highlight_list.tpl');
 
