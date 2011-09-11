@@ -28,7 +28,8 @@ extract($t);
 
 echo '<input type="' . $type . '"';
 foreach ($aAttribs as $key => $value) {
-    echo ' ' . $key . (is_null($value) ? '' : '="' . $value . '"');
+//TODO: see the FIXME tag on line 68 of functions/forms.php - the htmlspecialchars() below should be migrated to the template class
+    echo ' ' . $key . (is_null($value) ? '' : '="' . htmlspecialchars($value) . '"');
 }
 echo ' />';
 
