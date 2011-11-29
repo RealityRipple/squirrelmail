@@ -1627,6 +1627,8 @@ function deliverMessage(&$composeMessage, $draft=false) {
 
     $reply_to = '';
     $reply_to  = $idents[$identity]['reply_to'];
+    if (strpos($reply_to, '@') === FALSE)
+        $reply_to .= '@' . $domain;
     
     $from_addr = build_from_header($identity);
     $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);

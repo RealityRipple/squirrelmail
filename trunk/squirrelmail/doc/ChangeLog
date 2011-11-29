@@ -367,6 +367,8 @@ Version 1.5.2 - SVN
     to Nicholas Carlini for finding all these issues).
     [CVE-2011-2752, CVE-2011-2753, CVE-2010-4555]
   - Fixed XSS problem with unsanitized style tags in messages. [CVE-2011-2023]
+  - Always ensure that the Reply-To header is a full email address in
+    outgoing messages (makes the Verify Reply-To plugin obsolete)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
