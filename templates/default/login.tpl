@@ -51,7 +51,7 @@ extract($t);
    <?php echo _("Name:"); ?>
   </label></td>
   <td class="sqm_loginFieldInput">
-   <input type="text" name="<?php global $username_form_name; echo $username_form_name; ?>" value="<?php echo $login_field_value; ?>" id="login_username" onfocus="alreadyFocused=true;" />
+   <input type="text" name="<?php global $username_form_name; echo $username_form_name; ?>" value="<?php echo $login_field_value; ?>" id="login_username" onfocus="alreadyFocused=true;" <?php global $username_form_extra; echo $username_form_extra; ?> />
   </td>
  </tr>
  <tr>
@@ -59,7 +59,7 @@ extract($t);
    <?php echo _("Password:"); ?>
   </label></td>
   <td class="sqm_loginFieldInput">
-   <input type="password" name="<?php global $password_form_name; echo $password_form_name; ?>" value="" id="secretkey" onfocus="alreadyFocused=true;" />
+   <input type="password" name="<?php global $password_form_name; echo $password_form_name; ?>" value="" id="secretkey" onfocus="alreadyFocused=true;" <?php global $password_form_extra; echo $password_form_extra; ?> />
    <?php echo $login_extra; ?>
   </td>
  </tr>
