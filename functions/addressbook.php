@@ -515,8 +515,7 @@ class AddressBook {
      * @return string email address with real name prepended
      */
     function full_address($row) {
-        global $data_dir, $username;
-        $addrsrch_fullname = getPref($data_dir, $username, 'addrsrch_fullname');
+        global $data_dir, $username, $addrsrch_fullname;
 
         // allow multiple addresses in one row (poor person's grouping - bah)
         // (separate with commas)
