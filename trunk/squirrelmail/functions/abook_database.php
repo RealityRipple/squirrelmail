@@ -264,8 +264,12 @@ class abook_database extends addressbook_backend {
         $escape = 'ESCAPE \'' . $this->dbh->quoteString('\\') . '\'';
     
         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND " .
-                         "(LOWER(firstname) LIKE '%s' %s OR LOWER(lastname) LIKE '%s' %s)",
-                         $this->table, $this->owner, $expr, $escape, $expr, $escape);
+                         "(LOWER(firstname) LIKE '%s' %s " .
+                         "OR LOWER(lastname) LIKE '%s' %s " .
+                         "OR LOWER(email) LIKE '%s' %s " .
+                         "OR LOWER(nickname) LIKE '%s' %s)",
+                         $this->table, $this->owner, $expr, $escape, $expr, $escape,
+                                                     $expr, $escape, $expr, $escape);
 
         $res = $this->dbh->query($query);
 
