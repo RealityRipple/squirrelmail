@@ -369,6 +369,9 @@ Version 1.5.2 - SVN
   - Fixed XSS problem with unsanitized style tags in messages. [CVE-2011-2023]
   - Always ensure that the Reply-To header is a full email address in
     outgoing messages
+  - Unified address book searches somewhat: file-backed address books now
+    search in each field individually; database-backed address books now
+    search in fields other than first/last name (nickname, email)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

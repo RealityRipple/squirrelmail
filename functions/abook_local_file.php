@@ -274,10 +274,9 @@ class abook_local_file extends addressbook_backend {
         if ($expr=='*' && ! $this->listing)
             return array();
 
-        /* Make regexp from glob'ed expression
-         * May want to quote other special characters like (, ), -, [, ], etc. */
-        $expr = str_replace('?', '.', $expr);
-        $expr = str_replace('*', '.*', $expr);
+        // Make regexp from glob'ed expression
+        $expr = preg_quote($expr);
+        $expr = str_replace(array('\\?', '\\*'), array('.', '.*'), $expr);
 
         $res = array();
         if(!$this->open()) {
@@ -295,13 +294,15 @@ class abook_local_file extends addressbook_backend {
                 $oTemplate->display('footer.tpl');
                 die();
             } else {
-                $line = join(' ', $row);
                 /**
                  * TODO: regexp search is supported only in local_file backend.
                  * Do we check format of regexp or ignore errors?
                  */
                 // errors on preg_match call are suppressed in order to prevent display of regexp compilation errors
-                if(@preg_match('/' . $expr . '/i', $line)) {
+                if (@preg_match('/' . $expr . '/i', $row[0])    // nickname
+                 || @preg_match('/' . $expr . '/i', $row[1])    // firstname
+                 || @preg_match('/' . $expr . '/i', $row[2])    // lastname
+                 || @preg_match('/' . $expr . '/i', $row[3])) { // email
                     array_push($res, array('nickname'  => $row[0],
                         'name'      => $this->fullname($row[1], $row[2]),
                         'firstname' => $row[1],
