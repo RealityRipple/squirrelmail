@@ -5104,7 +5104,7 @@ sub save_data {
                 # integer
                 print CF "    'search_tree' => $ldap_search_tree[$count]";
             }
-            if ( $ldap_listing[$count] ) {
+            if ( $ldap_starttls[$count] ) {
                 print CF ",\n";
                 # boolean
                 print CF "    'starttls' => $ldap_starttls[$count]";
