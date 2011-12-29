@@ -894,6 +894,15 @@ function save_option($option) {
           && empty($option->new_value)) 
         setPref($data_dir, $username, $option->name, SMPREF_OFF);
 
+    // For integer fields, make sure we only have digits...
+    // We'll be nice and instead of just converting to an integer,
+    // we'll physically remove each non-digit in the string.
+    //
+    else if ($option->type == SMOPT_TYPE_INTEGER) {
+        $option->new_value = preg_replace('/[^0-9]/', '', $option->new_value);
+        setPref($data_dir, $username, $option->name, $option->new_value);
+    }
+
     else
         setPref($data_dir, $username, $option->name, $option->new_value);
 
