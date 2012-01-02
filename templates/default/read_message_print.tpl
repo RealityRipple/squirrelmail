@@ -4,7 +4,7 @@
  *
  * Let a non-JavaScript user know that they can print this page.
  *
- * @copyright 2008-2011 The SquirrelMail Project Team
+ * @copyright 2008-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: read_menubar_nav.tpl 12415 2007-05-18 11:05:23Z pdontthink $
  * @package squirrelmail

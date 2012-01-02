@@ -1,7 +1,7 @@
 /**
  * This array is used to remember mark status of rows in browse mode
  *
- * @copyright 2005-2011 The SquirrelMail Project Team
+ * @copyright 2005-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  */
