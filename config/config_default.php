@@ -673,6 +673,53 @@ $allow_advanced_search = 0;
  */
 $session_name = 'SQMSESSID';
 
+/**
+ * Secure Cookies
+ *
+ * Only transmit cookies via a secure connection
+ * if the session was started using HTTPS/SSL?
+ *
+ * Highly recommended
+ *
+ * @global bool $only_secure_cookies
+ * @since 1.5.2 and 1.4.16
+ */
+$only_secure_cookies = true;
+
+/**
+ * Secure Forms
+ *
+ * Disable security tokens used to authenticate the
+ * source of user data received by SquirrelMail?
+ *
+ * It is highly discouraged to enable this setting.
+ *
+ * @global bool $disable_security_tokens
+ * @since 1.5.2 and 1.4.20RC1
+ */
+$disable_security_tokens = false;
+
+/**
+ * Check Page Referrer
+ *
+ * Enforces a safety check on page requests by checking
+ * that the referrer is the domain specified by this
+ * setting.  If this setting is "###DOMAIN###", the
+ * current value of the $domain variable will be used
+ * for the check.
+ *
+ * If a browser doesn't send referrer data, this check
+ * will be silently bypassed.
+ *
+ * Examples:
+ * $check_referrer = 'example.com';
+ * $check_referrer = '###DOMAIN###';
+ *
+ * @global string $check_referrer
+ * @since 1.5.2 and 1.4.20RC1
+ */
+$check_referrer = '';
+
 
 /**
  * User Themes
