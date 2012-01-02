@@ -7,7 +7,7 @@
  * Comment: Deep Ocean 2 is very blue with a white background.
  *
  * @author M.J. Prinsen
- * @copyright 2000-2011 The SquirrelMail Project Team
+ * @copyright 2000-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

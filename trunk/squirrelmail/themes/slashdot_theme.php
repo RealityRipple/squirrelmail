@@ -7,7 +7,7 @@
  *         "News for Nerds" web site, www.slashdot.org.
  *
  * @author Luke Ehresman
- * @copyright 2000-2011 The SquirrelMail Project Team
+ * @copyright 2000-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

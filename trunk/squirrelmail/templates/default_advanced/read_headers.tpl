@@ -14,7 +14,7 @@
  *                          additional templates.
  * 
  *
- * @copyright 1999-2011 The SquirrelMail Project Team
+ * @copyright 1999-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: read_headers.tpl 11998 2006-12-10 21:06:24Z pdontthink $
  * @package squirrelmail

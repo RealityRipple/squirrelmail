@@ -50,7 +50,7 @@
  *    $accesskey_read_msg_copy         - The accesskey to be used for the Copy button
  *    
  *
- * @copyright 1999-2011 The SquirrelMail Project Team
+ * @copyright 1999-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id: read_menubar_buttons.tpl 11850 2006-10-06 21:57:26Z stevetruckstuff $
  * @package squirrelmail

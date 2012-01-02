@@ -7,7 +7,7 @@
  * Comment: A popular theme with Jim's users
  *
  * @author Jim Riffle
- * @copyright 2001-2011 The SquirrelMail Project Team
+ * @copyright 2001-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
