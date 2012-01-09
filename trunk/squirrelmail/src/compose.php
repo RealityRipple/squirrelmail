@@ -1633,7 +1633,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
 
     $reply_to = '';
     $reply_to  = $idents[$identity]['reply_to'];
-    if (strpos($reply_to, '@') === FALSE)
+    if ($reply_to && strpos($reply_to, '@') === FALSE)
         $reply_to .= '@' . $domain;
     
     $from_addr = build_from_header($identity);
