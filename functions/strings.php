@@ -1542,7 +1542,7 @@ function sm_get_user_security_tokens($purge_old=TRUE)
   * @param boolean $force_generate_new When TRUE, a new token will
   *                                    always be created even if current
   *                                    configuration dictates otherwise
-  *                                    (OPTION; default FALSE)
+  *                                    (OPTIONAL; default FALSE)
   *
   * @return string A security token
   *
