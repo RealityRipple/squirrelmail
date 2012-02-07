@@ -1481,7 +1481,7 @@ function sm_truncate_string($string, $max_chars, $elipses='',
   *                           list ("old" is 2 days or
   *                           older unless the administrator
   *                           overrides that value using
-  *                           $max_security_token_age in
+  *                           $max_token_age_days in
   *                           config/config_local.php)
   *                           (OPTIONAL; default is to always
   *                           purge old tokens)
@@ -1523,6 +1523,15 @@ function sm_get_user_security_tokens($purge_old=TRUE)
   * the user's preferences with a timestamp for later
   * verification/use.
   *
+  * NOTE: The administrator can force SquirrelMail to generate
+  * a new token every time one is requested (which may increase
+  * obscurity through token randomness at the cost of some
+  * performance) by adding the following to
+  * config/config_local.php:   $do_not_use_single_token = TRUE;
+  * Otherwise, only one token will be generated per user which
+  * will change only after it expires or is used outside of the
+  * validity period specified when calling sm_validate_security_token()
+  *
   * WARNING: If the administrator has turned the token system
   *          off by setting $disable_security_tokens to TRUE in
   *          config/config.php or the configuration tool, this
@@ -1530,18 +1539,26 @@ function sm_get_user_security_tokens($purge_old=TRUE)
   *          preferences (but it will still generate and return
   *          a random string).
   *
+  * @param boolean $force_generate_new When TRUE, a new token will
+  *                                    always be created even if current
+  *                                    configuration dictates otherwise
+  *                                    (OPTION; default FALSE)
+  *
   * @return string A security token
   *
   * @since 1.4.19 and 1.5.2
   *
   */
-function sm_generate_security_token()
+function sm_generate_security_token($force_generate_new=FALSE)
 {
 
-   global $data_dir, $username, $disable_security_tokens;
+   global $data_dir, $username, $disable_security_tokens, $do_not_use_single_token;
    $max_generation_tries = 1000;
 
    $tokens = sm_get_user_security_tokens();
+
+   if (!$force_generate_new && !$do_not_use_single_token && !empty($tokens))
+      return key($tokens);
 
    $new_token = GenerateRandomString(12, '', 7);
    $count = 0;
@@ -1573,7 +1590,7 @@ function sm_generate_security_token()
   * is too old but otherwise valid, it will still be rejected.
   *
   * "Too old" is 2 days or older unless the administrator
-  * overrides that value using $max_security_token_age in
+  * overrides that value using $max_token_age_days in
   * config/config_local.php
   *
   * WARNING: If the administrator has turned the token system
@@ -1588,6 +1605,10 @@ function sm_generate_security_token()
   *                                 tokens to be reused for an hour)
   *                                 (OPTIONAL; default is to only allow tokens
   *                                 to be used once)
+  *                                 NOTE this is unrelated to $max_token_age_days
+  *                                 or rather is an additional time constraint on
+  *                                 tokens that allows them to be re-used (or not)
+  *                                 within a more narrow timeframe
   * @param boolean $show_error      Indicates that if the token is not
   *                                 valid, this function should display
   *                                 a generic error, log the user out
