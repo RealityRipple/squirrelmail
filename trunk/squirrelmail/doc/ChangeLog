@@ -372,6 +372,7 @@ Version 1.5.2 - SVN
   - Unified address book searches somewhat: file-backed address books now
     search in each field individually; database-backed address books now
     search in fields other than first/last name (nickname, email)
+  - Made performance improvements in security token handling
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
