@@ -312,18 +312,21 @@ function mail_fetch_folderact_function($args) {
 // end of hooked functions
 
 /**
- * hex2bin - document me
+ * hex2bin - convert a hexadecimal string into binary
+ * Exists since PHP 5.4.
  */
-function hex2bin( $data ) {
+if ( ! function_exists('hex2bin') ) {
+    function hex2bin( $data ) {
 
-    /* Original code by josh@superfork.com */
+        /* Original code by josh@superfork.com */
 
-    $len = strlen($data);
-    $newdata = '';
-    for( $i=0; $i < $len; $i += 2 ) {
-        $newdata .= pack( "C", hexdec( substr( $data, $i, 2) ) );
+        $len = strlen($data);
+        $newdata = '';
+        for( $i=0; $i < $len; $i += 2 ) {
+            $newdata .= pack( "C", hexdec( substr( $data, $i, 2) ) );
+        }
+        return $newdata;
     }
-    return $newdata;
 }
 
 function mf_keyED( $txt ) {
