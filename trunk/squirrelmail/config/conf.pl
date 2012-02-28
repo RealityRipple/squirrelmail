@@ -2592,8 +2592,8 @@ sub command311b {
   order to prevent possible sender forging by users that are allowed
   to change their email and/or full name.
 
-  You can remove user information from this header (y) if you think that
-  it violates privacy or security.
+  You can remove user information from this header (y) if you think
+  that it violates privacy or security.
 
   Note: If users are allowed to change their email addresses, this
   setting will make it difficult to determine who sent what where.
