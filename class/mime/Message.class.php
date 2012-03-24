@@ -364,6 +364,7 @@ class Message {
                                 $hdr->type1 = 'plain';
                                 $hdr->encoding = '7bit';
                             } else {
+                                $msg->header = new MessageHeader();
                                 $msg->header->type0 = 'multipart';
                                 $msg->type0 = 'multipart';
                                 while ($read{$i} == '(') {
