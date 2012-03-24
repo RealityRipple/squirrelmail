@@ -1078,18 +1078,19 @@ function sqimap_get_delimiter ($imap_stream = false) {
             if (preg_match('/\* NAMESPACE +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL)/i', $read[0], $data)) {
                 if (preg_match('/^\( *\((.*)\) *\)/', $data[1], $data2)) {
                     $pn = $data2[1];
-                }
-                $pna = explode(')(', $pn);
-                while (list($k, $v) = each($pna)) {
-                    $lst = explode('"', $v);
-                    if (isset($lst[3])) {
-                        $pn[$lst[1]] = $lst[3];
-                    } else {
-                        $pn[$lst[1]] = '';
+                    $pna = explode(')(', $pn);
+                    $delnew = array();
+                    while (list($k, $v) = each($pna)) {
+                        $lst = explode('"', $v);
+                        if (isset($lst[3])) {
+                            $delnew[$lst[1]] = $lst[3];
+                        } else {
+                            $delnew[$lst[1]] = '';
+                        }
                     }
+                    $sqimap_delimiter = array_shift($delnew);
                 }
             }
-            $sqimap_delimiter = $pn[0];
         } else {
             fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
             $read = sqimap_read_data($imap_stream, '.', true, $a, $b);
