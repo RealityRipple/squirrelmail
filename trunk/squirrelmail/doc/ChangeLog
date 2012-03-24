@@ -373,6 +373,7 @@ Version 1.5.2 - SVN
     search in each field individually; database-backed address books now
     search in fields other than first/last name (nickname, email)
   - Made performance improvements in security token handling
+  - Improvements for PHP 5.4 compatibility.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
