@@ -437,16 +437,26 @@ class Deliver {
      *
      * This function is not yet implemented.
      * Reserved for extended functionality.
+     * UPDATE: It is implemented in Deliver_SMTP and Deliver_SendMail classes,
+     *         but it remains unimplemented in this base class (and thus not
+     *         in Deliver_IMAP or other child classes that don't define it)
+     *
+     * NOTE: some parameters are specific to the child class
+     *       that is implementing this method
      *
      * @param Message $message  Message object
+     * @param string  $domain
+     * @param integer $length
      * @param string  $host     host name or IP to connect to
+     * @param integer $port
      * @param string  $user     username to log into the SMTP server with
      * @param string  $pass     password to log into the SMTP server with
-     * @param integer $length
+     * @param boolean $authpop  whether or not to use POP-before-SMTP authorization
+     * @param string  $pop_host host name or IP to connect to for POP-before-SMTP authorization
      *
      * @return handle $stream file handle resource to SMTP stream
      */
-    function initStream($message, $length=0, $host='', $port='', $user='', $pass='') {
+    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='') {
         return $stream;
     }
 
