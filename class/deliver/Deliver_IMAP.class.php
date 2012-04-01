@@ -52,7 +52,10 @@ class Deliver_IMAP extends Deliver {
      *
      */
     function send_mail($message, $header, $boundary, $stream=false, 
-                       &$raw_length, $folder) {
+                       &$raw_length, $folder=NULL) {
+
+        if (is_null($folder))
+            die('Internal error. Cannot pass NULL folder name to Deliver_IMAP::send_mail()');
 
         // write the body without providing a stream so we
         // can calculate the final length - after this call,
