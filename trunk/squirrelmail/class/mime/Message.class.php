@@ -363,8 +363,8 @@ class Message {
                                 $hdr->type0 = 'text';
                                 $hdr->type1 = 'plain';
                                 $hdr->encoding = '7bit';
+                                $msg->header = $hdr;
                             } else {
-                                $msg->header = new MessageHeader();
                                 $msg->header->type0 = 'multipart';
                                 $msg->type0 = 'multipart';
                                 while ($read{$i} == '(') {
@@ -462,17 +462,17 @@ class Message {
                     $arg_a[] = $msg->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
-        case '0':
+                case '0':
                 case is_numeric($read{$i}):
                     /* process integers */
                     if ($read{$i} == ' ') { break; }
-            ++$arg_no;
-            if (preg_match('/^([0-9]+).*/',substr($read,$i), $regs)) {
-                $i += strlen($regs[1])-1;
-                $arg_a[] = $regs[1];
-            } else {
-                $arg_a[] = 0;
-            }
+                    ++$arg_no;
+                    if (preg_match('/^([0-9]+).*/',substr($read,$i), $regs)) {
+                        $i += strlen($regs[1])-1;
+                        $arg_a[] = $regs[1];
+                    } else {
+                        $arg_a[] = 0;
+                    }
                     break;
                 case ')':
                     $multipart = (isset($msg->type0) && ($msg->type0 == 'multipart'));
