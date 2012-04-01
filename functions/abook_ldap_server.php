@@ -772,7 +772,7 @@ class abook_ldap_server extends addressbook_backend {
     function lookup($value, $field=SM_ABOOK_FIELD_NICKNAME) {
 
 
-        $attr = $this->get_attr_name($field);
+        $attr = get_attr_name($field);
         if ($attr == 'ERROR') {
             return $this->set_error(sprintf(_("Unknown field name: %s"), $field));
         }

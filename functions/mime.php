@@ -2011,12 +2011,7 @@ function sq_fix_url($attname, &$attvalue, $message, $id, $mailbox,$sQuote = '"')
                         break;
                 }
             } else {
-                // anchors are OK
-                // FIXME: can there be abuse of anchors here?
-                // FIXME: stop anchors from opening in another window
-                if (!isset($aUrl['path']) && !empty($aUrl['fragment'])) {
-                }
-                else if (!isset($aUrl['path']) || $aUrl['path'] != $secremoveimg) {
+                if (!isset($aUrl['path']) || $aUrl['path'] != $secremoveimg) {
                     // parse_url did not lead to satisfying result
                     $attvalue = $sQuote . SM_PATH . 'images/blank.png' . $sQuote;
                 }

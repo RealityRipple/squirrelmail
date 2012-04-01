@@ -914,48 +914,6 @@ function sq_is8bit($string,$charset='') {
      * stores control symbols in those charsets.
      * Use preg_match instead of ereg in order to avoid problems
      * with mbstring overloading
-NOTES:
-NOTES:
-        37 (base 8) =  31 (base 10) (LAST CONTROL CHAR)
-        40 (base 8) =  32 (base 10) (FIRST PRINTABLE ASCII)
-       176 (base 8) = 126 (base 10) (LAST PRINTABLE ASCII)
-       177 (base 8) = 127 (base 10) (DEL)
-       200 (base 8) = 128 (base 10)
-       237 (base 8) = 159 (base 10)
-       240 (base 8) = 160 (base 10) (FIRST EXTRA PRINTABLE)
-       377 (base 8) = 255 (base 10) (LAST EXTRA PRINTABLE)
-       400 (base 8) = 256 (base 10)
-
-       Traditional ASCII                          0 - 127 (octal   0 - 177)
-       Printable ASCII                           32 - 126 (octal  40 - 176)
-       Additional Printables for ISO Latin 1    160 - 255 (octal 240 - 377)
-
-       240 (160) is the first character of the extra 7-bit printable characer
-       range, sometimes used as the no-break space, but the regular expression
-       ranges are broken up at 240 only because RH 7.2 PHP seemed to have
-       problems otherwise - this is a PHP/preg issue, NOT a charset issue
-
-       So supposedly printable chars in an 8859 charset are 32-126 (octal 40-176)
-       and 160/161-255 (octal 240/241-377))
-
-       So checking for the range between the two makes sense (128-159 or octal 200-237)
-         (wait, no, to skip DEL too, it's 127-159 (octal 177-237))
-
-       But why not for 0-31 (octal 0-37) and DEL (127 or 177 octal)????
-         (or do we need a new fxn that detects *printable* 7-bit chars?)
-            (if we do, note that some control characters are "printable",
-             notably the CR, LF and TAB characters)
-       
-       And why is 241-377 octal considered 8-bit for iso 8859???  Isn't it
-       the opposite for iso 8859????   aren't these 7 bit characters?
-       see http://www.cs.tut.fi/~jkorpela/chars.html#latin1
-         Uh, well, anything more than 127 (octal 177) takes 8 bits to represent
-         but errrrr, these are simple non-multibyte characters, right?  but
-         maybe this "is 8-bit" business is NOT the same as "is multibyte"????
-
-         That begs the question how this fxn is actually used - what's its purpose?
-         (is it being misused in some places?)
-
      */
     if (preg_match("/^iso-8859/i",$charset)) {
         $needle='/\240|[\241-\377]/';
