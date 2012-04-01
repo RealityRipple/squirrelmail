@@ -86,10 +86,12 @@ class Deliver_SendMail extends Deliver {
     *
     * @param Message $message Message object containing the from address
     * @param string $sendmail_path Location of sendmail binary
+    * @param mixed $ignore Seven extra arguments that the parent class
+    *                      requires which are not used here
     * @return resource
     * @access public
     */
-    function initStream($message, $sendmail_path) {
+    function initStream($message, $sendmail_path, $ignore=0, $ignore='', $ignore='', $ignore='', $ignore='', $ignore=false, $ignore='') {
         $rfc822_header = $message->rfc822_header;
         $from = $rfc822_header->from[0];
         $envelopefrom = trim($from->mailbox.'@'.$from->host);
