@@ -1064,7 +1064,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
 
     /* Do some caching here */
     if (!$sqimap_delimiter) {
-        if (sqimap_capability($imap_stream, 'NAMESPACE')) {
+        if (sqimap_capability($imap_stream, 'NAMESPACE')
             /*
              * According to something that I can't find, this is supposed to work on all systems
              * OS: This won't work in Courier IMAP.
@@ -1074,23 +1074,21 @@ function sqimap_get_delimiter ($imap_stream = false) {
              *
              * TODO: remove this in favour of the information from sqimap_get_namespace()
              */
-            $read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b);
-            if (preg_match('/\* NAMESPACE +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL)/i', $read[0], $data)) {
-                if (preg_match('/^\( *\((.*)\) *\)/', $data[1], $data2)) {
-                    $pn = $data2[1];
-                    $pna = explode(')(', $pn);
-                    $delnew = array();
-                    while (list($k, $v) = each($pna)) {
-                        $lst = explode('"', $v);
-                        if (isset($lst[3])) {
-                            $delnew[$lst[1]] = $lst[3];
-                        } else {
-                            $delnew[$lst[1]] = '';
-                        }
-                    }
-                    $sqimap_delimiter = array_shift($delnew);
+         && ($read = sqimap_run_command($imap_stream, 'NAMESPACE', true, $a, $b))
+         && preg_match('/\* NAMESPACE +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL)/i', $read[0], $data)
+         && preg_match('/^\( *\((.*)\) *\)/', $data[1], $data2)) {
+            $pn = $data2[1];
+            $pna = explode(')(', $pn);
+            $delnew = array();
+            while (list($k, $v) = each($pna)) {
+                $lst = explode('"', $v);
+                if (isset($lst[3])) {
+                    $delnew[$lst[1]] = $lst[3];
+                } else {
+                    $delnew[$lst[1]] = '';
                 }
             }
+            $sqimap_delimiter = array_shift($delnew);
         } else {
             fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
             $read = sqimap_read_data($imap_stream, '.', true, $a, $b);
