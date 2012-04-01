@@ -545,7 +545,7 @@ class Deliver {
         $cnt = count($header);
         $hdr_s = '';
         for ($i = 0 ; $i < $cnt ; $i++)    {
-            $hdr_s .= $this->foldLine($header[$i], 78);
+            $hdr_s .= $this->foldLine($header[$i]);
         }
         $header = $hdr_s;
         $header .= $rn; /* One blank line to separate mimeheader and body-entity */
@@ -779,7 +779,7 @@ class Deliver {
             case 'From':
                 $hdr_s .= $header[$i];
                 break;
-            default: $hdr_s .= $this->foldLine($header[$i], 78); break;
+            default: $hdr_s .= $this->foldLine($header[$i]); break;
             }
         }
         $header = $hdr_s;
@@ -961,7 +961,7 @@ class Deliver {
                         // if we found the beginning of an encoded word,
                         // we want to break BEFORE the token
                         //
-                        if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)/Ui',
+                        if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)/i',
                                        substr($header, $pos))) {
                             $pos--;
                         }
@@ -982,7 +982,7 @@ class Deliver {
                         //
                         else if (strlen($header) > $hard_wrap
                          && ($end_pos = strpos(substr($header, $hard_wrap), '?=')) !== FALSE
-                         && preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)$/Ui',
+                         && preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)$/i',
                                        substr($header, 0, $hard_wrap + $end_pos + 2),
                                        $matches)) {
 
