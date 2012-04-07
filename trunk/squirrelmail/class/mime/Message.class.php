@@ -292,7 +292,7 @@ class Message {
      * @return object Message object
      * @todo define argument and return types
      */
-    function parseStructure($read, &$i, $sub_msg = '') {
+    static function parseStructure($read, &$i, $sub_msg = '') {
         $msg = Message::parseBodyStructure($read, $i, $sub_msg);
         if($msg) $msg->setEntIds($msg,false,0);
         return $msg;
@@ -342,7 +342,7 @@ class Message {
      * @todo document me
      * @since 1.4.0 (code was part of parseStructure() in 1.3.x)
      */
-    function parseBodyStructure($read, &$i, $sub_msg = '') {
+    static function parseBodyStructure($read, &$i, $sub_msg = '') {
         $arg_no = 0;
         $arg_a  = array();
         if ($sub_msg) {
@@ -368,7 +368,7 @@ class Message {
                                 $msg->header->type0 = 'multipart';
                                 $msg->type0 = 'multipart';
                                 while ($read{$i} == '(') {
-                                    $msg->addEntity($msg->parseBodyStructure($read, $i, $msg));
+                                    $msg->addEntity(Message::parseBodyStructure($read, $i, $msg));
                                 }
                             }
                             break;
@@ -403,7 +403,7 @@ class Message {
                                 while (($i < $cnt) && ($read{$i} != '(')) {
                                     ++$i;
                                 }
-                                $msg->addEntity($msg->parseBodyStructure($read, $i,$msg));
+                                $msg->addEntity(Message::parseBodyStructure($read, $i,$msg));
                             }
                             break;
                         case 8:
