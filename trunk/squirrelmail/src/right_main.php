@@ -236,6 +236,8 @@ if (!sqgetGlobalVar('align',$align,SQ_SESSION)) {
 $sError = handleMessageListForm($imapConnection,$aMailbox);
 if ($sError) {
    $note = $sError;
+} else if (sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST') {
+   $preselected = array(); // clear pre-checked checkboxes when action succeeded
 }
 
 
