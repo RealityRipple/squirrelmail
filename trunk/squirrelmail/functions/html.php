@@ -390,7 +390,7 @@ function set_url_var($url, $var, $val=null, $link=true, $treat_as_array=false) {
             $p = explode('=', $p);
             $newpar[$p[0]] = (isset($p[1]) ? $p[1] : '');
             if ($treat_as_array && preg_match('/(.*)\[(\d+)]$/', $p[0], $matches)) {
-               if (!is_array($array_names[$matches[1]])) $array_names[$matches[1]] = array();
+               if (!isset($array_names[$matches[1]])) $array_names[$matches[1]] = array();
                $array_names[$matches[1]][$matches[2]] = $p[1];
             }
         }
