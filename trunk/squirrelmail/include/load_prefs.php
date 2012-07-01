@@ -275,6 +275,9 @@ $attachment_common_show_images = getPref($data_dir, $username, 'attachment_commo
 /* message disposition notification support setting */
 $mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', SMPREF_ON);
 
+$do_not_reply_to_self =
+    getPref($data_dir, $username, 'do_not_reply_to_self', SMPREF_OFF);
+
 $include_self_reply_all =
     getPref($data_dir, $username, 'include_self_reply_all', SMPREF_ON);
 

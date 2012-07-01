@@ -776,7 +776,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         $key, $imapServerAddress, $imapPort, 
         $composeMessage, $body_quote, $request_mdn, $request_dr,
         $mdn_user_support, $languages, $squirrelmail_language,
-        $default_charset;
+        $default_charset, $do_not_reply_to_self;
 
     /*
      * Set $default_charset to correspond with the user's selection
@@ -980,6 +980,78 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 }
                 $send_to = decodeHeader($send_to,false,false,true);
                 $send_to = str_replace('""', '"', $send_to);
+
+
+                // If user doesn't want replies to her own messages
+                // going back to herself (instead send again to the
+                // original recipient of the message being replied to),
+                // then iterate through identities, checking if the TO
+                // field is one of them (if the reply is to ourselves)
+                //
+                // Note we don't bother if the original message doesn't
+                // have anything in the TO field itself (because that's
+                // what we use if we change the recipient to be that of
+                // the previous message)
+                //
+                if ($do_not_reply_to_self && !empty($orig_header->to)) {
+
+                    $orig_to = '';
+
+                    foreach($idents as $id) {
+
+                        if (!empty($id['email_address'])
+                         && strpos($send_to, $id['email_address']) !== FALSE) {
+
+                            // if this is a reply-all, the original recipient
+                            // is already in the CC field, so we can just blank
+                            // the recipient (TO field) (as long as the CC field
+                            // isn't empty that is) and we're done
+                            //
+                            if ($action == 'reply_all') {
+                                if (!empty($send_to_cc)) $send_to = '';
+                                break;
+                            }
+
+                            $orig_to = $orig_header->to;
+                            if (is_array($orig_to) && count($orig_to)) {
+                                $orig_to = $orig_header->getAddr_s('to', ',', FALSE, TRUE);
+                            } else if (is_object($orig_to)) { /* unneccesarry, just for failsafe purpose */
+                                $orig_to = $orig_header->getAddr_s('to', ',', FALSE, TRUE);
+                            } else {
+                                $orig_to = '';
+                            }
+                            $orig_to = decodeHeader($orig_to,false,false,true);
+                            $orig_to = str_replace('""', '"', $orig_to);
+
+                            break;
+                        }
+                    }
+
+                    // if the reply was addressed back to ourselves,
+                    // we will send it to the TO of the previous message,
+                    // first making sure that that address wasn't also
+                    // one of our identities
+                    //
+                    if (!empty($orig_to)) {
+
+                        foreach($idents as $id) {
+                            if (!empty($id['email_address'])
+                             && strpos($orig_to, $id['email_address']) !== FALSE) {
+                                $orig_to = '';
+                                break;
+                            }
+                        }
+
+                        // if $orig_to still not empty, we can use it
+                        //
+                        if (!empty($orig_to)) {
+                            $send_to = $orig_to;
+                        }
+                    }
+
+                }
+
+
                 $subject = decodeHeader($orig_header->subject,false,false,true);
                 $subject = str_replace('"', "'", $subject);
                 $subject = trim($subject);
