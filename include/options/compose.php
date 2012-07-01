@@ -119,6 +119,13 @@ function load_optpage_data_compose() {
     $optvals[SMOPT_GRP_COMPOSE_REPLY] = array();
 
     $optvals[SMOPT_GRP_COMPOSE_REPLY][] = array(
+        'name'    => 'do_not_reply_to_self',
+        'caption' => _("Send Replies To My Own Messages To Previous Recipient"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_COMPOSE_REPLY][] = array(
         'name'    => 'include_self_reply_all',
         'caption' => _("Include Me in CC when I Reply All"),
         'type'    => SMOPT_TYPE_BOOLEAN,
