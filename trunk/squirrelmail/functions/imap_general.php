@@ -109,6 +109,21 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         $message  = $message[$tag];
 
         if (!empty($read[$tag])) {
+            /* sqimap_read_data should be called for one response
+               but since it just calls sqimap_retrieve_imap_response
+               which handles multiple responses we need to check for
+               that and merge the $read[$tag] array IF they are
+               separated and IF it was a FETCH response. */
+
+            if (isset($read[$tag][1]) && is_array($read[$tag][1]) && isset($read[$tag][1][0])
+                && preg_match('/^\* \d+ FETCH/', $read[$tag][1][0])) {
+                $result = array();
+                foreach($read[$tag] as $index => $value) {
+                    $result = array_merge($result, $read[$tag]["$index"]);
+                }
+                return $result;
+            }
+
             return $read[$tag][0];
         } else {
             return $read[$tag];

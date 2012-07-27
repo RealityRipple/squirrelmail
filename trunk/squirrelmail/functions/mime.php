@@ -137,7 +137,13 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
     $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message, TRUE);
     do {
         $topline = trim(array_shift($data));
-    } while($topline && ($topline[0] == '*') && !preg_match('/\* [0-9]+ FETCH.*/i', $topline)) ;
+    } while($topline && ($topline[0] == '*') && !preg_match('/\* [0-9]+ FETCH .*BODY.*/i', $topline)) ;
+    // Matching with "BODY" above is difficult: in most cases "FETCH \(BODY" would work
+    // but some servers may put other things in the same result, perhaps something such
+    // as "* 23 FETCH (FLAGS (\Seen) BODY[1] {174}".  There is some small chance that
+    // if the character sequence "BODY" appears in a response where it isn't actually
+    // a FETCH response data item name, the current regex will break things.  The better
+    // way to do this would be to parse the response correctly and not use a regex.
 
     $wholemessage = implode('', $data);
     if (preg_match('/\{([^\}]*)\}/', $topline, $regs)) {
