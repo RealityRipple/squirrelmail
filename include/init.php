@@ -223,15 +223,17 @@ if (file_exists(SM_PATH . 'config/config_local.php')) {
 
 /**
  * Set PHP error reporting level based on the SquirrelMail debug mode
+ * E_STRICT = 2048
+ * E_DEPRECATED = 8192
  */
 $error_level = 0;
 if ($sm_debug_mode & SM_DEBUG_MODE_SIMPLE)
     $error_level |= E_ERROR;
 if ($sm_debug_mode & SM_DEBUG_MODE_MODERATE
  || $sm_debug_mode & SM_DEBUG_MODE_ADVANCED)
-    $error_level |= E_ALL;
+    $error_level = ($error_level | E_ALL) & ~2048 & ~8192;
 if ($sm_debug_mode & SM_DEBUG_MODE_STRICT)
-    $error_level |= E_STRICT;
+    $error_level |= 2048 | 8192;
 error_reporting($error_level);
 
 

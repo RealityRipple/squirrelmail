@@ -4641,12 +4641,12 @@ sub commandB8 {
         print "1     " . ($sm_debug_mode & 1 ? "y" : " ")
             . "      Simple debugging (PHP E_ERROR)\n";
         print "2     " . ($sm_debug_mode & 512 ? "y" : " ")
-            . "      Moderate debugging (PHP E_ALL)\n";
+            . "      Moderate debugging (PHP E_ALL without E_STRICT)\n";
         print "3     " . ($sm_debug_mode & 524288 ? "y" : " ")
-            . "      Advanced debugging (PHP E_ALL plus log errors\n";
-        print "             intentionally suppressed)\n";
+            . "      Advanced debugging (PHP E_ALL (without E_STRICT) plus\n";
+        print "             log errors intentionally suppressed)\n";
         print "4     " . ($sm_debug_mode & 536870912 ? "y" : " ")
-            . "      Strict debugging (PHP E_STRICT)\n";
+            . "      Strict debugging (PHP E_ALL and E_STRICT)\n";
         print "\n";
     
         print "SquirrelMail debug mode (0,1,2,3,4) or d when done? : $WHT";
