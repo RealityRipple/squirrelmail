@@ -234,7 +234,7 @@ echo $IND . 'Running as ' . $webOwnerInfo['name'] . '(' . $webOwnerID
 
 echo $IND . 'display_errors: ' . $php_display_errors_original_value . " (overridden with 1 for this page only)<br />\n";
 
-echo $IND . 'error_reporting: ' . $php_error_reporting_original_value . " (overridden with 2047 for this page only)<br />\n";
+echo $IND . 'error_reporting: ' . $php_error_reporting_original_value . " (overridden with " . E_ALL . " for this page only)<br />\n";
 
 $safe_mode = ini_get('safe_mode');
 if ($safe_mode) {
