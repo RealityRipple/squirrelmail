@@ -22,7 +22,7 @@ extract($t);
 /** Begin template **/
 ?>
 <div class="compose">
-<table cellspacing="0" class="table1">
+<table cellspacing="0" class="table1" id="attachment_table">
  <tr class="header">
   <td class="fieldName" style="width: 1%; white-space: nowrap;">
    <?php echo _("New attachment");?>:
@@ -41,10 +41,12 @@ extract($t);
     if($max_file_size != -1) {
        echo '(' . _("Max.") . ' ' . humanReadableSize($max_file_size) . ')';
     }
+    if (!empty($plugin_output['add_attachment_notes'])) echo $plugin_output['add_attachment_notes'];
    ?>
   </td>
  </tr>
  <?php
+    if (!empty($plugin_output['attachment_inputs'])) echo $plugin_output['attachment_inputs'];
     $attachment_count = 1;
     foreach ($attachments as $attach) {
         ?>
