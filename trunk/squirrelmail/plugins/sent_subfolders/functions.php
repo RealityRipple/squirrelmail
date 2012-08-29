@@ -131,6 +131,10 @@ function save_option_sent_subfolders_setting($option) {
     } else {
         setPref($data_dir, $username, 'use_sent_subfolders', SMPREF_ON);
         setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
+        $check_sent_subfolders_base = getPref($data_dir, $username, 'sent_subfolders_base', '');
+        if ($check_sent_subfolders_base === '') {
+            setPref($data_dir, $username, 'sent_subfolders_base', $sent_subfolders_base);
+        }
     }
 
     /* Now just save the option as normal. */
