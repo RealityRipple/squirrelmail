@@ -4110,7 +4110,7 @@ sub command91 {
     print "[$WHT$addrbook_dsn$NRM]: $WHT";
     $new_dsn = <STDIN>;
     if ( $new_dsn eq "\n" ) {
-        $new_dsn = "";
+        $new_dsn = $addrbook_dsn;
     } else {
         $new_dsn =~ s/[\r\n]//g;
         $new_dsn =~ s/^\s+$//g;
@@ -4152,7 +4152,7 @@ sub command93 {
     print "[$WHT$prefs_dsn$NRM]: $WHT";
     $new_dsn = <STDIN>;
     if ( $new_dsn eq "\n" ) {
-        $new_dsn = "";
+        $new_dsn = $prefs_dsn;
     } else {
         $new_dsn =~ s/[\r\n]//g;
         $new_dsn =~ s/^\s+$//g;
@@ -4255,7 +4255,7 @@ sub command98 {
     print "[$WHT$addrbook_global_dsn$NRM]: $WHT";
     $new_dsn = <STDIN>;
     if ( $new_dsn eq "\n" ) {
-        $new_dsn = "";
+        $new_dsn = $addrbook_global_dsn;
     } else {
         $new_dsn =~ s/[\r\n]//g;
         $new_dsn =~ s/^\s+$//g;
