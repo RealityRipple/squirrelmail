@@ -130,7 +130,7 @@ function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=
     $messageheaderstart=false;
     $boundaries = array();
     $entities = array();
-    session_unregister("entities");
+    sqsession_unregister("entities");
     $pre = '<b>';
     $end = '</b>';
     $entStr = '';
