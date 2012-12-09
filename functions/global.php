@@ -764,8 +764,8 @@ function sm_print_r() {
 
 
 /**
-  * Sanitize a value using htmlspecialchars() or similar, but also
-  * recursively run htmlspecialchars() (or similar) on array keys
+  * Sanitize a value using sm_encode_html_special_chars() or similar, but also
+  * recursively run sm_encode_html_special_chars() (or similar) on array keys
   * and values.
   *
   * If $value is not a string or an array with strings in it,
@@ -811,7 +811,7 @@ function sq_htmlspecialchars($value, $quote_style=ENT_QUOTES) {
         if ($quote_style === TRUE)
             return str_replace(array('\'', '"'), array('&#039;', '&quot;'), $value);
         else
-            return htmlspecialchars($value, $quote_style);
+            return sm_encode_html_special_chars($value, $quote_style);
     }
 
     // anything else gets returned with no changes

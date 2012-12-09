@@ -260,7 +260,7 @@ function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=
                             $entities["$entStr"]['contenttype']=$reg[2].'/'.$reg[3];
                         }
                     } else if (!$nameset && preg_match("/^.*(name=\s*)\"(.*)\".*/i",$line,$reg)) {
-                        $name = htmlspecialchars($reg[2]);
+                        $name = sm_encode_html_special_chars($reg[2]);
                         $content[$content_indx]['name'] = decodeHeader($name);
                         $nameset = true;
                         if (isset($entities["$entStr"])) {
@@ -285,7 +285,7 @@ function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=
         if ($stripHTML) {
             $message_body .= $line . "\r\n";
         } else {
-            $line = htmlspecialchars($line);
+            $line = sm_encode_html_special_chars($line);
             if ($msgd_8bit_in_hex) $line = msgd_convert_to_hex($line);
             $message_body .= "$pre"."$line"."$end"."\r\n";
         }

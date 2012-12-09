@@ -74,11 +74,11 @@ function confirm_deletion() {
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Title:"), 'right', $color[4] ) .
-                   html_tag( 'td', htmlspecialchars($tmparray['title']), 'left', $color[4] )
+                   html_tag( 'td', sm_encode_html_special_chars($tmparray['title']), 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td', _("Message:"), 'right', $color[4] ) .
-                   html_tag( 'td', nl2br(htmlspecialchars($tmparray['message'])), 'left', $color[4] )
+                   html_tag( 'td', nl2br(sm_encode_html_special_chars($tmparray['message'])), 'left', $color[4] )
                ) .
                html_tag( 'tr',
                    html_tag( 'td',

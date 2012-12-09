@@ -349,7 +349,7 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           'sqimap_run_command or sqimap_run_command_list instead<br /><br />'.
           'The following query was issued:<br />'.
 //FIXME: NO HTML IN CORE!
-           htmlspecialchars($query) . '<br />' . "</font><br />\n";
+           sm_encode_html_special_chars($query) . '<br />' . "</font><br />\n";
     error_box($string);
     $oTemplate->display('footer.tpl');
     exit;
@@ -376,11 +376,11 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
     $cmd= strtolower($cmd[0]);
 
     if ($query != '' &&  $cmd != 'login')
-        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br />';
+        $string .= _("Query:") . ' ' . sm_encode_html_special_chars($query) . '<br />';
     if ($message_title != '')
         $string .= $message_title;
     if ($message != '')
-        $string .= htmlspecialchars($message);
+        $string .= sm_encode_html_special_chars($message);
 //FIXME: NO HTML IN CORE!
     $string .= "</font><br />\n";
     if ($link != '')
@@ -941,7 +941,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 //FIXME: UUURG... We don't want HTML in error messages, should also do html sanitizing of error messages elsewhere; should't assume output is destined for an HTML browser here
             if ($response != 'NO') {
                 /* "BAD" and anything else gets reported here. */
-                $message = htmlspecialchars($message);
+                $message = sm_encode_html_special_chars($message);
                 set_up_language($squirrelmail_language, true);
                 if ($response == 'BAD') {
                     if ($hide == 3) return sprintf(_("Bad request: %s"), $message);
@@ -953,7 +953,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 if (isset($read) && is_array($read)) {
                     $string .= '<br />' . _("Read data:") . "<br />\n";
                     foreach ($read as $line) {
-                        $string .= htmlspecialchars($line) . "<br />\n";
+                        $string .= sm_encode_html_special_chars($line) . "<br />\n";
                     }
                 }
                 error_box($string);

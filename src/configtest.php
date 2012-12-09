@@ -267,7 +267,7 @@ else if (strpos($variables_order, 'G') === FALSE
  || strpos($variables_order, 'P') === FALSE
  || strpos($variables_order, 'C') === FALSE
  || strpos($variables_order, 'S') === FALSE) {
-    do_err('Your variables_order setting is insufficient for SquirrelMail to function. It needs at least "GPCS", but you have it set to "' . htmlspecialchars($variables_order) . '"', true);
+    do_err('Your variables_order setting is insufficient for SquirrelMail to function. It needs at least "GPCS", but you have it set to "' . sm_encode_html_special_chars($variables_order) . '"', true);
 } else {
     echo $IND . "variables_order OK: $variables_order.<br />\n";
 }
@@ -283,7 +283,7 @@ if (!check_php_version(5)) {
     else if (strpos($gpc_order, 'G') === FALSE
      || strpos($gpc_order, 'P') === FALSE
      || strpos($gpc_order, 'C') === FALSE) {
-        do_err('Your gpc_order setting is insufficient for SquirrelMail to function. It needs to be set to "GPC", but you have it set to "' . htmlspecialchars($gpc_order) . '"', true);
+        do_err('Your gpc_order setting is insufficient for SquirrelMail to function. It needs to be set to "GPC", but you have it set to "' . sm_encode_html_special_chars($gpc_order) . '"', true);
     } else {
         echo $IND . "gpc_order OK: $gpc_order.<br />\n";
     }
@@ -479,7 +479,7 @@ if (isset($plugins[0])) {
 
         // if plugin outputs more than newlines and spacing, stop script execution.
         if (!empty($output)) {
-            $plugin_load_error = 'Some output was produced when plugin <i>' . $name . '</i> was loaded.  Usually this means there is an error in the plugin\'s setup or configuration file.  The output was: '.htmlspecialchars($output);
+            $plugin_load_error = 'Some output was produced when plugin <i>' . $name . '</i> was loaded.  Usually this means there is an error in the plugin\'s setup or configuration file.  The output was: '.sm_encode_html_special_chars($output);
             do_err($plugin_load_error);
         }
     }
@@ -588,9 +588,9 @@ if ( $squirrelmail_default_language != 'en_US' ) {
     echo $IND . "Default language OK.<br />\n";
 }
 
-echo $IND . "Base URL detected as: <tt>" . htmlspecialchars($test_location) .
+echo $IND . "Base URL detected as: <tt>" . sm_encode_html_special_chars($test_location) .
     "</tt> (location base " . (empty($config_location_base) ? 'autodetected' : 'set to <tt>' .
-    htmlspecialchars($config_location_base)."</tt>") . ")<br />\n";
+    sm_encode_html_special_chars($config_location_base)."</tt>") . ")<br />\n";
 
 /* check minimal requirements for other security options */
 
@@ -635,14 +635,14 @@ if($useSendmail) {
             $errorNumber, $errorString);
     if(!$stream) {
         do_err("Error connecting to SMTP server \"$smtpServerAddress:$smtpPort\".".
-                "Server error: ($errorNumber) ".htmlspecialchars($errorString));
+                "Server error: ($errorNumber) ".sm_encode_html_special_chars($errorString));
     }
 
     // check for SMTP code; should be 2xx to allow us access
     $smtpline = fgets($stream, 1024);
     if(((int) $smtpline{0}) > 3) {
         do_err("Error connecting to SMTP server. Server error: ".
-                htmlspecialchars($smtpline));
+                sm_encode_html_special_chars($smtpline));
     }
 
     /* smtp starttls checks */
@@ -694,7 +694,7 @@ if($useSendmail) {
         $starttls_response=fgets($stream, 1024);
         if ($starttls_response[0]!=2) {
             $starttls_cmd_err = 'SMTP STARTTLS failed. Server replied: '
-                .htmlspecialchars($starttls_response);
+                .sm_encode_html_special_chars($starttls_response);
             do_err($starttls_cmd_err);
         } elseif(! stream_socket_enable_crypto($stream,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
             do_err('Failed to enable encryption on SMTP STARTTLS connection.');
@@ -707,7 +707,7 @@ if($useSendmail) {
     fputs($stream, 'QUIT');
     fclose($stream);
     echo $IND . 'SMTP server OK (<tt><small>'.
-            trim(htmlspecialchars($smtpline))."</small></tt>)<br />\n";
+            trim(sm_encode_html_special_chars($smtpline))."</small></tt>)<br />\n";
 
     /* POP before SMTP */
     if($pop_before_smtp) {
@@ -715,13 +715,13 @@ if($useSendmail) {
         $stream = fsockopen($pop_before_smtp_host, 110, $err_no, $err_str);
         if (!$stream) {
             do_err("Error connecting to POP Server ($pop_before_smtp_host:110) "
-                . $err_no . ' : ' . htmlspecialchars($err_str));
+                . $err_no . ' : ' . sm_encode_html_special_chars($err_str));
         }
 
         $tmp = fgets($stream, 1024);
         if (substr($tmp, 0, 3) != '+OK') {
             do_err("Error connecting to POP Server ($pop_before_smtp_host:110)"
-                . ' '.htmlspecialchars($tmp));
+                . ' '.sm_encode_html_special_chars($tmp));
         }
         fputs($stream, 'QUIT');
         fclose($stream);
@@ -740,18 +740,18 @@ $stream = fsockopen( ($use_imap_tls==1?'tls://':'').$imapServerAddress, $imapPor
 if(!$stream) {
     do_err("Error connecting to IMAP server \"$imapServerAddress:$imapPort\".".
             "Server error: ($errorNumber) ".
-            htmlspecialchars($errorString));
+            sm_encode_html_special_chars($errorString));
 }
 
 /** Is the first response 'OK'? */
 $imapline = fgets($stream, 1024);
 if(substr($imapline, 0,4) != '* OK') {
     do_err('Error connecting to IMAP server. Server error: '.
-            htmlspecialchars($imapline));
+            sm_encode_html_special_chars($imapline));
 }
 
 echo $IND . 'IMAP server ready (<tt><small>'.
-    htmlspecialchars(trim($imapline))."</small></tt>)<br />\n";
+    sm_encode_html_special_chars(trim($imapline))."</small></tt>)<br />\n";
 
 /** Check capabilities */
 fputs($stream, "A001 CAPABILITY\r\n");
@@ -773,7 +773,7 @@ if ($use_imap_tls===2 && stristr($capline, 'STARTTLS') === false) {
     $starttls_line=fgets($stream, 1024);
     if (! preg_match("/^A002 OK.*/i",$starttls_line)) {
         $imap_starttls_err = 'IMAP STARTTLS failed. Server replied: '
-            .htmlspecialchars($starttls_line);
+            .sm_encode_html_special_chars($starttls_line);
         do_err($imap_starttls_err);
     } elseif (! stream_socket_enable_crypto($stream,true,STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
         do_err('Failed to enable encryption on IMAP connection.');
@@ -793,7 +793,7 @@ if ($use_imap_tls===2 && stristr($capline, 'STARTTLS') === false) {
     }
 }
 
-echo $IND . 'Capabilities: <tt>'.htmlspecialchars($capline)."</tt><br />\n";
+echo $IND . 'Capabilities: <tt>'.sm_encode_html_special_chars($capline)."</tt><br />\n";
 
 if($imap_auth_mech == 'login' && stristr($capline, 'LOGINDISABLED') !== FALSE) {
     do_err('Your server doesn\'t allow plaintext logins. '.
@@ -854,7 +854,7 @@ if (function_exists('gettext')) {
                     $display_locale = $setlocale;
                     $locale_count = 1;
                 }
-                $tested_locales_msg = 'Tested '.htmlspecialchars($display_locale).' '
+                $tested_locales_msg = 'Tested '.sm_encode_html_special_chars($display_locale).' '
                     .($locale_count>1 ? 'locales':'locale'). '.';
 
                 echo $IND . $IND .$IND . $lang_data['NAME'].' (' .$lang_code. ') - ';
@@ -865,7 +865,7 @@ if (function_exists('gettext')) {
                 } else {
                     echo 'supported. '
                         .$tested_locales_msg
-                        .' setlocale() returned "'.htmlspecialchars($retlocale).'"';
+                        .' setlocale() returned "'.sm_encode_html_special_chars($retlocale).'"';
                 }
                 echo "<br />\n";
             }
@@ -918,7 +918,7 @@ if ( (!ini_get('safe_mode')) || function_exists('date_default_timezone_set') ||
     echo "Webmail users can't change their time zone settings. \n";
 }
 if (isset($_ENV['TZ'])) {
-    echo 'Default time zone is '.htmlspecialchars($_ENV['TZ']);
+    echo 'Default time zone is '.sm_encode_html_special_chars($_ENV['TZ']);
 } else {
     echo 'Current time zone is '.date('T');
 }
@@ -977,7 +977,7 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
 
             $dbh = DB::connect($dsn, true);
             if (DB::isError($dbh)) {
-                do_err('Database error: '. htmlspecialchars(DB::errorMessage($dbh)) .
+                do_err('Database error: '. sm_encode_html_special_chars(DB::errorMessage($dbh)) .
                         ' in ' .$type .' DSN.');
             }
             $dbh->disconnect();

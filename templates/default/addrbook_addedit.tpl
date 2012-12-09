@@ -61,8 +61,8 @@ $formname = $edit ? 'editaddr' : 'addaddr';
     if (is_array($values['Email'])) {
         echo '<select name="'.$formname.'[email]" id="email">'."\n";
         foreach ($values['Email'] as $email) {
-//FIXME: htmlspecialchars should not be needed inside any template files - I think values are already sanitized by the time they get here
-            echo '<option value="'.htmlspecialchars($email).'">'.htmlspecialchars($email).'</option>'."\n";
+//FIXME: sm_encode_html_special_chars should not be needed inside any template files - I think values are already sanitized by the time they get here
+            echo '<option value="'.sm_encode_html_special_chars($email).'">'.sm_encode_html_special_chars($email).'</option>'."\n";
         }
         echo '</select>'."\n";
     } else {
@@ -107,10 +107,10 @@ $formname = $edit ? 'editaddr' : 'addaddr';
    <select name="backend" id="backend">
     <?php
         foreach ($writable_backends as $id=>$name) {
-//FIXME: htmlspecialchars should not be needed inside any template files - I think values are already sanitized by the time they get here
+//FIXME: sm_encode_html_special_chars should not be needed inside any template files - I think values are already sanitized by the time they get here
             echo '<option value="' . $id
                . ($current_backend == $id ? '" selected="selected"' : '"')
-               . '>' . htmlspecialchars($name) . '</option>' . "\n";
+               . '>' . sm_encode_html_special_chars($name) . '</option>' . "\n";
         }
     ?>
    </select>

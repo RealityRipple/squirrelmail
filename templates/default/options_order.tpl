@@ -71,7 +71,7 @@ extract($t);
    <select name="num">
     <?php
         foreach ($not_used as $field_id=>$name) {
-            echo '<option value="'.$field_id.'">'.htmlspecialchars($name).'</option>'."\n";
+            echo '<option value="'.$field_id.'">'.sm_encode_html_special_chars($name).'</option>'."\n";
         }
     ?>
    </select>

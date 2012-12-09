@@ -475,9 +475,9 @@ class SquirrelOption {
 
 //TODO: might be better to have a separate template file for all widgets, because then the layout of the widget and the "trailing text" can be customized - they are still hard coded here
         if ($password)
-            return addPwField('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . htmlspecialchars($this->trailing_text);
+            return addPwField('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . sm_encode_html_special_chars($this->trailing_text);
         else
-            return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . htmlspecialchars($this->trailing_text);
+            return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . sm_encode_html_special_chars($this->trailing_text);
     }
 
     /**
@@ -547,7 +547,7 @@ class SquirrelOption {
                 $height = 5;
         }
 
-        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height, !$this->htmlencoded) . htmlspecialchars($this->trailing_text);
+        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height, !$this->htmlencoded) . sm_encode_html_special_chars($this->trailing_text);
 
     }
 
@@ -605,7 +605,7 @@ class SquirrelOption {
             $option_list = array('ignore' => _("unavailable"));
 
 
-        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height) . htmlspecialchars($this->trailing_text);
+        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height) . sm_encode_html_special_chars($this->trailing_text);
 
     }
 
@@ -792,7 +792,7 @@ class SquirrelOption {
      */
     function createWidget_Submit() {
 
-        return addSubmit($this->comment, $this->name, $this->aExtraAttribs) . htmlspecialchars($this->trailing_text);
+        return addSubmit($this->comment, $this->name, $this->aExtraAttribs) . sm_encode_html_special_chars($this->trailing_text);
 
     }
 

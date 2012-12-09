@@ -80,10 +80,10 @@ foreach ($identities as $key=>$ident) {
     $a['Title'] = $key==0 ? _("Default Identity") : sprintf(_("Alternate Identity %d"), $key);
     $a['New'] = false;
     $a['Default'] = $key==0;
-    $a['FullName'] = htmlspecialchars($ident['full_name']);
-    $a['Email'] = htmlspecialchars($ident['email_address']);
-    $a['ReplyTo'] = htmlspecialchars($ident['reply_to']);
-    $a['Signature'] = htmlspecialchars($ident['signature']);
+    $a['FullName'] = sm_encode_html_special_chars($ident['full_name']);
+    $a['Email'] = sm_encode_html_special_chars($ident['email_address']);
+    $a['ReplyTo'] = sm_encode_html_special_chars($ident['reply_to']);
+    $a['Signature'] = sm_encode_html_special_chars($ident['signature']);
     $i[$key] = $a;
 }
 
@@ -195,7 +195,7 @@ function ShowIdentityInfo($title, $identity, $id ) {
  * Creates html formated table row with input field
  * @param string $title Name displayed next to input field
  * @param string $name Name of input field
- * @param string $data Default value of input field (data is sanitized with htmlspecialchars)
+ * @param string $data Default value of input field (data is sanitized with sm_encode_html_special_chars)
  * @param string $bgcolor html attributes added to row element (tr)
  * @return string html formated table row with text input field
  * @since 1.2.0 (arguments differ since 1.4.5/1.5.1)
@@ -207,7 +207,7 @@ function sti_input( $title, $name, $data, $bgcolor ) {
     $str = '';
     $str .= '<tr' . $bgcolor . ">\n";
     $str .= '  <td style="white-space: nowrap;text-align:right;">' . $title . ' </td>' . "\n";
-    $str .= '  <td> <input type="text" name="' . $name . '" size="50" value="'. htmlspecialchars($data) . '" /> </td>' . "\n";
+    $str .= '  <td> <input type="text" name="' . $name . '" size="50" value="'. sm_encode_html_special_chars($data) . '" /> </td>' . "\n";
     $str .= '</tr>';
 
     return $str;
@@ -218,7 +218,7 @@ function sti_input( $title, $name, $data, $bgcolor ) {
  * Creates html formated table row with textarea field
  * @param string $title Name displayed next to textarea field
  * @param string $name Name of textarea field
- * @param string $data Default value of textarea field  (data is sanitized with htmlspecialchars)
+ * @param string $data Default value of textarea field  (data is sanitized with sm_encode_html_special_chars)
  * @param string $bgcolor html attributes added to row element (tr)
  * @return string html formated table row with textarea
  * @since 1.2.5 (arguments differ since 1.4.5/1.5.1)
@@ -230,7 +230,7 @@ function sti_textarea( $title, $name, $data, $bgcolor ) {
     $str = '';
     $str .= '<tr' . $bgcolor . ">\n";
     $str .= '  <td style="white-space: nowrap;text-align:right;">' . $title . ' </td>' . "\n";
-    $str .= '  <td> <textarea name="' . $name . '" cols="50" rows="5">'. htmlspecialchars($data) . '</textarea> </td>' . "\n";
+    $str .= '  <td> <textarea name="' . $name . '" cols="50" rows="5">'. sm_encode_html_special_chars($data) . '</textarea> </td>' . "\n";
     $str .= '</tr>';
 
     return $str;

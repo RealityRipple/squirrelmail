@@ -157,7 +157,7 @@ if ($addrquery == '' || ! empty($listall)) {
     }
 
     if (!is_array($res)) {
-        plain_error_message(_("Your search failed with the following error(s)") .':<br />'. nl2br(htmlspecialchars($abook->error)));
+        plain_error_message(_("Your search failed with the following error(s)") .':<br />'. nl2br(sm_encode_html_special_chars($abook->error)));
     } elseif (sizeof($res) == 0) {
         $oTemplate->assign('note', _("No persons matching your search were found"));
         $oTemplate->display('note.tpl');

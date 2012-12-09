@@ -106,7 +106,7 @@ if ($SQSPELL_SPELLCHECKER===1) {
  */
 if (!empty($check->error)) {
   $msg= '<div style="text-align: center;">'
-      . nl2br(htmlspecialchars($check->error))
+      . nl2br(sm_encode_html_special_chars($check->error))
      . '<form onsubmit="return false">'
      . '<input type="submit" value="  ' . _("Close")
      . '  " onclick="self.close()" /></form></div>';
@@ -125,7 +125,7 @@ $results = $check->check_text($sqspell_new_text);
  */
 if (!empty($check->error)) {
   $msg= '<div style="text-align: center;">'
-      . nl2br(htmlspecialchars($check->error))
+      . nl2br(sm_encode_html_special_chars($check->error))
      . '<form onsubmit="return false">'
      . '<input type="submit" value="  ' . _("Close")
      . '  " onclick="self.close()" /></form></div>';
@@ -153,7 +153,7 @@ if (is_array($results)) {
     }
 } else {
     if (!empty($check->error)) {
-        $error_msg = nl2br(htmlspecialchars($check->error));
+        $error_msg = nl2br(sm_encode_html_special_chars($check->error));
     } else {
         $error_msg = _("Unknown error");
     }

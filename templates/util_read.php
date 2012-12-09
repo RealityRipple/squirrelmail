@@ -15,7 +15,7 @@
  * Return a string representing the priority of a message
  */
 function priorityStr($p) {
-    return htmlspecialchars(getPriorityStr($p));
+    return sm_encode_html_special_chars(getPriorityStr($p));
 }
 
 ?>

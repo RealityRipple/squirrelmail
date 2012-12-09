@@ -422,7 +422,7 @@ foreach ( $newcfg as $k => $v ) {
             }
             echo "<tr><td valign=\"top\">$name</td><td>"
                 ."<textarea cols=\"$size\" rows=\"4\" name=\"adm_$n\">" 
-                .htmlspecialchars(stripslashes(substr( $v, 1, strlen( $v ) - 2 )))
+                .sm_encode_html_special_chars(stripslashes(substr( $v, 1, strlen( $v ) - 2 )))
                 ."</textarea>";
             if ( isset( $defcfg[$k]['comment'] ) ) {
                 echo ' &nbsp; ' . $defcfg[$k]['comment'];
@@ -440,7 +440,7 @@ foreach ( $newcfg as $k => $v ) {
             }
             echo "<tr><td>$name</td><td>"
                 ."<input size=\"$size\" name=\"adm_$n\" value=\""
-                .htmlspecialchars(stripslashes(substr( $v, 1, strlen( $v ) - 2 )))
+                .sm_encode_html_special_chars(stripslashes(substr( $v, 1, strlen( $v ) - 2 )))
                 .'" />';
             if ( isset( $defcfg[$k]['comment'] ) ) {
                 echo ' &nbsp; ' . $defcfg[$k]['comment'];

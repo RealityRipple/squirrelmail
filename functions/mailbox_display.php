@@ -554,11 +554,11 @@ function prepareMessageList(&$aMailbox, $aProps) {
                             $sMailbox  = (isset($aAddr[SQM_ADDR_MAILBOX]))  ? $aAddr[SQM_ADDR_MAILBOX]  : '';
                             $sHost     = (isset($aAddr[SQM_ADDR_HOST]))     ? $aAddr[SQM_ADDR_HOST]     : '';
                             if ($sPersonal) {
-                                $title .= htmlspecialchars($sMailbox.'@'.$sHost).', ';
+                                $title .= sm_encode_html_special_chars($sMailbox.'@'.$sHost).', ';
                             } else {
                                 // if $value gets truncated we need to add the addresses with no
                                 // personal name as well
-                                $title_maybe .= htmlspecialchars($sMailbox.'@'.$sHost).', ';
+                                $title_maybe .= sm_encode_html_special_chars($sMailbox.'@'.$sHost).', ';
                             }
                         }
                         if ($title) {

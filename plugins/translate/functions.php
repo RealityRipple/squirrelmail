@@ -456,7 +456,7 @@ function translate_new_form($action,$charset=null) {
     }
 
     if (! is_null($charset))
-        echo ' accept-charset="'.htmlspecialchars($charset).'"';
+        echo ' accept-charset="'.sm_encode_html_special_chars($charset).'"';
 
     echo ">\n";
 

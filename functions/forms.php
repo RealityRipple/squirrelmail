@@ -4,7 +4,7 @@
  * forms.php - html form functions
  *
  * Functions to build forms in a safe and consistent manner.
- * All attribute values are sanitized with htmlspecialchars().
+ * All attribute values are sanitized with sm_encode_html_special_chars().
 //FIXME: I think the Template class might be better place to sanitize inside assign() method
  *
  * Currently functions don't provide simple wrappers for file and 
@@ -65,7 +65,7 @@ function addInputField($sType, $aAttribs=array()) {
     global $oTemplate;
 
     $oTemplate->assign('type', $sType);
-//FIXME: all the values in the $aAttribs list used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value);
+//FIXME: all the values in the $aAttribs list used to go thru sm_encode_html_special_chars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = sm_encode_html_special_chars($value);
     $oTemplate->assign('aAttribs', $aAttribs);
 
     return $oTemplate->fetch('input.tpl');
@@ -187,7 +187,7 @@ function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttri
     if (!$bMultiple && count($aValues) == 1) {
         $k = key($aValues); $v = array_pop($aValues);
         return addHidden($sName, ($bUsekeys ? $k : $v), $aAttribs)
-             . htmlspecialchars($v);
+             . sm_encode_html_special_chars($v);
     }
 
     if (! isset($aAttribs['id'])) $aAttribs['id'] = $sName;
@@ -201,7 +201,7 @@ function addSelect($sName, $aValues, $default = null, $bUsekeys = false, $aAttri
 
     global $oTemplate;
 
-//FIXME: all the values in the $aAttribs list and $sName and both the keys and values in $aValues used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sName = htmlspecialchars($sName); $aNewValues = array(); foreach ($aValues as $key => $value) $aNewValues[htmlspecialchars($key)] = htmlspecialchars($value); $aValues = $aNewValues;   And probably this too because it has to be matched to a value that has already been sanitized: $default = htmlspecialchars($default);  (oops, watch out for when $default is an array! (multiple select lists))
+//FIXME: all the values in the $aAttribs list and $sName and both the keys and values in $aValues used to go thru sm_encode_html_special_chars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = sm_encode_html_special_chars($value); $sName = sm_encode_html_special_chars($sName); $aNewValues = array(); foreach ($aValues as $key => $value) $aNewValues[sm_encode_html_special_chars($key)] = sm_encode_html_special_chars($value); $aValues = $aNewValues;   And probably this too because it has to be matched to a value that has already been sanitized: $default = sm_encode_html_special_chars($default);  (oops, watch out for when $default is an array! (multiple select lists))
     $oTemplate->assign('aAttribs', $aAttribs);
     $oTemplate->assign('aValues', $aValues);
     $oTemplate->assign('bUsekeys', $bUsekeys);
@@ -300,7 +300,7 @@ function addTextArea($sName, $sText = '', $iCols = 40, $iRows = 10, $aAttribs = 
 
     global $oTemplate;
 
-//FIXME: all the values in the $aAttribs list as well as $sName and $sText used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sName = htmlspecialchars($sName); $sText = htmlspecialchars($sText);
+//FIXME: all the values in the $aAttribs list as well as $sName and $sText used to go thru sm_encode_html_special_chars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = sm_encode_html_special_chars($value); $sName = sm_encode_html_special_chars($sName); $sText = sm_encode_html_special_chars($sText);
     $oTemplate->assign('aAttribs', $aAttribs);
     $oTemplate->assign('name', $sName);
     $oTemplate->assign('text', $sText);
@@ -336,7 +336,7 @@ function addForm($sAction, $sMethod = 'post', $sName = '', $sEnctype = '', $sCha
 
     global $oTemplate;
 
-//FIXME: all the values in the $aAttribs list as well as $charset used to go thru htmlspecialchars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = htmlspecialchars($value); $sCharset = htmlspecialchars($sCharset);
+//FIXME: all the values in the $aAttribs list as well as $charset used to go thru sm_encode_html_special_chars()... I would propose that most everything that is assigned to the template should go thru that *in the template class* on its way between here and the actual template file.  Otherwise we have to do something like:  foreach ($aAttribs as $key => $value) $aAttribs[$key] = sm_encode_html_special_chars($value); $sCharset = sm_encode_html_special_chars($sCharset);
     $oTemplate->assign('aAttribs', $aAttribs);
     $oTemplate->assign('name', $sName);
     $oTemplate->assign('method', $sMethod);

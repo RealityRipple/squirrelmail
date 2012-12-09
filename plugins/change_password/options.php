@@ -81,7 +81,7 @@ do_hook('change_password_init', $null);
 if (isset($Messages) && count($Messages) > 0) {
     echo "<tr><td>\n";
     foreach ($Messages as $line) {
-        echo htmlspecialchars($line) . "<br />\n";
+        echo sm_encode_html_special_chars($line) . "<br />\n";
     }
     echo "</td></tr>\n";
 }

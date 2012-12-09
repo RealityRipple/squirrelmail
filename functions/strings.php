@@ -1674,3 +1674,38 @@ function sm_validate_security_token($token, $validity_period=0, $show_error=FALS
 
 }
 
+/**
+  * Wrapper for PHP's htmlspecialchars() that
+  * attempts to add the correct character encoding
+  *
+  * @param string $string The string to be converted
+  * @param int $flags A bitmask that controls the behavior of htmlspecialchars()
+  *                   (See http://php.net/manual/function.htmlspecialchars.php )
+  *                   (OPTIONAL; default ENT_COMPAT)
+  * @param string $encoding The character encoding to use in the conversion
+  *                         (OPTIONAL; default automatic detection)
+  * @param boolean $double_encode Whether or not to convert entities that are
+  *                               already in the string (only supported in
+  *                               PHP 5.2.3+) (OPTIONAL; default TRUE)
+  *
+  * @return string The converted text
+  *
+  */
+function sm_encode_html_special_chars($string, $flags=ENT_COMPAT,
+                                      $encoding=NULL, $double_encode=TRUE)
+{
+   if (!$encoding)
+   {
+      global $default_charset;
+      if ($default_charset == 'iso-2022-jp')
+         $default_charset = 'EUC-JP';
+      $encoding = $default_charset;
+   }
+
+// TODO: Is adding this check an unnecessary performance hit?
+   if (check_php_version(5, 2, 3))
+      return htmlspecialchars($string, $flags, $encoding, $double_encode);
+
+   return htmlspecialchars($string, $flags, $encoding);
+}
+

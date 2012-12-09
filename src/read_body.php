@@ -273,7 +273,7 @@ function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
         if (! empty($deliver->dlv_server_msg)) {
             $msg.= "\n" .
                 _("Server replied:") . ' ' . $deliver->dlv_ret_nr . ' ' .
-                nl2br(htmlspecialchars($deliver->dlv_server_msg));
+                nl2br(sm_encode_html_special_chars($deliver->dlv_server_msg));
         }
         plain_error_message($msg);
     } else {
@@ -358,7 +358,7 @@ function formatRecipientString($recipients, $item ) {
             $a[] = array(
                             // note: decodeHeader is htmlsafe by default
                             'Name'  => decodeHeader($r->getAddress(false)),
-                            'Email' => htmlspecialchars($r->getEmail()),
+                            'Email' => sm_encode_html_special_chars($r->getEmail()),
                             'Full'  => decodeHeader($r->getAddress(true))
                         );
         }

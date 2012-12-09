@@ -63,7 +63,7 @@ $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
 do_hook('login_cookie', $null);
 
-$loginname_value = (sqGetGlobalVar('loginname', $loginname) ? htmlspecialchars($loginname) : '');
+$loginname_value = (sqGetGlobalVar('loginname', $loginname) ? sm_encode_html_special_chars($loginname) : '');
 
 //FIXME: should be part of the template, not the core!
 /* Output the javascript onload function. */

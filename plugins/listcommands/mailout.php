@@ -40,13 +40,13 @@ switch ( $action ) {
         $out_string = _("This will send a message to %s requesting that you will be unsubscribed from this list. It will try to unsubscribe the adress below.");
         break;
     default:
-        error_box(sprintf(_("Unknown action: %s"),htmlspecialchars($action)));
+        error_box(sprintf(_("Unknown action: %s"),sm_encode_html_special_chars($action)));
         // display footer (closes html tags) and stop script execution
         $oTemplate->display('footer.tpl');
         exit;
 }
 
-$out_string = sprintf($out_string, '&quot;' . htmlspecialchars($send_to) . '&quot;');
+$out_string = sprintf($out_string, '&quot;' . sm_encode_html_special_chars($send_to) . '&quot;');
 $idents = get_identities();
 $fieldsdescr = listcommands_fieldsdescr();
 $fielddescr = $fieldsdescr[$action];

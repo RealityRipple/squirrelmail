@@ -114,11 +114,11 @@ function drawmonthview() {
                     $calbar = $calendardata[$cdate][$calfoo['key']];
                     // FIXME: how to display multiline task
                     $title = '['. $calfoo['key']. '] ' .
-                        str_replace(array("\r","\n"),array(' ',' '),htmlspecialchars($calbar['message']));
+                        str_replace(array("\r","\n"),array(' ',' '),sm_encode_html_special_chars($calbar['message']));
                     // FIXME: link to nowhere
                     echo "<a href=\"#\" style=\"text-decoration:none; color: "
                         .($calbar['priority']==1 ? $color[1] : $color[6])
-                        ."\" title=\"$title\">".htmlspecialchars($calbar['title'])."</a><br />\n";
+                        ."\" title=\"$title\">".sm_encode_html_special_chars($calbar['title'])."</a><br />\n";
                     $i=$i+1;
                     if($i==2){
                         break;

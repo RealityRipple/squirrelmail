@@ -233,7 +233,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $olddata = $abook->lookup($enick, $ebackend);
                         // Test if $olddata really contains anything and return an error message if it doesn't
                         if (!$olddata) {
-                            error_box(nl2br(htmlspecialchars($abook->error)));
+                            error_box(nl2br(sm_encode_html_special_chars($abook->error)));
                         } else {
                             /* Display the "new address" form */
                             echo abook_create_form($form_url, 'editaddr',
@@ -255,7 +255,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                     /* Handle error messages */
                     if (!$r) {
                         /* Display error */
-                        plain_error_message( nl2br(htmlspecialchars($abook->error)));
+                        plain_error_message( nl2br(sm_encode_html_special_chars($abook->error)));
 
                         /* Display the "new address" form again */
                         echo abook_create_form($form_url, 'editaddr',
@@ -299,7 +299,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
 
 /* Display error messages */
 if (!empty($formerror)) {
-    plain_error_message(nl2br(htmlspecialchars($formerror)));
+    plain_error_message(nl2br(sm_encode_html_special_chars($formerror)));
 }
 
 
@@ -326,7 +326,7 @@ while (list($k, $backend) = each ($abook->backends)) {
             $addresses[$backend->bnum] = $a;
         } else {
             // list_addr() returns boolean
-            plain_error_message(nl2br(htmlspecialchars($abook->error)));
+            plain_error_message(nl2br(sm_encode_html_special_chars($abook->error)));
         }
     } else {
         $addresses[$backend->bnum] = $a;

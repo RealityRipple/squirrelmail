@@ -432,7 +432,7 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
      */
     if (strstr($mailbox, '../') || substr($mailbox, 0, 1) == '/') {
         global $oTemplate;
-        error_box(sprintf(_("Invalid mailbox name: %s"),htmlspecialchars($mailbox)));
+        error_box(sprintf(_("Invalid mailbox name: %s"),sm_encode_html_special_chars($mailbox)));
         sqimap_logout($imap_stream);
         $oTemplate->display('footer.tpl');
         die();
@@ -784,7 +784,7 @@ function sqimap_mailbox_option_array($imap_stream, $folder_skip = 0, $boxes = 0,
                           // i18n: Name of Drafts folder
                           $box2 = $pad . _("Drafts");
                       } else {
-                          $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '.&nbsp;', htmlspecialchars($boxes_part['formatted']));
+                          $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '.&nbsp;', sm_encode_html_special_chars($boxes_part['formatted']));
                       }
                     break;
                   case SMPREF_MAILBOX_SELECT_INDENTED:
@@ -798,16 +798,16 @@ function sqimap_mailbox_option_array($imap_stream, $folder_skip = 0, $boxes = 0,
                           $pad = str_pad('',12 * (count(explode($delimiter,$boxes_part['unformatted-dm']))-1),'&nbsp;&nbsp;');
                           $box2 = $pad . _("Drafts");
                       } else {
-                          $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '&nbsp;&nbsp;', htmlspecialchars($boxes_part['formatted']));
+                          $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '&nbsp;&nbsp;', sm_encode_html_special_chars($boxes_part['formatted']));
                       }
                     break;
                   default:  /* default, long names, style = 0 */
-                    $box2 = str_replace(' ', '&nbsp;', htmlspecialchars(imap_utf7_decode_local($boxes_part['unformatted-disp'])));
+                    $box2 = str_replace(' ', '&nbsp;', sm_encode_html_special_chars(imap_utf7_decode_local($boxes_part['unformatted-disp'])));
                     break;
                 }
             }
             
-            $a[htmlspecialchars($box)] = $box2;
+            $a[sm_encode_html_special_chars($box)] = $box2;
         }
     }
     
@@ -843,12 +843,12 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
     
     $str = '';
     foreach ($boxes as $value=>$option) {
-        $lowerbox = strtolower(htmlspecialchars($value));
+        $lowerbox = strtolower(sm_encode_html_special_chars($value));
         $sel = false;
         if ($show_selected != 0) {
             reset($show_selected);
             while (!$sel && (list($x, $val) = each($show_selected))) {
-                if (strtolower($value) == strtolower(htmlspecialchars($val))) {
+                if (strtolower($value) == strtolower(sm_encode_html_special_chars($val))) {
                     $sel = true;
                 }
             }

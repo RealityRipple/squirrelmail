@@ -63,7 +63,7 @@ function mime_structure ($bodystructure, $flags=array()) {
         displayPageHeader( $color, $mailbox );
         $errormessage  = _("SquirrelMail could not decode the bodystructure of the message");
         $errormessage .= '<br />'._("The bodystructure provided by your IMAP server:").'<br /><br />';
-        $errormessage .= '<pre>' . htmlspecialchars($read) . '</pre>';
+        $errormessage .= '<pre>' . sm_encode_html_special_chars($read) . '</pre>';
         plain_error_message( $errormessage );
         echo '</body></html>';
         exit;
@@ -632,7 +632,7 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
         $this_attachment['DownloadHREF'] = $links['download link']['href'];
         $this_attachment['ViewHREF'] = isset($links['attachment_common']) ? $links['attachment_common']['href'] : '';
         $this_attachment['Size'] = $header->size;
-        $this_attachment['ContentType'] = htmlspecialchars($type0 .'/'. $type1);
+        $this_attachment['ContentType'] = sm_encode_html_special_chars($type0 .'/'. $type1);
         $this_attachment['OtherLinks'] = array();
         foreach ($links as $val) {
             if ($val['text']==_("Download") || $val['text'] == _("View"))
@@ -831,7 +831,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
             $iLastMatch = $i;
             $j = $i;
             if ($htmlsafe) {
-                $ret .= htmlspecialchars($res[1]);
+                $ret .= sm_encode_html_special_chars($res[1]);
             } else {
                 $ret .= $res[1];
             }
@@ -860,7 +860,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
                         }
                     } else {
                         if ($htmlsafe) {
-                            $replace = htmlspecialchars($replace);
+                            $replace = sm_encode_html_special_chars($replace);
                         }
                         $ret.= $replace;
                     }
@@ -881,7 +881,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
                         }
                     } else {
                         if ($htmlsafe) {
-                            $replace = htmlspecialchars($replace);
+                            $replace = sm_encode_html_special_chars($replace);
                         }
                     }
                     $ret .= $replace;
@@ -901,7 +901,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
         }
 
         if (!$encoded && $htmlsafe) {
-            $ret .= htmlspecialchars($chunk);
+            $ret .= sm_encode_html_special_chars($chunk);
         } else {
             $ret .= $chunk;
         }

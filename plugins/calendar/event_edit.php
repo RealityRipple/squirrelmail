@@ -176,11 +176,11 @@ function confirm_update() {
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Title:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', htmlspecialchars($tmparray['title']) , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', sm_encode_html_special_chars($tmparray['title']) , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Message:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', nl2br(htmlspecialchars($tmparray['message'])) , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', nl2br(sm_encode_html_special_chars($tmparray['message'])) , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("to:") . "<br />\n", '', $color[4], 'colspan="2"' ) ."\n"
@@ -200,11 +200,11 @@ function confirm_update() {
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Title:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', htmlspecialchars($event_title) , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', sm_encode_html_special_chars($event_title) , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Message:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', nl2br(htmlspecialchars($event_text)) , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', nl2br(sm_encode_html_special_chars($event_text)) , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
