@@ -124,10 +124,10 @@ $rules = array();
 foreach($message_highlight_list as $index=>$rule) {
     $a = array();
     
-    $a['Name'] = htmlspecialchars($rule['name']);
+    $a['Name'] = sm_encode_html_special_chars($rule['name']);
     $a['Color'] = $rule['color'];
     $a['MatchField'] = '';
-    $a['MatchValue'] = htmlspecialchars($rule['value']);
+    $a['MatchValue'] = sm_encode_html_special_chars($rule['value']);
     switch ($rule['match_type']) {
             case 'from' :
                 $a['MatchField'] = _("From");

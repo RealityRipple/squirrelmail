@@ -127,9 +127,9 @@ function display_events() {
                         html_tag( 'td', date_intl(_("H:i"),mktime($ehour,$eminute,0,1,1,0)) . $elength, 'left' ) .
                         html_tag( 'td', '', 'left' ) . '[';
                             echo ($calbar['priority']==1) ?
-                                "<font color=\"$color[1]\">".htmlspecialchars($calbar['title']).'</font>' :
-                                htmlspecialchars($calbar['title']);
-                            echo'] <div style="margin-left:10px">'.nl2br(htmlspecialchars($calbar['message'])).'</div>' .
+                                "<font color=\"$color[1]\">".sm_encode_html_special_chars($calbar['title']).'</font>' :
+                                sm_encode_html_special_chars($calbar['title']);
+                            echo'] <div style="margin-left:10px">'.nl2br(sm_encode_html_special_chars($calbar['message'])).'</div>' .
                         html_tag( 'td',
                             "<font size=\"-1\"><nobr>\n" .
                             "<a href=\"event_edit.php?year=$year&amp;month=$month&amp;day=$day&amp;hour=".

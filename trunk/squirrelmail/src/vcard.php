@@ -86,7 +86,7 @@ if ($vcard_nice['version'] == '2.1') {
        $vcard_nice['email;internet'] = $vcard_nice['email;pref;internet'];
     }
 } else {
-    $oTemplate->assign('note', sprintf(_("vCard Version %s is not supported. Some information might not be converted correctly."), htmlspecialchars($vcard_nice['version'])));
+    $oTemplate->assign('note', sprintf(_("vCard Version %s is not supported. Some information might not be converted correctly."), sm_encode_html_special_chars($vcard_nice['version'])));
     $oTemplate->display('note.tpl');
 
     $vcard_nice['firstname'] = '';
@@ -94,7 +94,7 @@ if ($vcard_nice['version'] == '2.1') {
 }
 
 foreach ($vcard_nice as $k => $v) {
-    $v = htmlspecialchars($v);
+    $v = sm_encode_html_special_chars($v);
     $v = trim($v);
     $vcard_safe[$k] = trim(nl2br($v));
 }

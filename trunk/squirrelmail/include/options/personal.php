@@ -104,7 +104,7 @@ function load_optpage_data_personal() {
             'caption' => _("E-mail Address"),
             'type'    => SMOPT_TYPE_COMMENT,
             'refresh' => SMOPT_REFRESH_NONE,
-            'comment' => htmlspecialchars($email_address)
+            'comment' => sm_encode_html_special_chars($email_address)
         );
     }
 

@@ -23,7 +23,7 @@ $calendardata = array();
  * Plugin stores multiline texts converted to single line with PHP nl2br().
  * Function undoes nl2br() conversion and html encoding of ASCII vertical bar.
  *
- * Older plugin versions sanitized data with htmlspecialchars. Since 1.5.1 calendar 
+ * Older plugin versions sanitized data with sm_encode_html_special_chars. Since 1.5.1 calendar 
  * data is not sanitized. Output functions must make sure that data is correctly 
  * encoded and sanitized.
  * @param string $string calendar string

@@ -342,7 +342,7 @@ switch( $mf_action ) {
          echo '<b>' . _("Server Name:") . '</b> <select name="mf_sn">';
          for ($i=0;$i<$mailfetch_server_number;$i++) {
              echo "<option value=\"$i\">" .
-                 htmlspecialchars( (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) . "</option>";
+                 sm_encode_html_special_chars( (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) . "</option>";
          }
          echo '</select>'.
              '&nbsp;&nbsp;<input type="submit" name="mf_action_mod" value="' . _("Modify") . '" />'.
@@ -368,7 +368,7 @@ switch( $mf_action ) {
                  html_tag( 'td',
                      "<input type=\"hidden\" name=\"mf_sn\" value=\"$mf_sn\" />" .
                      '<input type="hidden" name="mf_action" value="confirm_delete" />' .
-                     '<br />' . _("Selected Server:") . " <b>" . htmlspecialchars($mailfetch_server_[$mf_sn]) . "</b><br />" .
+                     '<br />' . _("Selected Server:") . " <b>" . sm_encode_html_special_chars($mailfetch_server_[$mf_sn]) . "</b><br />" .
                      _("Confirm delete of selected server?") . '<br /><br />' .
                      '<input type="submit" name="submit_mailfetch" value="' . _("Confirm Delete") . '" />' .
                      '<br /></form>' ,
@@ -396,27 +396,27 @@ switch( $mf_action ) {
              html_tag( 'tr',
                  html_tag( 'th', _("Server:"), 'right' ) .
                  html_tag( 'td', '<input type="text" name="mf_server" value="' .
-                           htmlspecialchars($mailfetch_server_[$mf_sn]) . '" size="40" />', 'left' )
+                           sm_encode_html_special_chars($mailfetch_server_[$mf_sn]) . '" size="40" />', 'left' )
                        ) .
              html_tag( 'tr',
                  html_tag( 'th', _("Port:"), 'right' ) .
                  html_tag( 'td', '<input type="text" name="mf_port" value="' .
-                           htmlspecialchars($mailfetch_port_[$mf_sn]) . '" size="40" />', 'left' )
+                           sm_encode_html_special_chars($mailfetch_port_[$mf_sn]) . '" size="40" />', 'left' )
                        ) .
              html_tag( 'tr',
                  html_tag( 'th', _("Alias:"), 'right' ) .
                  html_tag( 'td', '<input type="text" name="mf_alias" value="' .
-                           htmlspecialchars($mailfetch_alias_[$mf_sn]) . '" size="40" />', 'left' )
+                           sm_encode_html_special_chars($mailfetch_alias_[$mf_sn]) . '" size="40" />', 'left' )
                        ) .
              html_tag( 'tr',
                  html_tag( 'th', _("Username:"), 'right' ) .
                  html_tag( 'td', '<input type="text" name="mf_user" value="' .
-                           htmlspecialchars($mailfetch_user_[$mf_sn]) . '" size="20" />', 'left' )
+                           sm_encode_html_special_chars($mailfetch_user_[$mf_sn]) . '" size="20" />', 'left' )
                        ) .
              html_tag( 'tr',
                  html_tag( 'th', _("Password:"), 'right' ) .
                  html_tag( 'td', '<input type="password" name="mf_pass" value="' .
-                           htmlspecialchars($mailfetch_pass_[$mf_sn]) . '" size="20" />', 'left' )
+                           sm_encode_html_special_chars($mailfetch_pass_[$mf_sn]) . '" size="20" />', 'left' )
                        ) .
              html_tag( 'tr',
                  html_tag( 'th', _("Authentication type:"), 'right' ) .

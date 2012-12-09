@@ -284,7 +284,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sOnload = '') {
         * this explains the imap_mailbox.php dependency. We should instead store
         * the selected mailbox in the session and fallback to the session var.
         */
-        $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
+        $shortBoxName = sm_encode_html_special_chars(imap_utf7_decode_local(
                     readShortMailboxName($mailbox, $delimiter)));
         if (getPref($data_dir, $username, 'translate_special_folders')) {
             global $sent_folder, $trash_folder, $draft_folder;

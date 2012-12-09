@@ -175,7 +175,7 @@ if (isset($action) && $action == 'spam') {
     echo html_tag( 'p', '', 'center' ) .
          '[<a href="spamoptions.php?action=spam">' . _("Edit") . '</a>]' .
          ' - [<a href="../../src/options.php">' . _("Done") . '</a>]</div><br /><br />';
-    printf( _("Spam is sent to %s."), ($filters_spam_folder?'<b>'.htmlspecialchars(imap_utf7_decode_local($filters_spam_folder)).'</b>':'[<i>'._("not set yet").'</i>]' ) );
+    printf( _("Spam is sent to %s."), ($filters_spam_folder?'<b>'.sm_encode_html_special_chars(imap_utf7_decode_local($filters_spam_folder)).'</b>':'[<i>'._("not set yet").'</i>]' ) );
     echo '<br />';
     printf( _("Spam scan is limited to %s."), '<b>' . ( ($filters_spam_scan == 'new')?_("Unread messages only"):_("All messages") ) . '</b>' );
     echo '</p>'.

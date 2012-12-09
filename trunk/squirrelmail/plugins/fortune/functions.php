@@ -50,7 +50,7 @@ function fortune_function() {
     }
 
     $oTemplate->assign('color', $color);
-    $oTemplate->assign('fortune', htmlspecialchars($fortune));
+    $oTemplate->assign('fortune', sm_encode_html_special_chars($fortune));
     $output = $oTemplate->fetch('plugins/fortune/mailbox_index_before.tpl');
     return array('mailbox_index_before' => $output);
 

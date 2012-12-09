@@ -120,8 +120,8 @@ echo "</p>";
   echo '<input type="button" value="' . _("Close Window") . "\" onclick=\"window.close(); return true;\" />\n";
 } else {
    ?><form method="post" action="<?php echo sqm_baseuri(); ?>src/right_main.php">
-  <input type="hidden" name="mailbox" value="<?php echo htmlspecialchars($mailbox) ?>" />
-  <input type="hidden" name="startMessage" value="<?php echo htmlspecialchars($startMessage) ?>" />
+  <input type="hidden" name="mailbox" value="<?php echo sm_encode_html_special_chars($mailbox) ?>" />
+  <input type="hidden" name="startMessage" value="<?php echo sm_encode_html_special_chars($startMessage) ?>" />
 <?php
   echo '<input type="submit" value="' . _("Cancel / Done") . "\" />";
 }
@@ -137,9 +137,9 @@ echo "</p>";
    $form_action = sqm_baseuri() . 'src/compose.php';
 ?>  <form method="post" action="<?php echo $form_action?>">
   <input type="hidden" name="smtoken" value="<?php echo sm_generate_security_token() ?>" />
-  <input type="hidden" name="mailbox" value="<?php echo htmlspecialchars($mailbox) ?>" />
-  <input type="hidden" name="spamcop_is_composing" value="<?php echo htmlspecialchars($passed_id) ?>" />
-  <input type="hidden" name="send_to" value="<?php echo htmlspecialchars($report_email)?>" />
+  <input type="hidden" name="mailbox" value="<?php echo sm_encode_html_special_chars($mailbox) ?>" />
+  <input type="hidden" name="spamcop_is_composing" value="<?php echo sm_encode_html_special_chars($passed_id) ?>" />
+  <input type="hidden" name="send_to" value="<?php echo sm_encode_html_special_chars($report_email)?>" />
   <input type="hidden" name="subject" value="reply anyway" />
   <input type="hidden" name="identity" value="0" />
   <input type="hidden" name="session" value="<?php echo $session?>" />
@@ -163,7 +163,7 @@ echo "</p>";
    } ?>
   <input type="hidden" name="action" value="submit" />
   <input type="hidden" name="oldverbose" value="1" />
-  <input type="hidden" name="spam" value="<?php echo htmlspecialchars($spam_message); ?>" />
+  <input type="hidden" name="spam" value="<?php echo sm_encode_html_special_chars($spam_message); ?>" />
     <?php
         echo '<input type="submit" name="x1" value="' . _("Send Spam Report") . "\" />\n";
     }

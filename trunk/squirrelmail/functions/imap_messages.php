@@ -622,7 +622,7 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
         $aMsg['ID'] = $id;
         $fetch = substr($read,$i_space+1,5);
         if (!is_numeric($id) && $fetch !== 'FETCH') {
-            $aMsg['ERROR'] = $read; // htmlspecialchars should be done just before display. this is backend code
+            $aMsg['ERROR'] = $read; // sm_encode_html_special_chars should be done just before display. this is backend code
             break;
         }
         $i = strpos($read,'(',$i_space+5);

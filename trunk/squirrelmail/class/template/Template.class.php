@@ -1480,7 +1480,7 @@ FIXME: We could make the incoming array more complex so it can
 
         if (empty($template)) {
 
-            trigger_error('The template "' . htmlspecialchars($file)
+            trigger_error('The template "' . sm_encode_html_special_chars($file)
                           . '" could not be fetched!', E_USER_ERROR);
 
         } else {

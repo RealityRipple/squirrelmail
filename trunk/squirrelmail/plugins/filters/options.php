@@ -180,7 +180,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
                 html_tag( 'td', '', 'left' ) .
                     '<input type="text" size="32" name="filter_what" value="';
         if (isset($filters[$theid]['what'])) {
-            echo htmlspecialchars($filters[$theid]['what']);
+            echo sm_encode_html_special_chars($filters[$theid]['what']);
         }
         echo '" />'.
                 '</td>'.
@@ -243,7 +243,7 @@ if (count($filters)) {
         printf( _("If %s contains %s then move to %s"),
             '<b>'.$filters[$i]['where'].'</b>',
             '<b>'.$filters[$i]['what'].'</b>',
-            '<b>'.htmlspecialchars(imap_utf7_decode_local($fdr)).'</b>');
+            '<b>'.sm_encode_html_special_chars(imap_utf7_decode_local($fdr)).'</b>');
         echo '</td></tr>';
 
     }

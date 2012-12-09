@@ -152,16 +152,16 @@ function cpw_peardb_dochange($data) {
     // connect to database and make sure that table exists
     $cpw_db = DB::connect($cpw_peardb_dsn, $cpw_peardb_connect_opts);
     if (PEAR::isError($cpw_db)) {
-        array_push($msgs,sprintf(_("Connection error: %s"),htmlspecialchars($cpw_db->getMessage())));
+        array_push($msgs,sprintf(_("Connection error: %s"),sm_encode_html_special_chars($cpw_db->getMessage())));
         if ($cpw_peardb_debug)
-            array_push($msgs,htmlspecialchars($cpw_db->getuserinfo()));
+            array_push($msgs,sm_encode_html_special_chars($cpw_db->getuserinfo()));
         return $msgs;
     }
 
     // get table information
     $table_info = $cpw_db->tableinfo($cpw_peardb_table);
     if (PEAR::isError($table_info)) {
-        array_push($msgs,sprintf(_("Invalid table name: %s"),htmlspecialchars($cpw_peardb_table)));
+        array_push($msgs,sprintf(_("Invalid table name: %s"),sm_encode_html_special_chars($cpw_peardb_table)));
         $cpw_db->disconnect();
         return $msgs;
     }
@@ -210,7 +210,7 @@ function cpw_peardb_dochange($data) {
           '');
     $cpw_res=$cpw_db->query($query);
     if (PEAR::isError($cpw_res)) {
-        array_push($msgs,sprintf(_("Query failed: %s"),htmlspecialchars($cpw_res->getMessage())));
+        array_push($msgs,sprintf(_("Query failed: %s"),sm_encode_html_special_chars($cpw_res->getMessage())));
         $cpw_db->disconnect();
         return $msgs;
     }
@@ -284,7 +284,7 @@ function cpw_peardb_dochange($data) {
 
     // check for update error
     if (PEAR::isError($cpw_res)) {
-        array_push($msgs,sprintf(_("Unable to set new password: %s"),htmlspecialchars($cpw_res->getMessage())));
+        array_push($msgs,sprintf(_("Unable to set new password: %s"),sm_encode_html_special_chars($cpw_res->getMessage())));
     }
 
     // close database connection
@@ -427,7 +427,7 @@ function cpw_peardb_passwd_hash($password,$crypto,&$msgs,$forced_salt='') {
         $ret = $password;
         break;
     default:
-        array_push($msgs,sprintf(_("Unsupported crypto: %s"),htmlspecialchars($crypto)));
+        array_push($msgs,sprintf(_("Unsupported crypto: %s"),sm_encode_html_special_chars($crypto)));
     }
     return $ret;
 }

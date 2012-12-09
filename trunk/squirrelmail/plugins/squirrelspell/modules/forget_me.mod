@@ -40,7 +40,7 @@ if (! empty($words_ary)){
 
   // print list of deleted words
   foreach ($words_ary as $deleted_word) {
-    $msg.= '<li>'.htmlspecialchars($deleted_word)."</li>\n";
+    $msg.= '<li>'.sm_encode_html_special_chars($deleted_word)."</li>\n";
   }
 
   // rebuild dictionary

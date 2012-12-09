@@ -124,9 +124,9 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
     sqimap_logout($imapConnection);
 
     $oTemplate->assign('dialog_type', 'rename');
-    $oTemplate->assign('parent_folder', htmlspecialchars($old_parent));
-    $oTemplate->assign('current_full_name', htmlspecialchars($old));
-    $oTemplate->assign('current_folder_name', htmlspecialchars($old_name));
+    $oTemplate->assign('parent_folder', sm_encode_html_special_chars($old_parent));
+    $oTemplate->assign('current_full_name', sm_encode_html_special_chars($old));
+    $oTemplate->assign('current_folder_name', sm_encode_html_special_chars($old_name));
     $oTemplate->assign('is_folder', $isfolder);
     
     $oTemplate->display('folder_manip_dialog.tpl');
@@ -198,8 +198,8 @@ function folders_delete_ask ($imapConnection, $folder_name)
     sqimap_logout($imapConnection);
 
     $oTemplate->assign('dialog_type', 'delete');
-    $oTemplate->assign('folder_name', htmlspecialchars($folder_name));
-    $oTemplate->assign('visible_folder_name', htmlspecialchars($visible_folder_name));
+    $oTemplate->assign('folder_name', sm_encode_html_special_chars($folder_name));
+    $oTemplate->assign('visible_folder_name', sm_encode_html_special_chars($visible_folder_name));
     
     $oTemplate->display('folder_manip_dialog.tpl');
     $oTemplate->display('footer.tpl');

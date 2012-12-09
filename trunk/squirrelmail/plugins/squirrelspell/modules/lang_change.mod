@@ -42,7 +42,7 @@ foreach ($use_langs as $lang) {
 if (sizeof($new_langs)>1) {
   $dsp_string = '';
   foreach( $new_langs as $a) {
-    $dsp_string .= _(htmlspecialchars(trim($a))) . _(", ");
+    $dsp_string .= _(sm_encode_html_special_chars(trim($a))) . _(", ");
   }
   // remove last comma and space
   $dsp_string = substr( $dsp_string, 0, -2 );
@@ -52,15 +52,15 @@ if (sizeof($new_langs)>1) {
   // make sure that you don't use html codes in language name translations
   $msg = '<p>'
     . sprintf(_("Settings adjusted to: %s with %s as default dictionary."),
-             '<strong>'.htmlspecialchars($dsp_string).'</strong>',
-             '<strong>'.htmlspecialchars(_($lang_default)).'</strong>')
+             '<strong>'.sm_encode_html_special_chars($dsp_string).'</strong>',
+             '<strong>'.sm_encode_html_special_chars(_($lang_default)).'</strong>')
     . '</p>';
 } else {
   /**
    * Only one dictionary is selected.
    */
   $msg = '<p>'
-    . sprintf(_("Using %s dictionary for spellcheck." ), '<strong>'.htmlspecialchars(_($new_langs[0])).'</strong>')
+    . sprintf(_("Using %s dictionary for spellcheck." ), '<strong>'.sm_encode_html_special_chars(_($new_langs[0])).'</strong>')
     . '</p>';
 }
 

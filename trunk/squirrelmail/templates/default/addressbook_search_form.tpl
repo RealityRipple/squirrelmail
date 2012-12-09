@@ -47,7 +47,7 @@ extract($t);
    <select name="backend" id="backend">
         <?php
         foreach ($backends as $id=>$name) {
-            echo '<option value="'.$id.'">'.htmlspecialchars($name).'</option>'."\n";
+            echo '<option value="'.$id.'">'.sm_encode_html_special_chars($name).'</option>'."\n";
         }
         ?>
    </select>

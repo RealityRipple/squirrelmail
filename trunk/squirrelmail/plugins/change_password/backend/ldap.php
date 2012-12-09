@@ -646,7 +646,7 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
         break;
     default:
         array_push($msgs,sprintf(_("Unsupported crypto: %s"),
-                                 (is_string($ldap_crypto) ? htmlspecialchars($ldap_crypto) : _("unknown"))));
+                                 (is_string($ldap_crypto) ? sm_encode_html_special_chars($ldap_crypto) : _("unknown"))));
     }
     return $ret;
 }

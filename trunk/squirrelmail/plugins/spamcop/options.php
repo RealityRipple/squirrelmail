@@ -143,7 +143,7 @@ spamcop_load_function();
             '<small>(' . _("see below") . ')</small>','right','','valign="top"');
           ?>
           <td valign="top"><form method="post" action="options.php">
-            <input type="text" size="30" name="ID" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
+            <input type="text" size="30" name="ID" value="<?php echo sm_encode_html_special_chars($spamcop_id) ?>" />
             <input type="hidden" name="action" value="save_id" />
             <?php
               echo '<input type="submit" value="' . _("Save ID") . "\" />\n";

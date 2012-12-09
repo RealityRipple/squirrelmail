@@ -112,7 +112,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
 }
 
 if (isset($td_str)) {
-    $oTemplate->assign('note', htmlspecialchars($td_str));
+    $oTemplate->assign('note', sm_encode_html_special_chars($td_str));
     $oTemplate->display('note.tpl');
 }
 
@@ -197,8 +197,8 @@ if ($show_only_subscribed_folders && !$no_list_for_subscribe) {
     	}
     
     	if ($use_folder) {
-    	    $box_enc  = htmlspecialchars($box_a['unformatted-dm']);
-    	    $box_disp = htmlspecialchars(imap_utf7_decode_local($box_a['unformatted-disp']));
+    	    $box_enc  = sm_encode_html_special_chars($box_a['unformatted-dm']);
+    	    $box_disp = sm_encode_html_special_chars(imap_utf7_decode_local($box_a['unformatted-disp']));
             $subbox_option_list[] = array( 'Value' => $box_enc, 'Display' => $box_disp);
     	}
     }

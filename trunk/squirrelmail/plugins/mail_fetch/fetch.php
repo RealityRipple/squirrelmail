@@ -35,7 +35,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 function Mail_Fetch_Status($msg) {
     echo html_tag( 'table',
              html_tag( 'tr',
-                 html_tag( 'td', htmlspecialchars( $msg ) , 'left' )
+                 html_tag( 'td', sm_encode_html_special_chars( $msg ) , 'left' )
                  ),
              '', '', 'width="90%"' );
     flush();
@@ -97,7 +97,7 @@ function Mail_Fetch_Select_Server($mailfetch) {
         '<option value="all" selected="selected">..' . _("All") . "...\n";
     for ($i = 0;$i < $mailfetch['server_number'];$i++) {
         echo "<option value=\"$i\">" .
-            htmlspecialchars($mailfetch[$i]['alias']) .
+            sm_encode_html_special_chars($mailfetch[$i]['alias']) .
             '</option>' . "\n";
     }
     echo            '</select>' .
@@ -109,7 +109,7 @@ function Mail_Fetch_Select_Server($mailfetch) {
         if ($mailfetch[$i]['pass'] == '') {
             echo html_tag( 'tr',
                      html_tag( 'td', _("Password for") . ' <b>' .
-                         htmlspecialchars($mailfetch[$i]['alias']) .
+                         sm_encode_html_special_chars($mailfetch[$i]['alias']) .
                          '</b>: &nbsp; &nbsp; ',
                          'right' ) .
                      html_tag( 'td', '<input type="password" name="pass_' . $i . '" />', 'left' )
@@ -177,7 +177,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
             html_tag( 'tr',
                 html_tag( 'td', '<b>' .
                     sprintf(_("Fetching from %s"),
-                        htmlspecialchars($mailfetch[$i_loop]['alias'])) .
+                        sm_encode_html_special_chars($mailfetch[$i_loop]['alias'])) .
                     '</b>',
                 'center' ) ,
             '', $color[9] ) ,
@@ -209,13 +209,13 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
 
     /* log into pop server*/
     if (! $pop3->login($mailfetch_user, $mailfetch_pass)) {
-        Mail_Fetch_Status(_("Login Failed:") . ' ' . htmlspecialchars($pop3->error));
+        Mail_Fetch_Status(_("Login Failed:") . ' ' . sm_encode_html_special_chars($pop3->error));
         continue;
     }
 
     $aMsgStat = $pop3->command_stat();
     if (is_bool($aMsgStat)) {
-        Mail_Fetch_Status(_("Can't get mailbox status:") . ' ' . htmlspecialchars($pop3->error) );
+        Mail_Fetch_Status(_("Can't get mailbox status:") . ' ' . sm_encode_html_special_chars($pop3->error) );
         continue;
     }
 
@@ -229,7 +229,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
             Mail_Fetch_Status(_("Fetching UIDL..."));
             $msglist = $pop3->command_uidl();
             if (is_bool($msglist)) {
-                Mail_Fetch_Status(_("Server does not support UIDL.") . ' '.htmlspecialchars($pop3->error));
+                Mail_Fetch_Status(_("Server does not support UIDL.") . ' '.sm_encode_html_special_chars($pop3->error));
                 // User asked to leave messages on server, but we can't do that.
                 $pop3->command_quit();
                 continue;
@@ -284,7 +284,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
         $Message = $pop3->command_retr($i);
 
         if (is_bool($Message)) {
-            Mail_Fetch_Status(htmlspecialchars($pop3->error));
+            Mail_Fetch_Status(sm_encode_html_special_chars($pop3->error));
             continue;
         }
 
@@ -297,7 +297,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
             $response=(implode('',$response));
             $message=(implode('',$message));
             if ($response != 'OK') {
-                Mail_Fetch_Status(_("Error Appending Message!")." ".htmlspecialchars($message) );
+                Mail_Fetch_Status(_("Error Appending Message!")." ".sm_encode_html_special_chars($message) );
                 Mail_Fetch_Status(_("Closing POP"));
                 $pop3->command_quit();
                 Mail_Fetch_Status(_("Logging out from IMAP"));
@@ -316,7 +316,7 @@ for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
                 if( $pop3->command_dele($i) ) {
                     Mail_Fetch_Status(sprintf(_("Message %d deleted from remote server!"), $i));
                 } else {
-                    Mail_Fetch_Status(_("Delete failed:") . htmlspecialchars($pop3->error) );
+                    Mail_Fetch_Status(_("Delete failed:") . sm_encode_html_special_chars($pop3->error) );
                 }
             }
         } else {

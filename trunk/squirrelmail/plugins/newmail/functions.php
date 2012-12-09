@@ -691,7 +691,7 @@ function newmail_media_embed_close($type) {
 /**
  * Converts media attributes to string
  * Warning:
- * * attribute values are automatically sanitized by htmlspecialchars()
+ * * attribute values are automatically sanitized by sm_encode_html_special_chars()
  * * This is internal function, use newmail_media_objects() instead
  * @param array $args array with object attributes
  * @return string string with object attributes
@@ -699,7 +699,7 @@ function newmail_media_embed_close($type) {
 function newmail_media_prepare_args($args) {
     $ret_args='';
     foreach ($args as $arg => $value) {
-        $ret_args.= $arg . '="' . htmlspecialchars($value) . '" ';
+        $ret_args.= $arg . '="' . sm_encode_html_special_chars($value) . '" ';
     }
     return $ret_args;
 }

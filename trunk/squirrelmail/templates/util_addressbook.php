@@ -22,7 +22,7 @@
 function composeLink ($row) {
     return makeComposeLink('src/compose.php?send_to=' .
                            rawurlencode($row['RawFullAddress']),
-                           htmlspecialchars($row['Email']));
+                           sm_encode_html_special_chars($row['Email']));
 }
 
 /**
@@ -41,17 +41,17 @@ function formatAddressList ($addresses) {
     $contacts = array();
     while(list($undef,$row) = each($addresses)) {
         $contact = array (
-                            'FirstName'      => htmlspecialchars($row['firstname']),
-                            'LastName'       => htmlspecialchars($row['lastname']),
-                            'FullName'       => htmlspecialchars($row['name']),
-                            'NickName'       => htmlspecialchars($row['nickname']),
-                            'Email'          => htmlspecialchars($row['email']),
-                            'FullAddress'    => htmlspecialchars(AddressBook::full_address($row)),
+                            'FirstName'      => sm_encode_html_special_chars($row['firstname']),
+                            'LastName'       => sm_encode_html_special_chars($row['lastname']),
+                            'FullName'       => sm_encode_html_special_chars($row['name']),
+                            'NickName'       => sm_encode_html_special_chars($row['nickname']),
+                            'Email'          => sm_encode_html_special_chars($row['email']),
+                            'FullAddress'    => sm_encode_html_special_chars(AddressBook::full_address($row)),
                             'RawFullAddress' => AddressBook::full_address($row),
-                            'Info'           => htmlspecialchars($row['label']),
+                            'Info'           => sm_encode_html_special_chars($row['label']),
                             'Extra'          => (isset($row['extra']) ? $row['extra'] : NULL),
-                            'Source'         => htmlspecialchars($row['source']),
-                            'JSEmail'        => htmlspecialchars(addcslashes(AddressBook::full_address($row), "'"), ENT_QUOTES),
+                            'Source'         => sm_encode_html_special_chars($row['source']),
+                            'JSEmail'        => sm_encode_html_special_chars(addcslashes(AddressBook::full_address($row), "'"), ENT_QUOTES),
                          );
         $contacts[] = $contact;
     }

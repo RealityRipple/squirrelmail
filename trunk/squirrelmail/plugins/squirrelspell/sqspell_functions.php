@@ -849,12 +849,12 @@ function sqspell_handle_crypt_panic($lang=false) {
     .  _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this. If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.") ,
     'left' ) .  "\n"
     . (($lang) ? html_tag('p',sprintf(_("Your %s dictionary is encrypted with password that differs from your current password."),
-                                      htmlspecialchars($lang)),'left') : '')
+                                      sm_encode_html_special_chars($lang)),'left') : '')
     . '<blockquote>' . "\n"
     . '<form method="post" onsubmit="return AYS()">' . "\n"
     . '<input type="hidden" name="MOD" value="crypto_badkey" />' . "\n"
     . (($lang) ?
-       '<input type="hidden" name="dict_lang" value="'.htmlspecialchars($lang).'" />' :
+       '<input type="hidden" name="dict_lang" value="'.sm_encode_html_special_chars($lang).'" />' :
        '<input type="hidden" name="old_setup" value="yes" />')
     . html_tag( 'p',  "\n" .
         '<input type="checkbox" name="delete_words" value="ON" id="delete_words" />'

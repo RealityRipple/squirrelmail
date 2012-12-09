@@ -319,7 +319,7 @@ if (isset($mail_sent) && $mail_sent == 'yes') {
     $note = _("Your mail has been sent.");
 }
 if (isset($note)) {
-    $oTemplate->assign('note', htmlspecialchars($note));
+    $oTemplate->assign('note', sm_encode_html_special_chars($note));
     $oTemplate->display('note.tpl');
 }
 

@@ -1346,10 +1346,10 @@ function showInputForm ($session, $values=false) {
     $oTemplate->assign('identity_def', $identity);
     $oTemplate->assign('input_onfocus', 'onfocus="'.join(' ', $onfocus_array).'"');
 
-    $oTemplate->assign('to', htmlspecialchars($send_to));
-    $oTemplate->assign('cc', htmlspecialchars($send_to_cc));
-    $oTemplate->assign('bcc', htmlspecialchars($send_to_bcc));
-    $oTemplate->assign('subject', htmlspecialchars($subject));
+    $oTemplate->assign('to', sm_encode_html_special_chars($send_to));
+    $oTemplate->assign('cc', sm_encode_html_special_chars($send_to_cc));
+    $oTemplate->assign('bcc', sm_encode_html_special_chars($send_to_bcc));
+    $oTemplate->assign('subject', sm_encode_html_special_chars($subject));
 
     // access keys...
     //
@@ -1385,9 +1385,9 @@ function showInputForm ($session, $values=false) {
             } else {
                 $body_str = "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
             }
-            $body_str .= "\n\n".htmlspecialchars(decodeHeader($body,false,false));
+            $body_str .= "\n\n".sm_encode_html_special_chars(decodeHeader($body,false,false));
         } else {
-            $body_str = "\n\n".htmlspecialchars(decodeHeader($body,false,false));
+            $body_str = "\n\n".sm_encode_html_special_chars(decodeHeader($body,false,false));
             // FIXME: test is specific to ja_JP translation implementation. See above comments.
             if ($default_charset == 'iso-2022-jp') {
                 $body_str .= "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
@@ -1396,7 +1396,7 @@ function showInputForm ($session, $values=false) {
             }
         }
     } else {
-        $body_str = htmlspecialchars(decodeHeader($body,false,false));
+        $body_str = sm_encode_html_special_chars(decodeHeader($body,false,false));
     }
 
     $oTemplate->assign('editor_width', (int)$editor_size);
@@ -1811,7 +1811,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
             $composeMessage->purgeAttachments();
             return $success;
         } else {
-            $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), htmlspecialchars($draft_folder));
+            $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), sm_encode_html_special_chars($draft_folder));
             plain_error_message($msg);
             return false;
         }
@@ -1832,7 +1832,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
             $msg .= '<br />'
                   . _("Server replied:") . ' '
                   . (isset($deliver->dlv_ret_nr) ? $deliver->dlv_ret_nr . ' ' : '')
-                  . nl2br(htmlspecialchars($deliver->dlv_server_msg));
+                  . nl2br(sm_encode_html_special_chars($deliver->dlv_server_msg));
         }
         plain_error_message($msg);
     } else {

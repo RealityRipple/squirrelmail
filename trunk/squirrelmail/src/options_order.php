@@ -31,7 +31,7 @@ if (sqgetGlobalVar('num',       $num,       SQ_GET)) {
 if (!sqgetGlobalVar('method', $method)) {
     $method = '';
 } else {
-    $method = htmlspecialchars($method);
+    $method = sm_encode_html_special_chars($method);
 }
 if (!sqgetGlobalVar('positions', $pos, SQ_GET)) {
     $pos = 0;

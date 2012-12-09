@@ -193,7 +193,7 @@ function sq_setlocale($category,$locale) {
  * @param string $string Text to be decoded
  * @param boolean $force_decode converts string to html without $charset!=$default_charset check.
  * Argument is available since 1.4.5 and 1.5.1.
- * @param boolean $save_html disables htmlspecialchars() in order to preserve
+ * @param boolean $save_html disables sm_encode_html_special_chars() in order to preserve
  *  html formating. Use with care. Available since 1.4.6 and 1.5.1
  * @return string decoded string
  */
@@ -218,7 +218,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
 
     // Don't do conversion if charset is the same.
     if ( ! $force_decode && $charset == strtolower($default_charset) )
-        return ($save_html ? $string : htmlspecialchars($string));
+        return ($save_html ? $string : sm_encode_html_special_chars($string));
 
     // catch iso-8859-8-i thing
     if ( $charset == "iso-8859-8-i" )
@@ -234,10 +234,10 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
             // other charsets can be converted to utf-8 without loss.
             // and output string is smaller
             $string = recode_string($charset . "..utf-8",$string);
-            return ($save_html ? $string : htmlspecialchars($string));
+            return ($save_html ? $string : sm_encode_html_special_chars($string));
         } else {
             $string = recode_string($charset . "..html",$string);
-            // recode does not convert single quote, htmlspecialchars does.
+            // recode does not convert single quote, sm_encode_html_special_chars does.
             $string = str_replace("'", '&#039;', $string);
             // undo html specialchars
             if ($save_html)
@@ -250,13 +250,13 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
     // iconv functions does not have html target and can be used only with utf-8
     if ( $use_php_iconv && $default_charset=='utf-8') {
         $string = iconv($charset,$default_charset,$string);
-        return ($save_html ? $string : htmlspecialchars($string));
+        return ($save_html ? $string : sm_encode_html_special_chars($string));
     }
 
     // If we don't use recode and iconv, we'll do it old way.
 
     /* All HTML special characters are 7 bit and can be replaced first */
-    if (! $save_html) $string = htmlspecialchars ($string);
+    if (! $save_html) $string = sm_encode_html_special_chars ($string);
 
     /* controls cpu and memory intensive decoding cycles */
     if (! isset($aggressive_decoding) || $aggressive_decoding=="" ) {
@@ -279,7 +279,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
  * @since 1.4.4 and 1.5.1
  * @param string $string
  * @param string $charset
- * @param boolean $htmlencode keep htmlspecialchars encoding
+ * @param boolean $htmlencode keep sm_encode_html_special_chars encoding
  * @return string
  */
 function charset_encode($string,$charset,$htmlencode=true) {
@@ -323,7 +323,7 @@ function charset_encode($string,$charset,$htmlencode=true) {
  * @param string $in_charset initial charset
  * @param string $string string that has to be converted
  * @param string $out_charset final charset
- * @param boolean $htmlencode keep htmlspecialchars encoding
+ * @param boolean $htmlencode keep sm_encode_html_special_chars encoding
  * @return string converted string
  */
 function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {

@@ -147,7 +147,7 @@ function attachment_common_link_text(&$Args) {
        $Args[0]['attachment_common']['href'] = Where it links to */
     sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 
-    // if htmlspecialchars() breaks something - find other way to encode & in url.
+    // if sm_encode_html_special_chars() breaks something - find other way to encode & in url.
     $Args[0]['attachment_common']['href'] = $base_uri  . 'src/view_text.php?'. $QUERY_STRING;
     $Args[0]['attachment_common']['href'] =
           set_url_var($Args[0]['attachment_common']['href'],
