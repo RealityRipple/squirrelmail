@@ -23,7 +23,6 @@ function charset_encode_tis_620 ($string) {
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetotis620('\\1')",$string);
-    // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetotis620(hexdec('\\1'))",$string);
 
     return $string;
 }

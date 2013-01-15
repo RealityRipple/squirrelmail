@@ -23,7 +23,6 @@ function charset_encode_us_ascii ($string) {
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetousascii('\\1')",$string);
-    // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetousascii(hexdec('\\1'))",$string);
 
     return $string;
 }
