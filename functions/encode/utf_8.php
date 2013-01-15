@@ -27,7 +27,6 @@ function charset_encode_utf_8 ($string) {
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetoutf8('\\1')",$string);
-    // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetoutf8(hexdec('\\1'))",$string);
 
     return $string;
 }

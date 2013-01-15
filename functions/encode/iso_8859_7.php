@@ -23,7 +23,6 @@ function charset_encode_iso_8859_7 ($string) {
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetoiso88597('\\1')",$string);
-    // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetoiso88597(hexdec('\\1'))",$string);
 
     return $string;
 }
