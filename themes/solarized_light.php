@@ -6,7 +6,7 @@
  *
  * @author Pavneet Arora
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: plain_blue_theme.php 14084 2013-02-27 09:14:03Z pdontthink $
+ * @version $Id$
  * @package squirrelmail
  * @subpackage themes
  */
