@@ -10,7 +10,7 @@
  *
  * @copyright 1999-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: compose_body.tpl 11743 2006-09-27 21:54:14Z stevetruckstuff $
+ * @version $Id$
  * @package squirrelmail
  * @subpackage templates
  */

@@ -11,7 +11,7 @@
  *
  * @copyright 1999-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: webmail.tpl 12092 2007-01-07 15:44:12Z kink $
+ * @version $Id$
  * @package squirrelmail
  * @subpackage templates
  */

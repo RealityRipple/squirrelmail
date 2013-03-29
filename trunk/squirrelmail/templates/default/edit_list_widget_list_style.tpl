@@ -24,7 +24,7 @@
   *
   * @copyright 1999-2012 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: select.tpl 12961 2008-02-24 22:35:08Z pdontthink $
+  * @version $Id$
   * @package squirrelmail
   * @subpackage templates
   */
