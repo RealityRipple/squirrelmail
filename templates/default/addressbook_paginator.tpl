@@ -26,7 +26,7 @@
   *
   * @copyright 1999-2012 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: addressbook_list.tpl 13146 2008-05-15 19:00:03Z pdontthink $
+  * @version $Id$
   * @package squirrelmail
   * @subpackage templates
   */

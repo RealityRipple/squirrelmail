@@ -7,7 +7,7 @@
  *
  * @copyright 1999-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: page_header.tpl 12135 2007-01-15 08:27:10Z pdontthink $
+ * @version $Id$
  * @package squirrelmail
  * @subpackage templates
  */

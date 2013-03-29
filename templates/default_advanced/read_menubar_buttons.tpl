@@ -52,7 +52,7 @@
  *
  * @copyright 1999-2012 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id: read_menubar_buttons.tpl 11850 2006-10-06 21:57:26Z stevetruckstuff $
+ * @version $Id$
  * @package squirrelmail
  * @subpackage templates
  */

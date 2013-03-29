@@ -10,7 +10,7 @@
   *
   * @copyright 1999-2012 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
-  * @version $Id: table_data.tpl 12078 2007-01-07 07:28:11Z pdontthink $
+  * @version $Id$
   * @package squirrelmail
   * @subpackage templates
   */
