@@ -105,9 +105,9 @@ function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='', $message='')
       $content_type = new ContentType('text/plain');
       global $special_encoding, $default_charset;
       if ($special_encoding)
-         $rfc822_header->encoding = $special_encoding;
+         $header->encoding = $special_encoding;
       else
-         $rfc822_header->encoding = '8bit';
+         $header->encoding = '8bit';
       if ($default_charset)
          $content_type->properties['charset']=$default_charset;
       $header->content_type = $content_type;
