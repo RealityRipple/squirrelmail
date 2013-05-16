@@ -26,11 +26,11 @@ function charset_decode_us_ascii ($string) {
     if (! sq_is8bit($string,'us-ascii'))
         return $string;
 
-    $string = preg_replace("/([\201-\237])/e","'?'",$string);
+    $string = preg_replace("/([\201-\237])/","'?'",$string);
 
     /* I don't want to use 0xA0 (\240) in any ranges. RH73 may dislike it */
     $string = str_replace("\240", '?', $string);
 
-    $string = preg_replace("/([\241-\377])/e","'?'",$string);
+    $string = preg_replace("/([\241-\377])/","'?'",$string);
     return $string;
 }

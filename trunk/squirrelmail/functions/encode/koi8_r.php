@@ -22,7 +22,7 @@ function charset_encode_koi8_r ($string) {
    // don't run encoding function, if there is no encoded characters
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
-    $string=preg_replace("/&#([0-9]+);/e","unicodetokoi8r('\\1')",$string);
+    $string=preg_replace_callback("/&#([0-9]+);/",'unicodetokoi8r',$string);
 
     return $string;
 }
@@ -35,10 +35,11 @@ function charset_encode_koi8_r ($string) {
  * Don't use it or make sure, that functions/encode/koi8_r.php is
  * included.
  *
- * @param int $var decimal unicode value
+ * @param array $matches array with first element a decimal unicode value
  * @return string koi8-r character
  */
-function unicodetokoi8r($var) {
+function unicodetokoi8r($matches) {
+    $var = $matches[1];
 
     $koi8rchars=array('160' => "\x9A",
                       '169' => "\xBF",
