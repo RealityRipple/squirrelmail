@@ -22,7 +22,7 @@ function charset_encode_iso_8859_15 ($string) {
    // don't run encoding function, if there is no encoded characters
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
-    $string=preg_replace("/&#([0-9]+);/e","unicodetoiso885915('\\1')",$string);
+    $string=preg_replace_callback("/&#([0-9]+);/",'unicodetoiso885915',$string);
 
     return $string;
 }
@@ -35,10 +35,11 @@ function charset_encode_iso_8859_15 ($string) {
  * Don't use it or make sure, that functions/encode/iso_8859_15.php is
  * included.
  *
- * @param int $var decimal unicode value
+ * @param array $matches array with first element a decimal unicode value
  * @return string iso-8859-15 character
  */
-function unicodetoiso885915($var) {
+function unicodetoiso885915($matches) {
+    $var = $matches[1];
 
     $iso885915chars=array('160' => "\xA0",
                           '161' => "\xA1",

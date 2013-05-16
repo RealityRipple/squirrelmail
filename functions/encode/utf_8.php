@@ -26,7 +26,7 @@ function charset_encode_utf_8 ($string) {
    // don't run encoding function, if there is no encoded characters
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
-    $string=preg_replace("/&#([0-9]+);/e","unicodetoutf8('\\1')",$string);
+    $string=preg_replace_callback("/&#([0-9]+);/",'unicodetoutf8',$string);
 
     return $string;
 }
@@ -39,10 +39,11 @@ function charset_encode_utf_8 ($string) {
  * Don't use it or make sure, that functions/encode/utf_8.php is
  * included.
  *
- * @param int $var decimal unicode value
+ * @param array $matches array with first element a decimal unicode value
  * @return string utf8 character
  */
-function unicodetoutf8($var) {
+function unicodetoutf8($matches) {
+    $var = $matches[1];
 
     if ($var < 128) {
         $ret = chr ($var);

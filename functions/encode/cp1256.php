@@ -22,7 +22,7 @@ function charset_encode_cp1256 ($string) {
    // don't run encoding function, if there is no encoded characters
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
-    $string=preg_replace("/&#([0-9]+);/e","unicodetocp1256('\\1')",$string);
+    $string=preg_replace_callback("/&#([0-9]+);/",'unicodetocp1256',$string);
 
     return $string;
 }
@@ -35,10 +35,11 @@ function charset_encode_cp1256 ($string) {
  * Don't use it or make sure, that functions/encode/cp1256.php is
  * included.
  *
- * @param int $var decimal unicode value
+ * @param array $matches array with first element a decimal unicode value
  * @return string cp1256 character
  */
-function unicodetocp1256($var) {
+function unicodetocp1256($matches) {
+    $var = $matches[1];
 
     $cp1256chars=array('160' => "\xA0",
                        '162' => "\xA2",

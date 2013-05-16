@@ -23,11 +23,15 @@ function charset_decode_iso_8859_1 ($string) {
     if (! sq_is8bit($string,'iso-8859-1'))
         return $string;
 
-    $string = preg_replace("/([\201-\237])/e","'&#' . ord('\\1') . ';'",$string);
+    $string = preg_replace_callback("/([\201-\237])/",
+    create_function ('$matches', 'return \'&#\' . ord($matches[1]) . \';\';'),
+    $string);
 
     /* I don't want to use 0xA0 (\240) in any ranges. RH73 may dislike it */
     $string = str_replace("\240", '&#160;', $string);
 
-    $string = preg_replace("/([\241-\377])/e","'&#' . ord('\\1') . ';'",$string);
+    $string = preg_replace_callback("/([\241-\377])/",
+    create_function ('$matches', 'return \'&#\' . ord($matches[1]) . \';\';'),
+    $string);
     return $string;
 }

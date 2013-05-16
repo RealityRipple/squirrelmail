@@ -22,7 +22,7 @@ function charset_encode_tis_620 ($string) {
    // don't run encoding function, if there is no encoded characters
    if (! preg_match("'&#[0-9]+;'",$string) ) return $string;
 
-    $string=preg_replace("/&#([0-9]+);/e","unicodetotis620('\\1')",$string);
+    $string=preg_replace_callback("/&#([0-9]+);/",'unicodetotis620',$string);
 
     return $string;
 }
@@ -35,10 +35,11 @@ function charset_encode_tis_620 ($string) {
  * Don't use it or make sure, that functions/encode/tis_620.php is
  * included.
  *
- * @param int $var decimal unicode value
+ * @param array $matches array with first element a decimal unicode value
  * @return string tis-620 character
  */
-function unicodetotis620($var) {
+function unicodetotis620($matches) {
+    $var = $matches[1];
 
     $tis620chars=array('3585' => "\xA1",
                        '3586' => "\xA2",
