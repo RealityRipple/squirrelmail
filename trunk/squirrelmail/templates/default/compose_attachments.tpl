@@ -52,11 +52,11 @@ extract($t);
         ?>
  <tr class="attachment">
   <td class="fieldName" style="width: 1%">
-   <input type="checkbox" name="delete[]" accesskey="<?php echo ($attachment_count % 10); ?>" value="<?php echo $attach['Key']; ?>" />
+   <input type="checkbox" name="delete[]" id="delete<?php echo $attachment_count; ?>" accesskey="<?php echo ($attachment_count % 10); ?>" value="<?php echo $attach['Key']; ?>" />
   </td>
-  <td class="fieldValue">
+  <td class="fieldValue"><label for="delete<?php echo $attachment_count; ?>">
    <?php echo $attach['FileName']; ?> - <?php echo $attach['ContentType']; ?> (<?php echo humanReadableSize($attach['Size']); ?>)
-  </td>
+  </label></td>
  </tr>
         <?php
         $attachment_count++;
