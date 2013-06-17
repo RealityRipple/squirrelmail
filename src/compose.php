@@ -1028,6 +1028,22 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     if (!empty($orig_to)) {
 
                         $send_to = $orig_to;
+
+                        // in this case, we also want to reset the FROM
+                        // identity as well (it should match the original
+                        // *FROM* header instead of TO or CC)
+                        //
+                        if (count($idents) > 1) {
+                            $identity = '';
+                            foreach($idents as $i => $id) {
+                                if (!empty($id['email_address'])
+                                 && strpos($orig_from, $id['email_address']) !== FALSE) {
+                                    $identity = $i;
+                                    break;
+                                }
+                            }
+                        }
+
                     }
 
                 }
