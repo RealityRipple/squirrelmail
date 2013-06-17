@@ -1046,8 +1046,7 @@ class Rfc822Header {
             }
             if ($recurs) {
                 return array($results, false);
-//FIXME: I'm pretty sure the following should be $restuls and not $result - sloppy coding!
-            } elseif (count($result)) {
+            } elseif (count($results)) {
                 return true;
             } else {
                 return false;
