@@ -1002,8 +1002,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                             // the recipient (TO field) (as long as the CC field
                             // isn't empty that is) and we're done
                             //
-                            if ($action == 'reply_all') {
-                                if (!empty($send_to_cc)) $send_to = '';
+                            if ($action == 'reply_all' && !empty($send_to_cc)) {
+                                $send_to = '';
                                 break;
                             }
 
