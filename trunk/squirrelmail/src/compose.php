@@ -893,7 +893,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             }
 
             $identity_match = $orig_header->findAddress($identities);
-            if ($identity_match) {
+            if ($identity_match !== FALSE) {
                 $identity = $identity_match;
             }
         }
