@@ -950,9 +950,50 @@ class Rfc822Header {
 
     /**
 //FIXME: This needs some documentation (inside the function too)!  Don't code w/out comments!
-     * @param mixed $address array or string
-     * @param boolean $recurs
-     * @return mixed array, boolean
+     * Looking at the code years after it was written,
+     * this is my (Paul) best guess as to what this
+     * function does (note that docs previously claimed
+     * that this function returns boolean or an array,
+     * but it no longer appears to return an array - an
+     * integer instead):
+     *
+     * Inspects the TO and CC headers of the message
+     * represented by this object, looking for the
+     * address(es) given by $address
+     *
+     * If $address is a string:
+     *    Serves as a test (returns boolean) as to
+     *    whether or not the given address is found
+     *    anywhere in the TO or CC headers
+     *
+     * If $address is an array:
+     *    Looks through this list of addresses and
+     *    returns the array index (an integer even
+     *    if the array is given with keys of a
+     *    different type) of the *last* matching
+     *    $address found in this message's
+     *    TO or CC headers, unless there is an exact
+     *    match (meaning that the "personal
+     *    information" in addition to the email
+     *    address also matches), in which case that
+     *    index (the first one found) is returned
+     *
+     * @param mixed $address Address(es) to search for in this
+     *                       message's TO and CC headers - please
+     *                       see above how the format of this
+     *                       argument affects the return value
+     *                       of this function
+     * @param boolean $recurs FOR INTERNAL USE ONLY
+     *
+     * @return mixed Boolean when $address is a scalar,
+     *               indicating whether or not the address
+     *               was found in the TO or CC headers.
+     *               An integer when $address is an array,
+     *               containing the index of the value in
+     *               that array that was found in the TO
+     *               or CC headers, or boolean FALSE if
+     *               there were no matches at all
+     *
      * @since 1.3.2
      */
     function findAddress($address, $recurs = false) {
@@ -1005,6 +1046,7 @@ class Rfc822Header {
             }
             if ($recurs) {
                 return array($results, false);
+//FIXME: I'm pretty sure the following should be $restuls and not $result - sloppy coding!
             } elseif (count($result)) {
                 return true;
             } else {
