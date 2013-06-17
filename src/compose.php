@@ -1023,25 +1023,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     }
 
                     // if the reply was addressed back to ourselves,
-                    // we will send it to the TO of the previous message,
-                    // first making sure that that address wasn't also
-                    // one of our identities
+                    // we will send it to the TO of the previous message
                     //
                     if (!empty($orig_to)) {
 
-                        foreach($idents as $id) {
-                            if (!empty($id['email_address'])
-                             && strpos($orig_to, $id['email_address']) !== FALSE) {
-                                $orig_to = '';
-                                break;
-                            }
-                        }
-
-                        // if $orig_to still not empty, we can use it
-                        //
-                        if (!empty($orig_to)) {
-                            $send_to = $orig_to;
-                        }
+                        $send_to = $orig_to;
                     }
 
                 }
