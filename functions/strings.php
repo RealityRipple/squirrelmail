@@ -1601,10 +1601,12 @@ function sm_generate_security_token($force_generate_new=FALSE)
   * @param string  $token           The token to validate
   * @param int     $validity_period The number of seconds tokens are valid
   *                                 for (set to zero to remove valid tokens
-  *                                 after only one use; use 3600 to allow
-  *                                 tokens to be reused for an hour)
-  *                                 (OPTIONAL; default is to only allow tokens
-  *                                 to be used once)
+  *                                 after only one use; set to -1 to allow
+  *                                 indefinite re-use (but still subject to
+  *                                 $max_token_age_days - see elsewhere);
+  *                                 use 3600 to allow tokens to be reused for
+  *                                 an hour) (OPTIONAL; default is to only
+  *                                 allow tokens to be used once)
   *                                 NOTE this is unrelated to $max_token_age_days
   *                                 or rather is an additional time constraint on
   *                                 tokens that allows them to be re-used (or not)
@@ -1649,9 +1651,11 @@ function sm_validate_security_token($token, $validity_period=0, $show_error=FALS
    $timestamp = $tokens[$token];
 
    // whether valid or not, we want to remove it from
-   // user prefs if it's old enough
+   // user prefs if it's old enough (unless requested to
+   // bypass this (in which case $validity_period is -1))
    //
-   if ($timestamp < $now - $validity_period)
+   if ($validity_period >= 0
+    && $timestamp < $now - $validity_period)
    {
       unset($tokens[$token]);
       setPref($data_dir, $username, 'security_tokens', serialize($tokens));

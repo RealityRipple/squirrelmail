@@ -415,7 +415,7 @@ if ($draft) {
 
     // validate security token
     //
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     /*
      * Set $default_charset to correspond with the user's selection
@@ -474,7 +474,7 @@ if ($send) {
 
     // validate security token
     //
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     if (isset($_FILES['attachfile']) &&
             $_FILES['attachfile']['tmp_name'] &&
@@ -601,7 +601,7 @@ if ($send) {
 
     // validate security token
     //
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
@@ -650,7 +650,7 @@ if ($send) {
 
     // validate security token
     //
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);
@@ -666,7 +666,7 @@ elseif (isset($sigappend)) {
 
     // validate security token
     //
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     $signature = $idents[$identity]['signature'];
 
@@ -681,7 +681,7 @@ elseif (isset($sigappend)) {
 
     // validate security token
     //
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     if ($compose_new_win == '1') {
         compose_Header($color, $mailbox);

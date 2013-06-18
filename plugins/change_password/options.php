@@ -56,7 +56,7 @@ if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
 
     // security check
     sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     /* perform basic checks */
     $Messages = cpw_check_input();

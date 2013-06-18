@@ -44,7 +44,7 @@ sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
 if (!empty($smaction) && is_array($smaction)) {
 
     // first do a security check
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     $doaction = '';
     $identid = 0;
