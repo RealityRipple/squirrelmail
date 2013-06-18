@@ -1297,7 +1297,7 @@ function handleMessageListForm($imapConnection, &$aMailbox, $sButton='',
         // don't do anything to any messages until we have done security check
         // FIXME: not sure this code really belongs here, but there's nowhere else to put it with this architecture
         sqgetGlobalVar('smtoken', $submitted_token, SQ_FORM, '');
-        sm_validate_security_token($submitted_token, 3600, TRUE);
+        sm_validate_security_token($submitted_token, -1, TRUE);
 
         // make sure message UIDs are sanitized (BIGINT)
         foreach ($aUid as $i => $uid)

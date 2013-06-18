@@ -99,7 +99,7 @@ $form_url = 'addressbook.php';
 if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST') {
 
     // first, validate security token
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     /**************************************************
      * Add new address                                *

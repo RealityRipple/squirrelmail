@@ -55,7 +55,7 @@ if (isset($theid) && ($action == 'delete') ||
                      ($action == 'down')) {
 
     // security check
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     $new_rules = array();
     switch($action) {
@@ -92,7 +92,7 @@ if (isset($theid) && ($action == 'delete') ||
 } else if ($action == 'save') {
 
     // security check
-    sm_validate_security_token($submitted_token, 3600, TRUE);
+    sm_validate_security_token($submitted_token, -1, TRUE);
 
     if ($color_type == 1) $newcolor = $newcolor_choose;
     elseif ($color_type == 2) $newcolor = $newcolor_input;

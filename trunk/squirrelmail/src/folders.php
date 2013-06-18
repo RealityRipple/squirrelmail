@@ -43,7 +43,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
         case 'create':
 
             // first, validate security token
-            sm_validate_security_token($submitted_token, 3600, TRUE);
+            sm_validate_security_token($submitted_token, -1, TRUE);
 
             sqgetGlobalVar('folder_name',  $folder_name,  SQ_POST);
             sqgetGlobalVar('subfolder',    $subfolder,    SQ_POST);
@@ -61,7 +61,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             } else {
 
                 // first, validate security token
-                sm_validate_security_token($submitted_token, 3600, TRUE);
+                sm_validate_security_token($submitted_token, -1, TRUE);
 
                 sqgetGlobalVar('orig',        $orig,     SQ_POST);
                 sqgetGlobalVar('old_name',    $old_name, SQ_POST);
@@ -77,7 +77,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
             if ( sqgetGlobalVar('confirmed', $dummy, SQ_POST) ) {
 
                 // first, validate security token
-                sm_validate_security_token($submitted_token, 3600, TRUE);
+                sm_validate_security_token($submitted_token, -1, TRUE);
 
                 folders_delete_do($imapConnection, $delimiter, $folder_name);
                 $td_str =  _("Deleted folder successfully.");
@@ -88,7 +88,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
         case 'subscribe':
 
             // first, validate security token
-            sm_validate_security_token($submitted_token, 3600, TRUE);
+            sm_validate_security_token($submitted_token, -1, TRUE);
 
             sqgetGlobalVar('folder_names',  $folder_names,  SQ_POST);
             folders_subscribe($imapConnection, $folder_names);
@@ -97,7 +97,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
         case 'unsubscribe':
 
             // first, validate security token
-            sm_validate_security_token($submitted_token, 3600, TRUE);
+            sm_validate_security_token($submitted_token, -1, TRUE);
 
             sqgetGlobalVar('folder_names',  $folder_names,  SQ_POST);
             folders_unsubscribe($imapConnection, $folder_names);
