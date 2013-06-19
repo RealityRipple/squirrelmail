@@ -806,6 +806,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
     $iLastMatch = -2;
     $encoded = true;
 
+// FIXME: spaces are allowed inside quoted-printable encoding, but the following line will bust up any such encoded strings
     $aString = explode(' ',$string);
     $ret = '';
     foreach ($aString as $chunk) {
