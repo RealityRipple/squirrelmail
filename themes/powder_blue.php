@@ -5,7 +5,7 @@
  * Theme Name:   'Powder Blue'
  *
  * Theme posted on SquirrelMail tracker #1377528
- * @copyright 2005-2012 The SquirrelMail Project Team
+ * @copyright 2005-2013 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

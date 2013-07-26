@@ -1,7 +1,7 @@
 <?php
 /**
  * Mail fetch plugin constants
- * @copyright 2006-2012 The SquirrelMail Project Team
+ * @copyright 2006-2013 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
