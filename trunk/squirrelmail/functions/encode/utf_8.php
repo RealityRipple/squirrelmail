@@ -10,7 +10,7 @@
  * Original code is taken from www.php.net manual comments
  * Original author: ronen at greyzone dot com
  *
- * @copyright 2004-2012 The SquirrelMail Project Team
+ * @copyright 2004-2013 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
