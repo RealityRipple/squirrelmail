@@ -1000,10 +1000,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                             // if this is a reply-all, the original recipient
                             // is already in the CC field, so we can just blank
                             // the recipient (TO field) (as long as the CC field
-                            // isn't empty that is) and we're done
+                            // isn't empty that is)... but then move the CC into
+                            // the TO, so TO isn't empty
                             //
                             if ($action == 'reply_all' && !empty($send_to_cc)) {
-                                $send_to = '';
+                                $orig_to = $send_to_cc;
+                                $send_to_cc = '';
                                 break;
                             }
 
