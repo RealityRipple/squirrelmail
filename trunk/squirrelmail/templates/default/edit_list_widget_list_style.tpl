@@ -21,6 +21,7 @@
   * array    $possible_values   The original list of options in the edit list,
   *                             for use constructing layouts alternative to
   *                             the select widget
+  * mixed    $current_value     The currently selected value(s)
   *
   * @copyright 1999-2013 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -45,13 +46,31 @@ echo '<table class="table_messageList" cellspacing="0">';
 $class = 'even';
 $index = 0;
 
+if (is_array($current_value))
+    $selected = $current_value;
+else
+    $selected = array($current_value);
+
 foreach ($possible_values as $key => $value) {
 
     if ($class == 'even') $class = 'odd';
     else $class = 'even';
 
     echo '<tr class="' . $class . '">'
-       . '<td class="col_check" style="width:1%"><input type="checkbox" name="new_' . $name . '[' . ($index++) . ']" id="' . $name . '_list_item_' . $key . '" value="' . $value . '"></td>'
+       . '<td class="col_check" style="width:1%"><input type="checkbox" name="new_' . $name . '[' . ($index++) . ']" id="' . $name . '_list_item_' . $key . '" value="' . $value;
+
+    // having a selected item in the edit list doesn't have
+    // any meaning, but maybe someone will think of a way to
+    // use it, so we might as well put the code in
+    //
+    foreach ($selected as $default) {
+        if ((string)$default == (string)$value) {
+            echo '" checked="checked';
+            break;
+        }
+    }
+
+    echo '"></td>'
        . '<td><label for="' . $name . '_list_item_' . $key . '">' . $value . '</label></td>'
        . "</tr>\n";
     

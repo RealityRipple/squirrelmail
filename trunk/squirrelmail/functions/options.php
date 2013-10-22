@@ -104,6 +104,19 @@ class SquirrelOption {
      */
     var $use_delete_widget;
     /**
+     * associative array, treated the same as $possible_values
+     * (see its documentation below), but usually expected to
+     * have its first value contain a list of IMAP folders, an
+     * array itself in the format as passed back by
+     * sqimap_mailbox_list(). Used to display folder selector
+     * for possible values of an associative edit list option
+     * widget
+     *
+     * @since 1.5.2
+     * @var array
+     */
+    var $poss_value_folders;
+    /**
      * text displayed to the user
      *
      * Used with SMOPT_TYPE_COMMENT options
@@ -158,7 +171,10 @@ class SquirrelOption {
     var $htmlencoded=false;
     /**
      * Controls folder list limits in SMOPT_TYPE_FLDRLIST and
-     * SMOPT_TYPE_FLDRLIST_MULTI widgets.
+     * SMOPT_TYPE_FLDRLIST_MULTI widgets as well as the optional
+     * embedded folder lists provided for inputting values for
+     * the SMOPT_TYPE_EDIT_LIST and SMOPT_TYPE_EDIT_LIST_ASSOCIATIVE
+     * :idgets.
      * See $flag argument in sqimap_mailbox_option_list() function.
      * @var string
      * @since 1.5.1
@@ -195,6 +211,7 @@ class SquirrelOption {
         $this->layout_type = 0;
         $this->use_add_widget = TRUE;
         $this->use_delete_widget = TRUE;
+        $this->poss_value_folders = '';
         $this->aExtraAttribs = array();
         $this->post_script = '';
 
@@ -227,7 +244,8 @@ class SquirrelOption {
     function is_multiple_valued() {
         return ($this->type == SMOPT_TYPE_FLDRLIST_MULTI
              || $this->type == SMOPT_TYPE_STRLIST_MULTI
-             || $this->type == SMOPT_TYPE_EDIT_LIST);
+             || $this->type == SMOPT_TYPE_EDIT_LIST
+             || $this->type == SMOPT_TYPE_EDIT_LIST_ASSOCIATIVE);
     }
 
     /**
@@ -294,6 +312,13 @@ class SquirrelOption {
     /* Set the "use delete widget" value for this option. */
     function setUseDeleteWidget($use_delete_widget) {
         $this->use_delete_widget = $use_delete_widget;
+    }
+
+    /* Set the "poss value folders" value for this option.
+       See the associative edit list widget, which uses this
+       to offer folder list selection for the values */
+    function setPossValueFolders($poss_value_folders) {
+        $this->poss_value_folders = $poss_value_folders;
     }
 
     /**
@@ -405,6 +430,9 @@ class SquirrelOption {
                 break;
             case SMOPT_TYPE_EDIT_LIST:
                 $result = $this->createWidget_EditList();
+                break;
+            case SMOPT_TYPE_EDIT_LIST_ASSOCIATIVE:
+                $result = $this->createWidget_EditListAssociative();
                 break;
             case SMOPT_TYPE_STRLIST_MULTI:
                 $result = $this->createWidget_StrList(TRUE);
@@ -725,7 +753,7 @@ class SquirrelOption {
     }
 
     /**
-     * Creates an edit list
+     * Creates a (non-associative) edit list
      *
      * Note that multiple layout types are supported for this widget.
      * $this->layout_type must be one of the SMOPT_EDIT_LIST_LAYOUT_*
@@ -769,7 +797,9 @@ class SquirrelOption {
 
         $oTemplate->assign('trailing_text', $this->trailing_text);
         $oTemplate->assign('possible_values', $this->possible_values);
-        $oTemplate->assign('select_widget', addSelect('new_' . $this->name, $this->possible_values, $this->value, FALSE, !checkForJavascript() ? $this->aExtraAttribs : array_merge(array('onchange' => 'if (typeof(window.addinput_' . $this->name . ') == \'undefined\') { var f = document.forms.length; var i = 0; var pos = -1; while( pos == -1 && i < f ) { var e = document.forms[i].elements.length; var j = 0; while( pos == -1 && j < e ) { if ( document.forms[i].elements[j].type == \'text\' && document.forms[i].elements[j].name == \'add_' . $this->name . '\' ) { pos = j; } j++; } i++; } if( pos >= 0 ) { window.addinput_' . $this->name . ' = document.forms[i-1].elements[pos]; } } for (x = 0; x < this.length; x++) { if (this.options[x].selected) { window.addinput_' . $this->name . '.value = this.options[x].value; break; } }'), $this->aExtraAttribs), TRUE, $height));
+        $oTemplate->assign('current_value', $this->value);
+        $oTemplate->assign('select_widget', addSelect('new_' . $this->name, $this->possible_values, $this->value, FALSE, !checkForJavascript() ? $this->aExtraAttribs : array_merge(array('onchange' => 'if (typeof(window.addinput_' . $this->name . ') == \'undefined\') { var f = document.forms.length; var i = 0; var pos = -1; while( pos == -1 && i < f ) { var e = document.forms[i].elements.length; var j = 0; while( pos == -1 && j < e ) { if ( document.forms[i].elements[j].type == \'text\' && document.forms[i].elements[j].name == \'add_' . $this->name . '\' ) { pos = j; i=f-1; j=e-1; } j++; } i++; } if( pos >= 0 ) { window.addinput_' . $this->name . ' = document.forms[i-1].elements[pos]; } } for (x = 0; x < this.length; x++) { if (this.options[x].selected) { window.addinput_' . $this->name . '.value = this.options[x].text; break; } }'), $this->aExtraAttribs), TRUE, $height));
+// NOTE: i=f-1; j=e-1 is in lieu of break 2
         $oTemplate->assign('checkbox_widget', addCheckBox('delete_' . $this->name, FALSE, SMPREF_YES, array_merge(array('id' => 'delete_' . $this->name), $this->aExtraAttribs)));
         $oTemplate->assign('name', $this->name);
 
@@ -779,7 +809,81 @@ class SquirrelOption {
             case SMOPT_EDIT_LIST_LAYOUT_LIST:
                 return $oTemplate->fetch('edit_list_widget_list_style.tpl');
             default:
-                error_box(sprintf(_("Edit List Layout Type '%s' Not Found"), $layout_type));
+                error_box(sprintf(_("Edit List Layout Type '%s' Not Found"), $this->layout_type));
+        }
+
+    }
+
+    /**
+     * Creates an associative edit list
+     *
+     * Note that multiple layout types are supported for this widget.
+     * $this->layout_type must be one of the SMOPT_EDIT_LIST_LAYOUT_*
+     * constants.
+     *
+     * @return string html formated list of edit fields and
+     *                their associated controls
+     */
+    function createWidget_EditListAssociative() {
+
+        global $oTemplate;
+
+        switch ($this->size) {
+            case SMOPT_SIZE_TINY:
+                $height = 3;
+                break;
+            case SMOPT_SIZE_SMALL:
+                $height = 8;
+                break;
+            case SMOPT_SIZE_MEDIUM:
+                $height = 15;
+                break;
+            case SMOPT_SIZE_LARGE:
+                $height = 25;
+                break;
+            case SMOPT_SIZE_HUGE:
+                $height = 40;
+                break;
+            case SMOPT_SIZE_NORMAL:
+            default:
+                $height = 5;
+        }
+
+
+        // ensure correct format of current value(s)
+        //
+        if (empty($this->possible_values)) $this->possible_values = array();
+        if (!is_array($this->possible_values)) $this->possible_values = array($this->possible_values);
+
+
+        $oTemplate->assign('name', $this->name);
+        $oTemplate->assign('current_value', $this->value);
+        $oTemplate->assign('possible_values', $this->possible_values);
+        $oTemplate->assign('poss_value_folders', $this->poss_value_folders);
+        $oTemplate->assign('folder_filter', $this->folder_filter);
+
+        $oTemplate->assign('use_input_widget', $this->use_add_widget);
+        $oTemplate->assign('use_delete_widget', $this->use_delete_widget);
+
+        $oTemplate->assign('checkbox_widget', addCheckBox('delete_' . $this->name, FALSE, SMPREF_YES, array_merge(array('id' => 'delete_' . $this->name), $this->aExtraAttribs)));
+
+//FIXME: $this->aExtraAttribs probably should only be used in one place
+        $oTemplate->assign('input_key_widget', addInput('add_' . $this->name . '_key', '', 22, 0, $this->aExtraAttribs));
+        $oTemplate->assign('input_value_widget', addInput('add_' . $this->name . '_value', '', 12, 0, $this->aExtraAttribs));
+
+        $oTemplate->assign('select_height', $height);
+
+        $oTemplate->assign('aAttribs', $this->aExtraAttribs);
+
+        $oTemplate->assign('trailing_text', $this->trailing_text);
+
+        switch ($this->layout_type) {
+            case SMOPT_EDIT_LIST_LAYOUT_SELECT:
+                return $oTemplate->fetch('edit_list_associative_widget.tpl');
+            case SMOPT_EDIT_LIST_LAYOUT_LIST:
+                return $oTemplate->fetch('edit_list_associative_widget_list_style.tpl');
+            default:
+                error_box(sprintf(_("Associative Edit List Layout Type '%s' Not Found"), $this->layout_type));
         }
 
     }
@@ -811,7 +915,9 @@ class SquirrelOption {
 
         // edit lists have a lot going on, so we'll always process them
         //
-        if ($this->type == SMOPT_TYPE_EDIT_LIST) return TRUE;
+        if ($this->type == SMOPT_TYPE_EDIT_LIST
+         || $this->type == SMOPT_TYPE_EDIT_LIST_ASSOCIATIVE)
+            return TRUE;
 
         return ($this->value != $this->new_value);
     }
@@ -875,6 +981,51 @@ function save_option($option) {
          && is_array($option->new_value)
          && sqGetGlobalVar('delete_' . $option->name, $ignore, SQ_POST))
             $option->possible_values = array_diff($option->possible_values, $option->new_value);
+
+        // save full list (stored in "possible_values")
+        //
+        setPref($data_dir, $username, $option->name, serialize($option->possible_values));
+
+    // associative edit lists are handled similar to
+    // non-associative ones
+    //
+    } else if ($option->type == SMOPT_TYPE_EDIT_LIST_ASSOCIATIVE) {
+
+        if (empty($option->possible_values)) $option->possible_values = array();
+        if (!is_array($option->possible_values)) $option->possible_values = array($option->possible_values);
+
+        // add element if given
+        //
+        $new_element_key = '';
+        $new_element_value = '';
+        $retrieve_key = sqGetGlobalVar('add_' . $option->name . '_key', $new_element_key, SQ_POST);
+        $retrieve_value = sqGetGlobalVar('add_' . $option->name . '_value', $new_element_value, SQ_POST);
+
+        if ((isset($option->use_add_widget) && $option->use_add_widget)
+         && ($retrieve_key || $retrieve_value)) {
+            $new_element_key = trim($new_element_key);
+            $new_element_value = trim($new_element_value);
+            if ($option->poss_value_folders && empty($new_element_key))
+                $new_element_value = '';
+            if (!empty($new_element_key) || !empty($new_element_value)) {
+                if (empty($new_element_key)) $new_element_key = '0';
+                $option->possible_values[$new_element_key] = $new_element_value;
+            }
+        }
+
+        // delete selected elements if needed
+        //
+        if ((isset($option->use_delete_widget) && $option->use_delete_widget)
+         && is_array($option->new_value)
+         && sqGetGlobalVar('delete_' . $option->name, $ignore, SQ_POST)) {
+
+            if ($option->layout_type == SMOPT_EDIT_LIST_LAYOUT_SELECT) {
+                foreach ($option->new_value as $key)
+                    unset($option->possible_values[urldecode($key)]);
+            }
+            else
+                $option->possible_values = array_diff($option->possible_values, $option->new_value);
+        }
 
         // save full list (stored in "possible_values")
         //
@@ -997,6 +1148,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the no_text for this option. */
             if (isset($optset['no_text'])) {
                 $next_option->setNoText($optset['no_text']);
+            }
+
+            /* If provided, set the poss_value_folders value for this option. */
+            if (isset($optset['poss_value_folders'])) {
+                $next_option->setPossValueFolders($optset['poss_value_folders']);
             }
 
             /* If provided, set the layout type for this option. */
