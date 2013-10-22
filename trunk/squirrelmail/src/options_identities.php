@@ -117,7 +117,7 @@ $oTemplate->display('footer.tpl');
 /**
  * Returns html formated identity form fields
  *
- * Contains options_identities_buttons and option_identities_table hooks.
+ * Contains options_identities_buttons and options_identities_table hooks.
  * Before 1.4.5/1.5.1 hooks were placed in ShowTableInfo() function.
  * In 1.1.3-1.4.1 they were called in do_hook function with two or
  * three arguments. Since 1.4.1 hooks are called in concat_hook_function.
