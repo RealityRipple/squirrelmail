@@ -376,6 +376,8 @@ Version 1.5.2 - SVN
   - Improvements for PHP 5.4 compatibility.
   - Added option that allows users to have replies to their own
     messages sent to the recipient of the previous message (#3520988).
+  - Added associative edit list option widget, with optional folder
+    list selector for values
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

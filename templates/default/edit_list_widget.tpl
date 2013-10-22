@@ -21,6 +21,7 @@
   * array    $possible_values   The original list of options in the edit list,
   *                             for use constructing layouts alternative to
   *                             the select widget
+  * mixed    $current_value     The currently selected value(s)
   *
   * @copyright 1999-2013 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
