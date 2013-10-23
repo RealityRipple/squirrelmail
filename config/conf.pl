@@ -494,6 +494,7 @@ $only_secure_cookies = 'true'          if ( !$only_secure_cookies );
 $disable_security_tokens = 'false'     if ( !$disable_security_tokens );
 $check_referrer = ''                   if ( !$check_referrer );
 $ask_user_info = 'true'                if ( !$ask_user_info );
+$use_transparent_security_image = 'true' if ( !$use_transparent_security_image );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -725,6 +726,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "17. Only secure cookies if poss. : $WHT$only_secure_cookies$NRM\n";
         print "18. Disable secure forms         : $WHT$disable_security_tokens$NRM\n";
         print "19. Page referal requirement     : $WHT$check_referrer$NRM\n";
+        print "20. Security image               : $WHT" . (lc($use_transparent_security_image) eq 'true' ? 'Transparent' : 'Textual') . "$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -1001,6 +1003,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 17 ) { $only_secure_cookies = command319(); }
             elsif ( $command == 18 ) { $disable_security_tokens  = command320(); }
             elsif ( $command == 19 ) { $check_referrer           = command321(); }
+            elsif ( $command == 20 ) { $use_transparent_security_image = command322(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 )     { $use_icons      = commandB3(); }
 #            elsif ( $command == 3 )  { $icon_theme_def = command53(); }
@@ -2817,7 +2820,7 @@ sub command320 {
 
 
 
-# check_referrer (since 1.1.5.2)
+# check_referrer (since 1.5.2)
 sub command321 {
     print "This option allows you to enable referal checks for all page requests\n";
     print "made to SquirrelMail.  This can help ensure that page requests came\n";
@@ -2844,6 +2847,34 @@ sub command321 {
     $check_referrer = $new_check_referrer;
 
     return $check_referrer;
+}
+
+
+
+# use_transparent_security_image (since 1.5.2)
+sub command322 {
+    print "When HTML messages are being displayed, SquirrelMail's default behavior\n";
+    print "is to remove all remote images and replace them with a local one.\n";
+    print "\n";
+    print "This option allows you to specify whether the local image should contain\n";
+    print "text that indicates to the user that \"this image has been removed for\n";
+    print "security reasons\" (translated into most languages), or if it should be\n";
+    print "transparent.\n";
+    print "\n";
+
+    if ( lc($use_transparent_security_image) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Use transparent security image? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $use_transparent_security_image = <STDIN>;
+    if ( ( $use_transparent_security_image =~ /^y\n/i ) || ( ( $use_transparent_security_image =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $use_transparent_security_image = 'true';
+    } else {
+        $use_transparent_security_image = 'false';
+    }
+    return $use_transparent_security_image;
 }
 
 
@@ -5171,6 +5202,9 @@ sub save_data {
 
         # string
         print CF "\$check_referrer          = '$check_referrer';\n";
+
+        # boolean
+        print CF "\$use_transparent_security_image = $use_transparent_security_image;\n";
 
         print CF "\n";
 

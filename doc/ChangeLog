@@ -378,6 +378,9 @@ Version 1.5.2 - SVN
     messages sent to the recipient of the previous message (#3520988).
   - Added associative edit list option widget, with optional folder
     list selector for values
+  - Added option to use blank spacer instead of security image ("This
+    image has been removed for security reasons.") for replacing
+    unsafe images.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
