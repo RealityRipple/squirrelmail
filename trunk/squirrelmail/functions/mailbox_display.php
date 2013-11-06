@@ -618,7 +618,9 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     break;
                 case SQM_COL_DATE:
                 case SQM_COL_INT_DATE:
-                    $value = getDateString(getTimeStamp(explode(' ',trim($value))));
+                    $value = getTimeStamp(explode(' ',trim($value)));
+                    $title = getDateString($value, TRUE);
+                    $value = getDateString($value);
                     break;
                 case SQM_COL_FLAGS:
                     $aFlagColumn = array('seen' => false,
