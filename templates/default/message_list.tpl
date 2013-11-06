@@ -514,8 +514,9 @@ if ($non_clicked_class != 'even' && $non_clicked_class != 'odd'
             break;
           case SQM_COL_INT_DATE:
           case SQM_COL_DATE:
-            $sText = "    <td class=\"col_date\" $javascript_auto_click>"
-                   . $value. "</td>\n";
+            $sText = "    <td class=\"col_date\" $javascript_auto_click";
+            if ($title) {$sText .= " title=\"$title\"";}
+            $sText .= ">" . $value. "</td>\n";
             echo $sText;
             break;
           default:

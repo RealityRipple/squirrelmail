@@ -381,6 +381,8 @@ Version 1.5.2 - SVN
   - Added option to use blank spacer instead of security image ("This
     image has been removed for security reasons.") for replacing
     unsafe images.
+  - Full date and time is used as "title" (mouseover) text for dates
+    shown on the message list screen
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
