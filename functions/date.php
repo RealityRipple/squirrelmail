@@ -376,9 +376,9 @@ function getDateString( $stamp, $return_full_date_and_time=FALSE ) {
 
     if ($return_full_date_and_time) {
         if ( $hour_format == SMPREF_TIME_12HR ) {
-            $date_format = _("D, M j, Y g:i a");
+            $date_format = _("D, F j, Y g:i a");
         } else {
-            $date_format = _("D, M j, Y H:i");
+            $date_format = _("D, F j, Y H:i");
         }
     } else if (!empty($custom_date_format)) {
         $date_format = $custom_date_format;
