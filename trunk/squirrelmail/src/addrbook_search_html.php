@@ -43,7 +43,7 @@ sqgetGlobalVar('backend',   $backend,   SQ_POST);
  */
 function addr_insert_hidden() {
     global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox, $mailprio,
-           $request_mdn, $request_dr, $identity, $session, $composeMessage;
+           $request_mdn, $request_dr, $identity, $session, $composeMessage, $action;
 
 //FIXME Do not echo HTML from the core.  This file already uses templates mostly, so why are we echoing here at all?!?
    if (substr($body, 0, 1) == "\r") {
@@ -56,6 +56,7 @@ function addr_insert_hidden() {
        echo addHidden('attachments', urlencode(serialize($composeMessage->entities)));
 
    echo addHidden('session', $session).
+        addHidden('smaction', $action).
         addHidden('subject', $subject).
         addHidden('send_to', $send_to).
         addHidden('send_to_bcc', $send_to_bcc).
