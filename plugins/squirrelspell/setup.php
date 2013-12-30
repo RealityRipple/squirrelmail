@@ -26,8 +26,6 @@ function squirrelmail_plugin_init_squirrelspell() {
       'squirrelspell_setup';
   $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] =
       'squirrelspell_optpage_register_block';
-  $squirrelmail_plugin_hooks['options_link_and_description']['squirrelspell'] =
-      'squirrelspell_options';
   $squirrelmail_plugin_hooks['right_main_after_header']['squirrelspell'] =
       'squirrelspell_upgrade';
 }
