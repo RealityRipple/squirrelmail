@@ -6,7 +6,7 @@
  * Date:    January 7 2000
  *
  * @author Luke Ehresman
- * @copyright 2000-2013 The SquirrelMail Project Team
+ * @copyright 2000-2014 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
