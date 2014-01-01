@@ -37,7 +37,7 @@
  *    $move_form_extra - additional input elements needed by the MOVE form.
  *    $last_move_target - the last folder that a message was moved/copied to. 
  *     *
- * @copyright 1999-2013 The SquirrelMail Project Team
+ * @copyright 1999-2014 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

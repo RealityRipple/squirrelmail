@@ -5,7 +5,7 @@
  * Theme Name:   "Dark Green"
  *
  * @author Jason Munro
- * @copyright 2002-2013 The SquirrelMail Project Team
+ * @copyright 2002-2014 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
