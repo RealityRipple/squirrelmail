@@ -25,7 +25,7 @@ define('SM_VERSION', '1.5.2 [SVN]');
  * Year interval for copyright notices in the interface
  * @since 1.5.2
  */
-define('SM_COPYRIGHT', '1999-2013');
+define('SM_COPYRIGHT', '1999-2014');
 
 /**************************************************************/
 /* Set values for constants used by SquirrelMail preferences. */
