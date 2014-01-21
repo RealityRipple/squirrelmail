@@ -385,7 +385,7 @@ Version 1.5.2 - SVN
     shown on the message list screen
   - Added advanced control over the SSL context used when connecting
     to the SMTP and IMAP servers over SSL/TLS (thanks to Emmanuel
-    Dreyfus).  See $imapSslOptions and $smtpSslOptions in
+    Dreyfus).  See $imap_stream_options and $smtp_stream_options in
     config_local.example.php for more information.
   - Added ability to show login error from the IMAP server instead of
     traditional "Unknown user or password incorrect" (thanks to Alain

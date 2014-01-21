@@ -88,8 +88,8 @@ if ( sqgetGlobalVar('account', $account, SQ_GET) ) {
 
 /* Open an imap connection */
 
-global $imapSslOptions; // in case not defined in config
-$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
+global $imap_stream_options; // in case not defined in config
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
 
 $mailbox = (isset($mailbox) && $mailbox) ? $mailbox : 'INBOX';
 

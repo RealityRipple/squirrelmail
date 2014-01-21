@@ -670,12 +670,12 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
  * @param int port port number to connect to
  * @param integer $tls whether to use plain text(0), TLS(1) or STARTTLS(2) when connecting.
  *  Argument was boolean before 1.5.1.
- * @param array $ssl_options SSL context options, see config_local.php
+ * @param array $stream_options Stream context options, see config_local.php
  *                           for more details (OPTIONAL)
  * @return imap-stream resource identifier
  * @since 1.5.0 (usable only in 1.5.1 or later)
  */
-function sqimap_create_stream($server,$port,$tls=0,$ssl_options=array()) {
+function sqimap_create_stream($server,$port,$tls=0,$stream_options=array()) {
     global $squirrelmail_language;
 
     if (strstr($server,':') && ! preg_match("/^\[.*\]$/",$server)) {
@@ -691,7 +691,7 @@ function sqimap_create_stream($server,$port,$tls=0,$ssl_options=array()) {
         if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
             if (function_exists('stream_socket_client')) {
                 $server_address = 'ssl://' . $server . ':' . $port;
-                $ssl_context = @stream_context_create($ssl_options);
+                $ssl_context = @stream_context_create($stream_options);
                 $connect_timeout = ini_get('default_socket_timeout');
                 // null timeout is broken
                 if ($connect_timeout == 0)
@@ -810,14 +810,14 @@ function sqimap_create_stream($server,$port,$tls=0,$ssl_options=array()) {
  *                  1 = show no errors (just exit)
  *                  2 = show no errors (return FALSE)
  *                  3 = show no errors (return error string)
- * @param array $ssl_options SSL context options, see config_local.php
+ * @param array $stream_options Stream context options, see config_local.php
  *                           for more details (OPTIONAL)
  * @return mixed The IMAP connection stream, or if the connection fails,
  *               FALSE if $hide is set to 2 or an error string if $hide
  *               is set to 3.
  */
 function sqimap_login ($username, $password, $imap_server_address,
-                       $imap_port, $hide, $ssl_options=array()) {
+                       $imap_port, $hide, $stream_options=array()) {
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
            $imap_auth_mech, $sqimap_capabilities, $display_imap_login_error;
 
@@ -865,7 +865,7 @@ function sqimap_login ($username, $password, $imap_server_address,
     $host = $imap_server_address;
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
 
-    $imap_stream = sqimap_create_stream($imap_server_address,$imap_port,$use_imap_tls,$ssl_options);
+    $imap_stream = sqimap_create_stream($imap_server_address,$imap_port,$use_imap_tls,$stream_options);
 
     if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
         // We're using some sort of authentication OTHER than plain or login

@@ -41,7 +41,7 @@ require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'functions/identity.php');
-global $imapSslOptions; // in case not defined in config
+global $imap_stream_options; // in case not defined in config
 
 /* --------------------- Get globals ------------------------------------- */
 
@@ -430,7 +430,7 @@ if ($draft) {
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
-            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, false, $imapSslOptions);
+            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, false, $imap_stream_options);
             sqimap_mailbox_select($imap_stream, $draft_folder);
             // force bypass_trash=true because message should be saved when deliverMessage() returns true.
             // in current implementation of sqimap_msgs_list_flag() single message id can
@@ -543,7 +543,7 @@ if ($send) {
 
         /* if it is resumed draft, delete draft message */
         if ( isset($delete_draft)) {
-            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, false, $imapSslOptions);
+            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, false, $imap_stream_options);
             sqimap_mailbox_select($imap_stream, $draft_folder);
             // bypass_trash=true because message should be saved when deliverMessage() returns true.
             // in current implementation of sqimap_msgs_list_flag() single message id can
@@ -774,7 +774,7 @@ function getforwardSubject($subject)
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority, $body, $idents,
         $use_signature, $data_dir, $username,
-        $key, $imapServerAddress, $imapPort, $imapSslOptions,
+        $key, $imapServerAddress, $imapPort, $imap_stream_options,
         $composeMessage, $body_quote, $request_mdn, $request_dr,
         $mdn_user_support, $languages, $squirrelmail_language,
         $default_charset, $do_not_reply_to_self;
@@ -791,7 +791,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 
     if ($passed_id) {
         $imapConnection = sqimap_login($username, false, $imapServerAddress,
-                $imapPort, 0, $imapSslOptions);
+                $imapPort, 0, $imap_stream_options);
 
         sqimap_mailbox_select($imapConnection, $mailbox);
         $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
@@ -1681,7 +1681,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
         $username, $identity, $idents, $data_dir,
         $request_mdn, $request_dr, $default_charset, $useSendmail,
         $domain, $action, $default_move_to_sent, $move_to_sent,
-        $imapServerAddress, $imapPort, $imapSslOptions, $sent_folder, $key;
+        $imapServerAddress, $imapPort, $imap_stream_options, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
 
@@ -1778,13 +1778,13 @@ function deliverMessage(&$composeMessage, $draft=false) {
     if (!$useSendmail && !$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
         $deliver = new Deliver_SMTP();
-        global $smtpServerAddress, $smtpPort, $smtpSslOptions, $pop_before_smtp, $pop_before_smtp_host;
+        global $smtpServerAddress, $smtpPort, $smtp_stream_options, $pop_before_smtp, $pop_before_smtp_host;
 
         $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
         if (empty($pop_before_smtp_host)) $pop_before_smtp_host = $smtpServerAddress;
         get_smtp_user($user, $pass);
         $stream = $deliver->initStream($composeMessage,$domain,0,
-                $smtpServerAddress, $smtpPort, $user, $pass, $authPop, $pop_before_smtp_host, $smtpSslOptions);
+                $smtpServerAddress, $smtpPort, $user, $pass, $authPop, $pop_before_smtp_host, $smtp_stream_options);
     } elseif (!$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
         global $sendmail_path, $sendmail_args;
@@ -1801,7 +1801,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
     } elseif ($draft) {
         global $draft_folder;
         $imap_stream = sqimap_login($username, false, $imapServerAddress,
-                $imapPort, 0, $imapSslOptions);
+                $imapPort, 0, $imap_stream_options);
         if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
@@ -1837,7 +1837,7 @@ function deliverMessage(&$composeMessage, $draft=false) {
         plain_error_message($msg);
     } else {
         unset ($deliver);
-        $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
+        $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
 
 
         // mark as replied or forwarded if applicable

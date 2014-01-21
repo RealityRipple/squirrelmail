@@ -38,8 +38,8 @@ sqgetGlobalVar('unfold', $unfold, SQ_GET);
 
 // open a connection on the imap port (143)
 // why hide the output?
-global $imapSslOptions; // in case not defined in config
-$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, true, $imapSslOptions);
+global $imap_stream_options; // in case not defined in config
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, true, $imap_stream_options);
 
 /**
  * Using stristr since very old preferences may contain "None" and "none".

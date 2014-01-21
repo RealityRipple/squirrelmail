@@ -90,7 +90,7 @@ class Deliver {
         //
         if ($reply_id) {
             global $imapConnection, $username, $imapServerAddress, 
-                   $imapPort, $imapSslOptions, $mailbox;
+                   $imapPort, $imap_stream_options, $mailbox;
 
             // try our best to use an existing IMAP handle
             //
@@ -104,7 +104,7 @@ class Deliver {
             } else {
                 $close_imap_stream = TRUE;
                 $my_imap_stream = sqimap_login($username, FALSE, $imapServerAddress,
-                                               $imapPort, 0, $imapSslOptions);
+                                               $imapPort, 0, $imap_stream_options);
             }
 
             sqimap_mailbox_select($my_imap_stream, $mailbox);
@@ -453,11 +453,11 @@ class Deliver {
      * @param string  $pass     password to log into the SMTP server with
      * @param boolean $authpop  whether or not to use POP-before-SMTP authorization
      * @param string  $pop_host host name or IP to connect to for POP-before-SMTP authorization
-     * @param array   $ssl_options SSL context options, see config_local.php for more details (OPTIONAL)
+     * @param array   $stream_options SSL context options, see config_local.example.php for more details (OPTIONAL)
      *
      * @return handle $stream file handle resource to SMTP stream
      */
-    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='', $ssl_options=array()) {
+    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='', $stream_options=array()) {
         return $stream;
     }
 

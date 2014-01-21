@@ -29,8 +29,8 @@ sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET);
 sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
 
-global $imapSslOptions; // in case not defined in config
-$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
+global $imap_stream_options; // in case not defined in config
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 
 $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];
