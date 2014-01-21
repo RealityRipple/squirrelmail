@@ -43,7 +43,23 @@ $dir = cwd();
 
 
 ############################################################
-# First, lets read in the data already in there...
+# Try to determine what the version of SquirrelMail is
+############################################################
+$sm_version = 'unknown';
+if ( -e "../include/constants.php" && -r "../include/constants.php") {
+    open( FILE, "../include/constants.php" );
+    while ( $line = <FILE> ) {
+        if ($line =~ m/^define\('SM_VERSION', ?'(\d+\.\d+\.\d+( ?\[\w+]|))'/) {
+            $sm_version = $1;
+            last;
+        }
+    }
+    close(FILE);
+}
+
+
+############################################################
+# First, let's read in the data already in there...
 ############################################################
 if ( -e "config.php" ) {
     # Make sure that file is readable
@@ -583,7 +599,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     print $WHT. "SquirrelMail Configuration : " . $NRM;
     if    ( $config == 1 ) { print "Read: config.php"; }
     elsif ( $config == 2 ) { print "Read: config_default.php"; }
-    print " ($print_config_version)\n";
+    print "\nConfig version $print_config_version; SquirrelMail version $sm_version\n";
     print "---------------------------------------------------------\n";
 
     if ( $menu == 0 ) {

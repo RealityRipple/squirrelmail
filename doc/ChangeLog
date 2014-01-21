@@ -392,6 +392,7 @@ Version 1.5.2 - SVN
     Williams).  See $display_imap_login_error in the configuration
     file or "4.  General Options ==> 21. Display login error from IMAP" 
     in the configuration tool.
+  - Configuration tool now shows the SquirrelMail version
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
