@@ -112,12 +112,12 @@ function CalcEntity($entString, $direction) {
  * @access public
  */
 function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=FALSE) {
-    global $imapServerAddress, $imapPort, $imapSslOptions,
+    global $imapServerAddress, $imapPort, $imap_stream_options,
            $color,$msgd_8bit_in_hex, $username;
 
     $returnValue = '';
 
-    $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
+    $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
     $read = sqimap_mailbox_select($imapConnection, $mailbox);
     if (!empty($passed_ent_id))
         $body = sqimap_run_command($imapConnection, "FETCH $passed_id BODY[$passed_ent_id]",true, $response, $readmessage, TRUE);

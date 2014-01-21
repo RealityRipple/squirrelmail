@@ -62,7 +62,7 @@ class Deliver_SMTP extends Deliver {
         }
     }
 
-    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='', $ssl_options=array()) {
+    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='', $stream_options=array()) {
         global $use_smtp_tls,$smtp_auth_mech;
 
         if ($authpop) {
@@ -98,7 +98,7 @@ class Deliver_SMTP extends Deliver {
             if ((check_php_version(4,3)) && (extension_loaded('openssl'))) {
                 if (function_exists('stream_socket_client')) {
                     $server_address = 'ssl://' . $host . ':' . $port;
-                    $ssl_context = @stream_context_create($ssl_options);
+                    $ssl_context = @stream_context_create($stream_options);
                     $connect_timeout = ini_get('default_socket_timeout');
                     // null timeout is broken
                     if ($connect_timeout == 0)

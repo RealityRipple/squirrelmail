@@ -23,7 +23,7 @@ include_once(SM_PATH . 'plugins/filters/filters.php');
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 sqgetGlobalVar('action', $action, SQ_GET);
-global $imapSslOptions; // in case not defined in config
+global $imap_stream_options; // in case not defined in config
 /* end globals */
 
 displayPageHeader($color);
@@ -78,7 +78,7 @@ if ($SpamFilters_YourHop == ' ') {
 
 
 if (isset($action) && $action == 'spam') {
-    $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
+    $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
     $boxes = sqimap_mailbox_list($imapConnection);
     sqimap_logout($imapConnection);
     $numboxes = count($boxes);

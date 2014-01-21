@@ -38,8 +38,8 @@ sqgetGlobalVar('passed_id', $passed_id, SQ_GET, NULL, SQ_TYPE_BIGINT);
 
 // TODO: add required var checks here.
 
-global $imapSslOptions; // in case not defined in config
-$imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
+global $imap_stream_options; // in case not defined in config
+$imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
 $mbx_response = sqimap_mailbox_select($imap_stream, $mailbox);
 
 $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];

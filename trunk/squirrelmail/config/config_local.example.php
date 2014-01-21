@@ -52,14 +52,14 @@
  * (those that are displayed in a different color than other
  * "normal" mailboxes).
  *
- * $smtpSslOptions allows more control over the SSL context used
- * when connecting to the SMTP server over SSL/TLS.  See:
+ * $smtp_stream_options allows more control over the SSL context
+ * used when connecting to the SMTP server over SSL/TLS.  See:
  * http://www.php.net/manual/context.php and in particular
  * http://php.net/manual/context.ssl.php
  * For example, you can specify a CA file that corresponds
  * to your server's certificate and make sure that the
  * server's certificate is validated when connecting:
- * $smtpSslOptions = array(
+ * $smtp_stream_options = array(
  *     'ssl' => array(
  *         'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
  *         'verify_peer' => true,
@@ -67,14 +67,14 @@
  *     ),
  * );
  *
- * $imapSslOptions allows more control over the SSL context used
- * when connecting to the IMAP server over SSL/TLS.  See:
- * http://www.php.net/manual/context.php and in particular
- * http://php.net/manual/context.ssl.php
+ * $imap_stream_options allows more control over the SSL
+ * context used when connecting to the IMAP server over
+ * SSL/TLS.  See: http://www.php.net/manual/context.php
+ * and in particular http://php.net/manual/context.ssl.php
  * For example, you can specify a CA file that corresponds
  * to your server's certificate and make sure that the
  * server's certificate is validated when connecting:
- * $imapSslOptions = array(
+ * $imap_stream_options = array(
  *     'ssl' => array(
  *         'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
  *         'verify_peer' => true,

@@ -71,8 +71,8 @@ if ($force_username_lowercase) {
 }
 
 /* Verify that username and password are correct. */
-global $imapSslOptions; // in case not defined in config
-$imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0, $imapSslOptions);
+global $imap_stream_options; // in case not defined in config
+$imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0, $imap_stream_options);
 /* From now on we are logged it. If the login failed then sqimap_login handles it */
 
 /**
