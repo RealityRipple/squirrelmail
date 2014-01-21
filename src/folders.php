@@ -34,7 +34,8 @@ sqgetGlobalVar('smtoken', $submitted_token, SQ_POST, '');
 
 /* end of get globals */
 
-$imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0);
+global $imapSslOptions; // in case not defined in config
+$imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
 
 /* switch to the right function based on what the user selected */
 if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {

@@ -25,6 +25,7 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
 sqgetGlobalVar('theid', $theid);
 sqgetGlobalVar('action', $action, SQ_GET);
+global $imapSslOptions; // in case not defined in config
 
 if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
@@ -125,7 +126,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
 
-        $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
+        $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
         $boxes = sqimap_mailbox_list($imapConnection);
 
         for ($a = 0, $cnt = count($boxes); $a < $cnt; $a++) {

@@ -91,7 +91,7 @@ class Deliver_SendMail extends Deliver {
     * @return resource
     * @access public
     */
-    function initStream($message, $sendmail_path, $ignore=0, $ignore='', $ignore='', $ignore='', $ignore='', $ignore=false, $ignore='') {
+    function initStream($message, $sendmail_path, $ignore=0, $ignore='', $ignore='', $ignore='', $ignore='', $ignore=false, $ignore='', $ignore=array()) {
         $rfc822_header = $message->rfc822_header;
         $from = $rfc822_header->from[0];
         $envelopefrom = trim($from->mailbox.'@'.$from->host);

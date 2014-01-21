@@ -190,9 +190,9 @@ function filters_bulkquery($filters, $IPs) {
  * @access private
  */
 function start_filters($hook_args) {
-    global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
-           $UseSeparateImapConnection, $AllowSpamFilters, $filter_inbox_count,
-           $username;
+    global $imapServerAddress, $imapPort, $imapSslOptions, $imap_stream,
+           $imapConnection, $UseSeparateImapConnection, $AllowSpamFilters,
+           $filter_inbox_count, $username;
 
     /**
      * check hook that calls filtering. If filters are called by right_main_after_header,
@@ -229,7 +229,7 @@ function start_filters($hook_args) {
     if ((!isset($imap_stream) && !isset($imapConnection)) ||
         $UseSeparateImapConnection ) {
             $stream = sqimap_login($username, false, $imapServerAddress,
-                                $imapPort, 10);
+                                $imapPort, 10, $imapSslOptions);
             $previously_connected = false;
     } else if (isset($imapConnection)) {
         $stream = $imapConnection;

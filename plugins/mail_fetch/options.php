@@ -59,6 +59,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
 $mf_port = trim($mf_port);
 $mf_server = trim($mf_server);
 
+global $imapSslOptions; // in case not defined in config
 
 /* end globals */
 
@@ -301,7 +302,7 @@ switch( $mf_action ) {
          html_tag( 'tr' ) .
              html_tag( 'th', _("Store in Folder:"), 'right' ) .
              html_tag( 'td', '', 'left' );
-     $imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0);
+     $imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
      $boxes = sqimap_mailbox_list($imapConnection);
      echo '<select name="mf_subfolder">';
 
@@ -436,7 +437,7 @@ switch( $mf_action ) {
                  html_tag( 'th', _("Store in Folder:"), 'right' ) .
                  html_tag( 'td', '', 'left' );
 
-     $imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0);
+     $imapConnection = sqimap_login ($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
      $boxes = sqimap_mailbox_list($imapConnection);
      echo '<select name="mf_subfolder">';
      $selected = 0;

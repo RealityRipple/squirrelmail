@@ -64,7 +64,7 @@ if (file_exists(SM_PATH . 'config/mail_fetch_config.php')) {
 function mail_fetch_login_function() {
     include_once (SM_PATH . 'functions/imap_general.php');
 
-    global $username, $data_dir, $imapServerAddress, $imapPort;
+    global $username, $data_dir, $imapServerAddress, $imapPort, $imapSslOptions;
 
     $mailfetch_newlog = getPref($data_dir, $username, 'mailfetch_newlog');
 
@@ -129,7 +129,7 @@ function mail_fetch_login_function() {
                 continue;
             }
 
-            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 10);
+            $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 10, $imapSslOptions);
 
             /* log into pop server*/
             if (! $pop3->login($mailfetch_user, $mailfetch_pass)) {

@@ -34,7 +34,8 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('smtoken', $submitted_token, SQ_GET, '');
 sm_validate_security_token($submitted_token, -1, TRUE);
 
-$imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
+global $imapSslOptions; // in case not defined in config
+$imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
 
 $mailbox = $trash_folder;
 $boxes = sqimap_mailbox_list($imap_stream);

@@ -62,7 +62,7 @@ class Deliver_SMTP extends Deliver {
         }
     }
 
-    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='') {
+    function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false, $pop_host='', $ssl_options=array()) {
         global $use_smtp_tls,$smtp_auth_mech;
 
         if ($authpop) {
@@ -90,9 +90,25 @@ class Deliver_SMTP extends Deliver {
             $from->mailbox = '';
         }
 
+        // NB: Using "ssl://" ensures the highest possible TLS version
+        // will be negotiated with the server (whereas "tls://" only
+        // uses TLS version 1.0)
+        //
         if ($use_smtp_tls == 1) {
             if ((check_php_version(4,3)) && (extension_loaded('openssl'))) {
-                $stream = @fsockopen('tls://' . $host, $port, $errorNumber, $errorString);
+                if (function_exists('stream_socket_client')) {
+                    $server_address = 'ssl://' . $host . ':' . $port;
+                    if (!empty($ssl_options))
+                        $ssl_options = array('ssl' => $ssl_options);
+                    $ssl_context = @stream_context_create($ssl_options);
+                    $connect_timeout = ini_get('default_socket_timeout');
+                    // null timeout is broken
+                    if ($connect_timeout == 0)
+                        $connect_timeout = 30;
+                    $stream = @stream_socket_client($server_address, $errorNumber, $errorString, $connect_timeout, STREAM_CLIENT_CONNECT, $ssl_context);
+                } else {
+                    $stream = @fsockopen('ssl://' . $host, $port, $errorNumber, $errorString);
+                }
                 $this->tls_enabled = true;
             } else {
                 /**
