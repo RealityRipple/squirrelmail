@@ -58,7 +58,8 @@ set_my_charset();
 
 /* end globals */
 
-$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
+global $imapSslOptions; // in case not defined in config
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
 $aMailbox = sqm_api_mailbox_select($imapConnection, $account, $mailbox,array(),array());
 
 if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) &&

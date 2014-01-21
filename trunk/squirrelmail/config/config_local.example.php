@@ -27,7 +27,7 @@
  * of custom PHP session handlers.  This feature is well
  * documented in the code in include/init.php
  *
- * hide_squirrelmail_header (must be defined as a constant:
+ * $hide_squirrelmail_header (must be defined as a constant:
  * define('hide_squirrelmail_header', 1);
  * This allows the administrator to force SquirrelMail never
  * to add its own Received headers with user information in
@@ -52,5 +52,28 @@
  * (those that are displayed in a different color than other
  * "normal" mailboxes).
  *
+ * $smtpSslOptions allows more control over the SSL context used
+ * when connecting to the SMTP server over SSL/TLS.  See:
+ * http://php.net/manual/context.ssl.php
+ * For example, you can specify a CA file that corresponds
+ * to your server's certificate and make sure that the
+ * server's certificate is validated when connecting:
+ * $smtpSslOptions = array(
+ *     'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
+ *     'verify_peer' => true,
+ *     'verify_depth' => 3,
+ * );
+ *
+ * $imapSslOptions allows more control over the SSL context used
+ * when connecting to the IMAP server over SSL/TLS.  See:
+ * http://php.net/manual/context.ssl.php
+ * For example, you can specify a CA file that corresponds
+ * to your server's certificate and make sure that the
+ * server's certificate is validated when connecting:
+ * $imapSslOptions = array(
+ *     'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
+ *     'verify_peer' => true,
+ *     'verify_depth' => 3,
+ * );
  */
 

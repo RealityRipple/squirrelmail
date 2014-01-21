@@ -383,6 +383,10 @@ Version 1.5.2 - SVN
     unsafe images.
   - Full date and time is used as "title" (mouseover) text for dates
     shown on the message list screen
+  - Added advanced control over the SSL context used when connecting
+    to the SMTP and IMAP servers over SSL/TLS (Thanks to Emmanuel
+    Dreyfus).  See $imapSslOptions and $smtpSslOptions in config_local.php
+    for more information.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

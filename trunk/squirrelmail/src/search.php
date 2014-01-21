@@ -1321,7 +1321,8 @@ if ($search_advanced) {
 uasort($imap_asearch_options, 'asearch_unhtml_strcoll');
 
 /* open IMAP connection */
-$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
+global $imapSslOptions; // in case not defined in config
+$imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
 
 
 /* get mailboxes once here */

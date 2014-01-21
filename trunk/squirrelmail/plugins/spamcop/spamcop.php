@@ -66,7 +66,8 @@ if (! is_plugin_enabled('spamcop')) {
     exit();
 }
 
-    $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0);
+    global $imapSslOptions; // in case not defined in config
+    $imap_stream = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imapSslOptions);
     sqimap_mailbox_select($imap_stream, $mailbox);
 
     if ($spamcop_method == 'quick_email' ||
