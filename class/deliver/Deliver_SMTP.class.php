@@ -98,8 +98,6 @@ class Deliver_SMTP extends Deliver {
             if ((check_php_version(4,3)) && (extension_loaded('openssl'))) {
                 if (function_exists('stream_socket_client')) {
                     $server_address = 'ssl://' . $host . ':' . $port;
-                    if (!empty($ssl_options))
-                        $ssl_options = array('ssl' => $ssl_options);
                     $ssl_context = @stream_context_create($ssl_options);
                     $connect_timeout = ini_get('default_socket_timeout');
                     // null timeout is broken
