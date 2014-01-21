@@ -299,6 +299,15 @@ $smtp_sitewide_pass = '';
 $imap_auth_mech = 'login';
 
 /**
+ * Show login error from the IMAP server (true) or show
+ * the traditional/generic "Unknown user or password
+ * incorrect" (false)?
+ *
+ * @global boolean $display_imap_login_error
+ */
+$display_imap_login_error = false;
+
+/**
  * IMAP folder delimiter
  *
  * This is the delimiter that your IMAP server uses to distinguish between
