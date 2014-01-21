@@ -354,9 +354,9 @@ Version 1.5.2 - SVN
     attachment MIME type.
   - Fixed sqauth_read_password() for plugins on the login_verified hook.
   - Forced addition of a file suffix to attachments that lack a filename
-    (helps forwarded messages avoid spam filters) (Thanks to Petr
+    (helps forwarded messages avoid spam filters) (thanks to Petr
     Kletecka) (#3139004).
-  - Added smtp_authenticate hook (Thanks to Emmanuel Dreyfus).
+  - Added smtp_authenticate hook (thanks to Emmanuel Dreyfus).
   - Allow administrators to configure subfolders of user INBOXes to be
     treated as special folders by adding $subfolders_of_inbox_are_special
     to config_local.php.
@@ -384,9 +384,14 @@ Version 1.5.2 - SVN
   - Full date and time is used as "title" (mouseover) text for dates
     shown on the message list screen
   - Added advanced control over the SSL context used when connecting
-    to the SMTP and IMAP servers over SSL/TLS (Thanks to Emmanuel
+    to the SMTP and IMAP servers over SSL/TLS (thanks to Emmanuel
     Dreyfus).  See $imapSslOptions and $smtpSslOptions in
     config_local.example.php for more information.
+  - Added ability to show login error from the IMAP server instead of
+    traditional "Unknown user or password incorrect" (thanks to Alain
+    Williams).  See $display_imap_login_error in the configuration
+    file or "4.  General Options ==> 21. Display login error from IMAP" 
+    in the configuration tool.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

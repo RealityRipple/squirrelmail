@@ -495,6 +495,7 @@ $disable_security_tokens = 'false'     if ( !$disable_security_tokens );
 $check_referrer = ''                   if ( !$check_referrer );
 $ask_user_info = 'true'                if ( !$ask_user_info );
 $use_transparent_security_image = 'true' if ( !$use_transparent_security_image );
+$display_imap_login_error = 'false'    if ( !$display_imap_login_error );
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -727,6 +728,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "18. Disable secure forms         : $WHT$disable_security_tokens$NRM\n";
         print "19. Page referal requirement     : $WHT$check_referrer$NRM\n";
         print "20. Security image               : $WHT" . (lc($use_transparent_security_image) eq 'true' ? 'Transparent' : 'Textual') . "$NRM\n";
+        print "21. Display login error from IMAP: $WHT$display_imap_login_error$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -1004,6 +1006,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
             elsif ( $command == 18 ) { $disable_security_tokens  = command320(); }
             elsif ( $command == 19 ) { $check_referrer           = command321(); }
             elsif ( $command == 20 ) { $use_transparent_security_image = command322(); }
+            elsif ( $command == 21 ) { $display_imap_login_error = command323(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 )     { $use_icons      = commandB3(); }
 #            elsif ( $command == 3 )  { $icon_theme_def = command53(); }
@@ -2875,6 +2878,35 @@ sub command322 {
         $use_transparent_security_image = 'false';
     }
     return $use_transparent_security_image;
+}
+
+
+
+# display_imap_login_error (since 1.5.2)
+sub command323 {
+    print "Some IMAP servers return detailed information about why a login is\n";
+    print "being refused (the username or password could be invalid or there\n";
+    print "might be an administrative lock on the account).\n";
+    print "\n";
+    print "Enabling this option will cause SquirrelMail to display login failure\n";
+    print "messages directly from the IMAP server.  When it is disabled, login\n";
+    print "failures are always reported to the user with the traditional \"Unknown\n";
+    print "user or password incorrect.\"\n";
+    print "\n";
+
+    if ( lc($display_imap_login_error) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Display login error messages directly from the IMAP server? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $display_imap_login_error = <STDIN>;
+    if ( ( $display_imap_login_error =~ /^y\n/i ) || ( ( $display_imap_login_error =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $display_imap_login_error = 'true';
+    } else {
+        $display_imap_login_error = 'false';
+    }
+    return $display_imap_login_error;
 }
 
 
@@ -5194,6 +5226,8 @@ sub save_data {
         print CF "\$use_imap_tls          = $use_imap_tls;\n";
         # boolean
         print CF "\$use_smtp_tls          = $use_smtp_tls;\n";
+        # boolean
+        print CF "\$display_imap_login_error = $display_imap_login_error;\n";
         # string
         print CF "\$session_name          = '$session_name';\n";
         # boolean

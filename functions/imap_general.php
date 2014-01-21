@@ -821,7 +821,7 @@ function sqimap_create_stream($server,$port,$tls=0,$ssl_options=array()) {
 function sqimap_login ($username, $password, $imap_server_address,
                        $imap_port, $hide, $ssl_options=array()) {
     global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
-           $imap_auth_mech, $sqimap_capabilities;
+           $imap_auth_mech, $sqimap_capabilities, $display_imap_login_error;
 
     // Note/TODO: This hack grabs the $authz argument from the session. In the short future,
     // a new argument in function sqimap_login() will be used instead.
@@ -996,8 +996,30 @@ function sqimap_login ($username, $password, $imap_server_address,
 
                 /* terminate the session nicely */
                 sqimap_logout($imap_stream);
-                if ($hide == 3) return _("Unknown user or password incorrect.");
-                logout_error( _("Unknown user or password incorrect.") );
+
+                // determine what error message to use
+                //
+                $fail_msg = _("Unknown user or password incorrect.");
+                if ($display_imap_login_error) {
+                    // See if there is an error message from the server
+                    // Skip any rfc5530 response code: '[something]' at the
+                    // start of the message
+                    if (!empty($message)
+                     && $message{0} == '['
+                     && ($end = strstr($message, ']'))
+                     && $end != ']') {
+                        $message = substr($end, 1);
+                    }
+                    // Remove surrounding spaces and if there
+                    // is anything left, display that as the
+                    // error message:
+                    $message = trim($message);
+                    if (strlen($message))
+                        $fail_msg = _($message);
+                }
+
+                if ($hide == 3) return $fail_msg;
+                logout_error($fail_msg);
                 exit;
             }
         } else {
