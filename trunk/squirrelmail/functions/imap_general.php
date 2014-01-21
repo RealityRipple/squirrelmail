@@ -691,8 +691,6 @@ function sqimap_create_stream($server,$port,$tls=0,$ssl_options=array()) {
         if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
             if (function_exists('stream_socket_client')) {
                 $server_address = 'ssl://' . $server . ':' . $port;
-                if (!empty($ssl_options))
-                    $ssl_options = array('ssl' => $ssl_options);
                 $ssl_context = @stream_context_create($ssl_options);
                 $connect_timeout = ini_get('default_socket_timeout');
                 // null timeout is broken

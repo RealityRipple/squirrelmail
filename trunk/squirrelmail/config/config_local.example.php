@@ -54,26 +54,32 @@
  *
  * $smtpSslOptions allows more control over the SSL context used
  * when connecting to the SMTP server over SSL/TLS.  See:
+ * http://www.php.net/manual/context.php and in particular
  * http://php.net/manual/context.ssl.php
  * For example, you can specify a CA file that corresponds
  * to your server's certificate and make sure that the
  * server's certificate is validated when connecting:
  * $smtpSslOptions = array(
- *     'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
- *     'verify_peer' => true,
- *     'verify_depth' => 3,
+ *     'ssl' => array(
+ *         'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
+ *         'verify_peer' => true,
+ *         'verify_depth' => 3,
+ *     ),
  * );
  *
  * $imapSslOptions allows more control over the SSL context used
  * when connecting to the IMAP server over SSL/TLS.  See:
+ * http://www.php.net/manual/context.php and in particular
  * http://php.net/manual/context.ssl.php
  * For example, you can specify a CA file that corresponds
  * to your server's certificate and make sure that the
  * server's certificate is validated when connecting:
  * $imapSslOptions = array(
- *     'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
- *     'verify_peer' => true,
- *     'verify_depth' => 3,
+ *     'ssl' => array(
+ *         'cafile' => '/etc/pki/tls/certs/ca-bundle.crt',
+ *         'verify_peer' => true,
+ *         'verify_depth' => 3,
+ *     ),
  * );
  */
 
