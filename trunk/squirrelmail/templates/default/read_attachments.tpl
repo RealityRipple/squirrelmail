@@ -6,6 +6,7 @@
  * template is called from the function formatAttachments() in functions/mime.php.
  *
  * The following variables are available in this template:
+ *    $plugin_output  array  An array of extra output that may be added by plugin(s).
  *    $attachments - array containing info for all message attachments.  Each
  *                   element in the array represents a separate attachment and
  *                   contains the following elements:
@@ -45,7 +46,10 @@ if (count($attachments)==0) {
 <table cellspacing="0" class="table2">
  <tr>
   <td class="header5" colspan="5">
-   <?php echo _("Attachments"); ?>
+   <?php
+      echo _("Attachments");
+      if (!empty($plugin_output['attachments_top'])) echo $plugin_output['attachments_top'];
+   ?>
   </td>
  </tr>
  <?php
