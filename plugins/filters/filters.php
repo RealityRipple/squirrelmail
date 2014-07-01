@@ -10,6 +10,7 @@
  * @subpackage filters
  */
 
+// TODO: This plugin has an issue that seems to corrupt folder cache for subfolders of INBOX
 /**
  * do not allow to call this file directly
  */
@@ -193,6 +194,12 @@ function start_filters($hook_args) {
     global $imapServerAddress, $imapPort, $imap_stream_options, $imap_stream,
            $imapConnection, $UseSeparateImapConnection, $AllowSpamFilters,
            $filter_inbox_count, $username;
+
+    // if there were filtering errors previously during
+    // this login session, we won't try again
+    sqgetGlobalVar('filters_error', $filters_error, SQ_SESSION, FALSE);
+    if ($filters_error)
+        return;
 
     /**
      * check hook that calls filtering. If filters are called by right_main_after_header,
@@ -387,8 +394,16 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
         }
         if ($response == 'OK' && count($ids)) {
             if (sqimap_mailbox_exists($imap_stream, $where_to)) {
-                 $should_expunge = true;
-                 sqimap_msgs_list_move ($imap_stream, $ids, $where_to, false);
+                if (!sqimap_msgs_list_move ($imap_stream, $ids, $where_to, false)) {
+                    // if errors occurred, don't try to filter again during this session
+                    sqsession_register(TRUE, 'filters_error');
+                    global $color;
+                    error_box(_("A problem occurred filtering messages. Check filter settings and account quota if applicable. Filtering is disabled for the remainder of this login session."), $color);
+                }
+
+                // expunge even in the case of errors, in case some
+                // messages were filtered before the error happened
+                $should_expunge = true;
             }
         } elseif ($response != 'OK') {
             $query = $search_str . "\r\n".$what ."\r\n";
@@ -518,7 +533,15 @@ function spam_filters($imap_stream) {
     }
     // Lookie!  It's spam!  Yum!
     if (count($aSpamIds) && sqimap_mailbox_exists($imap_stream, $filters_spam_folder)) {
-        sqimap_msgs_list_move($imap_stream, $aSpamIds, $filters_spam_folder);
+        if (!sqimap_msgs_list_move($imap_stream, $aSpamIds, $filters_spam_folder)) {
+           // if errors occurred, don't try to filter again during this session
+           sqsession_register(TRUE, 'filters_error');
+           global $color;
+           error_box(_("A problem occurred filtering messages. Check filter settings and account quota if applicable. Filtering is disabled for the remainder of this login session."), $color);
+        }
+
+        // expunge even in the case of errors, in case some
+        // messages were filtered before the error happened
         sqimap_mailbox_expunge($imap_stream, 'INBOX');
     }
 
