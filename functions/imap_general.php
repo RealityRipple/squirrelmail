@@ -616,22 +616,34 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     case 'NO':
         /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message[$tag], 'command resulted in') === false) {
+            sqsession_register('NO', 'IMAP_FATAL_ERROR_TYPE');
+            sqsession_register($query, 'IMAP_FATAL_ERROR_QUERY');
+            sqsession_register($message[$tag], 'IMAP_FATAL_ERROR_MESSAGE');
             sqimap_error_box(_("ERROR: Could not complete request."), $query, _("Reason Given:") . ' ', $message[$tag]);
             echo '</body></html>';
             exit;
         }
         break;
     case 'BAD':
+        sqsession_register('BAD', 'IMAP_FATAL_ERROR_TYPE');
+        sqsession_register($query, 'IMAP_FATAL_ERROR_QUERY');
+        sqsession_register($message[$tag], 'IMAP_FATAL_ERROR_MESSAGE');
         sqimap_error_box(_("ERROR: Bad or malformed request."), $query, _("Server responded:") . ' ', $message[$tag]);
 //FIXME: NO HTML IN CORE!
         echo '</body></html>';
         exit;
     case 'BYE':
+        sqsession_register('BYE', 'IMAP_FATAL_ERROR_TYPE');
+        sqsession_register($query, 'IMAP_FATAL_ERROR_QUERY');
+        sqsession_register($message[$tag], 'IMAP_FATAL_ERROR_MESSAGE');
         sqimap_error_box(_("ERROR: IMAP server closed the connection."), $query, _("Server responded:") . ' ', $message[$tag]);
 //FIXME: NO HTML IN CORE!
         echo '</body></html>';
         exit;
     default:
+        sqsession_register('UNKNOWN', 'IMAP_FATAL_ERROR_TYPE');
+        sqsession_register($query, 'IMAP_FATAL_ERROR_QUERY');
+        sqsession_register($message[$tag], 'IMAP_FATAL_ERROR_MESSAGE');
         sqimap_error_box(_("ERROR: Unknown IMAP response."), $query, _("Server responded:") . ' ', $message[$tag]);
        /* the error is displayed but because we don't know the reponse we
           return the result anyway */
