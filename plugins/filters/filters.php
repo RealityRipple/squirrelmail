@@ -197,8 +197,19 @@ function start_filters($hook_args) {
 
     // if there were filtering errors previously during
     // this login session, we won't try again
+    //
+    // (errors that this plugin was able to catch or a "NO"
+    // response/failure from IMAP found in the current session,
+    // which could have resulted from an attempted filter copy
+    // (over quota), in which case execution halts before this
+    // plugin can catch the problem -- note, however, that any
+    // other IMAP "NO" failure (caused by unrelated actions) at
+    // any time during the current session will cause this plugin
+    // to effectively shut down)
+    //
     sqgetGlobalVar('filters_error', $filters_error, SQ_SESSION, FALSE);
-    if ($filters_error)
+    sqgetGlobalVar('IMAP_FATAL_ERROR_TYPE', $imap_fatal_error, SQ_SESSION, '');
+    if ($filters_error || $imap_fatal_error == 'NO')
         return;
 
     /**
