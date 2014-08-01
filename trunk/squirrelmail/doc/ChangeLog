@@ -393,6 +393,8 @@ Version 1.5.2 - SVN
     file or "4.  General Options ==> 21. Display login error from IMAP" 
     in the configuration tool.
   - Configuration tool now shows the SquirrelMail version
+  - Prevent session lock-up caused by filters plugin trying to move
+    messages in an account that is over quota.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
