@@ -90,20 +90,39 @@ function plugin_listcommands_menu_do() {
 
         if ($proto == 'mailto') {
 
+            $identity = '';
+
             if (($cmd == 'post') || ($cmd == 'owner')) {
                 $url = 'src/compose.php?'.
                     (isset($startMessage)?'startMessage='.$startMessage.'&amp;':'');
             } else {
                 $url = "plugins/listcommands/mailout.php?action=$cmd&amp;";
+
+                // try to find which identity the mail should come from
+                include_once(SM_PATH . 'functions/identity.php');
+                $idents = get_identities();
+                // ripped from src/compose.php
+                $identities = array();
+                if (count($idents) > 1) {
+                    foreach($idents as $nr=>$data) {
+                        $enc_from_name = '"'.$data['full_name'].'" <'. $data['email_address'].'>';
+                        $identities[] = $enc_from_name;
+                    }
+
+                    $identity_match = $message->rfc822_header->findAddress($identities);
+                    if ($identity_match !== FALSE) {
+                        $identity = $identity_match;
+                    }
+                }
             }
 
             // if things like subject are given, peel them off and give
             // them to src/compose.php as is (not encoded)
             if (strpos($act, '?') > 0) {
                list($act, $parameters) = explode('?', $act, 2);
-               $parameters = '&amp;' . $parameters;
+               $parameters = '&amp;identity=' . $identity . '&amp;' . $parameters;
             } else {
-               $parameters = '';
+               $parameters = '&amp;identity=' . $identity;
             }
 
             $url .= 'send_to=' . urlencode($act) . $parameters;

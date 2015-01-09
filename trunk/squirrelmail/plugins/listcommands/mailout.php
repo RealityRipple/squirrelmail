@@ -26,6 +26,7 @@ sqgetGlobalVar('send_to', $send_to, SQ_GET);
 sqgetGlobalVar('subject', $subject, SQ_GET);
 sqgetGlobalVar('body',    $body,    SQ_GET);
 sqgetGlobalVar('action',  $action,  SQ_GET);
+sqgetGlobalVar('identity',  $identity,  SQ_GET);
 
 displayPageHeader($color, $mailbox);
 
@@ -58,6 +59,7 @@ $oTemplate->assign('subject', $subject);
 $oTemplate->assign('body', $body);
 $oTemplate->assign('mailbox', $mailbox);
 $oTemplate->assign('idents', $idents);
+$oTemplate->assign('identity', $identity);
 
 $oTemplate->display('plugins/listcommands/mailout.tpl');
 $oTemplate->display('footer.tpl');

@@ -41,8 +41,10 @@ extract($t);
     echo '<select name="identity" id="identity">';
     
     foreach($idents as $nr=>$data) {
-        echo '<option value="' . $nr . '">' .
-            sm_encode_html_special_chars(
+        echo '<option '
+           . ($identity == $nr ? ' selected="selected" ' : '')
+           . 'value="' . $nr . '">'
+           . sm_encode_html_special_chars(
                     $data['full_name'].' <'.
                     $data['email_address'] . '>') .
             "</option>\n";		    
