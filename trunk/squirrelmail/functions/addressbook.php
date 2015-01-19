@@ -514,7 +514,7 @@ class AddressBook {
      * @param array $row address book entry
      * @return string email address with real name prepended
      */
-    function full_address($row) {
+    static function full_address($row) {
         global $data_dir, $username, $addrsrch_fullname;
 
         // allow multiple addresses in one row (poor person's grouping - bah)
