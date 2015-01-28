@@ -120,6 +120,9 @@ if (file_exists(SM_PATH . 'config/config_local.php')) {
     require(SM_PATH . 'config/config_local.php');
 }
 
+sqGetGlobalVar('REMOTE_ADDR',$client_ip,SQ_SERVER);
+sqGetGlobalVar('SERVER_ADDR',$server_ip,SQ_SERVER);
+
 /**
  * Include Compatibility plugin if available.
  */
@@ -175,8 +178,6 @@ if(!in_array('strings.php', $included)) {
 
 /* Block remote use of script */
 if (! $allow_remote_configtest) {
-    sqGetGlobalVar('REMOTE_ADDR',$client_ip,SQ_SERVER);
-    sqGetGlobalVar('SERVER_ADDR',$server_ip,SQ_SERVER);
 
     if ((! isset($client_ip) || $client_ip!='127.0.0.1') &&
             (! isset($client_ip) || ! isset($server_ip) || $client_ip!=$server_ip)) {
