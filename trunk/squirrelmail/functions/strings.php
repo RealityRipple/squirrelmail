@@ -1685,7 +1685,7 @@ function sm_validate_security_token($token, $validity_period=0, $show_error=FALS
   * @param string $string The string to be converted
   * @param int $flags A bitmask that controls the behavior of htmlspecialchars()
   *                   (See http://php.net/manual/function.htmlspecialchars.php )
-  *                   (OPTIONAL; default ENT_COMPAT)
+  *                   (OPTIONAL; default ENT_COMPAT, ENT_COMPAT | ENT_SUBSTITUTE for PHP >=5.4)
   * @param string $encoding The character encoding to use in the conversion
   *                         (OPTIONAL; default automatic detection)
   * @param boolean $double_encode Whether or not to convert entities that are
@@ -1706,9 +1706,14 @@ function sm_encode_html_special_chars($string, $flags=ENT_COMPAT,
       $encoding = $default_charset;
    }
 
-// TODO: Is adding this check an unnecessary performance hit?
-   if (check_php_version(5, 2, 3))
+   if (check_php_version(5, 2, 3)) {
+      // Replace invalid characters with a symbol instead of returning
+      // empty string for the entire to be encoded string.
+      if (check_php_version(5, 4, 0) && $flags == ENT_COMPAT) {
+         $flags = $flags | ENT_SUBSTITUTE;
+      }
       return htmlspecialchars($string, $flags, $encoding, $double_encode);
+   }
 
    return htmlspecialchars($string, $flags, $encoding);
 }
