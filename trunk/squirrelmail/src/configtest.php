@@ -632,7 +632,10 @@ if($useSendmail) {
 
     echo $IND . "sendmail OK<br />\n";
 } else {
-    $stream = fsockopen( ($use_smtp_tls==1?'tls://':'').$smtpServerAddress, $smtpPort,
+    // NB: Using "ssl://" ensures the highest possible TLS version
+    // will be negotiated with the server (whereas "tls://" only
+    // uses TLS version 1.0)
+    $stream = fsockopen( ($use_smtp_tls==1?'ssl://':'').$smtpServerAddress, $smtpPort,
             $errorNumber, $errorString);
     if(!$stream) {
         do_err("Error connecting to SMTP server \"$smtpServerAddress:$smtpPort\".".
@@ -736,7 +739,10 @@ if($useSendmail) {
 echo "Checking IMAP service....<br />\n";
 
 /** Can we open a connection? */
-$stream = fsockopen( ($use_imap_tls==1?'tls://':'').$imapServerAddress, $imapPort,
+// NB: Using "ssl://" ensures the highest possible TLS version
+// will be negotiated with the server (whereas "tls://" only
+// uses TLS version 1.0)
+$stream = fsockopen( ($use_imap_tls==1?'ssl://':'').$imapServerAddress, $imapPort,
         $errorNumber, $errorString);
 if(!$stream) {
     do_err("Error connecting to IMAP server \"$imapServerAddress:$imapPort\".".
