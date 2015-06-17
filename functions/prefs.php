@@ -112,25 +112,69 @@ function getHashedDir($username, $dir, $hash_dirs = '') {
 /**
  * Helper function for getHashDir which does the actual hash calculation.
  *
+ * Uses a crc32 algorithm by default, but if you put
+ * the following in config/config_local.php, you can
+ * force md5 instead:
+ *    $hash_dirs_use_md5 = TRUE;
+ *
+ * You may also specify that if usernames are in full
+ * email address format, the domain part (beginning
+ * with "@") be stripped before calculating the crc
+ * or md5.  Do that by putting the following in
+ * config/config_local.php:
+ *    $hash_dirs_strip_domain = TRUE;
+ *
  * @param string username the username to calculate the hash dir for
+ *
  * @return array a list of hash dirs for this username
+ *
  * @since 1.2.0
+ *
  */
 function computeHashDirs($username) {
-    /* Compute the hash for this user and extract the hash directories.  */ 
-    /* Note that the crc32() function result will be different on 32 and */ 
-    /* 64 bit systems, thus the hack below.                              */
-    $crc = crc32($username);
-    if ($crc & 0x80000000) {
-        $crc ^= 0xffffffff;
-        $crc += 1;
-    }
-    $hash = base_convert($crc, 10, 16);
-    $hash_dirs = array();
-    for ($h = 0; $h < 4; ++ $h) {
-        $hash_dirs[] = substr($hash, $h, 1);
+
+    global $hash_dirs_use_md5, $hash_dirs_strip_domain;
+    static $hash_dirs = array();
+
+
+    // strip domain from username
+    if ($hash_dirs_strip_domain)
+        $user = substr($username, 0, strpos($username, '@'));
+    else
+        $user = $username;
+
+
+    // have we already calculated it?
+    if (!empty($hash_dirs[$user]))
+        return $hash_dirs[$user];
+
+
+    if ($hash_dirs_use_md5) {
+
+        $hash = md5($user);
+        //$hash = md5bin($user);
+
+    } else {
+
+        /* Compute the hash for this user and extract the hash directories.  */
+        /* Note that the crc32() function result will be different on 32 and */
+        /* 64 bit systems, thus the hack below.                              */
+        $crc = crc32($user);
+        if ($crc & 0x80000000) {
+            $crc ^= 0xffffffff;
+            $crc += 1;
+        }
+        $hash = base_convert($crc, 10, 16);
     }
 
-    /* Return our array of hash directories. */
-    return ($hash_dirs);
+
+    $my_hash_dirs = array();
+    for ($h = 0; $h < 4; ++ $h) {
+        $my_hash_dirs[] = substr($hash, $h, 1);
+    }
+
+    // Return our array of hash directories
+    $hash_dirs[$user] = $my_hash_dirs;
+    return ($my_hash_dirs);
 }
+

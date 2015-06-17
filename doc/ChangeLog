@@ -395,6 +395,7 @@ Version 1.5.2 - SVN
   - Configuration tool now shows the SquirrelMail version
   - Prevent session lock-up caused by filters plugin trying to move
     messages in an account that is over quota.
+  - Added MD5 alternative to directory hash calculation
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
