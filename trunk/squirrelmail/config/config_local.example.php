@@ -52,6 +52,15 @@
  * (those that are displayed in a different color than other
  * "normal" mailboxes).
  *
+ * $hash_dirs_use_md5 (boolean) If set to TRUE, forces the
+ * hashed preferences directory calculation to use MD5 instead
+ * of CRC32.
+ *
+ * $hash_dirs_strip_domain (boolean) If set to TRUE, and if
+ * usernames are in full email address format, the domain
+ * part (beginning with "@") will be stripped before
+ * calculating the CRC or MD5.
+ *
  * $smtp_stream_options allows more control over the SSL context
  * used when connecting to the SMTP server over SSL/TLS.  See:
  * http://www.php.net/manual/context.php and in particular
