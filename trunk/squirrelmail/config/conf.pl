@@ -426,6 +426,8 @@ $hide_sm_attributions = 'false'         if ( !$hide_sm_attributions );
 # since 1.2.5
 $edit_identity = 'true'                 if ( !$edit_identity );
 $edit_name = 'true'                     if ( !$edit_name );
+# since 1.4.23/1.5.2
+$edit_reply_to = 'true'                 if ( !$edit_reply_to );
 
 # since 1.4.0
 $use_smtp_tls= 'false'                  if ( !$use_smtp_tls);
@@ -732,6 +734,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
         print "8.  Allow use of receipts        : $WHT$default_use_mdn$NRM\n";
         print "9.  Allow editing of identity    : $WHT$edit_identity$NRM\n";
         print "    Allow editing of name        : $WHT$edit_name$NRM\n";
+        print "    Allow editing of reply-to    : $WHT$edit_reply_to$NRM\n";
         print "    Remove username from header  : $WHT$hide_auth_header$NRM\n";
         print "10. Disable server thread sort   : $WHT$disable_thread_sort$NRM\n";
         print "11. Disable server-side sorting  : $WHT$disable_server_sort$NRM\n";
@@ -2577,11 +2580,13 @@ sub command310 {
     if ( ( $new_edit =~ /^y\n/i ) || ( ( $new_edit =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $edit_identity = 'true';
         $edit_name = 'true';
-        $hide_auth_header = command311b();
+        $edit_reply_to = 'true';
+        $hide_auth_header = command311c();
     } else {
         $edit_identity = 'false';
         $edit_name = command311();
-        $hide_auth_header = command311b();
+        $edit_reply_to = command311b();
+        $hide_auth_header = command311c();
     }
     return $edit_identity;
 }
@@ -2609,6 +2614,28 @@ sub command311 {
 }
 
 sub command311b {
+    print "$NRM";
+    print "\n  Given that users are not allowed to modify their
+  email address, can they edit their reply-to address?
+
+  ";
+
+    if ( lc($edit_reply_to) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow the user to edit their reply-to address? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $new_edit = <STDIN>;
+    if ( ( $new_edit =~ /^y\n/i ) || ( ( $new_edit =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $edit_reply_to = 'true';
+    } else {
+        $edit_reply_to = 'false';
+    }
+    return $edit_reply_to;
+}
+
+sub command311c {
     print "$NRM";
     print "\n  SquirrelMail adds username information to every outgoing email in
   order to prevent possible sender forging by users that are allowed
@@ -5008,6 +5035,8 @@ sub save_data {
         print CF "\$edit_identity            = $edit_identity;\n";
         # boolean
         print CF "\$edit_name                = $edit_name;\n";
+        # boolean
+        print CF "\$edit_reply_to            = $edit_reply_to;\n";
         # boolean
         print CF "\$hide_auth_header         = $hide_auth_header;\n";
         # boolean

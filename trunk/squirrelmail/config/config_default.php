@@ -601,15 +601,18 @@ $default_use_mdn = true;
  * Identity Controls
  *
  * If you don't want to allow users to change their email address
- * then you can set $edit_identity to false, if you want them to
+ * then you can set $edit_identity to false; if you want them to
  * not be able to change their full name too then set $edit_name
- * to false as well. $edit_name has no effect unless $edit_identity
- * is false;
+ * to false as well. $edit_reply_to likewise controls users' ability
+ * to change their reply-to address. $edit_name and $edit_reply_to
+ * have no effect unless $edit_identity is false;
  * @global bool $edit_identity
  * @global bool $edit_name
+ * @global bool $edit_reply_to
  */
 $edit_identity = true;
 $edit_name = true;
+$edit_reply_to = true;
 
 /**
  * SquirrelMail adds username information to every sent email.
