@@ -396,6 +396,8 @@ Version 1.5.2 - SVN
   - Prevent session lock-up caused by filters plugin trying to move
     messages in an account that is over quota.
   - Added MD5 alternative to directory hash calculation
+  - Added ability for administrator to control whether or not users
+    can edit their reply-to address ($edit_reply_to in config.php)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

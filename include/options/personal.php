@@ -34,7 +34,7 @@ define('SMOPT_GRP_TZ', 3);
  * @return array all option information
  */
 function load_optpage_data_personal() {
-    global $data_dir, $username, $edit_identity, $edit_name,
+    global $data_dir, $username, $edit_identity, $edit_name, $edit_reply_to,
            $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed,
            $timeZone, $domain;
 
@@ -108,13 +108,26 @@ function load_optpage_data_personal() {
         );
     }
 
-    $optvals[SMOPT_GRP_CONTACT][] = array(
-        'name'    => 'reply_to',
-        'caption' => _("Reply To"),
-        'type'    => SMOPT_TYPE_STRING,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_HUGE
-    );
+    if ($edit_identity || $edit_reply_to) {
+        $optvals[SMOPT_GRP_CONTACT][] = array(
+            'name'    => 'reply_to',
+            'caption' => _("Reply To"),
+            'type'    => SMOPT_TYPE_STRING,
+            'refresh' => SMOPT_REFRESH_NONE,
+            'size'    => SMOPT_SIZE_HUGE
+        );
+    } else {
+//TODO: For many users, this is redundant to the email address above, especially if not editable -- so here instead of a comment, we could just hide it... in fact, that's what we'll do, but keep this code for posterity in case someone decides we shouldn't do this
+/*
+        $optvals[SMOPT_GRP_CONTACT][] = array(
+            'name'    => 'reply_to',
+            'caption' => _("Reply To"),
+            'type'    => SMOPT_TYPE_COMMENT,
+            'refresh' => SMOPT_REFRESH_NONE,
+            'comment' => sm_encode_html_special_chars($reply_to),
+        );
+*/
+    }
 
     $optvals[SMOPT_GRP_CONTACT][] = array(
         'name'    => 'signature',
