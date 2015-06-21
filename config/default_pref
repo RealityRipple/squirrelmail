@@ -1,3 +1,5 @@
 full_name=
 reply_to=
 show_html_default=0
+include_self_reply_all=0
+do_not_reply_to_self=1
