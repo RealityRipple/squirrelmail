@@ -398,6 +398,8 @@ Version 1.5.2 - SVN
   - Added MD5 alternative to directory hash calculation
   - Added ability for administrator to control whether or not users
     can edit their reply-to address ($edit_reply_to in config.php)
+  - Added new "login_before_page_header" (boolean) hook; allows
+    plugins to have more explicit control over login page header
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
