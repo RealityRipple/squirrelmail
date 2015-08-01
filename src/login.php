@@ -101,7 +101,8 @@ if (! isset($color) || ! is_array($color)) {
 }
 
 // if any plugin returns TRUE here, the standard page header will be skipped
-if (!boolean_hook_function('login_before_page_header', array($header), 1))
+$temp = array($header);
+if (!boolean_hook_function('login_before_page_header', $temp, 1))
     displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
 
