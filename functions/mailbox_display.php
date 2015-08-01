@@ -593,7 +593,9 @@ function prepareMessageList(&$aMailbox, $aProps) {
                     if (isset($aColumnDesc[$k]['truncate']) && $aColumnDesc[$k]['truncate']) {
                         $sTmp = sm_truncate_string($value, $aColumnDesc[$k]['truncate']-$iIndent, '...', TRUE);
                         // drop any double spaces since these will be displayed in the title
-                        $title = ($sTmp != $value) ? preg_replace('/\s{2,}/', ' ', $value) : '';
+                        // Nah, it's nice to always have a roll-over
+                        //$title = ($sTmp != $value) ? preg_replace('/\s{2,}/', ' ', $value) : '';
+                        $title = preg_replace('/\s{2,}/', ' ', $value);
                         $value = $sTmp;
                     }
                     /* generate the link to the message */
