@@ -146,18 +146,20 @@ if ($newmail_allowsound) {
     echo '>' . _("(none)") . '</option>' .  "\n";
     // Iterate sound files for options
     $d = dir(SM_PATH . 'plugins/newmail/sounds');
-    while($entry=$d->read()) {
-        // $fname = get_location () . '/sounds/' . $entry;
-        if ($entry != '..' && $entry != '.' && $entry != 'CVS' && $entry != 'index.php') {
-            echo '<option ';
-            if ($entry == $newmail_media) {
-                echo 'selected="selected" ';
+    if ($d) {
+        while($entry=$d->read()) {
+            // $fname = get_location () . '/sounds/' . $entry;
+            if ($entry != '..' && $entry != '.' && $entry != 'CVS' && $entry != 'index.php') {
+                echo '<option ';
+                if ($entry == $newmail_media) {
+                    echo 'selected="selected" ';
+                }
+                echo 'value="' . sm_encode_html_special_chars($entry) . '">' .
+                    sm_encode_html_special_chars($entry) . "</option>\n";
             }
-            echo 'value="' . sm_encode_html_special_chars($entry) . '">' .
-                sm_encode_html_special_chars($entry) . "</option>\n";
         }
+        $d->close();
     }
-    $d->close();
     // display media selection
     foreach($newmail_mmedia as $newmail_mm_name => $newmail_mm_data) {
         echo '<option ';
