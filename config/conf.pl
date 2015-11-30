@@ -5268,9 +5268,9 @@ sub save_data {
         print CF "\$smtp_sitewide_pass    = '". quote_single($smtp_sitewide_pass) ."';\n";
         # string
         print CF "\$imap_auth_mech        = '$imap_auth_mech';\n";
-        # boolean
+        # integer
         print CF "\$use_imap_tls          = $use_imap_tls;\n";
-        # boolean
+        # integer
         print CF "\$use_smtp_tls          = $use_smtp_tls;\n";
         # boolean
         print CF "\$display_imap_login_error = $display_imap_login_error;\n";
