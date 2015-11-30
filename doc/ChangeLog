@@ -400,6 +400,8 @@ Version 1.5.2 - SVN
     can edit their reply-to address ($edit_reply_to in config.php)
   - Added new "login_before_page_header" (boolean) hook; allows
     plugins to have more explicit control over login page header
+  - Added new "smtp_helo_override" hook; allows plugins to override
+    the HELO host sent to the SMTP server when sending messages
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
