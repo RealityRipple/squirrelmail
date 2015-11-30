@@ -435,6 +435,12 @@ $smtp_auth_mech = 'none'                if ( !$smtp_auth_mech );
 $use_imap_tls = 'false'                 if ( !$use_imap_tls );
 $imap_auth_mech = 'login'               if ( !$imap_auth_mech );
 
+# $use_imap_tls and $use_smtp_tls are switched to integer since 1.5.1
+$use_imap_tls = 0                      if ( $use_imap_tls eq 'false');
+$use_imap_tls = 1                      if ( $use_imap_tls eq 'true');
+$use_smtp_tls = 0                      if ( $use_smtp_tls eq 'false');
+$use_smtp_tls = 1                      if ( $use_smtp_tls eq 'true');
+
 # since 1.5.0
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
 # $available_languages option available only in 1.5.0. removed due to $languages
@@ -491,11 +497,6 @@ if ( !%fontsets) {
                  'verasans',  'bitstream vera sans,verdana,sans-serif');
 }
 
-# $use_imap_tls and $use_smtp_tls are switched to integer since 1.5.1
-$use_imap_tls = 0                      if ( $use_imap_tls eq 'false');
-$use_imap_tls = 1                      if ( $use_imap_tls eq 'true');
-$use_smtp_tls = 0                      if ( $use_smtp_tls eq 'false');
-$use_smtp_tls = 1                      if ( $use_smtp_tls eq 'true');
 # sorting options changed names and reversed values in 1.5.1
 $disable_thread_sort = 'false'         if ( !$disable_thread_sort );
 $disable_server_sort = 'false'         if ( !$disable_server_sort );
