@@ -154,6 +154,9 @@ class Deliver_SMTP extends Deliver {
         if (preg_match('/^\d+\.\d+\.\d+\.\d+$/', $helohost))
             $helohost = '[' . $helohost . ']';
 
+        $hook_result = do_hook('smtp_helo_override', $helohost);
+        if (!empty($hook_result)) $helohost = $hook_result;
+
         /* Lets introduce ourselves */
         fputs($stream, "EHLO $helohost\r\n");
         // Read ehlo response
