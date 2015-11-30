@@ -5516,13 +5516,13 @@ sub set_defaults {
             $domain                         = "gmail.com";
             $imapServerAddress              = "imap.gmail.com";
             $imapPort                       = 993;
-            $use_imap_tls                   = true;
+            $use_imap_tls                   = 1;
             $imap_auth_mech                 = "login";
             $smtpServerAddress              = "smtp.gmail.com";
             $smtpPort                       = 465;
             $pop_before_smtp                = false;
             $useSendmail                    = false;
-            $use_smtp_tls                   = true;
+            $use_smtp_tls                   = 1;
             $smtp_auth_mech                 = "login";
             $continue = 1;
 
