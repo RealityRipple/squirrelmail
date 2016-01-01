@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # conf.pl
 #
-# Copyright (c) 1999-2015 The SquirrelMail Project Team
+# Copyright (c) 1999-2016 The SquirrelMail Project Team
 # Licensed under the GNU GPL. For full terms see COPYING.
 #
 # A simple configure script to configure SquirrelMail

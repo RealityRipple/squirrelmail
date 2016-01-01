@@ -14,7 +14,7 @@
  *          $el['js']        - boolean TRUE if the element requires javascript being enabled. 
  *          $el['accesskey'] - an access key, if one exists (if not, it will be "NONE")
  *
- * @copyright 2006-2015 The SquirrelMail Project Team
+ * @copyright 2006-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

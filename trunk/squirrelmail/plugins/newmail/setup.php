@@ -20,7 +20,7 @@
  * This was tested with IE5.0 - but I hear Netscape works well,
  * too (with a plugin).
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

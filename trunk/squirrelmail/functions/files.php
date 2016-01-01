@@ -6,7 +6,7 @@
  * This file includes various helper functions for working
  * with the server filesystem.
  *
- * @copyright 2008-2015 The SquirrelMail Project Team
+ * @copyright 2008-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

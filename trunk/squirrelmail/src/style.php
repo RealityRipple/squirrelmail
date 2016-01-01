@@ -14,7 +14,7 @@
  *   <li>fontsize - integer, sets selected font size
  *   <li>dir - string, sets text direction variables. Possible values 'rtl' or 'ltr'
  * </ul>
- * @copyright 2005-2015 The SquirrelMail Project Team
+ * @copyright 2005-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

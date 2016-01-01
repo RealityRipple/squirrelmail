@@ -21,7 +21,7 @@
  *                        base URLs above MUST be followed by this index in order
  *                        to work correctly!  
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

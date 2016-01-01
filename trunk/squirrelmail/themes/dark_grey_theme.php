@@ -6,7 +6,7 @@
  *    Date:   July 24, 2000
  *
  * @author Justin Miller
- * @copyright 2000-2015 The SquirrelMail Project Team
+ * @copyright 2000-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

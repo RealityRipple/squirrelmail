@@ -7,7 +7,7 @@
   * SquirrelMail and Smarty.  All abstract methods from the Template class
   * are implemented here.
   *
-  * @copyright 2003-2015 The SquirrelMail Project Team
+  * @copyright 2003-2016 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail

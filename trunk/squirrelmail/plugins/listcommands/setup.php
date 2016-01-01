@@ -8,7 +8,7 @@
  * this plugin displays a menu which gives the user a choice of mailinglist
  * commands such as (un)subscribe, help and list archives.
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

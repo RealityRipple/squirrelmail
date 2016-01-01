@@ -31,7 +31,7 @@
  *  5. http://charts.unicode.org/Unicode.charts/normal/U0E00.html
  *  6. http://www.unicode.org/
  *
- * @copyright 2003-2015 The SquirrelMail Project Team
+ * @copyright 2003-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

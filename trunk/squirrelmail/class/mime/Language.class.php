@@ -6,7 +6,7 @@
  * This file should contain class needed to handle Language properties in 
  * mime messages. I suspect that it is RFC2231
  *
- * @copyright 2003-2015 The SquirrelMail Project Team
+ * @copyright 2003-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

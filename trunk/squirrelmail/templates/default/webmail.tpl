@@ -9,7 +9,7 @@
  *      $nav_on_left - boolean TRUE if the mavigation from should be on the
  *                      left side of the page.  FALSE if it is on the right.
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

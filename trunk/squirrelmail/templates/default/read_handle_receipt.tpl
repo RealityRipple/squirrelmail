@@ -11,7 +11,7 @@
  *                           has been seen
  *     $send_receipt_href  - URL to send a read receipt now.
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

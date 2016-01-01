@@ -22,7 +22,7 @@
  * v.1.5.1 and v.1.4.4.
  *
  * @author Tomas Kuliavas <tokul at users.sourceforge.net>
- * @copyright 2005-2015 The SquirrelMail Project Team
+ * @copyright 2005-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @link http://www.vmailmgr.org vmailmgr site

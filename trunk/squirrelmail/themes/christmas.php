@@ -7,7 +7,7 @@
  *    Comment: This is a Christmas theme shipped with SquirrelMail 1.2.0.
  *
  * @author Jon Tai
- * @copyright 2001-2015 The SquirrelMail Project Team
+ * @copyright 2001-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

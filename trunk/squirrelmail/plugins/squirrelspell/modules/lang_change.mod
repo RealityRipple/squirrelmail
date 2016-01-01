@@ -9,7 +9,7 @@
  * for the user. Called after LANG_SETUP module.
  *
  * @author Konstantin Riabitsev <icon at duke.edu>
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
