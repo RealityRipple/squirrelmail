@@ -6,7 +6,7 @@
  * This file is used for reading the msgs array and displaying
  * the resulting emails in the right frame.
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

@@ -5,7 +5,7 @@
  * Theme Name:   'Techno Blue'
  *
  * Theme posted on SquirrelMail tracker #1377567
- * @copyright 2005-2015 The SquirrelMail Project Team
+ * @copyright 2005-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

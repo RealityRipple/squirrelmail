@@ -6,7 +6,7 @@
  * This is the code for the left bar. The left bar shows the folders
  * available, and has cookie information.
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

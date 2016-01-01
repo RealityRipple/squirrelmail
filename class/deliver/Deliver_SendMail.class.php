@@ -6,7 +6,7 @@
  * Delivery backend for the Deliver class.
  *
  * @author Marc Groot Koerkamp
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

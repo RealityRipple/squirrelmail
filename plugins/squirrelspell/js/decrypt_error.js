@@ -4,7 +4,7 @@
  * Some client-side form-checks. Trivial stuff.
  *
  * @author Konstantin Riabitsev <icon at duke.edu>
- * @copyright 2001-2015 The SquirrelMail Project Team
+ * @copyright 2001-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  */

@@ -10,7 +10,7 @@
   * string $body The page content (lightly formatted system specs text
   *              with newlines and spaces for indentation)
   *                       
-  * @copyright 1999-2015 The SquirrelMail Project Team
+  * @copyright 1999-2016 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail

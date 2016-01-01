@@ -6,7 +6,7 @@
  * This file contains iso-8859-1 decoding function that is needed to read
  * iso-8859-1 encoded mails in non-iso-8859-1 locale.
  *
- * @copyright 2003-2015 The SquirrelMail Project Team
+ * @copyright 2003-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

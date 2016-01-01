@@ -5,7 +5,7 @@
  * Theme Name:   'Classic Blue 2'
  *
  * Theme posted on SquirrelMail tracker #1378332
- * @copyright 2005-2015 The SquirrelMail Project Team
+ * @copyright 2005-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

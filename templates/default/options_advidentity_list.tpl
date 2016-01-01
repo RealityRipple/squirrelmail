@@ -16,7 +16,7 @@
  *          $el['ReplyTo']  - value for the Reply To field
  *          $el['Signature']- value for the Signature field
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

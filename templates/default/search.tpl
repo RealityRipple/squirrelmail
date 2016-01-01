@@ -24,7 +24,7 @@
  *      $where_sel          - the selected field to search in for the search
  *      $what_val           - the value that is to be searched for.
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

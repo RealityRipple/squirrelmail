@@ -6,7 +6,7 @@
  * Plugin's site configuration should be stored in config/bug_report_config.php
  * or plugins/bug_report/config.php file.
  *
- * @copyright 2005-2015 The SquirrelMail Project Team
+ * @copyright 2005-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

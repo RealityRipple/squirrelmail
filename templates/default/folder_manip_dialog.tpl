@@ -19,7 +19,7 @@
  *      + $folder_name - the name of the element being deleted
  *      + $visible_folder_name - scrubbed string of the element begin deleted
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

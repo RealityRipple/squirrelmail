@@ -4,7 +4,7 @@
  * Poppassd change password backend
  *
  * @author Seth Randall <sethr at missoulafcu.org>
- * @copyright 2004-2015 The SquirrelMail Project Team
+ * @copyright 2004-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

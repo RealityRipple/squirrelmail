@@ -3,7 +3,7 @@
 /**
  * Functions to edit an event.
  *
- * @copyright 2002-2015 The SquirrelMail Project Team
+ * @copyright 2002-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

@@ -6,7 +6,7 @@
  * This plugin aims to provide a general framework for all password
  * changing methods that currently have their own plugins.
  *
- * @copyright 2003-2015 The SquirrelMail Project Team
+ * @copyright 2003-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

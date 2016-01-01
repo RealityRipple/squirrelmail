@@ -9,7 +9,7 @@
   * The SquirrelMail (Foowd) template implementation.
   * Derived from the foowd template implementation and adapted
   * for squirrelmail
-  * @copyright 2005-2015 The SquirrelMail Project Team
+  * @copyright 2005-2016 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail

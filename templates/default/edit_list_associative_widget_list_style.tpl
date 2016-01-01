@@ -38,7 +38,7 @@ FIXME: which inputs to use $aAttribs for? currently only the <select> tag
   * string   $trailing_text      Any text given by the caller to be displayed
   *                              after the edit list input
   *
-  * @copyright 1999-2015 The SquirrelMail Project Team
+  * @copyright 1999-2016 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail

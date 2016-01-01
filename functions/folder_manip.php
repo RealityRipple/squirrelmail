@@ -7,7 +7,7 @@
  * (un)subscribe, create, rename, delete.
  *
  * @author Thijs Kinkhorst <kink at squirrelmail.org>
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

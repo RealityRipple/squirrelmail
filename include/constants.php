@@ -6,7 +6,7 @@
  * Loads constants used by the rest of the SquirrelMail source.
  *
  * Before 1.5.2 script was stored in functions/constants.php
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -25,7 +25,7 @@ define('SM_VERSION', '1.5.2 [SVN]');
  * Year interval for copyright notices in the interface
  * @since 1.5.2
  */
-define('SM_COPYRIGHT', '1999-2015');
+define('SM_COPYRIGHT', '1999-2016');
 
 /**************************************************************/
 /* Set values for constants used by SquirrelMail preferences. */

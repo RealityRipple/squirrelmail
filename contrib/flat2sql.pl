@@ -8,7 +8,7 @@
 # using this script.
 #
 # Copyright (c) 2002, Michael Blandford and Tal Yardeni
-# Copyright (c) 2005-2015 The SquirrelMail Project Team
+# Copyright (c) 2005-2016 The SquirrelMail Project Team
 #
 # This script is licensed under the GNU Public License (GPL).
 # See: http://opensource.org/licenses/gpl-license.php

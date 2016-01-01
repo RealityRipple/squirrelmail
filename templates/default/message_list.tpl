@@ -73,7 +73,7 @@
  *    $accesskey_mailbox_toggle_selected The access key to use for the toggle all checkbox
  *    $accesskey_mailbox_thread The access key to use for the Thread/Unthread links
  *
- * @copyright 1999-2015 The SquirrelMail Project Team
+ * @copyright 1999-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

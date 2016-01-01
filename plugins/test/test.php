@@ -2,7 +2,7 @@
 
 /**
  * SquirrelMail Test Plugin
- * @copyright 2006-2015 The SquirrelMail Project Team
+ * @copyright 2006-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

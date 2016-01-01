@@ -4,7 +4,7 @@
  * MySQL change password backend
  *
  * @author Thijs Kinkhorst <kink at squirrelmail.org>
- * @copyright 2003-2015 The SquirrelMail Project Team
+ * @copyright 2003-2016 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
