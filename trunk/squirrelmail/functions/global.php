@@ -589,6 +589,21 @@ function sqsession_start() {
 function sqsetcookie($sName, $sValue='deleted', $iExpire=0, $sPath="", $sDomain="",
                      $bSecure=false, $bHttpOnly=true, $bReplace=false) {
  
+    // some environments can get overwhelmed by an excessive
+    // setting of the same cookie over and over (e.g., many
+    // calls to this function via sqsession_is_active() result
+    // in repeated setting of the session cookie when $bReplace
+    // is FALSE, but something odd happens (during login only)
+    // if we change that to default TRUE) ... so we keep our own
+    // naive per-request name/value cache and only set the cookie
+    // if its value is changing (or never seen before)
+    static $cookies = array();
+    if (isset($cookies[$sName]) && $cookies[$sName] === $sValue)
+        return;
+    else
+        $cookies[$sName] = $sValue;
+
+
     // if we have a secure connection then limit the cookies to https only.
     global $is_secure_connection;
     if ($sName && $is_secure_connection)
