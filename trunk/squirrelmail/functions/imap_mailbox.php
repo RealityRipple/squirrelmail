@@ -656,7 +656,10 @@ function sqimap_mailbox_parse ($line) {
     global $folder_prefix, $delimiter;
 
     /* Process each folder line */
-    for ($g = 0, $cnt = count($line); $g < $cnt; ++$g) {
+    ksort($line); // get physical ordering same as alphabetical sort we did before now (might be a better place for this)
+    foreach ($line as $g => $l)
+    // was this but array not guaranteed to be contiguous: for ($g = 0, $cnt = count($line); $g < $cnt; ++$g)
+    {
         /* Store the raw IMAP reply */
         if (isset($line[$g])) {
             $boxesall[$g]['raw'] = $line[$g];
@@ -1088,7 +1091,9 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
     $cnt = count($boxesall);
     $used = array_pad($used,$cnt,false);
     $has_inbox = false;
-    for($k = 0; $k < $cnt; ++$k) {
+    foreach ($boxesall as $k => $b)
+    // was this but array not guaranteed to be contiguous: for($k = 0; $k < $cnt; ++$k)
+    {
         if (strtoupper($boxesall[$k]['unformatted']) == 'INBOX') {
             $boxesnew[] = $boxesall[$k];
             $used[$k] = true;
@@ -1117,7 +1122,9 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
 
     /* List special folders and their subfolders, if requested. */
     if ($list_special_folders_first) {
-        for($k = 0; $k < $cnt; ++$k) {
+        foreach ($boxesall as $k => $b)
+        // was this but array not guaranteed to be contiguous: for($k = 0; $k < $cnt; ++$k)
+        {
             if (!$used[$k] && isSpecialMailbox($boxesall[$k]['unformatted'])) {
                 $boxesnew[] = $boxesall[$k];
                 $used[$k]   = true;
@@ -1126,7 +1133,9 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
     }
 
     /* Find INBOX's children */
-    for($k = 0; $k < $cnt; ++$k) {
+    foreach ($boxesall as $k => $b)
+    // was this but array not guaranteed to be contiguous: for($k = 0; $k < $cnt; ++$k)
+    {
         $isboxbelow=isBoxBelow(strtoupper($boxesall[$k]['unformatted']),'INBOX');
         if (strtoupper($boxesall[$k]['unformatted']) == 'INBOX') {
             $is_inbox=1;
@@ -1141,7 +1150,9 @@ function sqimap_get_mailboxes($imap_stream,$force=false,$show_only_subscribed=tr
     }
 
     /* Rest of the folders */
-    for($k = 0; $k < $cnt; $k++) {
+    foreach ($boxesall as $k => $b)
+    // was this but array not guaranteed to be contiguous: for($k = 0; $k < $cnt; ++$k)
+    {
         if (!$used[$k]) {
             $boxesnew[] = $boxesall[$k];
         }
