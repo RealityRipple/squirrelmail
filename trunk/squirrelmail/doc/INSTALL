@@ -56,11 +56,16 @@ Each of these steps is covered in detail below.
   --with-ldap
     Required for LDAP addressbooks
 
-  --with-pear and --with-mysql
-    For MySQL storage of preferences or addressbooks. You will need PHP
-    compiled with --with-pgsql option, if you want to use PostgreSQL instead
-    of MySQL. You will need PHP with appropriate database extension, if you
-    want to use any other database.
+  --with-pear 
+    If you do not have PHP PDO (which should come preinstalled with
+    PHP version 5.1 and above) and you plan to store user preferences
+    or address books in a database, you will need PHP compiled with
+    the above option.  ALSO, you need to build the database driver
+    relevant to your database:
+  --with-mysql for MySQL
+  --with-pgsql for PostgreSQL 
+    Again, this is only required for versions of PHP that do not 
+    have PDO.
 
   --with-openssl
     Required for encrypted IMAP or SMTP connections (TLS)
