@@ -228,22 +228,47 @@ class abook_database extends addressbook_backend {
 
         if ($use_pdo) {
             // parse and convert DSN to PDO style
+            // Pear's full DSN syntax is one of the following:
+            //    phptype(dbsyntax)://username:password@protocol+hostspec/database?option=value
+            //    phptype(syntax)://user:pass@protocol(proto_opts)/database
+            //
             // $matches will contain:
             // 1: database type
             // 2: username
             // 3: password
-            // 4: hostname
-            // 5: database name
-//TODO: add support for unix_socket and charset
+            // 4: hostname (and possible port number) OR protocol (and possible protocol options)
+            // 5: database name (and possible options)
+            // 6: port number (moved from match number 4)
+            // 7: options (moved from match number 5)
+            // 8: protocol (instead of hostname)
+            // 9: protocol options (moved from match number 4/8)
+//TODO: do we care about supporting cases where no password is given? (this is a legal DSN, but causes an error below)
             if (!preg_match('|^(.+)://(.+):(.+)@(.+)/(.+)$|i', $this->dsn, $matches)) {
                 return $this->set_error(_("Could not parse prefs DSN"));
             }
+            $matches[6] = NULL;
+            $matches[7] = NULL;
+            $matches[8] = NULL;
+            $matches[9] = NULL;
             if (preg_match('|^(.+):(\d+)$|', $matches[4], $host_port_matches)) {
                 $matches[4] = $host_port_matches[1];
                 $matches[6] = $host_port_matches[2];
-            } else
+            }
+            if (preg_match('|^(.+?)\((.+)\)$|', $matches[4], $protocol_matches)) {
+                $matches[8] = $protocol_matches[1];
+                $matches[9] = $protocol_matches[2];
+                $matches[4] = NULL;
                 $matches[6] = NULL;
-            $pdo_prefs_dsn = $matches[1] . ':host=' . $matches[4] . (!empty($matches[6]) ? ';port=' . $matches[6] : '') . ';dbname=' . $matches[5];
+            }
+//TODO: currently we just ignore options specified on the end of the DSN
+            if (preg_match('|^(.+?)\?(.+)$|', $matches[5], $database_name_options_matches)) {
+                $matches[5] = $database_name_options_matches[1];
+                $matches[7] = $database_name_options_matches[2];
+            }
+            if ($matches[8] === 'unix' && !empty($matches[9]))
+                $pdo_prefs_dsn = $matches[1] . ':unix_socket=' . $matches[9] . ';dbname=' . $matches[5];
+            else
+                $pdo_prefs_dsn = $matches[1] . ':host=' . $matches[4] . (!empty($matches[6]) ? ';port=' . $matches[6] : '') . ';dbname=' . $matches[5];
             try {
                 $dbh = new PDO($pdo_prefs_dsn, $matches[2], $matches[3]);
             } catch (Exception $e) {
