@@ -90,5 +90,31 @@
  *         'verify_depth' => 3,
  *     ),
  * );
+ *
+ * $disable_pdo (boolean) tells SquirrelMail not to use
+ * PDO to access the user preferences and address book
+ * databases as it normally would.  When this is set to
+ * TRUE, Pear DB will be used instead, but this is not
+ * recommended.
+ *
+ * $pdo_show_sql_errors (boolean) causes the actual
+ * database error to be displayed when one is encountered.
+ * When set to FALSE, generic errors are displayed,
+ * preventing internal database information from being
+ * exposed.  This should be set to TRUE only for debugging
+ * purposes.
+ *
+ * $pdo_identifier_quote_char (string) allows you to
+ * override the character used for quoting table and field
+ * names in database queries.  Set this to the desired
+ * Quote character, for example:
+ * $pdo_identifier_quote_char = '"';
+ * Or you can tell SquirrelMail not to quote identifiers
+ * at all by setting this to "none".  When this setting
+ * is empty or not found, SquirrelMail will attempt to
+ * quote table and field names with what it thinks is
+ * the appropriate quote character for the database type
+ * being used (backtick for MySQL (and thus MariaDB),
+ * double quotes for all others).
  */
 
