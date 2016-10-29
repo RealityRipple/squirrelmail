@@ -931,70 +931,113 @@ if (isset($_ENV['TZ'])) {
 }
 echo ".<br />\n";
 
-// Pear DB tests
+// Database tests
 echo "Checking database functions...<br />\n";
 if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
-    @include_once('DB.php');
-    if (class_exists('DB')) {
-        echo "$IND PHP Pear DB support is present.<br />\n";
-        $db_functions=array(
-                'dbase' => 'dbase_open',
-                'fbsql' => 'fbsql_connect',
-                'interbase' => 'ibase_connect',
-                'informix' => 'ifx_connect',
-                'msql' => 'msql_connect',
-                'mssql' => 'mssql_connect',
-                'mysql' => 'mysql_connect',
-                'mysqli' => 'mysqli_connect',
-                'oci8' => 'ocilogon',
-                'odbc' => 'odbc_connect',
-                'pgsql' => 'pg_connect',
-                'sqlite' => 'sqlite_open',
-                'sybase' => 'sybase_connect'
-                );
+    $dsns = array();
+    if($prefs_dsn) {
+        $dsns['preferences'] = $prefs_dsn;
+    }
+    if($addrbook_dsn) {
+        $dsns['addressbook'] = $addrbook_dsn;
+    }
+    if($addrbook_global_dsn) {
+        $dsns['global addressbook'] = $addrbook_global_dsn;
+    }
 
-        $dsns = array();
-        if($prefs_dsn) {
-            $dsns['preferences'] = $prefs_dsn;
-        }
-        if($addrbook_dsn) {
-            $dsns['addressbook'] = $addrbook_dsn;
-        }
-        if($addrbook_global_dsn) {
-            $dsns['global addressbook'] = $addrbook_global_dsn;
-        }
+    global $disable_pdo, $use_pdo;
+    if (empty($disable_pdo) && class_exists('PDO'))
+        $use_pdo = TRUE;
+    else
+        $use_pdo = FALSE;
 
+    if ($use_pdo) {
+
+        // test connecting to each DSN
         foreach($dsns as $type => $dsn) {
-            $aDsn = explode(':', $dsn);
-            $dbtype = array_shift($aDsn);
 
-            if(isset($db_functions[$dbtype]) && function_exists($db_functions[$dbtype])) {
-                echo "$IND$dbtype database support present.<br />\n";
-            } elseif(!(bool)ini_get('enable_dl') || (bool)ini_get('safe_mode')) {
-                do_err($dbtype.' database support not present!');
-            } else {
-                // Non-fatal error
-                do_err($dbtype.' database support not present or not configured!
-                    Trying to dynamically load '.$dbtype.' extension.
-                    Please note that it is advisable to not rely on dynamic loading of extensions.', FALSE);
+            // parse and convert DSN to PDO style
+            // $matches will contain:
+            // 1: database type
+            // 2: username
+            // 3: password
+            // 4: hostname
+            // 5: database name
+//TODO: add support for unix_socket and charset
+            if (!preg_match('|^(.+)://(.+):(.+)@(.+)/(.+)$|i', $dsn, $matches)) {
+                return $this->set_error(_("Could not parse prefs DSN"));
+                do_err('DSN parse error in ' .$type .' DSN.');
             }
-
-
-            // now, test this interface:
-
-            $dbh = DB::connect($dsn, true);
-            if (DB::isError($dbh)) {
-                do_err('Database error: '. sm_encode_html_special_chars(DB::errorMessage($dbh)) .
+            if (preg_match('|^(.+):(\d+)$|', $matches[4], $host_port_matches)) {
+                $matches[4] = $host_port_matches[1];
+                $matches[6] = $host_port_matches[2];
+            } else
+                $matches[6] = NULL;
+            $pdo_prefs_dsn = $matches[1] . ':host=' . $matches[4] . (!empty($matches[6]) ? ';port=' . $matches[6] : '') . ';dbname=' . $matches[5];
+            try {
+                $dbh = new PDO($pdo_prefs_dsn, $matches[2], $matches[3]);
+            } catch (Exception $e) {
+                do_err('Database error: '. sm_encode_html_special_chars($e->getMessage()) .
                         ' in ' .$type .' DSN.');
             }
-            $dbh->disconnect();
             echo "$IND$type database connect successful.<br />\n";
         }
+
     } else {
-        $db_error='Required PHP PEAR DB support is not available.'
-            .' Is PEAR installed and is the include path set correctly to find <tt>DB.php</tt>?'
-            .' The include path is now: "<tt>' . ini_get('include_path') . '</tt>".';
-        do_err($db_error);
+        @include_once('DB.php');
+        if (class_exists('DB')) {
+            echo "$IND PHP Pear DB support is present, however it is deprecated and PHP PDO is recommended.<br />\n"
+                .(!empty($disable_pdo) ? "$IND You have set \$disable_pdo - if you experience errors below, try removing that.<br />\n" : '');
+            $db_functions=array(
+                    'dbase' => 'dbase_open',
+                    'fbsql' => 'fbsql_connect',
+                    'interbase' => 'ibase_connect',
+                    'informix' => 'ifx_connect',
+                    'msql' => 'msql_connect',
+                    'mssql' => 'mssql_connect',
+                    'mysql' => 'mysql_connect',
+                    'mysqli' => 'mysqli_connect',
+                    'oci8' => 'ocilogon',
+                    'odbc' => 'odbc_connect',
+                    'pgsql' => 'pg_connect',
+                    'sqlite' => 'sqlite_open',
+                    'sybase' => 'sybase_connect'
+                    );
+
+            foreach($dsns as $type => $dsn) {
+                $aDsn = explode(':', $dsn);
+                $dbtype = array_shift($aDsn);
+
+                if(isset($db_functions[$dbtype]) && function_exists($db_functions[$dbtype])) {
+                    echo "$IND$dbtype database support present.<br />\n";
+                } elseif(!(bool)ini_get('enable_dl') || (bool)ini_get('safe_mode')) {
+                    do_err($dbtype.' database support not present!');
+                } else {
+                    // Non-fatal error
+                    do_err($dbtype.' database support not present or not configured!
+                        Trying to dynamically load '.$dbtype.' extension.
+                        Please note that it is advisable to not rely on dynamic loading of extensions.', FALSE);
+                }
+
+
+                // now, test this interface:
+
+                $dbh = DB::connect($dsn, true);
+                if (DB::isError($dbh)) {
+                    do_err('Database error: '. sm_encode_html_special_chars(DB::errorMessage($dbh)) .
+                            ' in ' .$type .' DSN.');
+                }
+                $dbh->disconnect();
+                echo "$IND$type database connect successful.<br />\n";
+            }
+        } else {
+            $db_error='Required PHP PDO or PEAR DB support is not available.'
+                .(!empty($disable_pdo) ? ' You have set $disable_pdo - please try removing that.' : '')
+                .' PDO should come preinstalled with PHP version 5.1 or higher.'
+                .' Otherwise, is PEAR installed and is the include path set correctly to find <tt>DB.php</tt>?'
+                .' The include path is now: "<tt>' . ini_get('include_path') . '</tt>".';
+            do_err($db_error);
+        }
     }
 } else {
     echo $IND."not using database functionality.<br />\n";
