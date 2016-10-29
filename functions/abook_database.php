@@ -22,24 +22,34 @@
  */
 
 /**
- * Needs the DB functions
+ * Needs either PDO or the DB functions
  * Don't display errors here. Error will be set in class constructor function.
  */
-@include_once('DB.php');
+global $use_pdo, $disable_pdo;
+if (empty($disable_pdo) && class_exists('PDO'))
+    $use_pdo = TRUE;
+else
+    $use_pdo = FALSE;
+
+if (!$use_pdo)
+    @include_once('DB.php');
 
 /**
  * Address book in a database backend
  *
  * Backend for personal/shared address book stored in a database,
- * accessed using the DB-classes in PEAR.
+ * accessed using the DB-classes in PEAR or PDO, the latter taking
+ * precedence if available..
  *
- * IMPORTANT:  The PEAR modules must be in the include path
- * for this class to work.
+ * IMPORTANT:  If PDO is not available (it should be installed by
+ *             default since PHP 5.1), then the PEAR modules must
+ *             be in the include path for this class to work.
  *
  * An array with the following elements must be passed to
  * the class constructor (elements marked ? are optional):
  * <pre>
- *   dsn       => database DNS (see PEAR for syntax)
+ *   dsn       => database DNS (see PEAR for syntax, but more or
+ *                less it is:  mysql://user:pass@hostname/dbname)
  *   table     => table to store addresses in (must exist)
  *   owner     => current user (owner of address data)
  * ? name      => name of address book
@@ -52,6 +62,32 @@
  *
  *  NOTE. This class should not be used directly. Use the
  *        "AddressBook" class instead.
+ *
+ * Three settings that control PDO behavior can be specified in
+ * config/config_local.php if needed:
+ *    boolean $disable_pdo SquirrelMail uses PDO by default to access the
+ *                         user preferences and address book databases, but
+ *                         setting this to TRUE will cause SquirrelMail to
+ *                         fall back to using Pear DB instead.
+ *    boolean $pdo_show_sql_errors When database errors are encountered,
+ *                                 setting this to TRUE causes the actual
+ *                                 database error to be displayed, otherwise
+ *                                 generic errors are displayed, preventing
+ *                                 internal database information from being
+ *                                 exposed. This should be enabled only for
+ *                                 debugging purposes.
+ *    string $pdo_identifier_quote_char By default, SquirrelMail will quote
+ *                                      table and field names in database
+ *                                      queries with what it thinks is the
+ *                                      appropriate quote character for the
+ *                                      database type being used (backtick
+ *                                      for MySQL (and thus MariaDB), double
+ *                                      quotes for all others), but you can
+ *                                      override the character used by
+ *                                      putting it here, or tell SquirrelMail
+ *                                      NOT to quote identifiers by setting
+ *                                      this to "none"
+ *
  * @package squirrelmail
  * @subpackage addressbook
  */
@@ -72,6 +108,14 @@ class abook_database extends addressbook_backend {
      * @var string
      */
     var $dsn       = '';
+
+    /**
+     * Character used to quote database table
+     * and field names
+     * @var string
+     */
+    var $identifier_quote_char = '';
+
     /**
      * Table that stores addresses
      * @var string
@@ -109,12 +153,12 @@ class abook_database extends addressbook_backend {
     function abook_database($param) {
         $this->sname = _("Personal Address Book");
 
-        /* test if Pear DB class is available and freak out if it is not */
-        if (! class_exists('DB')) {
+        /* test if PDO or Pear DB classes are available and freak out if necessary */
+        global $use_pdo;
+        if (!$use_pdo && !class_exists('DB')) {
             // same error also in db_prefs.php
-            $error  = _("Could not include PEAR database functions required for the database backend.") . "\n";
-            $error .= sprintf(_("Is PEAR installed, and is the include path set correctly to find %s?"),
-                              'DB.php') . "\n";
+            $error  = _("Could not find or include PHP PDO or PEAR database functions required for the database backend.") . "\n";
+            $error .= sprintf(_("PDO should come preinstalled with PHP version 5.1 or higher. Otherwise, is PEAR installed, and is the include path set correctly to find %s?"), 'DB.php') . "\n";
             $error .= _("Please contact your system administrator and report this error.");
             return $this->set_error($error);
         }
@@ -142,6 +186,19 @@ class abook_database extends addressbook_backend {
                $this->listing = $param['listing'];
             }
 
+            // figure out identifier quoting (only used for PDO, though we could change that)
+            global $pdo_identifier_quote_char;
+            if (empty($pdo_identifier_quote_char)) {
+                if (strpos($this->dsn, 'mysql') === 0)
+                    $this->identifier_quote_char = '`';
+                else
+                    $this->identifier_quote_char = '"';
+            } else if ($pdo_identifier_quote_char === 'none')
+                $this->identifier_quote_char = '';
+            else
+                $this->identifier_quote_char = $pdo_identifier_quote_char;
+
+
             $this->open(true);
         }
         else {
@@ -156,6 +213,7 @@ class abook_database extends addressbook_backend {
      * @return bool
      */
     function open($new = false) {
+        global $use_pdo;
         $this->error = '';
 
         /* Return true is file is open and $new is unset */
@@ -168,21 +226,48 @@ class abook_database extends addressbook_backend {
             $this->close();
         }
 
-        $dbh = DB::connect($this->dsn, true);
+        if ($use_pdo) {
+            // parse and convert DSN to PDO style
+            // $matches will contain:
+            // 1: database type
+            // 2: username
+            // 3: password
+            // 4: hostname
+            // 5: database name
+//TODO: add support for unix_socket and charset
+            if (!preg_match('|^(.+)://(.+):(.+)@(.+)/(.+)$|i', $this->dsn, $matches)) {
+                return $this->set_error(_("Could not parse prefs DSN"));
+            }
+            if (preg_match('|^(.+):(\d+)$|', $matches[4], $host_port_matches)) {
+                $matches[4] = $host_port_matches[1];
+                $matches[6] = $host_port_matches[2];
+            } else
+                $matches[6] = NULL;
+            $pdo_prefs_dsn = $matches[1] . ':host=' . $matches[4] . (!empty($matches[6]) ? ';port=' . $matches[6] : '') . ';dbname=' . $matches[5];
+            try {
+                $dbh = new PDO($pdo_prefs_dsn, $matches[2], $matches[3]);
+            } catch (Exception $e) {
+                return $this->set_error(sprintf(_("Database error: %s"), $e->getMessage()));
+            }
 
-        if (DB::isError($dbh)) {
-            return $this->set_error(sprintf(_("Database error: %s"),
-                                            DB::errorMessage($dbh)));
+            $dbh->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+
+        } else {
+            $dbh = DB::connect($this->dsn, true);
+
+            if (DB::isError($dbh)) {
+                return $this->set_error(sprintf(_("Database error: %s"),
+                                                DB::errorMessage($dbh)));
+            }
+
+            /**
+             * field names are lowercased.
+             * We use unquoted identifiers and they use upper case in Oracle
+             */
+            $dbh->setOption('portability', DB_PORTABILITY_LOWERCASE);
         }
 
         $this->dbh = $dbh;
-
-        /**
-         * field names are lowercased.
-         * We use unquoted identifiers and they use upper case in Oracle
-         */
-        $this->dbh->setOption('portability', DB_PORTABILITY_LOWERCASE);
-
         return true;
     }
 
@@ -190,8 +275,13 @@ class abook_database extends addressbook_backend {
      * Close the file and forget the filehandle
      */
     function close() {
-        $this->dbh->disconnect();
-        $this->dbh = false;
+        global $use_pdo;
+        if ($use_pdo) {
+            $this->dbh = NULL;
+        } else {
+            $this->dbh->disconnect();
+            $this->dbh = false;
+        }
     }
 
     /**
@@ -257,36 +347,65 @@ class abook_database extends addressbook_backend {
         /* Convert wildcards to SQL syntax  */
         $expr = str_replace('?', '_', $expr);
         $expr = str_replace('*', '%', $expr);
-        $expr = $this->dbh->quoteString($expr);
+
         $expr = "%$expr%";
 
-        /* create escape expression */
-        $escape = 'ESCAPE \'' . $this->dbh->quoteString('\\') . '\'';
-    
-        $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND " .
-                         "(LOWER(firstname) LIKE '%s' %s " .
-                         "OR LOWER(lastname) LIKE '%s' %s " .
-                         "OR LOWER(email) LIKE '%s' %s " .
-                         "OR LOWER(nickname) LIKE '%s' %s)",
-                         $this->table, $this->owner, $expr, $escape, $expr, $escape,
-                                                     $expr, $escape, $expr, $escape);
+        global $use_pdo, $pdo_show_sql_errors;
+        if ($use_pdo) {
+            if (!($sth = $this->dbh->prepare('SELECT * FROM ' . $this->identifier_quote_char . $this->table . $this->identifier_quote_char . ' WHERE ' . $this->identifier_quote_char . 'owner' . $this->identifier_quote_char . ' = ? AND (LOWER(' . $this->identifier_quote_char . 'firstname' . $this->identifier_quote_char . ') LIKE ? ESCAPE ? OR LOWER(' . $this->identifier_quote_char . 'lastname' . $this->identifier_quote_char . ') LIKE ? ESCAPE ? OR LOWER(' . $this->identifier_quote_char . 'email' . $this->identifier_quote_char . ') LIKE ? ESCAPE ? OR LOWER(' . $this->identifier_quote_char . 'nickname' . $this->identifier_quote_char . ') LIKE ? ESCAPE ?)'))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $this->dbh->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not prepare query")));
+            }
+            if (!($res = $sth->execute(array($this->owner, $expr, '\\', $expr, '\\', $expr, '\\', $expr, '\\')))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $sth->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not execute query")));
+            }
 
-        $res = $this->dbh->query($query);
+            while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+                array_push($ret, array('nickname'  => $row['nickname'],
+                                       'name'      => $this->fullname($row['firstname'], $row['lastname']),
+                                       'firstname' => $row['firstname'],
+                                       'lastname'  => $row['lastname'],
+                                       'email'     => $row['email'],
+                                       'label'     => $row['label'],
+                                       'backend'   => $this->bnum,
+                                       'source'    => &$this->sname));
+            }
 
-        if (DB::isError($res)) {
-            return $this->set_error(sprintf(_("Database error: %s"),
-                                            DB::errorMessage($res)));
-        }
+        } else {
+            $expr = $this->dbh->quoteString($expr);
 
-        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            array_push($ret, array('nickname'  => $row['nickname'],
-                                   'name'      => $this->fullname($row['firstname'], $row['lastname']),
-                                   'firstname' => $row['firstname'],
-                                   'lastname'  => $row['lastname'],
-                                   'email'     => $row['email'],
-                                   'label'     => $row['label'],
-                                   'backend'   => $this->bnum,
-                                   'source'    => &$this->sname));
+            /* create escape expression */
+            $escape = 'ESCAPE \'' . $this->dbh->quoteString('\\') . '\'';
+
+            $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND " .
+                             "(LOWER(firstname) LIKE '%s' %s " .
+                             "OR LOWER(lastname) LIKE '%s' %s " .
+                             "OR LOWER(email) LIKE '%s' %s " .
+                             "OR LOWER(nickname) LIKE '%s' %s)",
+                             $this->table, $this->owner, $expr, $escape, $expr, $escape,
+                                                         $expr, $escape, $expr, $escape);
+            $res = $this->dbh->query($query);
+
+            if (DB::isError($res)) {
+                return $this->set_error(sprintf(_("Database error: %s"),
+                                                DB::errorMessage($res)));
+            }
+
+            while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+                array_push($ret, array('nickname'  => $row['nickname'],
+                                       'name'      => $this->fullname($row['firstname'], $row['lastname']),
+                                       'firstname' => $row['firstname'],
+                                       'lastname'  => $row['lastname'],
+                                       'email'     => $row['email'],
+                                       'label'     => $row['label'],
+                                       'backend'   => $this->bnum,
+                                       'source'    => &$this->sname));
+            }
         }
         return $ret;
     }
@@ -325,27 +444,56 @@ class abook_database extends addressbook_backend {
             return $this->set_error(sprintf(_("Unknown field name: %s"), $field));
         }
 
-        $query = sprintf("SELECT * FROM %s WHERE owner = '%s' AND LOWER(%s) = '%s'",
-                         $this->table, $this->owner, $db_field, 
-                         $this->dbh->quoteString($value));
+        global $use_pdo, $pdo_show_sql_errors;
+        if ($use_pdo) {
+            if (!($sth = $this->dbh->prepare('SELECT * FROM ' . $this->identifier_quote_char . $this->table . $this->identifier_quote_char . ' WHERE ' . $this->identifier_quote_char . 'owner' . $this->identifier_quote_char . ' = ? AND LOWER(' . $this->identifier_quote_char . $db_field . $this->identifier_quote_char . ') = ?'))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $this->dbh->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not prepare query")));
+            }
+            if (!($res = $sth->execute(array($this->owner, $value)))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $sth->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not execute query")));
+            }
 
-        $res = $this->dbh->query($query);
+            if ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+                return array('nickname'  => $row['nickname'],
+                             'name'      => $this->fullname($row['firstname'], $row['lastname']),
+                             'firstname' => $row['firstname'],
+                             'lastname'  => $row['lastname'],
+                             'email'     => $row['email'],
+                             'label'     => $row['label'],
+                             'backend'   => $this->bnum,
+                             'source'    => &$this->sname);
+            }
 
-        if (DB::isError($res)) {
-            return $this->set_error(sprintf(_("Database error: %s"),
-                                            DB::errorMessage($res)));
+        } else {
+            $query = sprintf("SELECT * FROM %s WHERE owner = '%s' AND LOWER(%s) = '%s'",
+                             $this->table, $this->owner, $db_field, 
+                             $this->dbh->quoteString($value));
+
+            $res = $this->dbh->query($query);
+
+            if (DB::isError($res)) {
+                return $this->set_error(sprintf(_("Database error: %s"),
+                                                DB::errorMessage($res)));
+            }
+
+            if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+                return array('nickname'  => $row['nickname'],
+                             'name'      => $this->fullname($row['firstname'], $row['lastname']),
+                             'firstname' => $row['firstname'],
+                             'lastname'  => $row['lastname'],
+                             'email'     => $row['email'],
+                             'label'     => $row['label'],
+                             'backend'   => $this->bnum,
+                             'source'    => &$this->sname);
+            }
         }
 
-        if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            return array('nickname'  => $row['nickname'],
-                         'name'      => $this->fullname($row['firstname'], $row['lastname']),
-                         'firstname' => $row['firstname'],
-                         'lastname'  => $row['lastname'],
-                         'email'     => $row['email'],
-                         'label'     => $row['label'],
-                         'backend'   => $this->bnum,
-                         'source'    => &$this->sname);
-        }
         return array();
     }
 
@@ -364,26 +512,54 @@ class abook_database extends addressbook_backend {
         }
 
 
-        $query = sprintf("SELECT * FROM %s WHERE owner='%s'",
-                         $this->table, $this->owner);
+        global $use_pdo, $pdo_show_sql_errors;
+        if ($use_pdo) {
+            if (!($sth = $this->dbh->prepare('SELECT * FROM ' . $this->identifier_quote_char . $this->table . $this->identifier_quote_char . ' WHERE ' . $this->identifier_quote_char . 'owner' . $this->identifier_quote_char . ' = ?'))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $this->dbh->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not prepare query")));
+            }
+            if (!($res = $sth->execute(array($this->owner)))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $sth->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not execute query")));
+            }
 
-        $res = $this->dbh->query($query);
+            while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
+                array_push($ret, array('nickname'  => $row['nickname'],
+                                       'name'      => $this->fullname($row['firstname'], $row['lastname']),
+                                       'firstname' => $row['firstname'],
+                                       'lastname'  => $row['lastname'],
+                                       'email'     => $row['email'],
+                                       'label'     => $row['label'],
+                                       'backend'   => $this->bnum,
+                                       'source'    => &$this->sname));
+            }
+        } else {
+            $query = sprintf("SELECT * FROM %s WHERE owner='%s'",
+                             $this->table, $this->owner);
 
-        if (DB::isError($res)) {
-            return $this->set_error(sprintf(_("Database error: %s"),
-                                            DB::errorMessage($res)));
+            $res = $this->dbh->query($query);
+
+            if (DB::isError($res)) {
+                return $this->set_error(sprintf(_("Database error: %s"),
+                                                DB::errorMessage($res)));
+            }
+
+            while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+                array_push($ret, array('nickname'  => $row['nickname'],
+                                       'name'      => $this->fullname($row['firstname'], $row['lastname']),
+                                       'firstname' => $row['firstname'],
+                                       'lastname'  => $row['lastname'],
+                                       'email'     => $row['email'],
+                                       'label'     => $row['label'],
+                                       'backend'   => $this->bnum,
+                                       'source'    => &$this->sname));
+            }
         }
 
-        while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            array_push($ret, array('nickname'  => $row['nickname'],
-                                   'name'      => $this->fullname($row['firstname'], $row['lastname']),
-                                   'firstname' => $row['firstname'],
-                                   'lastname'  => $row['lastname'],
-                                   'email'     => $row['email'],
-                                   'label'     => $row['label'],
-                                   'backend'   => $this->bnum,
-                                   'source'    => &$this->sname));
-        }
         return $ret;
     }
 
@@ -401,31 +577,55 @@ class abook_database extends addressbook_backend {
             return false;
         }
 
+        // NB: if you want to check for some unwanted characters
+        //     or other problems, do so here like this:
+        // TODO: Should pull all validation code out into a separate function
+        //if (strpos($userdata['nickname'], ' ')) {
+        //    return $this->set_error(_("Nickname contains illegal characters"));
+        //}
+
         /* See if user exist already */
         $ret = $this->lookup($userdata['nickname']);
         if (!empty($ret)) {
-            return $this->set_error(sprintf(_("User \"%s\" already exists"),$ret['nickname']));
+            return $this->set_error(sprintf(_("User \"%s\" already exists"), $ret['nickname']));
         }
 
-        /* Create query */
-        $query = sprintf("INSERT INTO %s (owner, nickname, firstname, " .
-                         "lastname, email, label) VALUES('%s','%s','%s'," .
-                         "'%s','%s','%s')",
-                         $this->table, $this->owner,
-                         $this->dbh->quoteString($userdata['nickname']),
-                         $this->dbh->quoteString($userdata['firstname']),
-                         $this->dbh->quoteString((!empty($userdata['lastname'])?$userdata['lastname']:'')),
-                         $this->dbh->quoteString($userdata['email']),
-                         $this->dbh->quoteString((!empty($userdata['label'])?$userdata['label']:'')) );
+        global $use_pdo, $pdo_show_sql_errors;
+        if ($use_pdo) {
+            if (!($sth = $this->dbh->prepare('INSERT INTO ' . $this->identifier_quote_char . $this->table . $this->identifier_quote_char . ' (' . $this->identifier_quote_char . 'owner' . $this->identifier_quote_char . ', ' . $this->identifier_quote_char . 'nickname' . $this->identifier_quote_char . ', ' . $this->identifier_quote_char . 'firstname' . $this->identifier_quote_char . ', ' . $this->identifier_quote_char . 'lastname' . $this->identifier_quote_char . ', ' . $this->identifier_quote_char . 'email' . $this->identifier_quote_char . ', ' . $this->identifier_quote_char . 'label' . $this->identifier_quote_char . ') VALUES (?, ?, ?, ?, ?, ?)'))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $this->dbh->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not prepare query")));
+            }
+            if (!($res = $sth->execute(array($this->owner, $userdata['nickname'], $userdata['firstname'], (!empty($userdata['lastname']) ? $userdata['lastname'] : ''), $userdata['email'], (!empty($userdata['label']) ? $userdata['label'] : ''))))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $sth->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not execute query")));
+            }
+        } else {
+            /* Create query */
+            $query = sprintf("INSERT INTO %s (owner, nickname, firstname, " .
+                             "lastname, email, label) VALUES('%s','%s','%s'," .
+                             "'%s','%s','%s')",
+                             $this->table, $this->owner,
+                             $this->dbh->quoteString($userdata['nickname']),
+                             $this->dbh->quoteString($userdata['firstname']),
+                             $this->dbh->quoteString((!empty($userdata['lastname'])?$userdata['lastname']:'')),
+                             $this->dbh->quoteString($userdata['email']),
+                             $this->dbh->quoteString((!empty($userdata['label'])?$userdata['label']:'')) );
 
-         /* Do the insert */
-         $r = $this->dbh->simpleQuery($query);
- 
-         /* Check for errors */
-         if (DB::isError($r)) {
-             return $this->set_error(sprintf(_("Database error: %s"),
-                                             DB::errorMessage($r)));
-         }
+            /* Do the insert */
+            $r = $this->dbh->simpleQuery($query);
+
+            /* Check for errors */
+            if (DB::isError($r)) {
+                return $this->set_error(sprintf(_("Database error: %s"),
+                                                DB::errorMessage($r)));
+            }
+        }
+
          return true;
     }
 
@@ -444,26 +644,52 @@ class abook_database extends addressbook_backend {
             return false;
         }
 
-        /* Create query */
-        $query = sprintf("DELETE FROM %s WHERE owner='%s' AND (",
-                         $this->table, $this->owner);
+        global $use_pdo, $pdo_show_sql_errors;
+        if ($use_pdo) {
+            $sepstr = '';
+            $where_clause = '';
+            $where_clause_args = array();
+            while (list($undef, $nickname) = each($alias)) {
+                $where_clause .= $sepstr . $this->identifier_quote_char . 'nickname' . $this->identifier_quote_char . ' = ?';
+                $where_clause_args[] = $nickname;
+                $sepstr = ' OR ';
+            }
+            if (!($sth = $this->dbh->prepare('DELETE FROM ' . $this->identifier_quote_char . $this->table . $this->identifier_quote_char . ' WHERE ' . $this->identifier_quote_char . 'owner' . $this->identifier_quote_char . ' = ? AND (' . $where_clause . ')'))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $this->dbh->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not prepare query")));
+            }
+            array_unshift($where_clause_args[], $this->owner);
+            if (!($res = $sth->execute(array_array($where_clause_args)))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $sth->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not execute query")));
+            }
+        } else {
+            /* Create query */
+            $query = sprintf("DELETE FROM %s WHERE owner='%s' AND (",
+                             $this->table, $this->owner);
 
-        $sepstr = '';
-        while (list($undef, $nickname) = each($alias)) {
-            $query .= sprintf("%s nickname='%s' ", $sepstr,
-                              $this->dbh->quoteString($nickname));
-            $sepstr = 'OR';
+            $sepstr = '';
+            while (list($undef, $nickname) = each($alias)) {
+                $query .= sprintf("%s nickname='%s' ", $sepstr,
+                                  $this->dbh->quoteString($nickname));
+                $sepstr = 'OR';
+            }
+            $query .= ')';
+
+            /* Delete entry */
+            $r = $this->dbh->simpleQuery($query);
+
+            /* Check for errors */
+            if (DB::isError($r)) {
+                return $this->set_error(sprintf(_("Database error: %s"),
+                                                DB::errorMessage($r)));
+            }
         }
-        $query .= ')';
 
-        /* Delete entry */
-        $r = $this->dbh->simpleQuery($query);
-
-        /* Check for errors */
-        if (DB::isError($r)) {
-            return $this->set_error(sprintf(_("Database error: %s"),
-                                            DB::errorMessage($r)));
-        }
         return true;
     }
 
@@ -482,6 +708,13 @@ class abook_database extends addressbook_backend {
             return false;
         }
 
+        // NB: if you want to check for some unwanted characters
+        //     or other problems, do so here like this:
+        // TODO: Should pull all validation code out into a separate function
+        //if (strpos($userdata['nickname'], ' ')) {
+        //    return $this->set_error(_("Nickname contains illegal characters"));
+        //}
+
          /* See if user exist */
         $ret = $this->lookup($alias);
         if (empty($ret)) {
@@ -498,27 +731,44 @@ class abook_database extends addressbook_backend {
             }
         }
 
-        /* Create query */
-        $query = sprintf("UPDATE %s SET nickname='%s', firstname='%s', ".
-                         "lastname='%s', email='%s', label='%s' ".
-                         "WHERE owner='%s' AND nickname='%s'",
-                         $this->table,
-                         $this->dbh->quoteString($userdata['nickname']),
-                         $this->dbh->quoteString($userdata['firstname']),
-                         $this->dbh->quoteString((!empty($userdata['lastname'])?$userdata['lastname']:'')),
-                         $this->dbh->quoteString($userdata['email']),
-                         $this->dbh->quoteString((!empty($userdata['label'])?$userdata['label']:'')),
-                         $this->owner,
-                         $this->dbh->quoteString($alias) );
+        global $use_pdo, $pdo_show_sql_errors;
+        if ($use_pdo) {
+            if (!($sth = $this->dbh->prepare('UPDATE ' . $this->identifier_quote_char . $this->table . $this->identifier_quote_char . ' SET ' . $this->identifier_quote_char . 'nickname' . $this->identifier_quote_char . ' = ?, ' . $this->identifier_quote_char . 'firstname' . $this->identifier_quote_char . ' = ?, ' . $this->identifier_quote_char . 'lastname' . $this->identifier_quote_char . ' = ?, ' . $this->identifier_quote_char . 'email' . $this->identifier_quote_char . ' = ?, ' . $this->identifier_quote_char . 'label' . $this->identifier_quote_char . ' = ? WHERE ' . $this->identifier_quote_char . 'owner' . $this->identifier_quote_char . ' = ? AND ' . $this->identifier_quote_char . 'nickname' . $this->identifier_quote_char . ' = ?'))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $this->dbh->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not prepare query")));
+            }
+            if (!($res = $sth->execute(array($userdata['nickname'], $userdata['firstname'], (!empty($userdata['lastname']) ? $userdata['lastname'] : ''), $userdata['email'], (!empty($userdata['label']) ? $userdata['label'] : ''), $this->owner, $alias)))) {
+                if ($pdo_show_sql_errors)
+                    return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $sth->errorInfo())));
+                else
+                    return $this->set_error(sprintf(_("Database error: %s"), _("Could not execute query")));
+            }
+        } else {
+            /* Create query */
+            $query = sprintf("UPDATE %s SET nickname='%s', firstname='%s', ".
+                             "lastname='%s', email='%s', label='%s' ".
+                             "WHERE owner='%s' AND nickname='%s'",
+                             $this->table,
+                             $this->dbh->quoteString($userdata['nickname']),
+                             $this->dbh->quoteString($userdata['firstname']),
+                             $this->dbh->quoteString((!empty($userdata['lastname'])?$userdata['lastname']:'')),
+                             $this->dbh->quoteString($userdata['email']),
+                             $this->dbh->quoteString((!empty($userdata['label'])?$userdata['label']:'')),
+                             $this->owner,
+                             $this->dbh->quoteString($alias) );
 
-        /* Do the insert */
-        $r = $this->dbh->simpleQuery($query);
+            /* Do the insert */
+            $r = $this->dbh->simpleQuery($query);
 
-        /* Check for errors */
-        if (DB::isError($r)) {
-            return $this->set_error(sprintf(_("Database error: %s"),
-                                            DB::errorMessage($r)));
+            /* Check for errors */
+            if (DB::isError($r)) {
+                return $this->set_error(sprintf(_("Database error: %s"),
+                                                DB::errorMessage($r)));
+            }
         }
+
         return true;
     }
 } /* End of class abook_database */
