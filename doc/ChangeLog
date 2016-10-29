@@ -402,6 +402,8 @@ Version 1.5.2 - SVN
     plugins to have more explicit control over login page header
   - Added new "smtp_helo_override" hook; allows plugins to override
     the HELO host sent to the SMTP server when sending messages
+  - Added PDO support for database connections, so no external
+    database module needs to be installed
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
