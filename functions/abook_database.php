@@ -660,8 +660,8 @@ class abook_database extends addressbook_backend {
                 else
                     return $this->set_error(sprintf(_("Database error: %s"), _("Could not prepare query")));
             }
-            array_unshift($where_clause_args[], $this->owner);
-            if (!($res = $sth->execute(array_array($where_clause_args)))) {
+            array_unshift($where_clause_args, $this->owner);
+            if (!($res = $sth->execute($where_clause_args))) {
                 if ($pdo_show_sql_errors)
                     return $this->set_error(sprintf(_("Database error: %s"), implode(' - ', $sth->errorInfo())));
                 else
