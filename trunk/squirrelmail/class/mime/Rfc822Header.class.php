@@ -970,7 +970,7 @@ class Rfc822Header {
      *    Looks through this list of addresses and
      *    returns the array index (an integer even
      *    if the array is given with keys of a
-     *    different type) of the *last* matching
+     *    different type) of the first matching
      *    $address found in this message's
      *    TO or CC headers, unless there is an exact
      *    match (meaning that the "personal
@@ -1002,10 +1002,10 @@ class Rfc822Header {
             $i=0;
             foreach($address as $argument) {
                 $match = $this->findAddress($argument, true);
-                if ($match[1]) {
+                if ($match[1]) { // this indicates when the personal information matched
                     return $i;
                 } else {
-                    if (count($match[0]) && !$result) {
+                    if (count($match[0]) && $result === FALSE) {
                         $result = $i;
                     }
                 }
