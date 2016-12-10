@@ -23,10 +23,10 @@
  */
 class Language {
     /**
-     * Class constructor
+     * Constructor (PHP5 style, required in some future version of PHP)
      * @param mixed $name
      */
-    function Language($name) {
+    function __construct($name) {
         /** @var mixed */
         $this->name = $name;
         /**
@@ -34,5 +34,13 @@ class Language {
          * @var array 
          */
         $this->properties = array();
+    }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * @param string $name
+     */
+    function Language($name) {
+       self::__construct($name);
     }
 }
