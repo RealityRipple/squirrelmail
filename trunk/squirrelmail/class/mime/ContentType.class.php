@@ -41,11 +41,11 @@ class ContentType {
     var $properties = '';
 
     /**
-     * Constructor function.
+     * Constructor (PHP5 style, required in some future version of PHP)
      * Prepared type0 and type1 properties
      * @param string $type content type string without auxiliary information
      */
-    function ContentType($type) {
+    function __construct($type) {
         $type = strtolower($type);
         $pos = strpos($type, '/');
         if ($pos > 0) {
@@ -55,5 +55,14 @@ class ContentType {
             $this->type0 = $type;
         }
         $this->properties = array();
+    }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * Prepared type0 and type1 properties
+     * @param string $type content type string without auxiliary information
+     */
+    function ContentType($type) {
+       self::__construct($name);
     }
 }
