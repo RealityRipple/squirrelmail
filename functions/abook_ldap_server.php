@@ -178,10 +178,11 @@ class abook_ldap_server extends addressbook_backend {
     var $starttls = false;
 
     /**
-     * Constructor. Connects to database
+     * Constructor (PHP5 style, required in some future version of PHP)
+     * Connects to the database
      * @param array connection options
      */
-    function abook_ldap_server($param) {
+    function __construct($param) {
         if(!function_exists('ldap_connect')) {
             $this->set_error(_("PHP install does not have LDAP support."));
             return;
@@ -255,6 +256,14 @@ class abook_ldap_server extends addressbook_backend {
         }
     }
 
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * Connects to the database
+     * @param array connection options
+     */
+    function abook_ldap_server($param) {
+        return self::__construct($param);
+    }
 
     /**
      * Open the LDAP server.
