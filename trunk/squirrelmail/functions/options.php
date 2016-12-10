@@ -182,7 +182,7 @@ class SquirrelOption {
     var $folder_filter='noselect';
 
     /**
-     * Constructor function
+     * Constructor (PHP5 style, required in some future version of PHP)
      * @param array $raw_option_array
      * @param string $name
      * @param string $caption
@@ -192,7 +192,7 @@ class SquirrelOption {
      * @param array $possible_values
      * @param bool $htmlencoded
      */
-    function SquirrelOption
+    function __construct
     ($raw_option_array, $name, $caption, $type, $refresh_level, $initial_value = '', $possible_values = '', $htmlencoded = false) {
         /* Set the basic stuff. */
         $this->raw_option_array = $raw_option_array;
@@ -237,6 +237,22 @@ class SquirrelOption {
         } else {
             $this->save_function = SMOPT_SAVE_NOOP;
         }
+    }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * @param array $raw_option_array
+     * @param string $name
+     * @param string $caption
+     * @param integer $type
+     * @param integer $refresh_level
+     * @param mixed $initial_value
+     * @param array $possible_values
+     * @param bool $htmlencoded
+     */
+    function SquirrelOption
+    ($raw_option_array, $name, $caption, $type, $refresh_level, $initial_value = '', $possible_values = '', $htmlencoded = false) {
+        self::__construct($raw_option_array, $name, $caption, $type, $refresh_level, $initial_value, $possible_values, $htmlencoded);
     }
 
     /** Convenience function that identifies which types of
