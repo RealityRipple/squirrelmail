@@ -47,19 +47,30 @@ class Deliver_SendMail extends Deliver {
     var $sendmail_command = '';
 
     /**
-     * Constructor function
+     * Constructor (PHP5 style, required in some future version of PHP)
      * @param array configuration options. array key = option name, 
      * array value = option value.
      * @return void
      * @since 1.5.1
      */
-    function Deliver_SendMail($params=array()) {
+    function __construct($params=array()) {
         if (!empty($params) && is_array($params)) {
             // set extra sendmail arguments
             if (isset($params['sendmail_args'])) {
                 $this->sendmail_args = $params['sendmail_args'];
             }
         }
+    }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * @param array configuration options. array key = option name, 
+     * array value = option value.
+     * @return void
+     * @since 1.5.1
+     */
+    function Deliver_SendMail($params=array()) {
+        self::__construct($params);
     }
 
    /**
