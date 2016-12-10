@@ -92,11 +92,11 @@ class abook_local_file extends addressbook_backend {
     /* ========================== Private ======================= */
 
     /**
-     * Constructor
+     * Constructor (PHP5 style, required in some future version of PHP)
      * @param array $param backend options
      * @return bool
      */
-    function abook_local_file($param) {
+    function __construct($param) {
         $this->sname = _("Personal Address Book");
         $this->umask = Umask();
 
@@ -137,6 +137,15 @@ class abook_local_file extends addressbook_backend {
         } else {
             $this->set_error('Invalid argument to constructor');
         }
+    }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * @param array $param backend options
+     * @return bool
+     */
+    function abook_local_file($param) {
+        return self::__construct($param);
     }
 
     /**
