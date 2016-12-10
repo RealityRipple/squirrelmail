@@ -63,6 +63,6 @@ class ContentType {
      * @param string $type content type string without auxiliary information
      */
     function ContentType($type) {
-       self::__construct($name);
+       self::__construct($type);
     }
 }
