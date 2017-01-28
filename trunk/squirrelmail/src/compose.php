@@ -1781,6 +1781,9 @@ function deliverMessage(&$composeMessage, $draft=false) {
        it over to deliver; plugin authors note that $composeMessage
        is sent and modified by reference since 1.5.2 */
     do_hook('compose_send', $composeMessage);
+//TODO: need to migrate to the following, but it neessitates changes in existing plugins, since the args are now an array
+    //$temp = array(&$composeMessage, &$draft);
+    //do_hook('compose_send', $temp);
 
     if (!$useSendmail && !$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
