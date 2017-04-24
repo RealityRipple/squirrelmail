@@ -404,6 +404,9 @@ Version 1.5.2 - SVN
     the HELO host sent to the SMTP server when sending messages
   - Added PDO support for database connections, so no external
     database module needs to be installed
+  - Fixed insufficient sendmail command argument escaping (thanks
+    to Mitchel Sahertian, Maor Shwartz and Dawid Golunski for
+    bringing this to our attention). [CVE-2017-7692]
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
