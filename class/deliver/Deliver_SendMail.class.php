@@ -106,11 +106,10 @@ class Deliver_SendMail extends Deliver {
         $rfc822_header = $message->rfc822_header;
         $from = $rfc822_header->from[0];
         $envelopefrom = trim($from->mailbox.'@'.$from->host);
-        $envelopefrom = str_replace(array("\0","\n"),array('',''),$envelopefrom);
         // save executed command for future reference
-        $this->sendmail_command = "$sendmail_path $this->sendmail_args -f$envelopefrom";
+        $this->sendmail_command = escapeshellcmd("$sendmail_path $this->sendmail_args -f") . escapeshellarg($envelopefrom);
         // open process handle for writing
-        $stream = popen (escapeshellcmd($this->sendmail_command), "w");
+        $stream = popen($this->sendmail_command, "w");
         return $stream;
     }
 
