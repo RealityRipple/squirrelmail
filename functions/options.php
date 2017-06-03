@@ -68,6 +68,7 @@ class SquirrelOption {
      * useful for indicating units, meanings of special values, etc.
      * @var string
      */
+//TODO: add trailing_text_small as has been done with 1.4.x
     var $trailing_text;
     /**
      * Text that overrides the "Yes" label for boolean 
@@ -485,7 +486,9 @@ class SquirrelOption {
      * @return string html formated output
      */
     function createWidget_Info() {
-        return sq_htmlspecialchars($this->value);
+        // return sq_htmlspecialchars($this->value);
+        // like COMMENT, allow HTML here
+        return $this->value;
     }
 
     /**
