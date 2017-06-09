@@ -1063,8 +1063,10 @@ function sqimap_login ($username, $password, $imap_server_address,
 function sqimap_logout ($imap_stream) {
     /* Logout is not valid until the server returns 'BYE'
      * If we don't have an imap_ stream we're already logged out */
-    if(isset($imap_stream) && $imap_stream)
+    if(isset($imap_stream) && $imap_stream) {
         sqimap_run_command($imap_stream, 'LOGOUT', false, $response, $message);
+        fclose($imap_stream);
+    }
 }
 
 /**
