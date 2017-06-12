@@ -34,14 +34,11 @@ extract($t);
         if (empty($link['Text']))
             continue;
             
-            ?>
- <a href="<?php echo $link['URL']; ?>"<?php echo (empty($link['Target'])?'':' target="' . $link['Target'] . '"')?>><?php echo $link['Text']; ?></a>
-            <?php
+            ?><a href="<?php echo $link['URL']; ?>"<?php echo (empty($link['Target'])?'':' target="' . $link['Target'] . '"')?> style="white-space: nowrap;"><?php echo $link['Text']; ?></a><?php
         
         # Spit out a divider between each element
         if ($count < count($links)-1) {
-            ?>
- &nbsp;|&nbsp;
+            ?>&nbsp;|
             <?php
         }
     }
