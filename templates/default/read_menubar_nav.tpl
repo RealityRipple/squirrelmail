@@ -66,13 +66,11 @@ if ($nav_on_top) {
  <tr class="nav">
   <td class="nav">
    <small>
-   [
-   <?php
+   [&nbsp;<?php
     if (empty($prev_href)) {
         echo _("Previous");
     } else {
-        ?>
-   <a href="<?php echo $prev_href; ?>"><?php echo _("Previous"); ?></a>
+        ?><a href="<?php echo $prev_href; ?>"><?php echo _("Previous"); ?></a>
         <?php
     }
    ?> | 
@@ -89,56 +87,47 @@ if ($nav_on_top) {
         echo _("Next");
     } else {
         ?>
-   <a href="<?php echo $next_href; ?>"><?php echo _("Next"); ?></a>
-        <?php
+   <a href="<?php echo $next_href; ?>"><?php echo _("Next"); ?></a><?php
     }
-   ?>
-   ]
+   ?>&nbsp;]
    &nbsp;&nbsp;&nbsp;&nbsp;
    <?php
     if (!empty($del_prev_href) || !empty($del_next_href)) {
         ?>
-        [
-        <?php        
+        [&nbsp;<?php        
         if (empty($del_prev_href)) {
-            echo _("Delete &amp; Previous");
+            echo '<span style="white-space: nowrap;">' . _("Delete &amp; Previous") . '</span>';
         } else {
-            ?>
-   <a href="<?php echo $del_prev_href; ?>"><?php echo _("Delete &amp; Previous"); ?></a>
+            ?><a href="<?php echo $del_prev_href; ?>" style="white-space: nowrap"><?php echo _("Delete &amp; Previous"); ?></a>
             <?php
         }
         ?>
         | 
         <?php
         if (empty($del_next_href)) {
-            echo _("Delete &amp; Next");
+            echo '<span style="white-space: nowrap;">' . _("Delete &amp; Next") . '</span>';
         } else {
             ?>
-   <a href="<?php echo $del_next_href; ?>"><?php echo _("Delete &amp; Next"); ?></a>
-            <?php
+   <a href="<?php echo $del_next_href; ?>" style="white-space: nowrap"><?php echo _("Delete &amp; Next"); ?></a><?php
         }
-        ?>
-        ]
+        ?>&nbsp;]
    &nbsp;&nbsp;&nbsp;&nbsp;
         <?php
     }
    
     if (!empty($view_msg_href)) {
         ?>
-   [ <a href="<?php echo $view_msg_href; ?>"><?php echo _("View Message"); ?></a> ]
+   [&nbsp;<a href="<?php echo $view_msg_href; ?>" style="white-space: nowrap"><?php echo _("View Message"); ?></a>&nbsp;]
    &nbsp;&nbsp;&nbsp;&nbsp;
         <?php
     }
    ?>
-   [ <a href="<?php echo $message_list_href; ?>"><?php echo _("Message List"); ?></a>
-   <?php
+   [&nbsp;<a href="<?php echo $message_list_href; ?>" style="white-space: nowrap"><?php echo _("Message List"); ?></a><?php
     if (!empty($search_href)) {
         ?>
-   | <a href="<?php echo $search_href; ?>"><?php echo _("Search Results"); ?></a>
-        <?php
+   | <a href="<?php echo $search_href; ?>" style="white-space: nowrap"><?php echo _("Search Results"); ?></a><?php
     }
-   ?>
-   ]
+   ?>&nbsp;]
    </small>
    <?php if(!empty($plugin_output[$plugin_hook])) echo $plugin_output[$plugin_hook]; ?>
   </td>

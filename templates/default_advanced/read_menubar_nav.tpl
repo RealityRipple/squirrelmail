@@ -75,13 +75,11 @@ if ($nav_on_top) {
  <tr class="nav">
   <td class="nav">
    <small>
-   [
-   <?php
+   [&nbsp;<?php
     if (empty($prev_href)) {
         echo _("Previous");
     } else {
-        ?>
-   <a href="<?php echo $prev_href; ?><?php
+        ?><a href="<?php echo $prev_href; ?><?php
 
 /** if preview pane turned on with "always refresh message list", 
     refresh message list frame too, but only if we are in the bottom frame! 
@@ -122,22 +120,18 @@ if ($show_preview_pane && $pp_refresh_message_list)
    echo '&amp;pp_rr=1';
 
 
-echo '">' . _("Next"); ?></a>
-        <?php
+echo '">' . _("Next"); ?></a><?php
     }
-   ?>
-   ]
+   ?>&nbsp;]
    &nbsp;&nbsp;&nbsp;&nbsp;
    <?php
     if (!empty($del_prev_href) || !empty($del_next_href)) {
         ?>
-        [
-        <?php        
+        [&nbsp;<?php        
         if (empty($del_prev_href)) {
-            echo _("Delete &amp; Previous");
+            echo '<span style="white-space: nowrap;">' . _("Delete &amp; Previous") . '</span>';
         } else {
-            ?>
-   <a href="<?php echo $del_prev_href; ?>"<?php
+            ?><a href="<?php echo $del_prev_href; ?>"<?php
 
 /** if preview pane turned on with "always refresh message list", 
     refresh message list frame too, but only if we are in the bottom frame! */
@@ -145,14 +139,14 @@ if ($show_preview_pane && $pp_refresh_message_list)
    echo ' onclick="if (self.name == \'bottom\') { refresh_message_list(); } "';
 
 
-echo '>' . _("Delete &amp; Previous"); ?></a>
+echo ' style="white-space: nowrap;">' . _("Delete &amp; Previous"); ?></a>
             <?php
         }
         ?>
         | 
         <?php
         if (empty($del_next_href)) {
-            echo _("Delete &amp; Next");
+            echo '<span style="white-space: nowrap;">' . _("Delete &amp; Next") . '</span>';
         } else {
             ?>
    <a href="<?php echo $del_next_href; ?>"<?php
@@ -163,23 +157,21 @@ if ($show_preview_pane && $pp_refresh_message_list)
    echo ' onclick="if (self.name == \'bottom\') { refresh_message_list(); } "';
 
 
-echo '>' . _("Delete &amp; Next"); ?></a>
-            <?php
+echo ' style="white-space: nowrap;">' . _("Delete &amp; Next"); ?></a><?php
         }
-        ?>
-        ]
+        ?>&nbsp;]
    &nbsp;&nbsp;&nbsp;&nbsp;
         <?php
     }
    
     if (!empty($view_msg_href)) {
         ?>
-   [ <a href="<?php echo $view_msg_href; ?>"><?php echo _("View Message"); ?></a> ]
+   [&nbsp;<a href="<?php echo $view_msg_href; ?>" style="white-space: nowrap;"><?php echo _("View Message"); ?></a>&nbsp;]
    &nbsp;&nbsp;&nbsp;&nbsp;
         <?php
     }
    ?>
-   [ <a href="<?php echo $message_list_href; ?>"<?php
+   [&nbsp;<a href="<?php echo $message_list_href; ?>"<?php
 
 /** if preview pane turned on, retarget to message list frame & clear 
     bottom frame, but only if we are in the bottom frame! */
@@ -187,15 +179,12 @@ if ($show_preview_pane)
    echo ' onclick="if (self.name == \'bottom\') { parent.right.document.location=\'' . $message_list_href . '\'; document.location=\'' . $empty_frame_uri . '\'; return false; } "';
 
 
-echo '>' . _("Message List"); ?></a>
-   <?php
+echo ' style="white-space: nowrap;">' . _("Message List"); ?></a><?php
     if (!empty($search_href)) {
         ?>
-   | <a href="<?php echo $search_href; ?>"><?php echo _("Search Results"); ?></a>
-        <?php
+   | <a href="<?php echo $search_href; ?>" style="white-space: nowrap;"><?php echo _("Search Results"); ?></a><?php
     }
-   ?>
-   ]
+   ?>&nbsp;]
    </small>
    <?php if(!empty($plugin_output[$plugin_hook])) echo $plugin_output[$plugin_hook]; ?>
   </td>
