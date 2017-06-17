@@ -15,8 +15,14 @@
  * @subpackage squirrelspell
  */
 
-global $SQSPELL_APP;
-$msg = '<p>'
+global $SQSPELL_APP, $main_options_changed_message;
+
+if (!empty($main_options_changed_message))
+   $msg = $main_options_changed_message;
+else
+   $msg = '';
+
+$msg .= '<p>'
   . _("Please choose which options you wish to set up:")
   . '</p>'
   . '<ul>'
@@ -46,6 +52,27 @@ if (function_exists("mcrypt_generic")) {
     . '</li>';
 }
 $msg .= "</ul>\n";
+
+
+
+// add checkbox to enable/disable the spellcheck button on compose screen
+//
+$sqspell_show_button = getPref($data_dir, $username, 'sqspell_show_button', 1);
+$msg .= '<form method="post">'
+  . '<input type="hidden" name="MOD" value="change_main_options" />'
+  . '<input type="hidden" name="smtoken" value="' . sm_generate_security_token() . '" />'
+  . '<p>'
+  . '<input type="checkbox" id="sqspell_show_button" name="sqspell_show_button" value="1"';
+if ($sqspell_show_button) {
+  $msg .= ' checked="checked"';
+}
+$msg .= ' /><label for="sqspell_show_button"> '
+     . sprintf(_("Show \"%s\" button when composing"), _("Check Spelling"))
+     . "</label>\n";
+$msg .= " <input type=\"submit\" value=\" "
+  . _("Make these changes") . " \" /></p></form>";
+
+
 sqspell_makePage( _("SquirrelSpell Options Menu"), null, $msg);
 
 /**
