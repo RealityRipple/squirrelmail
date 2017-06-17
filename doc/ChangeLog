@@ -407,6 +407,11 @@ Version 1.5.2 - SVN
   - Fixed insufficient sendmail command argument escaping (thanks
     to Mitchel Sahertian, Beyond Security/Dawid Golunski and Filippo
     Cavallarin for bringing this to our attention). [CVE-2017-7692]
+  - Added ability to control the display of the "Check Spelling"
+    button provided by the squirrelspell plugin, which allows
+    administrators to offer this plugin but keep it out of the way
+    for users who do not want it. Put sqspell_show_button=0 in 
+    default preferences if it should be hidden by default
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
