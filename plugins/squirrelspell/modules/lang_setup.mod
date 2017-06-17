@@ -48,7 +48,7 @@ while (list($avail_lang, $junk) = each($SQSPELL_APP)){
 }
 $msg .= "</p>\n" . $add . "</select>\n";
 $msg .= "</p></blockquote><p><input type=\"submit\" value=\" "
-  . _("Make these changes") . " \" /></p>";
+  . _("Make these changes") . " \" /></p></form>";
 sqspell_makePage(_("Add International Dictionaries"), null, $msg);
 
 /**
