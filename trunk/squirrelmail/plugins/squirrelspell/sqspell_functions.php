@@ -57,11 +57,15 @@ function squirrelspell_optpage_block_function() {
  * @return void
  */
 function squirrelspell_setup_function() {
+
+  global $data_dir, $username;
+  $sqspell_show_button = getPref($data_dir, $username, 'sqspell_show_button', 1);
+
   /**
    * Check if this browser is capable of displaying SquirrelSpell
    * correctly.
    */
-  if (checkForJavascript()) {
+  if ($sqspell_show_button && checkForJavascript()) {
 
     global $oTemplate, $base_uri, $nbsp;
 
