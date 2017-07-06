@@ -46,11 +46,12 @@ function addr_insert_hidden() {
            $request_mdn, $request_dr, $identity, $session, $composeMessage, $action;
 
 //FIXME Do not echo HTML from the core.  This file already uses templates mostly, so why are we echoing here at all?!?
-   if (substr($body, 0, 1) == "\r") {
-       echo addHidden('body', "\n".$body);
-   } else {
+   // someone tell me why this is needed and if so, why it isn't something like replace \r\n with \n
+   // if (substr($body, 0, 1) == "\r") {
+   //     echo addHidden('body', "\n".$body);
+   // } else {
        echo addHidden('body', $body);
-   }
+   // }
 
    if (is_object($composeMessage) && $composeMessage->entities)
        echo addHidden('attachments', urlencode(serialize($composeMessage->entities)));
