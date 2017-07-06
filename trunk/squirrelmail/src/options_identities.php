@@ -230,7 +230,7 @@ function sti_textarea( $title, $name, $data, $bgcolor ) {
     $str = '';
     $str .= '<tr' . $bgcolor . ">\n";
     $str .= '  <td style="white-space: nowrap;text-align:right;">' . $title . ' </td>' . "\n";
-    $str .= '  <td> <textarea name="' . $name . '" cols="50" rows="5">'. sm_encode_html_special_chars($data) . '</textarea> </td>' . "\n";
+    $str .= '  <td> <textarea name="' . $name . '" cols="50" rows="5">'. "\n" . sm_encode_html_special_chars($data) . '</textarea> </td>' . "\n";
     $str .= '</tr>';
 
     return $str;

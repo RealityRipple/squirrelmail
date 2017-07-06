@@ -26,7 +26,8 @@ extract($t);
 <table cellspacing="0" class="table1">
  <tr>
   <td style="text-align: center">
-   <textarea name="body" id="body" rows="<?php echo $editor_height; ?>" cols="<?php echo $editor_width; ?>" <?php if ($accesskey_compose_body != 'NONE') echo 'accesskey="' . $accesskey_compose_body . '" '; echo $input_onfocus; ?>><?php echo $body; ?></textarea>
+   <textarea name="body" id="body" rows="<?php echo $editor_height; ?>" cols="<?php echo $editor_width; ?>" <?php if ($accesskey_compose_body != 'NONE') echo 'accesskey="' . $accesskey_compose_body . '" '; echo $input_onfocus; ?>>
+<?php echo $body; ?></textarea>
 
 <?php if (checkForJavascript()) // Display text area resizing handle
 
