@@ -63,6 +63,7 @@ foreach ($option_groups as $option) {
 
             echo '<label for="new_' . $opt->name . '">' . $opt->caption;
             if ($opt->type == SMOPT_TYPE_TEXTAREA && !empty($opt->trailing_text)) {
+// TODO: Is trailing_text already sanitized here? (sm_encode_html_special_chars())  Either way, we want to have an option to sanitize or not depending on $opt->trailing_text_is_html ---- note that this question may already be taken care of in functions/options.php and irrelevant here, but I'm not sure about that yet.... after looking a little, it does appear this is a problem, though where to solve it is not clear
                 echo '<br /><small>' . $opt->trailing_text . '</small>';
             }
             echo '</label>';
