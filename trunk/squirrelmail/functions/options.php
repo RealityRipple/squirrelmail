@@ -77,6 +77,14 @@ class SquirrelOption {
      */
     var $trailing_text_small;
     /**
+     * Indicates that the widget's "trailing text"
+     * contains HTML and should not thus be
+     * sanitized (encoded)
+     *
+     * @var boolean
+     */
+    var $trailing_text_is_html;
+    /**
      * Text that overrides the "Yes" label for boolean 
      * radio option widgets
      *
@@ -213,6 +221,7 @@ class SquirrelOption {
         $this->size = SMOPT_SIZE_NORMAL;
         $this->trailing_text = '';
         $this->trailing_text_small = FALSE;
+        $this->trailing_text_is_html = FALSE;
         $this->yes_text = '';
         $this->no_text = '';
         $this->comment = '';
@@ -313,11 +322,19 @@ class SquirrelOption {
     }
 
     /**
-     * Set the trailing_text for this option.
-     * @param string $trailing_text
+     * Set the trailing_text_small for this option.
+     * @param boolean $trailing_text_small
      */
     function setTrailingTextSmall($trailing_text_small) {
         $this->trailing_text_small = $trailing_text_small;
+    }
+
+    /**
+     * Set the trailing_text_is_html for this option.
+     * @param boolean $trailing_text_is_html
+     */
+    function setTrailingTextIsHtml($trailing_text_is_html) {
+        $this->trailing_text_is_html = $trailing_text_is_html;
     }
 
     /**
@@ -537,9 +554,9 @@ class SquirrelOption {
 
 //TODO: might be better to have a separate template file for all widgets, because then the layout of the widget and the "trailing text" can be customized - they are still hard coded here (also, we have <small> tags here; don't want HTML here!)
         if ($password)
-            return addPwField('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . ($this->trailing_text_small ? '<small>' : '') . sm_encode_html_special_chars($this->trailing_text) . ($this->trailing_text_small ? '</small>' : '');
+            return addPwField('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . ($this->trailing_text_small ? '<small>' : '') . ($this->trailing_text_is_html ? $this->trailing_text : sm_encode_html_special_chars($this->trailing_text)) . ($this->trailing_text_small ? '</small>' : '');
         else
-            return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . ($this->trailing_text_small ? '<small>' : '') . sm_encode_html_special_chars($this->trailing_text) . ($this->trailing_text_small ? '</small>' : '');
+            return addInput('new_' . $this->name, $this->value, $width, 0, $this->aExtraAttribs) . ' ' . ($this->trailing_text_small ? '<small>' : '') . ($this->trailing_text_is_html ? $this->trailing_text : sm_encode_html_special_chars($this->trailing_text)) . ($this->trailing_text_small ? '</small>' : '');
     }
 
     /**
@@ -609,7 +626,7 @@ class SquirrelOption {
                 $height = 5;
         }
 
-        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height, !$this->htmlencoded) . ($this->trailing_text_small ? '<small>' : '') . sm_encode_html_special_chars($this->trailing_text) . ($this->trailing_text_small ? '</small>' : '');
+        return addSelect('new_' . $this->name, $this->possible_values, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height, !$this->htmlencoded) . ($this->trailing_text_small ? '<small>' : '') . ($this->trailing_text_is_html ? $this->trailing_text : sm_encode_html_special_chars($this->trailing_text)) . ($this->trailing_text_small ? '</small>' : '');
 
     }
 
@@ -667,7 +684,7 @@ class SquirrelOption {
             $option_list = array('ignore' => _("unavailable"));
 
 
-        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height) . ($this->trailing_text_small ? '<small>' : '') . sm_encode_html_special_chars($this->trailing_text) . ($this->trailing_text_small ? '</small>' : '');
+        return addSelect('new_' . $this->name, $option_list, $this->value, TRUE, $this->aExtraAttribs, $multiple_select, $height) . ($this->trailing_text_small ? '<small>' : '') . ($this->trailing_text_is_html ? $this->trailing_text : sm_encode_html_special_chars($this->trailing_text)) . ($this->trailing_text_small ? '</small>' : '');
 
     }
 
@@ -748,6 +765,7 @@ class SquirrelOption {
         // checkbox...
         //
         if ($checkbox) {
+//TODO: Why isn't trailing_text being sanitized with sm_encode_special_chars()???  If this is a bug, add that, then add the option to display unsanitized if $this->trailing_text_is_html is enabled
             $result = addCheckbox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name), $this->aExtraAttribs)) . $nbsp . create_label(($this->trailing_text_small ? '<small>' : '') . $this->trailing_text . ($this->trailing_text_small ? '</small>' : ''), 'new_' . $this->name);
         }
 
@@ -831,6 +849,7 @@ class SquirrelOption {
 
         $oTemplate->assign('trailing_text', $this->trailing_text);
         $oTemplate->assign('trailing_text_small', $this->trailing_text_small);
+        $oTemplate->assign('trailing_text_is_html', $this->trailing_text_is_html);
         $oTemplate->assign('possible_values', $this->possible_values);
         $oTemplate->assign('current_value', $this->value);
         $oTemplate->assign('select_widget', addSelect('new_' . $this->name, $this->possible_values, $this->value, FALSE, !checkForJavascript() ? $this->aExtraAttribs : array_merge(array('onchange' => 'if (typeof(window.addinput_' . $this->name . ') == \'undefined\') { var f = document.forms.length; var i = 0; var pos = -1; while( pos == -1 && i < f ) { var e = document.forms[i].elements.length; var j = 0; while( pos == -1 && j < e ) { if ( document.forms[i].elements[j].type == \'text\' && document.forms[i].elements[j].name == \'add_' . $this->name . '\' ) { pos = j; i=f-1; j=e-1; } j++; } i++; } if( pos >= 0 ) { window.addinput_' . $this->name . ' = document.forms[i-1].elements[pos]; } } for (x = 0; x < this.length; x++) { if (this.options[x].selected) { window.addinput_' . $this->name . '.value = this.options[x].text; break; } }'), $this->aExtraAttribs), TRUE, $height));
@@ -912,6 +931,7 @@ class SquirrelOption {
 
         $oTemplate->assign('trailing_text', $this->trailing_text);
         $oTemplate->assign('trailing_text_small', $this->trailing_text_small);
+        $oTemplate->assign('trailing_text_is_html', $this->trailing_text_is_html);
 
         switch ($this->layout_type) {
             case SMOPT_EDIT_LIST_LAYOUT_SELECT:
@@ -932,7 +952,7 @@ class SquirrelOption {
      */
     function createWidget_Submit() {
 
-        return addSubmit($this->comment, $this->name, $this->aExtraAttribs) . ($this->trailing_text_small ? '<small>' : '') . sm_encode_html_special_chars($this->trailing_text) . ($this->trailing_text_small ? '</small>' : '');
+        return addSubmit($this->comment, $this->name, $this->aExtraAttribs) . ($this->trailing_text_small ? '<small>' : '') . ($this->trailing_text_is_html ? $this->trailing_text : sm_encode_html_special_chars($this->trailing_text)) . ($this->trailing_text_small ? '</small>' : '');
 
     }
 
@@ -1179,6 +1199,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the trailing_text_small for this option. */
             if (isset($optset['trailing_text_small'])) {
                 $next_option->setTrailingTextSmall($optset['trailing_text_small']);
+            }
+
+            /* If provided, set the trailing_text_is_html for this option. */
+            if (isset($optset['trailing_text_is_html'])) {
+                $next_option->setTrailingTextIsHtml($optset['trailing_text_is_html']);
             }
 
             /* If provided, set the yes_text for this option. */
