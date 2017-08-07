@@ -178,6 +178,7 @@ function buildMailboxTree ($box, $settings, $icon_theme_path, $indent_factor=0) 
     $view_link = '<a href="'.$box['ViewLink']['URL'].'" ' .
                  ($accesskey == '' ? '' : 'accesskey="' . $accesskey . '" ') .
                  'target="'.$box['ViewLink']['Target'].'" ' .
+                 'title="'.$box['MailboxName'].'" ' .
                  'style="text-decoration:none">';
 
     if ($settings['messageRecyclingEnabled'] && $box['IsTrash']) {
