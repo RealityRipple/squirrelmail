@@ -2786,7 +2786,8 @@ function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
         $filename=rawurlencode($filename);
         header ("Pragma: public");
         header ("Cache-Control: no-store, max-age=0, no-cache, must-revalidate"); // HTTP/1.1
-        header ("Cache-Control: post-check=0, pre-check=0", false);
+        // does nothing - see: https://blogs.msdn.microsoft.com/ieinternals/2009/07/20/internet-explorers-cache-control-extensions/
+        // header ("Cache-Control: post-check=0, pre-check=0", false);
         header ("Cache-Control: private");
 
         //set the inline header for IE, we'll add the attachment header later if we need it
