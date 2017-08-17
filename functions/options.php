@@ -780,7 +780,7 @@ class SquirrelOption {
             $no_option = addRadioBox('new_' . $this->name, ($this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label((!empty($this->no_text) ? $this->no_text : _("No")), 'new_' . $this->name . '_no');
 
             /* Build the combined "boolean widget". */
-            $result = "$yes_option$nbsp$nbsp$nbsp$nbsp$no_option";
+            $result = "$yes_option$nbsp$nbsp$nbsp$nbsp$no_option " . ($this->trailing_text_small ? '<small>' : '') . ($this->trailing_text_is_html ? $this->trailing_text : sm_encode_html_special_chars($this->trailing_text)) . ($this->trailing_text_small ? '</small>' : '');
 
         }
 
