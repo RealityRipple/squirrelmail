@@ -84,6 +84,8 @@ if ($use_input_widget) {
     else
         echo $input_value_widget . '<br />';
 }
+if (!empty($trailing_text))
+    echo ($trailing_text_small ? '<small>' : '') . ($trailing_text_is_html ? $trailing_text : sm_encode_html_special_chars($trailing_text)) . ($trailing_text_small ? '</small>' : '') . '<br />';
 
 
 // Construct the select input showing all current values in the list

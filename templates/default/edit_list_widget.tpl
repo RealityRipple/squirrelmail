@@ -38,6 +38,8 @@ extract($t);
 
 if ($use_input_widget) 
     echo _("Add") . '&nbsp;' . $input_widget . '<br />';
+if (!empty($trailing_text))
+    echo ($trailing_text_small ? '<small>' : '') . ($trailing_text_is_html ? $trailing_text : sm_encode_html_special_chars($trailing_text)) . ($trailing_text_small ? '</small>' : '') . '<br />';
 
 echo $select_widget;
 

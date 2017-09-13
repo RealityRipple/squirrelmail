@@ -40,6 +40,8 @@ echo '<table class="table2" cellspacing="0"><tr><td>';
 
 if ($use_input_widget)
     echo _("Add") . '&nbsp;' . $input_widget . '<br />';
+if (!empty($trailing_text))
+    echo ($trailing_text_small ? '<small>' : '') . ($trailing_text_is_html ? $trailing_text : sm_encode_html_special_chars($trailing_text)) . ($trailing_text_small ? '</small>' : '') . '<br />';
 
 echo '<table class="table_messageList" cellspacing="0">';
 
