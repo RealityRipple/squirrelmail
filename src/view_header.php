@@ -23,7 +23,21 @@ require('../include/init.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 
-function parse_viewheader($imapConnection,$id, $passed_ent_id) {
+/**
+  * Extract message headers
+  *
+  * @param resource $imapConnection
+  * @param string $id Message ID
+  * @param string $passed_ent_id Nested/attached/embedded message ID (if any)
+  *
+  * @return array List of all message headers, where each
+  *               element is a sub-array that contains two
+  *               elements: header name and header value
+  *               (in that order) where the header value is
+  *               HTML-formatted, ready for display in browser
+  *
+  */
+function parse_viewheader($imapConnection, $id, $passed_ent_id) {
 
     $header_output = array();
     $second = array();
