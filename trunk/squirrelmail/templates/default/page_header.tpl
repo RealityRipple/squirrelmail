@@ -60,7 +60,7 @@ $address_link = makeInternalLink('src/addressbook.php', $address_str, '',
                                  $accesskey_menubar_addresses);
 $folders_link = makeInternalLink('src/folders.php', $folders_str, '',
                                  $accesskey_menubar_folders);
-$search_link  = makeInternalLink('src/search.php?mailbox='.$urlMailbox,
+$search_link  = makeInternalLink('src/search.php?mailbox='.$urlMailbox . '&amp;what=',
                                  $search_str, '', $accesskey_menubar_search);
 $options_link = makeInternalLink('src/options.php', $options_str, '',
                                  $accesskey_menubar_options);
