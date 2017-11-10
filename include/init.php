@@ -693,8 +693,9 @@ switch (PAGE_NAME) {
         $set_up_langage_after_template_setup = TRUE;
 
         $timeZone = getPref($data_dir, $username, 'timezone');
-        global $server_timezone;
-        $server_timezone = date('T');
+        global $server_timezone, $server_timezone_offset, $server_timezone_offset_seconds;
+        list($server_timezone, $server_timezone_offset, $server_timezone_offset_seconds)
+            = explode('::', date('T::O::Z'));
 
         /* Check to see if we are allowed to set the TZ environment variable.
          * We are able to do this if ...
