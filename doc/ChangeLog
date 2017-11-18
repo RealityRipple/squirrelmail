@@ -412,6 +412,9 @@ Version 1.5.2 - SVN
     administrators to offer this plugin but keep it out of the way
     for users who do not want it. Put sqspell_show_button=0 in 
     default preferences if it should be hidden by default
+  - Add ability for saved drafts to indicate if they are a reply
+    or forward and if so, to which message, and mark that message
+    as replied or forwarded when the draft is finally sent
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
