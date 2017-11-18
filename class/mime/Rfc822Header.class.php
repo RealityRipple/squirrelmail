@@ -352,6 +352,9 @@ class Rfc822Header {
             case 'x-spam-status':
                 $this->x_spam_status = $this->parseSpamStatus($value);
                 break;
+            case 'x-sm-flag-reply':
+                $this->x_sm_flag_reply = $value;
+                break;
             default:
                 break;
         }

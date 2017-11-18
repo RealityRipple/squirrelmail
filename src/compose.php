@@ -926,6 +926,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 // rewrap the body to clean up quotations and line lengths
                 sqBodyWrap($body, $editor_size);
                 $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+                if (!empty($orig_header->x_sm_flag_reply))
+                    $composeMessage->rfc822_header->more_headers['X-SM-Flag-Reply'] = $orig_header->x_sm_flag_reply;
 //TODO: completely unclear if should be using $compose_session instead of $session below
                 $compose_messages[$session] = $composeMessage;
                 sqsession_register($compose_messages,'compose_messages');
@@ -1788,6 +1790,16 @@ function deliverMessage(&$composeMessage, $draft=false) {
     //$temp = array(&$composeMessage, &$draft);
     //do_hook('compose_send', $temp);
 
+    // remove special header if present and prepare to mark
+    // a message that a draft was composed in reply to
+    if (!empty($composeMessage->rfc822_header->x_sm_flag_reply) && !$draft) {
+        global $passed_id, $mailbox;
+        // tricks the code below that marks the reply
+        list($action, $passed_id, $mailbox) = explode('::', $rfc822_header->x_sm_flag_reply, 3);
+        unset($composeMessage->rfc822_header->x_sm_flag_reply);
+        unset($composeMessage->rfc822_header->more_headers['X-SM-Flag-Reply']);
+    }
+
     if (!$useSendmail && !$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
         $deliver = new Deliver_SMTP();
@@ -1816,6 +1828,13 @@ function deliverMessage(&$composeMessage, $draft=false) {
         $imap_stream = sqimap_login($username, false, $imapServerAddress,
                 $imapPort, 0, $imap_stream_options);
         if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
+//TODO: this can leak private information about folders and message IDs if messages are accessed/sent from another client --- should this feature be optional?
+            // make note of the message to mark as having been replied to
+            global $passed_id, $mailbox;
+            if ($action == 'reply' || $action == 'reply_all' || $action == 'forward' || $action == 'forward_as_attachment') {
+                $composeMessage->rfc822_header->more_headers['X-SM-Flag-Reply'] = $action . '::' . $passed_id . '::' . $mailbox;
+            }
+
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
             $success = $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $imap_stream, $draft_folder);
@@ -1859,60 +1878,64 @@ function deliverMessage(&$composeMessage, $draft=false) {
 
         if ($action=='reply' || $action=='reply_all' || $action=='forward' || $action=='forward_as_attachment') {
             require(SM_PATH . 'functions/mailbox_display.php');
-            $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array());
-            switch($action) {
-            case 'reply':
-            case 'reply_all':
-                // check if we are allowed to set the \\Answered flag
-                if (in_array('\\answered',$aMailbox['PERMANENTFLAGS'], true)) {
-                    $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
-                    if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
-                        /**
-                        * Only update the cached headers if the header is
-                        * cached.
-                        */
-                        if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
-                            $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
-                        }
-                    }
-                }
-                break;
-            case 'forward':
-            case 'forward_as_attachment':
-                // check if we are allowed to set the $Forwarded flag (RFC 4550 paragraph 2.8)
-                if (in_array('$forwarded',$aMailbox['PERMANENTFLAGS'], true) ||
-                    in_array('\\*',$aMailbox['PERMANENTFLAGS'])) {
-
-                    // when forwarding as an attachment from the message
-                    // list, passed_id is not used, need to get UID(s)
-                    // from the query string
-                    //
-                    if (empty($passed_id) && !empty($fwduid))
-                        $ids = explode('_', $fwduid);
-                    else
-                        $ids = array($passed_id);
-
-                    $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, $ids, '$Forwarded', true, false);
-
-                    foreach ($ids as $id) {
-                        if (isset($aUpdatedMsgs[$id]['FLAGS'])) {
-                            if (isset($aMailbox['MSG_HEADERS'][$id])) {
-                                $aMailbox['MSG_HEADERS'][$id]['FLAGS'] = $aMsg['FLAGS'];
+            // select errors here could be due to a draft reply being sent
+            // after the original message's mailbox is moved or deleted
+            $aMailbox = sqm_api_mailbox_select($imap_stream, $iAccount, $mailbox,array('setindex' => $what, 'offset' => $startMessage),array(), false);
+            // a non-empty return from above means we can proceed
+            if (!empty($aMailbox)) {
+                switch($action) {
+                case 'reply':
+                case 'reply_all':
+                    // check if we are allowed to set the \\Answered flag
+                    if (in_array('\\answered',$aMailbox['PERMANENTFLAGS'], true)) {
+                        $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, array($passed_id), '\\Answered', true, false);
+                        if (isset($aUpdatedMsgs[$passed_id]['FLAGS'])) {
+                            /**
+                            * Only update the cached headers if the header is
+                            * cached.
+                            */
+                            if (isset($aMailbox['MSG_HEADERS'][$passed_id])) {
+                                $aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'] = $aMsg['FLAGS'];
                             }
                         }
                     }
+                    break;
+                case 'forward':
+                case 'forward_as_attachment':
+                    // check if we are allowed to set the $Forwarded flag (RFC 4550 paragraph 2.8)
+                    if (in_array('$forwarded',$aMailbox['PERMANENTFLAGS'], true) ||
+                        in_array('\\*',$aMailbox['PERMANENTFLAGS'])) {
+
+                        // when forwarding as an attachment from the message
+                        // list, passed_id is not used, need to get UID(s)
+                        // from the query string
+                        //
+                        if (empty($passed_id) && !empty($fwduid))
+                            $ids = explode('_', $fwduid);
+                        else
+                            $ids = array($passed_id);
+
+                        $aUpdatedMsgs = sqimap_toggle_flag($imap_stream, $ids, '$Forwarded', true, false);
+
+                        foreach ($ids as $id) {
+                            if (isset($aUpdatedMsgs[$id]['FLAGS'])) {
+                                if (isset($aMailbox['MSG_HEADERS'][$id])) {
+                                    $aMailbox['MSG_HEADERS'][$id]['FLAGS'] = $aMsg['FLAGS'];
+                                }
+                            }
+                        }
+                    }
+                    break;
                 }
-                break;
-            }
 
-            /**
-             * Write mailbox with updated seen flag information back to cache.
-             */
-            if(isset($aUpdatedMsgs[$passed_id])) {
-                $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
-                sqsession_register($mailbox_cache,'mailbox_cache');
+                /**
+                 * Write mailbox with updated seen flag information back to cache.
+                 */
+                if(isset($aUpdatedMsgs[$passed_id])) {
+                    $mailbox_cache[$iAccount.'_'.$aMailbox['NAME']] = $aMailbox;
+                    sqsession_register($mailbox_cache,'mailbox_cache');
+                }
             }
-
         }
 
 
