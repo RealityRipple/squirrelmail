@@ -30,6 +30,8 @@
  *                                (OPTIONAL; default is TRUE)
  *
  * @return array   $aMailbox mailbox array with all relevant information
+ *                           (if $handle_errors is false and there was an
+ *                           error, the array will be empty)
  *
  * @since 1.5.1
  * @author Marc Groot Koerkamp
@@ -56,6 +58,8 @@ function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aPro
     $iSetIndx = $aConfig['setindex'];
 
     $aMbxResponse = sqimap_mailbox_select($imapConnection, $mailbox, $handle_errors);
+    if (empty($aMbxResponse))
+       return $aMbxResponse;
 
     if ($mailbox_cache) {
         if (isset($mailbox_cache[$account.'_'.$mailbox])) {
