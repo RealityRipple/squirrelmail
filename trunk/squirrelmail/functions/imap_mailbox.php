@@ -418,6 +418,7 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox, $mailboxlist=null) {
  *                               is returned to the caller
  *                               (OPTIONAL; default is TRUE)
  * @return array results of select command (on success - permanentflags, flags and rights)
+ *               (on failure (and when $handle_errors is false), empty array)
  * @since 1.0 or older
  */
 function sqimap_mailbox_select ($imap_stream, $mailbox, $handle_errors=true) {
@@ -463,7 +464,7 @@ function sqimap_mailbox_select ($imap_stream, $mailbox, $handle_errors=true) {
             }
         }
     }
-    if (!isset($result['PERMANENTFLAGS'])) {
+    if (!empty($result) && !isset($result['PERMANENTFLAGS'])) {
         $result['PERMANENTFLAGS'] = $result['FLAGS'];
     }
     if (preg_match('/^\[(.+)\]/',$message, $regs)) {
