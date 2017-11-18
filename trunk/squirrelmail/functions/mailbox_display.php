@@ -21,13 +21,20 @@
  * @param string   $mailbox mailbox to select and retrieve message headers from
  * @param array    $aConfig array with system config settings and incoming vars
  * @param array    $aProps mailbox specific properties
+ * @param boolean  $handle_errors When TRUE, IMAP errors
+ *                                are handled herein, causing
+ *                                an error to be displayed on
+ *                                screen and execution to stop
+ *                                and when FALSE, error status
+ *                                is returned to the caller
+ *                                (OPTIONAL; default is TRUE)
  *
  * @return array   $aMailbox mailbox array with all relevant information
  *
  * @since 1.5.1
  * @author Marc Groot Koerkamp
  */
-function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aProps) {
+function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aProps,$handle_errors=true) {
 
     /**
      * NB: retrieve this from the session before accessing this function
@@ -48,7 +55,7 @@ function sqm_api_mailbox_select($imapConnection,$account,$mailbox,$aConfig,$aPro
 
     $iSetIndx = $aConfig['setindex'];
 
-    $aMbxResponse = sqimap_mailbox_select($imapConnection, $mailbox);
+    $aMbxResponse = sqimap_mailbox_select($imapConnection, $mailbox, $handle_errors);
 
     if ($mailbox_cache) {
         if (isset($mailbox_cache[$account.'_'.$mailbox])) {
