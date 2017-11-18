@@ -926,6 +926,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 // rewrap the body to clean up quotations and line lengths
                 sqBodyWrap($body, $editor_size);
                 $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+//TODO: completely unclear if should be using $compose_session instead of $session below
+                $compose_messages[$session] = $composeMessage;
+                sqsession_register($compose_messages,'compose_messages');
                 break;
             case ('edit_as_new'):
                 $send_to = decodeHeader($orig_header->getAddr_s('to'),false,false,true);
