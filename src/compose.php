@@ -574,7 +574,8 @@ if ($send) {
         } else {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
                 global $return_to_message_after_reply;
-                if (($action === 'reply' || $action === 'reply_all') && $return_to_message_after_reply)
+                if (($action === 'reply' || $action === 'reply_all' || $action === 'forward' || $action === 'forward_as_attachment')
+                 && $return_to_message_after_reply && $passed_id)
                     header("Location: $location/read_body.php?passed_id=$passed_id&mailbox=$urlMailbox".
                             "&startMessage=$startMessage&mail_sent=$mail_sent");
                 else
