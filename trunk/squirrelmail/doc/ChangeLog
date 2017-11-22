@@ -415,6 +415,8 @@ Version 1.5.2 - SVN
   - Add ability for saved drafts to indicate if they are a reply
     or forward and if so, to which message, and mark that message
     as replied or forwarded when the draft is finally sent
+  - Added option to allow returning to the message one had been
+    replying to after sending 
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
