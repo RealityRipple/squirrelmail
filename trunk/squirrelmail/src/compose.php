@@ -573,8 +573,13 @@ if ($send) {
             exit();
         } else {
             if ( !isset($pageheader_sent) || !$pageheader_sent ) {
-                header("Location: $location/right_main.php?mailbox=$urlMailbox".
-                    "&startMessage=$startMessage&mail_sent=$mail_sent");
+                global $return_to_message_after_reply;
+                if (($action === 'reply' || $action === 'reply_all') && $return_to_message_after_reply)
+                    header("Location: $location/read_body.php?passed_id=$passed_id&mailbox=$urlMailbox".
+                            "&startMessage=$startMessage&mail_sent=$mail_sent");
+                else
+                    header("Location: $location/right_main.php?mailbox=$urlMailbox".
+                            "&startMessage=$startMessage&mail_sent=$mail_sent");
             } else {
 //FIXME: DON'T ECHO HTML FROM CORE!
                 echo '   <br><br><div style="text-align: center;"><a href="' . $location

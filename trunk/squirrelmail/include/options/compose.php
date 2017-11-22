@@ -133,6 +133,13 @@ function load_optpage_data_compose() {
     );
 
     $optvals[SMOPT_GRP_COMPOSE_REPLY][] = array(
+        'name'    => 'return_to_message_after_reply',
+        'caption' => _("Return to Original Message After Replying"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_COMPOSE_REPLY][] = array(
         'name'    => 'sig_first',
         'caption' => _("Prepend Signature before Reply/Forward Text"),
         'type'    => SMOPT_TYPE_BOOLEAN,
