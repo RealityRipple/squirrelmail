@@ -235,6 +235,8 @@ class SquirrelOption {
         //Check for a current value.  
         if (isset($GLOBALS[$name])) {
             $this->value = $GLOBALS[$name];
+        // TODO: This code should be something more like the following, but who knows what would break if it was changed at this point
+        // } else if (initial_value !== '') {
         } else if (!empty($initial_value)) {
             $this->value = $initial_value;
         } else {
