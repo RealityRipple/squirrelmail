@@ -410,7 +410,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     $read = '';
     if (!is_array($message)) $message = array();
     if (!is_array($response)) $response = array();
-    $aResponse = '';
+    $aResponse = array();
     $resultlist = array();
     $data = array();
     $sCommand = '';
