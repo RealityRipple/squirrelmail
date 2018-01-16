@@ -8,7 +8,7 @@
  *      $iframe_url - URL to use for the src of the iframe.
  *      $html_body  - HTML to spit out in case the brwoser does nto support iframes
  *
- * @copyright 1999-2017 The SquirrelMail Project Team
+ * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

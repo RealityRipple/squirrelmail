@@ -4,7 +4,7 @@
  *
  * Let a non-JavaScript user know that they can print this page.
  *
- * @copyright 2008-2017 The SquirrelMail Project Team
+ * @copyright 2008-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

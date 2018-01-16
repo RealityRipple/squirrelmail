@@ -8,7 +8,7 @@
   * class with any custom functionality needed to interface a target
   * templating engine with SquirrelMail.
   *
-  * @copyright 2003-2017 The SquirrelMail Project Team
+  * @copyright 2003-2018 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail
