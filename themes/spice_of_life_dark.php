@@ -7,7 +7,7 @@
  *         featuring a dark background with light text.
  *
  * @author Jorey Bump
- * @copyright 2000-2017 The SquirrelMail Project Team
+ * @copyright 2000-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

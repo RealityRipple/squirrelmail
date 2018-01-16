@@ -16,7 +16,7 @@
  *      $color_input    - default value for the "other" input field.  Will be
  *                        blank if not used.
  *
- * @copyright 1999-2017 The SquirrelMail Project Team
+ * @copyright 1999-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

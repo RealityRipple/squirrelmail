@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
  * MA  02110-1301, USA
  *
- * @copyright 2004-2017 The SquirrelMail Project Team
+ * @copyright 2004-2018 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
