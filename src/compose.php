@@ -405,8 +405,25 @@ if (!empty($compose_messages[$session])) {
 // should never directly manipulate an object like this
 if (!empty($attachments)) {
     $attachments = unserialize(urldecode($attachments));
-    if (!empty($attachments) && is_array($attachments))
-        $composeMessage->entities = $attachments;
+    if (!empty($attachments) && is_array($attachments)) {
+        // sanitize the "att_local_name" since it is user-supplied and used to access the file system
+        // it must be alpha-numeric and 32 characters long (see the use of GenerateRandomString() below)
+        foreach ($attachments as $i => $attachment) {
+            if (empty($attachment->att_local_name) || strlen($attachment->att_local_name) !== 32) {
+                unset($attachments[$i]);
+                continue;
+            }
+            // probably marginal difference between (ctype_alnum + function_exists) and preg_match
+            if (function_exists('ctype_alnum')) {
+                if (!ctype_alnum($attachment->att_local_name))
+                    unset($attachments[$i]);
+            }
+            else if (preg_match('/[^0-9a-zA-Z]/', $attachment->att_local_name))
+                unset($attachments[$i]);
+        }
+        if (!empty($attachments))
+            $composeMessage->entities = $attachments;
+    }
 }
 
 if (empty($mailbox)) {
