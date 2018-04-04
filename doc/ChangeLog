@@ -417,7 +417,8 @@ Version 1.5.2 - SVN
     as replied or forwarded when the draft is finally sent
   - Added option to allow returning to the message one had been
     replying to after sending 
-  - Sanitize user-supplied attachment filenames [CVE-2017-7692]
+  - Sanitize user-supplied attachment filenames (thanks to Florian
+    Grunow for reporting this issue) [CVE-2018-8741]
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
