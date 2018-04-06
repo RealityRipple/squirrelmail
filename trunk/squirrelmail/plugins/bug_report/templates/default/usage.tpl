@@ -72,7 +72,7 @@ echo '<p><a href="show_system_specs.php" target="_blank">'
    . "</li>\n"
 
    . '<li>'
-   . sprintf(_("Check to see if your bug is already listed in the %sBug List%s on SourceForge. If it is, we already know about it and are trying to fix it."), '<a href="http://sourceforge.net/bugs/?group_id=311" target="_blank">', '</a>')
+   . sprintf(_("Check to see if your bug is already listed in the %sBug List%s on SourceForge. If it is, we already know about it and are trying to fix it."), '<a href="https://sourceforge.net/p/squirrelmail/bugs" target="_blank">', '</a>')
    . "</li>\n"
 
    . '<li>'
