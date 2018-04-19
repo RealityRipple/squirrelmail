@@ -620,6 +620,8 @@ echo '<tr bgcolor="'.$color[5].'"><th colspan="2"><input value="'.
     Write the options to the file.
 */
 
+// Test/debug
+// $cfgfile = '/tmp/config.php';
 if ( $fp = @fopen( $cfgfile, 'w' ) ) {
     fwrite( $fp, "<?php\n".
     "/**\n".
