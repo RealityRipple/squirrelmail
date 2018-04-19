@@ -266,13 +266,20 @@ function checkForm(smaction) {
      */
         var f = document.forms.length;
         var i = 0;
+        var remembered_form = -1;
         var pos = -1;
+        var remembered_pos = -1;
         while( pos == -1 && i < f ) {
             var e = document.forms[i].elements.length;
             var j = 0;
             while( pos == -1 && j < e ) {
                 if ( document.forms[i].elements[j].type == 'text' || document.forms[i].elements[j].type == 'password' || document.forms[i].elements[j].type == 'textarea' ) {
-                    pos = j;
+                    if ( document.forms[i].elements[j].id.substring(0, 13) == '__lastfocus__' ) {
+                        remembered_pos = j;
+                        remembered_form = i;
+                    } else if ( document.forms[i].elements[j].id.substring(0, 11) != '__nofocus__' ) {
+                        pos = j;
+                    }
                 }
                 j++;
             }
@@ -280,6 +287,8 @@ function checkForm(smaction) {
         }
         if( pos >= 0 ) {
             document.forms[i-1].elements[pos].focus();
+        } else if ( remembered_pos >= 0 ) {
+            document.forms[remembered_form].elements[remembered_pos].focus();
         }
     }
 }
