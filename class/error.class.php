@@ -39,7 +39,7 @@ class ErrorHandler {
      * @param  string $sTemplateFile Template containing the error template
      * @since 1.5.1
      */
-    function ErrorHandler(&$oTemplate, $sTemplateFile) {
+    function __construct(&$oTemplate, $sTemplateFile) {
 #        echo 'init error handler...';
         $this->TemplateName = $sTemplateFile;
         $this->Template =& $oTemplate;

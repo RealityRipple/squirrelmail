@@ -44,14 +44,14 @@ class Smarty_Template extends Template
       * @param string $template_id the template ID
       *
       */
-    function Smarty_Template($template_id) {
+    function __construct($template_id) {
 //FIXME: find a way to test that this is ONLY ever called 
 //       from parent's construct_template() method (I doubt it
 //       is worth the trouble to parse the current stack trace)
 //        if (???)
 //            trigger_error('Please do not use default Smarty_Template() constructor.  Instead, use Template::construct_template().', E_USER_ERROR);
 
-        parent::Template($template_id);
+        parent::__construct($template_id);
 
 
         // load smarty settings

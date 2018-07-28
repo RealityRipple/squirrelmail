@@ -134,7 +134,7 @@ class Template
       * @param string $template_set_id the template ID
       *
       */
-    function Template($template_set_id) {
+    function __construct($template_set_id) {
 //FIXME: find a way to test that this is ONLY ever called
 //       from the construct_template() method (I doubt it
 //       is worth the trouble to parse the current stack trace)
@@ -159,7 +159,7 @@ class Template
       * @static
       *
       */
-    function construct_template($template_set_id) {
+    static function construct_template($template_set_id) {
 
         $template = new Template($template_set_id);
         $template->override_plugins();
@@ -234,7 +234,7 @@ class Template
       * @static
       *
       */
-    function get_fallback_template_set($default='default') {
+    static function get_fallback_template_set($default='default') {
 
 // FIXME: do we want to place any restrictions on the ID such as
 //        making sure no slashes included?
@@ -285,7 +285,7 @@ class Template
       * @static
       *
       */
-    function get_default_template_set($default='default') {
+    static function get_default_template_set($default='default') {
 
 // FIXME: do we want to place any restrictions on the ID such as
 //        making sure no slashes included?
@@ -336,7 +336,7 @@ class Template
       * @static
       *
       */
-    function get_rpc_template_set($default='default_rpc') {
+    static function get_rpc_template_set($default='default_rpc') {
 
 // FIXME: do we want to place any restrictions on the ID such as
 //        making sure no slashes included?
@@ -475,7 +475,7 @@ class Template
       * @static
       *
       */
-    function calculate_template_file_directory($template_set_id) {
+    static function calculate_template_file_directory($template_set_id) {
 
         return 'templates/' . $template_set_id . '/';
 
@@ -493,7 +493,7 @@ class Template
       * @static
       *
       */
-    function calculate_template_images_directory($template_set_id) {
+    static function calculate_template_images_directory($template_set_id) {
 
         return 'templates/' . $template_set_id . '/images/';
 
@@ -592,7 +592,7 @@ class Template
       * @static
       *
       */
-    function get_template_config($template_set_id, $setting,
+    static function get_template_config($template_set_id, $setting,
                                  $default=NULL, $live_config=FALSE) {
 
         sqGetGlobalVar('template_configuration_settings',
@@ -714,7 +714,7 @@ class Template
       * @static
       *
       */
-    function cache_template_file_hierarchy($template_set_id,
+    static function cache_template_file_hierarchy($template_set_id,
                                            $regenerate_cache=FALSE,
                                            $additional_files=array()) {
 
@@ -793,7 +793,7 @@ class Template
       * @static
       *
       */
-    function catalog_template_files($template_set_id, $file_list=array(), $directory='') {
+    static function catalog_template_files($template_set_id, $file_list=array(), $directory='') {
 
         $template_base_dir = SM_PATH
                            . Template::calculate_template_file_directory($template_set_id);
