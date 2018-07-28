@@ -70,8 +70,12 @@ function mime_structure ($bodystructure, $flags=array()) {
     }
     if (count($flags)) {
         foreach ($flags as $flag) {
+            if (empty($flag) || $flag === '')
+             continue;
+            if (strlen($flag) < 5)
+             continue;
 //FIXME: please document why it is we have to check the first char of the flag but we then go ahead and do a full string comparison anyway.  Is this a speed enhancement?  If not, let's keep it simple and just compare the full string and forget the switch block.
-            $char = strtoupper($flag{1});
+            $char = strtoupper($flag[1]);
             switch ($char) {
                 case 'S':
                     if (strtolower($flag) == '\\seen') {
@@ -2685,7 +2689,10 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
     if ($take_mailto_links) {
         // parseUrl($trusted);   // this even parses URLs inside of tags... too aggressive
         global $MailTo_PReg_Match;
-        $MailTo_PReg_Match = '/mailto:' . substr($MailTo_PReg_Match, 1) ;
+        if (empty($MailTo_PReg_Match))
+         $MailTo_PReg_Match = '/mailto:((?:[0-9a-z%]([-_.+%]?[0-9a-z])*(%(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))?@(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))*)((?:\?(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)?(?:&amp;(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)*)/i';
+        else
+         $MailTo_PReg_Match = '/mailto:' . substr($MailTo_PReg_Match, 1) ;
         if ((preg_match_all($MailTo_PReg_Match, $trusted, $regs)) && ($regs[0][0] != '')) {
             foreach ($regs[0] as $i => $mailto_before) {
                 $mailto_params = $regs[10][$i];
