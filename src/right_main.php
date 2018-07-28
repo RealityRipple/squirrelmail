@@ -120,7 +120,7 @@ $draft_folder = (isset($draft_folder)) ? $draft_folder : false;
  * until there is no per mailbox option screen to set prefs we override
  * the mailboxprefs by the default ones
  */
-$aMailboxPref[MBX_PREF_LIMIT] = (int)  $show_num;
+$aMailboxPref[MBX_PREF_LIMIT] = (int)  getPref($data_dir, $username, 'show_num', 15);
 $aMailboxPref[MBX_PREF_AUTO_EXPUNGE] = (bool) $auto_expunge;
 $aMailboxPref[MBX_PREF_INTERNALDATE] = (bool) getPref($data_dir, $username, 'internal_date_sort');
 $aMailboxPref[MBX_PREF_COLUMNS] = $index_order;
