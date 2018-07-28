@@ -246,25 +246,25 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
       case 'TO':
       case 'CC':
         if(!$walk) {
-            array_walk($msgs, create_function('&$v,&$k,$f',
-                '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
+            array_walk($msgs, function(&$v,&$k,$f){
+                 $v[$f] = (isset($v[$f])) ? $v[$f] : "";
                  $addr = reset(parseRFC822Address($v[$f],1));
                  $sPersonal = (isset($addr[SQM_ADDR_PERSONAL]) && $addr[SQM_ADDR_PERSONAL]) ?
                    $addr[SQM_ADDR_PERSONAL] : "";
                  $sEmail = ($addr[SQM_ADDR_HOST]) ?
                       $addr[SQM_ADDR_MAILBOX] . "@".$addr[SQM_ADDR_HOST] :
                       $addr[SQM_ADDR_HOST];
-                 $v[$f] = ($sPersonal) ? decodeHeader($sPersonal, true, false):$sEmail;'),$sSortField);
+                 $v[$f] = ($sPersonal) ? decodeHeader($sPersonal, true, false):$sEmail;},$sSortField);
             $walk = true;
         }
         // nobreak
       case 'SUBJECT':
         if(!$walk) {
-            array_walk($msgs, create_function('&$v,&$k,$f',
-                '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
+            array_walk($msgs, function(&$v,&$k,$f) {
+                 $v[$f] = (isset($v[$f])) ? $v[$f] : "";
                  $v[$f] = strtolower(decodeHeader(trim($v[$f]), true, false));
                  $v[$f] = (preg_match("/^(?:(?:vedr|sv|re|aw|fw|fwd|\[\w\]):\s*)*\s*(.*)$/si", $v[$f], $matches)) ?
-                                    $matches[1] : $v[$f];'),$sSortField);
+                 $matches[1] : $v[$f];},$sSortField);
             $walk = true;
         }
         foreach ($msgs as $item) {
@@ -281,9 +281,9 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
       case 'DATE':
       case 'INTERNALDATE':
         if(!$walk) {
-            array_walk($msgs, create_function('&$v,$k,$f',
-                '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
-                 $v[$f] = getTimeStamp(explode(" ",$v[$f]));'),$sSortField);
+            array_walk($msgs, function(&$v,$k,$f) {
+                 $v[$f] = (isset($v[$f])) ? $v[$f] : "";
+                 $v[$f] = getTimeStamp(explode(" ",$v[$f]));},$sSortField);
             $walk = true;
         }
         // nobreak;

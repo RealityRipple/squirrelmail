@@ -869,7 +869,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
                 case 'Q':
                     $replace = str_replace('_', ' ', $res[4]);
                     $replace = preg_replace_callback('/=([0-9a-f]{2})/i',
-                            create_function ('$matches', 'return chr(hexdec($matches[1]));'),
+                            function ($matches) {return chr(hexdec($matches[1]));},
                             $replace);
                     if ($utfencode) {
                         if ($can_be_encoded) {
