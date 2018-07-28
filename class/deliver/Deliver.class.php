@@ -1080,7 +1080,7 @@ class Deliver {
         if ( !isset( $mimeBoundaryString ) ||
             $mimeBoundaryString == '') {
             $mimeBoundaryString = '----=_' . date( 'YmdHis' ) . '_' .
-            mt_rand( 10000, 99999 );
+            random_int( 10000, 99999 );
         }
         return $mimeBoundaryString;
     }

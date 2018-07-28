@@ -650,7 +650,7 @@ if (!function_exists('session_regenerate_id')) {
     function php_combined_lcg() {
         $tv = gettimeofday();
         $lcg['s1'] = $tv['sec'] ^ (~$tv['usec']);
-        $lcg['s2'] = mt_rand();
+        $lcg['s2'] = random_int();
         $q = (int) ($lcg['s1'] / 53668);
         $lcg['s1'] = (int) (40014 * ($lcg['s1'] - 53668 * $q) - 12211 * $q);
         if ($lcg['s1'] < 0) {

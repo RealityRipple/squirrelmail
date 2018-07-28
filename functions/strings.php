@@ -648,7 +648,7 @@ function OneTimePadDecrypt ($string, $epad) {
 function OneTimePadCreate ($length=100) {
     $pad = '';
     for ($i = 0; $i < $length; $i++) {
-        $pad .= chr(mt_rand(0,255));
+        $pad .= chr(random_int(0,255));
     }
 
     return base64_encode($pad);
@@ -717,7 +717,7 @@ function GenerateRandomString($size, $chars, $flags = 0) {
     $String = '';
     $j = strlen( $chars ) - 1;
     while (strlen($String) < $size) {
-        $String .= $chars{mt_rand(0, $j)};
+        $String .= $chars{random_int(0, $j)};
     }
 
     return $String;
