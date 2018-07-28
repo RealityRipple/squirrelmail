@@ -85,7 +85,7 @@ $header = "<script type=\"text/javascript\">\n" .
           "  }\n".
           "// -->\n".
           "</script>\n";
-
+global $theme, $theme_default;
 if (@file_exists($theme[$theme_default]['PATH']))
    @include ($theme[$theme_default]['PATH']);
 
