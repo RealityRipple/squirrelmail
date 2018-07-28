@@ -125,8 +125,8 @@ define('SQM_MESSAGE_QUOTE_2',$color[14]);
 
 define('SQM_ERROR_TEXT',$color[2]);
 
-define('SQM_ALIGN_LEFT', $align['left']);
-define('SQM_ALIGN_RIGHT', $align['right']);
+define('SQM_ALIGN_LEFT', 'left');
+define('SQM_ALIGN_RIGHT', 'right');
 
 // END TODO
 
