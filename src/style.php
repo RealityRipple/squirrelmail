@@ -175,15 +175,17 @@ IDEA: So ask the Template class object to return the mtime or better yet, the fu
  *
  * TODO: Fix this. :)
  */
-
-if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory() 
-                         . 'css/stylesheet.tpl') ) {
-    $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
-    $expires = gmdate('D, d M Y H:i:s', strtotime('+1 week')) . ' GMT';
-    $oTemplate->header('Last-Modified: ' . $gmlastmod);
-    $oTemplate->header('Expires: '. $expires);
-    $oTemplate->header('Pragma: ');
-    $oTemplate->header('Cache-Control: public, must-revalidate');
+if (file_exists(SM_PATH . $oTemplate->get_template_file_directory() . 'css/stylesheet.tpl'))
+{
+ if ( $lastmod = @filemtime(SM_PATH . $oTemplate->get_template_file_directory() 
+                          . 'css/stylesheet.tpl') ) {
+     $gmlastmod = gmdate('D, d M Y H:i:s', $lastmod) . ' GMT';
+     $expires = gmdate('D, d M Y H:i:s', strtotime('+1 week')) . ' GMT';
+     $oTemplate->header('Last-Modified: ' . $gmlastmod);
+     $oTemplate->header('Expires: '. $expires);
+     $oTemplate->header('Pragma: ');
+     $oTemplate->header('Cache-Control: public, must-revalidate');
+ }
 }
 // Steve, why did you remove this?  Is it irrelevant now?  If so, let's 
 // remove the rest of the references to it here (note that it is being
