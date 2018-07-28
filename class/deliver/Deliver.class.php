@@ -564,6 +564,35 @@ class Deliver {
     }
 
     /**
+     * function UUIDv5 - generates a Universally Unique ID (version 5)
+     *
+     * This function takes an existing UUID namespace and a new name
+     * and generates a new UUID using a SHA-1 hash of the given name.
+     *
+     * @param String  $name
+     *
+     * @return UUID $id
+     */
+    static function UUIDv5($name)
+    {
+     $nhex = '51578296B91A563180FAADC6AC1402A7';
+     $nstr = '';
+     for($i = 0; $i < strlen($nhex); $i+=2)
+     {
+      $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));
+     }
+     $hash = sha1($nstr . $name);
+     $id = sprintf('%08s-%04s-%04x-%04x-%12s',
+            substr($hash, 0, 8),
+            substr($hash, 8, 4),
+            (hexdec(substr($hash, 12, 4)) & 0x0fff) | 0x5000,
+            (hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
+            substr($hash, 20, 12)
+           );
+     return $id;
+    }
+
+    /**
      * function prepareRFC822_Header - prepares the RFC822 header string from Rfc822Header object(s)
      *
      * This function takes the Rfc822Header object(s) and formats them
@@ -586,6 +615,9 @@ class Deliver {
             strpos($SERVER_NAME,':') !== FALSE) {
             $SERVER_NAME = $domain;
         }
+        $userHost = $SERVER_NAME;
+        if (strpos($username, '@') !== false)
+         $userHost = substr($username, strpos($username, '@') + 1);
 
         sqGetGlobalVar('REMOTE_ADDR', $REMOTE_ADDR, SQ_SERVER);
         sqGetGlobalVar('REMOTE_PORT', $REMOTE_PORT, SQ_SERVER);
@@ -602,8 +634,8 @@ class Deliver {
         $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
         if (empty($rfc822_header->message_id)) {
             $message_id = '<'
-                        . md5(GenerateRandomString(16, '', 7) . uniqid(mt_rand(),true))
-                        . '.squirrel@' . $SERVER_NAME .'>';
+                        . self::UUIDv5(random_bytes(64))
+                        . '@' . $userHost .'>';
         }
 
         /* Make an RFC822 Received: line */
