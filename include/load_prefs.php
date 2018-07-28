@@ -510,16 +510,39 @@ $oTemplate = Template::construct_template($sTemplateID);
 // need to adjust $chosen_theme path with SM_PATH 
 $chosen_theme_path = preg_replace("/(\.\.\/){1,}/", SM_PATH, $chosen_theme_path);
 $found_theme = false;
-while (!$found_theme && (list($index, $data) = each($user_themes))) {
+
+/*
+while (!$found_theme && (list($index, $data) = @each($user_themes))) {
     if ($data['PATH'] == $chosen_theme_path)
         $found_theme = true;
 }
+*/
+
+foreach ($user_themes as $index => $data) {
+    if ($data['PATH'] == $chosen_theme_path) {
+        $found_theme = true;
+        break;
+    }
+}
+
+/*
+if (!$found_theme) {
+    $template_themes = $oTemplate->get_alternative_stylesheets(true);
+    while (!$found_theme && (list($path, $name) = @each($template_themes))) {
+        if ($path == $chosen_theme_path)
+            $found_theme = true;
+    }
+}
+*/
+
 
 if (!$found_theme) {
     $template_themes = $oTemplate->get_alternative_stylesheets(true);
-    while (!$found_theme && (list($path, $name) = each($template_themes))) {
-        if ($path == $chosen_theme_path)
+    foreach ($template_themes as $path => $name) {
+        if ($path == $chosen_theme_path) {
             $found_theme = true;
+            break;
+        }
     }
 }
 

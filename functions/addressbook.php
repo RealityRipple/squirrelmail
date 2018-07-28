@@ -140,8 +140,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 
     /* Load configured LDAP servers (if PHP has LDAP support) */
     if (isset($ldap_server) && is_array($ldap_server)) {
-        reset($ldap_server);
-        while (list($undef,$param) = each($ldap_server)) {
+        foreach($ldap_server as $undef=>$param) {
             if (!is_array($param))
                 continue;
 
@@ -251,7 +250,7 @@ function getWritableBackends () {
     
     $write = array();
     $backends = $abook->get_backend_list();
-    while (list($undef,$v) = each($backends)) {
+    foreach ($backends as $undef=>$v) {
         if ($v->writeable) {
             $write[$v->bnum]=$v->sname;
         }
