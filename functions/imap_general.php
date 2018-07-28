@@ -1213,7 +1213,7 @@ function sqimap_parse_namespace(&$input) {
                 $namespace[$ns_strings[$i]] = array();
             } else {
                 // Pop-out the first ( and last ) for easier parsing
-                $ns = substr($regs[$i], 1, sizeof($regs[$i])-2);
+                $ns = substr($regs[$i], 1, strlen($regs[$i])-2);
                 if($c = preg_match_all('/\((?:(.*?)\s*?)\)/', $ns, $regs2)) {
                     $namespace[$ns_strings[$i]] = array();
                     for($j=0; $j<sizeof($regs2[1]); $j++) {

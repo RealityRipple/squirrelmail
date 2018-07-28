@@ -89,12 +89,17 @@ function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=fals
  * @return array  $aMessageList array with messages containing the new flags and UID @see parseFetch
  */
 function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
+    $aMessageList = array();
     $msgs_id = sqimap_message_list_squisher($id);
     $set_string = ($set ? '+' : '-');
 
-    for ($i=0; $i<sizeof($id); $i++) {
-        $aMessageList["$id[$i]"] = array();
+    if (is_array($id)) {
+     for ($i=0; $i<sizeof($id); $i++) {
+         $aMessageList["$id[$i]"] = array();
+     }
     }
+    else
+     $aMessageList[$id] = array();
 
     $aResponse = sqimap_run_command_list($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, TRUE);
 

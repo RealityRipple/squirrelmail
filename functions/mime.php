@@ -1386,7 +1386,7 @@ function sq_casenormalize(&$val){
 function sq_skipspace($body, $offset){
     $me = 'sq_skipspace';
     preg_match('/^(\s*)/s', substr($body, $offset), $matches);
-    if (sizeof($matches{1})){
+    if (strlen($matches{1}) > 0){
         $count = strlen($matches{1});
         $offset += $count;
     }
