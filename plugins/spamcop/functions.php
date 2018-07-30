@@ -28,15 +28,16 @@ $spamcop_quick_report = false;
  * @access private
  */
 function spamcop_load_function() {
-    global $username, $data_dir, $spamcop_enabled, $spamcop_delete, $spamcop_save,
+    global $username, $data_dir, $spamcop_enabled, $spamcop_delete, $spamcop_save, $spamcop_movetospam,
            $spamcop_method, $spamcop_id, $spamcop_quick_report, $spamcop_type;
 
-    $spamcop_enabled = getPref($data_dir, $username, 'spamcop_enabled');
-    $spamcop_delete = getPref($data_dir, $username, 'spamcop_delete');
-    $spamcop_save = getPref($data_dir, $username, 'spamcop_save',true);
-    $spamcop_method = getPref($data_dir, $username, 'spamcop_method');
-    $spamcop_type = getPref($data_dir, $username, 'spamcop_type');
-    $spamcop_id = getPref($data_dir, $username, 'spamcop_id');
+    $spamcop_enabled    = getPref($data_dir, $username, 'spamcop_enabled');
+    $spamcop_delete     = getPref($data_dir, $username, 'spamcop_delete');
+    $spamcop_movetospam = getPref($data_dir, $username, 'spamcop_movetospam');
+    $spamcop_save       = getPref($data_dir, $username, 'spamcop_save',true);
+    $spamcop_method     = getPref($data_dir, $username, 'spamcop_method');
+    $spamcop_type       = getPref($data_dir, $username, 'spamcop_type');
+    $spamcop_id         = getPref($data_dir, $username, 'spamcop_id');
     if ($spamcop_method == '') {
         // Default to web_form. It is faster.
         $spamcop_method = 'web_form';
@@ -133,7 +134,7 @@ function spamcop_options_function() {
  * @access private
  */
 function spamcop_while_sending_function() {
-    global $mailbox, $spamcop_delete, $spamcop_save, $spamcop_is_composing, $auto_expunge,
+    global $mailbox, $spamcop_delete, $spamcop_save, $spamcop_movetospam, $spamcop_is_composing, $auto_expunge,
            $username, $imapServerAddress, $imapPort, $imap_stream_options;
 
     if (sqgetGlobalVar('spamcop_is_composing' , $spamcop_is_composing)) {
@@ -142,6 +143,28 @@ function spamcop_while_sending_function() {
             $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
             sqimap_mailbox_select($imapConnection, $mailbox);
             sqimap_msgs_list_delete($imapConnection, $mailbox, array($spamcop_is_composing));
+            if ($auto_expunge)
+                sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+        }
+        if ($spamcop_movetospam) {
+            $imapConnection = sqimap_login($username, false, $imapServerAddress, $imapPort, 0, $imap_stream_options);
+            $mailboxes = sqimap_mailbox_list($imapConnection);
+            sqimap_mailbox_select($imapConnection, $mailbox);
+            $spamBox = 'SPAM';
+            foreach($mailboxes as $boxName)
+            {
+             if (strpos(strtolower($boxName['raw']), 'junk') !== false)
+             {
+              $spamBox = $boxName['formatted'];
+              break;
+             }
+             if (strpos(strtolower($boxName['raw']), 'spam') !== false)
+             {
+              $spamBox = $boxName['formatted'];
+              break;
+             }
+            }
+            sqimap_msgs_list_move($imapConnection, $spamcop_is_composing, $spamBox, 0, $mailbox);
             if ($auto_expunge)
                 sqimap_mailbox_expunge($imapConnection, $mailbox, true);
         }
