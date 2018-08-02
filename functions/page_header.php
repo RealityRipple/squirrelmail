@@ -37,7 +37,8 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     }
     global $custom_css, $pageheader_sent, $theme, $theme_default, $text_direction,
         $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, 
-        $chosen_theme, $chosen_theme_path, $user_themes, $user_theme_default;
+        $chosen_theme, $chosen_theme_path, $user_themes, $user_theme_default,
+        $provider_uri;
 
     // add no cache headers here
     //
@@ -57,8 +58,11 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $oTemplate->header('X-Powered-By: SquirrelMail', FALSE);
 
     // prevent clickjack attempts
-// FIXME: should we use DENY instead?  We can also make this a configurable value, including giving the admin the option of removing this entirely in case they WANT to be framed by an external domain
-    $oTemplate->header('X-Frame-Options: SAMEORIGIN');
+// FIXME: use a new config variable for this eventually. for now, we'll just cut the prefix off the provider_uri.
+    $ancestor = $provider_uri;
+    if (strpos($ancestor, '://') !== false)
+     $ancestor = substr($ancestor, strpos($ancestor, '://') + 3);
+    $oTemplate->header('Content-Security-Policy: frame-ancestors http://'.$ancestor.' https://'.$ancestor.' http://*.'.$ancestor.' https://*.'.$ancestor);
 
     // prevent clickjack attempts using JavaScript for browsers that
     // don't support the X-Frame-Options header...
