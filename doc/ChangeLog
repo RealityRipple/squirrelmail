@@ -419,6 +419,7 @@ Version 1.5.2 - SVN
     replying to after sending 
   - Sanitize user-supplied attachment filenames (thanks to Florian
     Grunow for reporting this issue) [CVE-2018-8741]
+  - Changed anti-CSRF security token lifetime to be session-based.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
