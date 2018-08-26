@@ -116,5 +116,24 @@
  * the appropriate quote character for the database type
  * being used (backtick for MySQL (and thus MariaDB),
  * double quotes for all others).
+ *
+ * $use_expiring_security_tokens (boolean) allows you to
+ * make SquirrelMail use short-lived anti-CSRF security
+ * tokens that expire as desired (not recommended, can
+ * cause user-facing issues when tokens expire unexpectedly).
+ *
+ * $max_token_age_days (integer) allows you to indicate how
+ * long a token should be valid for (in days) (only relevant
+ * when $use_expiring_security_tokens is enabled).
+ *
+ * $do_not_use_single_token (boolean) allows you to force
+ * SquirrelMail to generate a new token every time one is
+ * requested (which may increase obscurity through token
+ * randomness at the cost of some performance).  Otherwise,
+ * only one token will be generated per user which will
+ * change only after it expires or is used outside of the
+ * validity period specified when calling
+ * sm_validate_security_token() (only relevant when
+ * $use_expiring_security_tokens is enabled).
+ * 
  */
-
