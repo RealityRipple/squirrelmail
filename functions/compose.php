@@ -83,11 +83,12 @@ function sq_get_attach_tempfile()
   *                        empty, all other parameters are ignored.
   *                        (OPTIONAL: default is empty)
   *
-  * @return array A two-element array, the first element being a
+  * @return array A three-element array, the first element being a
   *               boolean value indicating if the message was successfully
-  *               sent or not, and the second element being the message's
+  *               sent or not, the second element being the message's
   *               assigned Message-ID, if available (only available as of
-  *               SquirrelMail 1.4.14 and 1.5.2)
+  *               SquirrelMail 1.4.14 and 1.5.2), and the third element
+  *               being the message object itself.
   *
   */
 function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='', $message='')
@@ -167,7 +168,7 @@ function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='', $message='')
       $success = $deliver->finalizeStream($stream);
    }
 
-   return array($success, $message_id);
+   return array($success, $message_id, $message);
 
 }
 
