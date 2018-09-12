@@ -82,15 +82,27 @@ function sq_get_attach_tempfile()
   *                        or Sendmail.  If this parameter is non-
   *                        empty, all other parameters are ignored.
   *                        (OPTIONAL: default is empty)
+  * @param boolean $only_build_message_object When TRUE, only builds the
+  *                                           message object that it
+  *                                           intends to send and returns
+  *                                           it (returned success code
+  *                                           will be -1 and message ID
+  *                                           emtpy) (OPTIONAL; default
+  *                                           is FALSE)
   *
-  * @return array A two-element array, the first element being a
+  * @return array A three-element array, the first element being a
   *               boolean value indicating if the message was successfully
-  *               sent or not, and the second element being the message's
+  *               sent or not, the second element being the message's
   *               assigned Message-ID, if available (only available as of
-  *               SquirrelMail 1.4.14 and 1.5.2)
+  *               SquirrelMail 1.4.14 and 1.5.2), and the third element
+  *               being the message object itself.
+  *               If $only_build_message_object is TRUE, only the third
+  *               element is useful; first two should be ignored - the
+  *               message is never sent in this case.
   *
   */
-function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='', $message='')
+function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='',
+                      $message='', $only_build_message_object=FALSE)
 {
 
    require_once(SM_PATH . 'functions/mime.php');
@@ -120,6 +132,10 @@ function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='', $message='')
       $message->rfc822_header = $header;
    }
 //sm_print_r($message);exit;
+
+
+   if ($only_build_message_object)
+      return array(-1, '', $message);
 
 
    global $useSendmail;
@@ -167,7 +183,7 @@ function sq_send_mail($to, $subject, $body, $from, $cc='', $bcc='', $message='')
       $success = $deliver->finalizeStream($stream);
    }
 
-   return array($success, $message_id);
+   return array($success, $message_id, $message);
 
 }
 
