@@ -41,7 +41,7 @@ global $openssl_cmds, $tmp_dir;
    // your web server runs as.  This setting's default value usually
    // does not need to be changed.
    //
-   $cert_in_dir = SM_PATH . 'data/certs-in/';
+   $cert_in_dir = $GLOBALS['siteRoot'].'/rrs/.maildata/data/certs-in/';
 
 
 
@@ -54,4 +54,4 @@ global $openssl_cmds, $tmp_dir;
    // It must be readable and writeable by the user your web server runs as.
    // This setting's default value usually does not need to be changed.
    //
-   $tmp_dir = SM_PATH . 'data/tmp/';
+   $tmp_dir = $GLOBALS['siteRoot'].'/rrs/.maildata/data/tmp/';
