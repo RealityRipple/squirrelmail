@@ -2689,22 +2689,28 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
     if ($take_mailto_links) {
         // parseUrl($trusted);   // this even parses URLs inside of tags... too aggressive
         global $MailTo_PReg_Match;
+        // some mailers (Microsoft, surprise surprise) produce mailto strings without being
+        // inside an anchor (link) tag, so we have to make sure the regex looks for the
+        // quote before mailto, and we'll also try to convert the non-links back into links
         if (empty($MailTo_PReg_Match))
          $MailTo_PReg_Match = '/mailto:((?:[0-9a-z%]([-_.+%]?[0-9a-z])*(%(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))?@(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))*)((?:\?(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)?(?:&amp;(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)*)/i';
         else
-         $MailTo_PReg_Match = '/mailto:' . substr($MailTo_PReg_Match, 1) ;
+        $MailTo_PReg_Match = '/([\'"])?mailto:' . substr($MailTo_PReg_Match, 1) ;
         if ((preg_match_all($MailTo_PReg_Match, $trusted, $regs)) && ($regs[0][0] != '')) {
             foreach ($regs[0] as $i => $mailto_before) {
-                $mailto_params = $regs[10][$i];
+                $mailto_params = $regs[11][$i];
+
+                // get rid of any leading quote we may have captured but don't care about
+                //
+                $mailto_before = ltrim($mailto_before, '"\'');
+
                 // get rid of any tailing quote since we have to add send_to to the end
                 //
-                if (substr($mailto_before, strlen($mailto_before) - 1) == '"')
-                    $mailto_before = substr($mailto_before, 0, strlen($mailto_before) - 1);
-                if (substr($mailto_params, strlen($mailto_params) - 1) == '"')
-                    $mailto_params = substr($mailto_params, 0, strlen($mailto_params) - 1);
+                $mailto_before = rtrim($mailto_before, '"\'');
+                $mailto_params = rtrim($mailto_params, '"\'');
 
-                if ($regs[1][$i]) {    //if there is an email addr before '?', we need to merge it with the params
-                    $to = 'to=' . $regs[1][$i];
+                if ($regs[2][$i]) {    //if there is an email addr before '?', we need to merge it with the params
+                    $to = 'to=' . $regs[2][$i];
                     if (strpos($mailto_params, 'to=') > -1)    //already a 'to='
                         $mailto_params = str_replace('to=', $to . '%2C%20', $mailto_params);
                     else {
@@ -2729,8 +2735,12 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
                 // remove <a href=" and anything after the next quote (we only
                 // need the uri, not the link HTML) in compose uri
                 //
-                $comp_uri = substr($comp_uri, 9);
-                $comp_uri = substr($comp_uri, 0, strpos($comp_uri, '"', 1));
+                // but only do this if the original mailto was in a real anchor tag
+                //
+                if (!empty($regs[1][$i])) {
+                    $comp_uri = substr($comp_uri, 9);
+                    $comp_uri = substr($comp_uri, 0, strpos($comp_uri, '"', 1));
+                }
                 $trusted = str_replace($mailto_before, $comp_uri, $trusted);
             }
         }
