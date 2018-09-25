@@ -2,3 +2,7 @@
 	path = plugins/smime
 	url = git@github.com:RealityRipple/S-Mime-Verification.git
 	branch = rrs-website
+[submodule "plugins/dkim"]
+	path = plugins/dkim
+	url = git@github.com:RealityRipple/DKIM-Verification.git
+	branch = rrs-website

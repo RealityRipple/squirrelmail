@@ -47,6 +47,12 @@ $squirrelmail_plugin_hooks['template_construct_read_headers.tpl']['smime']
     = 'smime_header_verify';
 $squirrelmail_plugin_hooks['configtest']['smime'] 
     = 'smime_check_configuration';
+$squirrelmail_plugin_hooks['read_body_header']['dkim'] 
+    = 'dkim_header_verify';
+$squirrelmail_plugin_hooks['template_construct_read_headers.tpl']['dkim'] 
+    = 'dkim_header_verify';
+$squirrelmail_plugin_hooks['configtest']['dkim'] 
+    = 'dkim_check_configuration';
 $squirrelmail_plugin_hooks['optpage_register_block']['spamcop'] 
     = 'spamcop_options';
 $squirrelmail_plugin_hooks['loading_prefs']['spamcop'] 
