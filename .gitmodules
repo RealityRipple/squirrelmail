@@ -5,4 +5,4 @@
 [submodule "plugins/dkim"]
 	path = plugins/dkim
 	url = git@github.com:RealityRipple/DKIM-Verification.git
-	branch = rrs-website
+	branch = master
