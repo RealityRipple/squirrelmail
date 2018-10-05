@@ -6,3 +6,7 @@
 	path = plugins/dkim
 	url = git@github.com:RealityRipple/DKIM-Verification.git
 	branch = master
+[submodule "plugins/spamcop"]
+	path = plugins/spamcop
+	url = git@github.com:RealityRipple/SpamCop.git
+	branch = master
