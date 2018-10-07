@@ -294,7 +294,9 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
             $sSortField = 'SIZE';
         }
         foreach ($msgs as $item) {
-            $aUid[$item['UID']] = (isset($item[$sSortField])) ? $item[$sSortField] : 0;
+            if (array_key_exists('UID', $item)) {
+                $aUid[$item['UID']] = (isset($item[$sSortField])) ? $item[$sSortField] : 0;
+            }
         }
         if ($reverse) {
             arsort($aUid,SORT_NUMERIC);
@@ -577,7 +579,8 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
                 $aMessageList["$msg_list[$i]"] = array();
             }
         }
-    } else {
+    }
+    if (empty($msgs_str)) {
         $msgs_str = '1:*';
     }
 
