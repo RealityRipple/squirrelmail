@@ -338,36 +338,41 @@ if ($aMailbox['EXISTS'] > 0) {
     if ($iError) {
 
     }
-    foreach ($aTemplateVars as $k => $v) {
-        $oTemplate->assign($k, $v);
+    if (count($aTemplateVars) === 0) {
+        $oTemplate->display('empty_folder.tpl');
     }
+    else {
+        foreach ($aTemplateVars as $k => $v) {
+            $oTemplate->assign($k, $v);
+        }
 
-    /*
-     * TODO: To many config related vars. We should move all config related vars to
-     * one single associative array and assign that to the template
-     */
-    $oTemplate->assign('page_selector',  $page_selector);
-    $oTemplate->assign('page_selector_max', $page_selector_max);
-    $oTemplate->assign('compact_paginator', $compact_paginator);
-    $oTemplate->assign('javascript_on', checkForJavascript());
-    $oTemplate->assign('base_uri', sqm_baseuri());
-    $oTemplate->assign('enablesort', (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false);
-    $oTemplate->assign('icon_theme_path', $icon_theme_path);
-    $oTemplate->assign('aOrder', array_keys($aColumns));
-    $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
-    $oTemplate->assign('color', $color);
-    $oTemplate->assign('align', $align);
-    $oTemplate->assign('checkall', $checkall);
-    $oTemplate->assign('preselected', $preselected);
+        /*
+         * TODO: To many config related vars. We should move all config related vars to
+         * one single associative array and assign that to the template
+         */
+        $oTemplate->assign('page_selector',  $page_selector);
+        $oTemplate->assign('page_selector_max', $page_selector_max);
+        $oTemplate->assign('compact_paginator', $compact_paginator);
+        $oTemplate->assign('javascript_on', checkForJavascript());
+        $oTemplate->assign('base_uri', sqm_baseuri());
+        $oTemplate->assign('enablesort', (isset($aProps['config']['enablesort'])) ? $aProps['config']['enablesort'] : false);
+        $oTemplate->assign('icon_theme_path', $icon_theme_path);
+        $oTemplate->assign('aOrder', array_keys($aColumns));
+        $oTemplate->assign('alt_index_colors', isset($alt_index_colors) ? $alt_index_colors: false);
+        $oTemplate->assign('color', $color);
+        $oTemplate->assign('align', $align);
+        $oTemplate->assign('checkall', $checkall);
+        $oTemplate->assign('preselected', $preselected);
 
-    global $show_personal_names;
-    $oTemplate->assign('show_personal_names', $show_personal_names);
+        global $show_personal_names;
+        $oTemplate->assign('show_personal_names', $show_personal_names);
 
-    global $accesskey_mailbox_toggle_selected, $accesskey_mailbox_thread;
-    $oTemplate->assign('accesskey_mailbox_toggle_selected', $accesskey_mailbox_toggle_selected);
-    $oTemplate->assign('accesskey_mailbox_thread', $accesskey_mailbox_thread);
+        global $accesskey_mailbox_toggle_selected, $accesskey_mailbox_thread;
+        $oTemplate->assign('accesskey_mailbox_toggle_selected', $accesskey_mailbox_toggle_selected);
+        $oTemplate->assign('accesskey_mailbox_thread', $accesskey_mailbox_thread);
 
-    $oTemplate->display('message_list.tpl');
+        $oTemplate->display('message_list.tpl');
+    }
 
 } else {
     $oTemplate->display('empty_folder.tpl');
