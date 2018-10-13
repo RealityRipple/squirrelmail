@@ -38,7 +38,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     global $custom_css, $pageheader_sent, $theme, $theme_default, $text_direction,
         $default_fontset, $chosen_fontset, $default_fontsize, $chosen_fontsize, 
         $chosen_theme, $chosen_theme_path, $user_themes, $user_theme_default,
-        $provider_uri;
+        $provider_uri, $head_tag_extra;
 
     // add no cache headers here
     //
@@ -83,7 +83,18 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $oTemplate->assign('frames', $frames);
     $oTemplate->assign('lang', $squirrelmail_language);
 
-    $header_tags .= "<meta name=\"robots\" content=\"noindex,nofollow\" />\n";
+    $header_tags .= "<meta name=\"robots\" content=\"noindex,nofollow\" />\n"
+
+    // For adding a favicon or anything else that should be inserted in *ALL* <head> for *ALL* documents,
+    // define $head_tag_extra in config/config_local.php
+    // The string "###SM BASEURI###" will be replaced with the base URI for this SquirrelMail installation.
+    // When not defined, a default is provided that displays the default favicon.ico.
+    // If you override this and still want to use the default favicon.ico, you'll have to include the following
+    // following in your $head_tag_extra string:
+    // $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico">...<YOUR CONTENT HERE>...';
+    //
+    . (empty($head_tag_extra) ? '<link rel="shortcut icon" href="' . sqm_baseuri() . 'favicon.ico">'
+    : str_replace('###SM BASEURI###', sqm_baseuri(), $head_tag_extra));
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);

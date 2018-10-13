@@ -420,6 +420,9 @@ Version 1.5.2 - SVN
   - Sanitize user-supplied attachment filenames (thanks to Florian
     Grunow for reporting this issue) [CVE-2018-8741]
   - Changed anti-CSRF security token lifetime to be session-based.
+  - Added favicon and ability for admins to use their own by setting
+    $head_tag_extra in config_local.php (see documentation in
+    config/config_local.php)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
