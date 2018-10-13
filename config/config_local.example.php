@@ -136,4 +136,14 @@
  * sm_validate_security_token() (only relevant when
  * $use_expiring_security_tokens is enabled).
  * 
+ * $head_tag_extra can be used to add custom tags inside
+ * the <head> section of *ALL* pages.  The string
+ * "###SM BASEURI###" will be replaced with the base URI
+ * for this SquirrelMail installation.  This may be used,
+ * for example, to add custom favicon tags.  If this
+ * setting is empty here, SquirrelMail will add a favicon
+ * tag by default.  If you want to retain the default favicon
+ * while using this setting, you must include the following
+ * as part of this setting:
+ * $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico">...<YOUR CONTENT HERE>...';
  */
