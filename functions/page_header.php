@@ -88,9 +88,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     // When not defined, a default is provided that displays the default favicon.ico.
     // If you override this and still want to use the default favicon.ico, you'll have to include the following
     // following in your $head_tag_extra string:
-    // $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico">...<YOUR CONTENT HERE>...';
+    // $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico" />...<YOUR CONTENT HERE>...';
     //
-    . (empty($head_tag_extra) ? '<link rel="shortcut icon" href="' . sqm_baseuri() . 'favicon.ico">'
+    . (empty($head_tag_extra) ? '<link rel="shortcut icon" href="' . sqm_baseuri() . 'favicon.ico" />'
     : str_replace('###SM BASEURI###', sqm_baseuri(), $head_tag_extra));
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
