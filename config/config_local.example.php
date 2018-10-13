@@ -145,5 +145,5 @@
  * tag by default.  If you want to retain the default favicon
  * while using this setting, you must include the following
  * as part of this setting:
- * $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico">...<YOUR CONTENT HERE>...';
+ * $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico" />...<YOUR CONTENT HERE>...';
  */
