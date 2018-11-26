@@ -55,7 +55,8 @@ sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
 // compose_messages only useful in SESSION when a forward-as-attachment
 // has been preconstructed for us and passed in via that mechanism; once
 // we have it, we can clear it from the SESSION
-sqsession_unregister('compose_messages');
+// -- No, this is useful in other scenarios, too -- removing:
+// sqsession_unregister('compose_messages');
 
 // Turn on delayed error handling in case we wind up redirecting below
 $oErrorHandler->setDelayedErrors(true);
@@ -246,6 +247,7 @@ function getReplyCitation($orig_from, $orig_date) {
         $full_reply_citation = sprintf(_("%s wrote:"),$sOrig_from);
         break;
     case 'quote_who':
+        // TODO: the words "quote" and "who" are translated in 1.4.x so why not here?  This isn't a real HTML tag...
         $start = '<quote who="';
         $end   = '">';
         $full_reply_citation = $start . $sOrig_from . $end;
@@ -807,7 +809,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         $key, $imapServerAddress, $imapPort, $imap_stream_options,
         $composeMessage, $body_quote, $request_mdn, $request_dr,
         $mdn_user_support, $languages, $squirrelmail_language,
-        $default_charset, $do_not_reply_to_self;
+        $default_charset, $do_not_reply_to_self, $compose_messages;
 
     /*
      * Set $default_charset to correspond with the user's selection
@@ -1713,7 +1715,7 @@ function getByteSize($ini_size) {
  */
 function deliverMessage(&$composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
-        $username, $identity, $idents, $data_dir,
+        $username, $identity, $idents, $data_dir, $compose_messages, $session,
         $request_mdn, $request_dr, $default_charset, $useSendmail,
         $domain, $action, $default_move_to_sent, $move_to_sent,
         $imapServerAddress, $imapPort, $imap_stream_options, $sent_folder, $key;
@@ -1864,6 +1866,9 @@ function deliverMessage(&$composeMessage, $draft=false) {
             sqimap_logout($imap_stream);
             unset ($imap_deliver);
             $composeMessage->purgeAttachments();
+//TODO: completely unclear if should be using $compose_session instead of $session below
+            unset($compose_messages[$session]);
+            sqsession_register($compose_messages,'compose_messages');
             return $success;
         } else {
             $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), sm_encode_html_special_chars($draft_folder));
@@ -2001,6 +2006,9 @@ function deliverMessage(&$composeMessage, $draft=false) {
         // final cleanup
         //
         $composeMessage->purgeAttachments();
+//TODO: completely unclear if should be using $compose_session instead of $session below
+        unset($compose_messages[$session]);
+        sqsession_register($compose_messages,'compose_messages');
         sqimap_logout($imap_stream);
 
     }
