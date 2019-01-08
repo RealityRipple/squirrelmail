@@ -6,7 +6,7 @@
  * Functions for message compositon: writing a message, attaching files etc.
  *
  * @author Thijs Kinkhorst <kink at squirrelmail.org>
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

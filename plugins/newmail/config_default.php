@@ -4,7 +4,7 @@
  * SquirrelMail NewMail plugin
  *
  * Default configuration file
- * @copyright 2005-2018 The SquirrelMail Project Team
+ * @copyright 2005-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
