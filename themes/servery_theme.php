@@ -5,7 +5,7 @@
  * Date:   August 18, 2000
  *
  * @author Ondrej Sury <ondrej at globe.cz>
- * @copyright 2000-2018 The SquirrelMail Project Team
+ * @copyright 2000-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
