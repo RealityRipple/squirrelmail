@@ -7,7 +7,7 @@
  * It also has some session register functions that work across various
  * php versions.
  *
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

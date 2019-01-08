@@ -9,7 +9,7 @@
  * after CHECK_ME module.
  *
  * @author Konstantin Riabitsev <icon at duke.edu>
- * @copyright 1999-2018 The SquirrelMail Project Team
+ * @copyright 1999-2019 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
