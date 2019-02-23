@@ -175,8 +175,12 @@ function replyAllString($header) {
     /**
      * 1) Remove the addresses we'll be sending the message 'to'
      */
-    if (isset($header->reply_to)) {
+    if (isset($header->reply_to) && is_array($header->reply_to) && count($header->reply_to)) {
         $excl_ar = $header->getAddr_a('reply_to');
+    } else if (is_object($header->reply_to)) { /* unneccesarry, just for failsafe purpose */
+        $excl_ar = $header->getAddr_a('reply_to');
+    } else {
+        $excl_ar = $header->getAddr_a('from');
     }
     /**
      * 2) Remove our identities from the CC list (they still can be in the
