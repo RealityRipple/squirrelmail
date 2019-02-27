@@ -2516,7 +2516,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
     // require_once(SM_PATH . 'functions/url_parser.php');  // for $MailTo_PReg_Match
 
     global $attachment_common_show_images, $view_unsafe_images,
-           $has_unsafe_images, $block_svg_display;
+           $has_unsafe_images, $allow_svg_display;
     /**
      * Don't display attached images in HTML mode.
      *
@@ -2546,7 +2546,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
             "xmp",
             "xml",
             );
-    if ($block_svg_display)
+    if (!$allow_svg_display)
         $rm_tags_with_content[] = 'svg';
 
     $self_closing_tags =  Array(
