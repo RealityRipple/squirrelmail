@@ -423,6 +423,9 @@ Version 1.5.2 - SVN
   - Added favicon and ability for admins to use their own by setting
     $head_tag_extra in config_local.php (see documentation in
     config/config_local.php)
+  - Updated SVG handling, closing several related vulnerabilities
+    (#2831) [CVE-2018-14950] [CVE-2018-14951] [CVE-2018-14952]
+    [CVE-2018-14953] [CVE-2018-14954] [CVE-2018-14955]
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
