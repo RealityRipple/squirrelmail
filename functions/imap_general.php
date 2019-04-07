@@ -1052,6 +1052,128 @@ function sqimap_login ($username, $password, $imap_server_address,
         exit;
     }
 
+    // Run ID command if configured - RFC 2971
+    //
+    // Administrator must declare a configuration variable called
+    // $imap_id_command_args in config/config_local.php which must
+    // be an array, where each key is an attibute to be sent in the
+    // IMAP ID command to the server.  Values will be sent as-is
+    // except if the value is "###REMOTE ADDRESS###" (without quotes)
+    // in which case the current user's real IP address will be
+    // substituted.  If "###X-FORWARDED-FOR###" is used and a
+    // "X-FORWARDED-FOR" header is present in the client request,
+    // the contents of that header are used (careful, this can be
+    // forged).  If "###X-FORWARDED-FOR OR REMOTE ADDRESS###" is
+    // used, then the "X-FORWARDED-FOR" header is used if it is
+    // present in the request, otherwise, the client's connecting
+    // IP address is used.  The following attributes will always be
+    // added unless they are specifically overridden with a blank
+    // value:
+    //    name, vendor, support-url, version
+    // A parsed representation of server's response is made available
+    // to plugins as both a global and session variable named
+    // "imap_server_id_response" (a simple key/value array) unless
+    // response parsing is turned off by way of setting a variable
+    // named $do_not_parse_imap_id_command_response in
+    // config/config_local.php to TRUE, in which case, the stored
+    // response will be the unparsed IMAP response.
+    //
+    global $imap_id_command_args, $do_not_parse_imap_id_command_response;
+    if (!empty($imap_id_command_args) && is_array($imap_id_command_args)
+     && sqimap_capability($imap_stream, 'ID')) {
+
+        static $args = array();
+        if (empty($args)) {
+            if (!isset($imap_id_command_args['name']))
+                $imap_id_command_args['name'] = 'SquirrelMail';
+            if (!isset($imap_id_command_args['vendor']))
+                $imap_id_command_args['vendor'] = 'SquirrelMail Project Team';
+            if (!isset($imap_id_command_args['support-url']))
+                $imap_id_command_args['support-url'] = 'https://squirrelmail.org';
+            if (!isset($imap_id_command_args['version'])) {
+                $imap_id_command_args['version'] = SM_VERSION;
+            }
+            foreach ($imap_id_command_args as $key => $value) {
+                $key = trim($key);
+                $value = trim($value);
+                if ($key === '' || $value === '')
+                   continue;
+                if ($value === '###REMOTE ADDRESS###' && sqGetGlobalVar('REMOTE_ADDR', $remote_addr, SQ_SERVER))
+                    $value = $remote_addr;
+                else if ($value === '###X-FORWARDED-FOR###' && sqGetGlobalVar('HTTP_X_FORWARDED_FOR', $remote_addr, SQ_SERVER))
+                    $value = $remote_addr;
+                else if ($value === '###X-FORWARDED-FOR OR REMOTE ADDRESS###') {
+                    if (sqGetGlobalVar('HTTP_X_FORWARDED_FOR', $remote_addr, SQ_SERVER))
+                        $value = $remote_addr;
+                    else if (sqGetGlobalVar('REMOTE_ADDR', $remote_addr, SQ_SERVER))
+                        $value = $remote_addr;
+                }
+                else if ($value === '###REMOTE ADDRESS###' && sqGetGlobalVar('REMOTE_ADDR', $remote_addr, SQ_SERVER)) {
+                    $value = $remote_addr;
+                }
+                $args[] = '"' . str_replace(array('"', '\\'), array('\\"', '\\\\'), $key)
+                               . '" "' . str_replace(array('"', '\\'), array('\\"', '\\\\'), $value) . '"';
+            }
+        }
+        $read_ary = sqimap_run_command($imap_stream, 'ID (' . implode(' ', $args) . ')', false, $response, $message);
+        if (!empty($read_ary) && is_array($read_ary)) {
+            global $imap_server_id_response;
+            if ($do_not_parse_imap_id_command_response)
+               $imap_server_id_response = $read_ary;
+            else
+            {
+               $imap_server_id_response = array();
+
+               // NOTE that this parser ignores closing ) sign, so
+               //      technically some kind of malformed server
+               //      response could cause extra junk to be included here
+               foreach ($read_ary as $info)
+               {
+                  $parsed_info = explode('(', $info, 2);
+                  if (!empty($parsed_info[1]))
+                  {
+                     // find opening quote for the next key name
+                     while ($parsed_info = explode('"', $parsed_info[1], 2))
+                     {
+                        if (empty($parsed_info[1]))
+                           break;
+                        else
+                        {
+                           // find closing quote for the key name
+                           $pos = strpos($parsed_info[1], '"');
+                           if ($pos === FALSE)
+                              break;
+                           else
+                           {
+                              $key = substr($parsed_info[1], 0, $pos);
+                              $parsed_info[1] = substr($parsed_info[1], $pos + 1);
+
+                              // find opening quote for the key's value
+                              $parsed_info = explode('"', $parsed_info[1], 2);
+                              if (empty($parsed_info[1]))
+                                 break;
+                              else
+                              {
+                                 // find closing quote for the key's value
+                                 $pos = strpos($parsed_info[1], '"');
+                                 if ($pos === FALSE)
+                                    break;
+                                 else
+                                 {
+                                    $imap_server_id_response[$key] = substr($parsed_info[1], 0, $pos);
+                                    $parsed_info[1] = substr($parsed_info[1], $pos + 1);
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+            sqsession_register($imap_server_id_response, 'imap_server_id_response');
+        }
+    }
+
     return $imap_stream;
 }
 
