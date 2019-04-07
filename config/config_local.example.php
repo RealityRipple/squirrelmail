@@ -146,4 +146,32 @@
  * while using this setting, you must include the following
  * as part of this setting:
  * $head_tag_extra = '<link rel="shortcut icon" href="###SM BASEURI###favicon.ico" />...<YOUR CONTENT HERE>...';
+ *
+ * $imap_id_command_args (array) causes the IMAP ID
+ * command (RFC 2971) to be sent after every login,
+ * identifying the client to the server.  Each key in this
+ * array is an attibute to be sent in the ID command to
+ * the server.  Values will be sent as-is except if the
+ * value is "###REMOTE ADDRESS###" (without quotes) in
+ * which case the current user's real IP address will be
+ * substituted.  If "###X-FORWARDED-FOR###" is used and a
+ * "X-FORWARDED-FOR" header is present in the client request,
+ * the contents of that header are used (careful, this can
+ * be forged).  If "###X-FORWARDED-FOR OR REMOTE ADDRESS###"
+ * is used, then the "X-FORWARDED-FOR" header is used if it
+ * is present in the request, otherwise, the client's
+ * connecting IP address is used.  The following attributes
+ * will always be added unless they are specifically
+ * overridden with a blank value:
+ *    name, vendor, support-url, version
+ * A parsed representation of server's response is made
+ * available to plugins as both a global and session variable
+ * named "imap_server_id_response" (a simple key/value array)
+ * unless response parsing is turned off by way of setting a
+ * variable in this file named
+ * $do_not_parse_imap_id_command_response to TRUE, in which
+ * case, the stored response will be the unparsed IMAP response.
+ * $imap_id_command_args = array('remote-host' => '###REMOTE ADDRESS###');
+ * $do_not_parse_imap_id_command_response = FALSE;
+ *
  */
