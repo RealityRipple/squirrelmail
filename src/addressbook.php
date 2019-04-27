@@ -305,7 +305,7 @@ if (!empty($formerror)) {
 
 /* Display the address management part */
 $addresses = array();
-while (list($k, $backend) = each ($abook->backends)) {
+foreach ($abook->backends as $k => $backend) {
     $a = array();
     $a['BackendID'] = $backend->bnum;
     $a['BackendSource'] = $backend->sname;
