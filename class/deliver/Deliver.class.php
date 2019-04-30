@@ -596,7 +596,15 @@ class Deliver {
         $rn = "\r\n";
 
         /* This creates an RFC 822 date */
-        $date = date('D, j M Y H:i:s ', time()) . $this->timezone();
+        $now = time();
+        $now_date = date('D, j M Y H:i:s ', $now) . $this->timezone();
+        // TODO: Do we really want to preserve possibly old date?  Date header should always have "now"... but here is not where this decision should be made -- the caller really should blank out $rfc822_header->date even for drafts being re-edited or sent
+        if (!empty($rfc822_header->date) && $rfc822_header->date != -1)
+            $message_date = date('D, j M Y H:i:s ', $rfc822_header->date) . $this->timezone();
+        else {
+            $message_date = $now_date;
+            $rfc822_header->date = $now;
+        }
 
         /* Create a message-id */
         $message_id = 'MESSAGE ID GENERATION ERROR! PLEASE CONTACT SQUIRRELMAIL DEVELOPERS';
@@ -653,7 +661,7 @@ class Deliver {
             if (!isset($hide_auth_header) || !$hide_auth_header)
                 $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
             $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
-            $header[] = "        $date" . $rn;
+            $header[] = "        $now_date" . $rn;
           }
         }
 
@@ -677,12 +685,7 @@ class Deliver {
             $rfc822_header->references = $references;
         }
 
-        if (!empty($rfc822_header->date) && $rfc822_header->date != -1) {
-            $header[] = 'Date: '. $rfc822_header->date . $rn;
-        } else {
-            $header[] = "Date: $date" . $rn;
-            $rfc822_header->date = $date;
-        }
+        $header[] = "Date: $message_date" . $rn;
 
         $header[] = 'Subject: '.encodeHeader($rfc822_header->subject) . $rn;
         $header[] = 'From: '. $rfc822_header->getAddr_s('from',",$rn ",true) . $rn;
