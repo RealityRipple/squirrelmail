@@ -838,6 +838,11 @@ class Deliver {
       */
     function foldLine($header, $soft_wrap=78, $indent='', $hard_wrap=998) {
 
+        // allow folding after the initial colon and space?
+        // (only supported if the header name is within the $soft_wrap limit)
+        //
+        $allow_fold_after_header_name = FALSE;
+
         // the "hard" token list can be altered if desired,
         // for example, by adding ":"
         // (in the future, we can take optional arguments
@@ -869,7 +874,26 @@ class Deliver {
 
         $CRLF = "\r\n";
 
+        // switch that helps compact the last line, pasting it at the
+        // end of the one before if the one before is already over the
+        // soft limit and it wouldn't go over the hard limit
+        //
+        $pull_last_line_up_if_second_to_last_is_already_over_soft_limit = FALSE;
+
+
+        // ----- end configurable behaviors -----
+
+
         $folded_header = '';
+
+        // if we want to prevent a wrap right after the
+        // header name, make note of the position here
+        //
+        if (!$allow_fold_after_header_name
+         && ($header_name_end_pos = strpos($header, ':'))
+         && strlen($header) > $header_name_end_pos + 1
+         && in_array($header{$header_name_end_pos + 1}, $whitespace))
+            $header_name_end_pos++;
 
         // if using an indent string, reduce wrap limits by its size
         //
@@ -891,6 +915,13 @@ class Deliver {
                 //
                 if ($pos = strrpos($soft_wrapped_line, $token))
                 {
+
+                    // make sure proposed fold isn't forbidden
+                    //
+                    if (!$allow_fold_after_header_name
+                     && $pos === $header_name_end_pos)
+                        continue;
+
                     $new_fold = substr($header, 0, $pos);
 
                     // make sure proposed fold doesn't create a blank line
@@ -952,8 +983,24 @@ class Deliver {
             // what is left is no more than the hard wrap limit, we'll
             // simply take the whole thing
             //
-            if (strlen($header) <= strlen($hard_wrapped_line))
+            if (strlen($header) <= $hard_wrap) {
+
+                // if the header has been folded at least once before now,
+                // let's see if we can add the remaining chunk to the last
+                // fold (this is mainly just aesthetic)
+                //
+                if ($pull_last_line_up_if_second_to_last_is_already_over_soft_limit
+                 && strlen($folded_header)
+                 // last fold is conveniently in $new_fold
+                 && strlen($new_fold) + strlen($header) <= $hard_wrap) {
+                    // $last_fold = substr(substr($folded_header, 0, -(strlen($CRLF) + strlen($indent))), 
+                    // remove CRLF and indentation and paste the rest of the header on
+                    $folded_header = substr($folded_header, 0, -(strlen($CRLF) + strlen($indent))) . $header;
+                    $header = '';
+                }
+
                 break;
+            }
 
             // otherwise, we can't quit yet - look for a "hard" token
             // as close to the end of the hard wrap limit as possible
@@ -1018,7 +1065,9 @@ class Deliver {
                     // and add a space after the fold if not immediately
                     // followed by a whitespace character in the next part
                     //
-                    $folded_header .= substr($header, 0, $pos + 1) . $CRLF;
+                    // $new_fold is used above, it's assumed we update it upon every fold action
+                    $new_fold = substr($header, 0, $pos + 1);
+                    $folded_header .= $new_fold . $CRLF;
 
                     // don't go beyond end of $header, though
                     //
@@ -1041,7 +1090,9 @@ class Deliver {
             // finally, we just couldn't find anything to fold on, so we
             // have to just cut it off at the hard limit
             //
-            $folded_header .= $hard_wrapped_line . $CRLF;
+            // $new_fold is used above, it's assumed we update it upon every fold action
+            $new_fold = $hard_wrapped_line;
+            $folded_header .= $new_fold . $CRLF;
 
             // is there more?
             //
