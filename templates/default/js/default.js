@@ -247,6 +247,17 @@ function sendMDN() {
 }
 
 var alreadyFocused = false;
+
+function cursorToTop(element) {
+    if (typeof element.selectionStart == 'number')
+        element.selectionStart = element.selectionEnd = 0;
+    else if (typeof element.createTextRange != 'undefined') {
+        var selectionRange = element.createTextRange();
+        selectionRange.moveStart('character', 0);
+        selectionRange.select();
+    }
+}
+
 function checkForm(smaction) {
 
     if (alreadyFocused) return;
@@ -259,6 +270,7 @@ function checkForm(smaction) {
             document.forms['compose'].body.select();
         } else if (smaction == "focus") {
             document.forms['compose'].body.focus();
+            cursorToTop(document.forms['compose'].body);
         }
     } else {
     /*
