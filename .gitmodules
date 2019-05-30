@@ -9,4 +9,4 @@
 [submodule "plugins/spamcop"]
 	path = plugins/spamcop
 	url = git@github.com:RealityRipple/SpamCop.git
-	branch = master
+	branch = rrs-website
