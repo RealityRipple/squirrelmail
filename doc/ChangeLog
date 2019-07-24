@@ -429,6 +429,8 @@ Version 1.5.2 - SVN
   - Added IMAP ID command (RFC2971), sent after every login - use
     by setting $imap_id_command_args in config/config_local.php
     (see notes in config/config_local.example.php for more details)
+  - Added handling for RCDATA and RAWTEXT elements in HTML sanitizer
+    [CVE-2019-12970]
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
