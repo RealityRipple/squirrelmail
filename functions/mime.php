@@ -2334,6 +2334,7 @@ function sq_body2div($attary, $mailbox, $message, $id){
  * @param $add_attr_to_tag      see description above
  * @param $message              message object
  * @param $id                   message id
+ * @param $recursively_called   boolean flag for recursive calls into this function (optional; default FALSE)
  * @return                      sanitized html safe to show on your pages.
  */
 function sq_sanitize($body,
@@ -2346,21 +2347,26 @@ function sq_sanitize($body,
                      $add_attr_to_tag,
                      $message,
                      $id,
-                     $mailbox
+                     $mailbox,
+                     $recursively_called=FALSE
                      ){
     $me = 'sq_sanitize';
+
+    /**
+     * See if tag_list is of tags to remove or tags to allow.
+     * false  means remove these tags
+     * true   means allow these tags
+     */
+    $orig_tag_list = $tag_list;
     $rm_tags = array_shift($tag_list);
+
     /**
      * Normalize rm_tags and rm_tags_with_content.
      */
     @array_walk($tag_list, 'sq_casenormalize');
     @array_walk($rm_tags_with_content, 'sq_casenormalize');
     @array_walk($self_closing_tags, 'sq_casenormalize');
-    /**
-     * See if tag_list is of tags to remove or tags to allow.
-     * false  means remove these tags
-     * true   means allow these tags
-     */
+
     $curpos = 0;
     $open_tags = Array();
     $trusted = "\n<!-- begin sanitized html -->\n";
@@ -2373,6 +2379,47 @@ function sq_sanitize($body,
 
     while (($curtag = sq_getnxtag($body, $curpos)) != FALSE){
         list($tagname, $attary, $tagtype, $lt, $gt) = $curtag;
+
+        /**
+         * RCDATA and RAWTEXT tags are handled differently:
+         * next instance of closing tag is used, whether or not
+         * the HTML is well formed before that
+         */
+        global $rcdata_rawtext_tags;
+        if (!$recursively_called
+         && in_array($tagname, $rcdata_rawtext_tags)
+         && $tagtype === 1){
+            $closing_tag = false;
+            $closing_tag_offset = $curpos;
+            // seek out the closing tag for the current RCDATA/RAWTEXT tag
+            while (1) {
+                // first we need to move forward to next available closing tag
+                // (intentionally leave off the closing > and let sq_getnxtag() validate a proper tag syntax)
+                $next_tag = sq_findnxreg($body, $closing_tag_offset, "</\s*$tagname");
+                if ($next_tag === false) {
+                    $closing_tag = false;
+                    break;
+                }
+                // but then we have to make sure it's a well-formed tag
+                $closing_tag = sq_getnxtag($body, $next_tag[0]);
+                if ($closing_tag === false)
+                    break;
+                else if ($closing_tag[0] !== false
+                 // these should be redundant
+                 && $closing_tag[0] === $tagname && $closing_tag[2] === 2) {
+                    $trusted .= sq_sanitize(substr($body, $curpos, $closing_tag[4] - $curpos + 1),
+                                            $orig_tag_list, $rm_tags_with_content, $self_closing_tags,
+                                            $force_tag_closing, $rm_attnames, $bad_attvals, $add_attr_to_tag,
+                                            $message, $id, $mailbox, true);
+                    $curpos = $closing_tag[4] + 1;
+                    continue 2;
+                }
+                $closing_tag_offset = $next_tag[0] + 1;
+            }
+            if ($closing_tag === false)
+            { /* no-op... there was no closing tag for this RCDATA/RAWTEXT tag - we could probably set $curpos to the end of $body, but this HTML is malformed anyway and should just fall apart on its own */ }
+        }
+
         $free_content = substr($body, $curpos, $lt-$curpos);
         /**
          * Take care of <style>
@@ -2520,7 +2567,17 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
     // require_once(SM_PATH . 'functions/url_parser.php');  // for $MailTo_PReg_Match
 
     global $attachment_common_show_images, $view_unsafe_images,
-           $has_unsafe_images, $allow_svg_display;
+           $has_unsafe_images, $allow_svg_display, $rcdata_rawtext_tags,
+           $remove_rcdata_rawtext_tags_and_content;
+
+    $rcdata_rawtext_tags = array(
+        "noscript",
+        "noframes",
+        "noembed",
+        "textarea",
+        // also "title", "xmp", "script", "iframe", "plaintext" which we already remove below
+    );
+
     /**
      * Don't display attached images in HTML mode.
      *
@@ -2528,7 +2585,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
      */
     $attachment_common_show_images = false;
     $tag_list = Array(
-            false,
+            false, // remove these tags
             "meta",
             "html",
             "head",
@@ -2552,6 +2609,15 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
             );
     if (!$allow_svg_display)
         $rm_tags_with_content[] = 'svg';
+    /**
+     * SquirrelMail will parse RCDATA and RAWTEXT tags and handle them as the special
+     * case that they are, but if you prefer to remove them and their contents entirely
+     * (in most cases, should be a safe thing with minimal impact), you can add the
+     * following to config/config_local.php
+     *    $remove_rcdata_rawtext_tags_and_content = TRUE; 
+     */
+    if ($remove_rcdata_rawtext_tags_and_content)
+        $rm_tags_with_content = array_merge($rm_tags_with_content, $rcdata_rawtext_tags);
 
     $self_closing_tags =  Array(
             "img",
