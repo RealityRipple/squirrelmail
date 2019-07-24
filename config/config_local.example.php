@@ -174,4 +174,13 @@
  * $imap_id_command_args = array('remote-host' => '###REMOTE ADDRESS###');
  * $do_not_parse_imap_id_command_response = FALSE;
  *
+ * $remove_rcdata_rawtext_tags_and_content
+ * When displaying HTML-format email message content, a small
+ * number of HTML tags are parsed differently (RCDATA, RAWTEXT
+ * content), but can also be removed entirely (with their contents)
+ * if desired (in most cases, should be a safe thing with minimal
+ * impact).  This would be done as a fallback security measure and
+ * can be enabled by adding this here:
+ * $remove_rcdata_rawtext_tags_and_content = TRUE; 
+ *
  */
