@@ -2774,9 +2774,9 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX', $take_mailto_links 
         // inside an anchor (link) tag, so we have to make sure the regex looks for the
         // quote before mailto, and we'll also try to convert the non-links back into links
         if (empty($MailTo_PReg_Match))
-         $MailTo_PReg_Match = '/mailto:((?:[0-9a-z%]([-_.+%]?[0-9a-z])*(%(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))?@(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))*)((?:\?(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)?(?:&amp;(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)*)/i';
+         $MailTo_PReg_Match = '/([\'"])?mailto:((?:[0-9a-z%]([-_.+%]?[0-9a-z])*(%(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))?@(\[?[0-9]{1,3}(\.[0-9]{1,3}){3}\]?|[0-9a-z]([-.]?[0-9a-z])*\.[a-z][a-z]+))*)((?:\?(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)?(?:&amp;(?:to|cc|bcc|subject|body)=[^\s\?&=,()]+)*)/i';
         else
-        $MailTo_PReg_Match = '/([\'"])?mailto:' . substr($MailTo_PReg_Match, 1) ;
+         $MailTo_PReg_Match = '/([\'"])?mailto:' . substr($MailTo_PReg_Match, 1) ;
         if ((preg_match_all($MailTo_PReg_Match, $trusted, $regs)) && ($regs[0][0] != '')) {
             foreach ($regs[0] as $i => $mailto_before) {
                 $mailto_params = $regs[11][$i];
