@@ -86,7 +86,7 @@ $header = "<script type=\"text/javascript\">\n" .
           "// -->\n".
           "</script>\n";
 global $theme, $theme_default;
-if (@file_exists($theme[$theme_default]['PATH']))
+if ($theme !== null && in_array($theme_default, $theme) && @file_exists($theme[$theme_default]['PATH']))
    @include ($theme[$theme_default]['PATH']);
 
 if (! isset($color) || ! is_array($color)) {
