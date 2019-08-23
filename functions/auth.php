@@ -236,13 +236,13 @@ function digest_md5_parse_challenge($challenge) {
     $challenge=base64_decode($challenge);
     $parsed = array();
     while (!empty($challenge)) {
-        if ($challenge{0} == ',') { // First char is a comma, must not be 1st time through loop
+        if ($challenge[0] == ',') { // First char is a comma, must not be 1st time through loop
             $challenge=substr($challenge,1);
         }
         $key=explode('=',$challenge,2);
         $challenge=$key[1];
         $key=$key[0];
-        if ($challenge{0} == '"') {
+        if ($challenge[0] == '"') {
             // We're in a quoted value
             // Drop the first quote, since we don't care about it
             $challenge=substr($challenge,1);

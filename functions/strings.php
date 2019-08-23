@@ -136,7 +136,7 @@ function &sqBodyWrap (&$body, $wrap) {
        // (i.e. try to preserve original paragraph breaks)
        // unless they occur at the very beginning of the text
        if ((sq_substr($body,$pos,1) == "\n" ) && (sq_strlen($outString) != 0)) {
-           $outStringLast = $outString{sq_strlen($outString) - 1};
+           $outStringLast = $outString[sq_strlen($outString) - 1];
            if ($outStringLast != "\n") {
                $outString .= "\n";
            }
@@ -227,7 +227,7 @@ function &sqBodyWrap (&$body, $wrap) {
 /*
                      $ldnspacecnt = 0;
                      if ($mypos == $nextNewline+1) {
-                        while (($mypos < $length) && ($body{$mypos} == ' ')) {
+                        while (($mypos < $length) && ($body[$mypos] == ' ')) {
                          $ldnspacecnt++;
                         }
                      }
@@ -236,9 +236,9 @@ function &sqBodyWrap (&$body, $wrap) {
                    $firstword = sq_substr($body,$mypos,sq_strpos($body,' ',$mypos) - $mypos);
                    //if ($dowrap || $ldnspacecnt > 1 || ($firstword && (
                    if (!$smartwrap || $firstword && (
-                                        $firstword{0} == '-' ||
-                                        $firstword{0} == '+' ||
-                                        $firstword{0} == '*' ||
+                                        $firstword[0] == '-' ||
+                                        $firstword[0] == '+' ||
+                                        $firstword[0] == '*' ||
                                         sq_substr($firstword,0,1) == sq_strtoupper(sq_substr($firstword,0,1)) ||
                                         strpos($firstword,':'))) {
                         $outString .= sq_substr($body,$pos,($lastRealChar - $pos+1));
@@ -717,7 +717,7 @@ function GenerateRandomString($size, $chars, $flags = 0) {
     $String = '';
     $j = strlen( $chars ) - 1;
     while (strlen($String) < $size) {
-        $String .= $chars{random_int(0, $j)};
+        $String .= $chars[random_int(0, $j)];
     }
 
     return $String;

@@ -367,7 +367,7 @@ class mail_fetch {
             while($line = fgets($this->conn)) {
                 if ($line == ".\r\n") {
                     break;
-                } elseif ( $line{0} == '.' ) {
+                } elseif ( $line[0] == '.' ) {
                     $ret .= substr($line,1);
                 } else {
                     $ret.= $line;

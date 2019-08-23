@@ -924,7 +924,7 @@ class Deliver {
         if (!$allow_fold_after_header_name
          && ($header_name_end_pos = strpos($header, ':'))
          && strlen($header) > $header_name_end_pos + 1
-         && in_array($header{$header_name_end_pos + 1}, $whitespace))
+         && in_array($header[$header_name_end_pos + 1], $whitespace))
             $header_name_end_pos++;
 
         // if using an indent string, reduce wrap limits by its size
@@ -1105,7 +1105,7 @@ class Deliver {
                     //
                     if (strlen($header) > $pos + 1) {
                         $header = substr($header, $pos + 1);
-                        if (!in_array($header{0}, $whitespace))
+                        if (!in_array($header[0], $whitespace))
                             $header = ' ' . $indent . $header;
                     } else {
                         $header = '';
@@ -1130,7 +1130,7 @@ class Deliver {
             //
             if (strlen($header) > strlen($hard_wrapped_line)) {
                 $header = substr($header, strlen($hard_wrapped_line));
-                if (!in_array($header{0}, $whitespace))
+                if (!in_array($header[0], $whitespace))
                     $header = ' ' . $indent . $header;
             } else {
                 $header = '';
