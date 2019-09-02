@@ -239,9 +239,9 @@ function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=
                     $entStr = CalcEntity("$entStr",0);
                     $content_indx++;
                     $content[$content_indx]=array();
-                    $content[$content_indx]['ent'] = '<a href="#'."$entStr \">$entStr".'</a>';
+                    $content[$content_indx]['ent'] = '<a href="#' . $entStr . '">' . $entStr . '</a>';
                     $pre .= '</div><div class="entheader" id="'.
-                        $entStr.'H"><a name="'."$entStr".'"><b><font color="'.$color[2].'">';
+                        $entStr.'H"><a name="'."$entStr".'"></a><b><font color="'.$color[2].'">';
                     $end .= '</font></b>';
                     $header = true;
                     $mimepart = false;
