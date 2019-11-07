@@ -263,7 +263,10 @@ $use_smtp_tls = 0;
 /**
  * SMTP authentication mechanism
  *
- * auth_mech can be either 'none', 'login','plain', 'cram-md5', or 'digest-md5'
+ * auth_mech can be either 'none', 'login', 'plain', 'cram-md5', 'digest-md5',
+ * or 'scram-*'. For SCRAM, any algorithm your PHP install supports for both
+ * the hash and hash_hmac functions is supported.
+ * Note that CRAM-MD5 & DIGEST-MD5 are historic and no longer considered safe.
  * @global string $smtp_auth_mech
  */
 $smtp_auth_mech = 'none';
@@ -293,7 +296,10 @@ $smtp_sitewide_pass = '';
 /**
  * IMAP authentication mechanism
  *
- * auth_mech can be either 'login','plain', 'cram-md5', or 'digest-md5'
+ * auth_mech can be either 'login', 'plain', 'cram-md5', 'digest-md5', or
+ * 'scram-*'. For SCRAM, any algorithm your PHP install supports for both the
+ * hash and hash_hmac functions is supported.
+ * Note that CRAM-MD5 & DIGEST-MD5 are historic and no longer considered safe.
  * @global string $imap_auth_mech
  */
 $imap_auth_mech = 'login';

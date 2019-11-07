@@ -1492,7 +1492,7 @@ sub command111 {
     return $new_optional_delimiter;
 }
 # IMAP authentication type
-# Possible values: login, plain, cram-md5, digest-md5
+# Possible values: login, plain, cram-md5, digest-md5, scram-[digest-algo]
 # Now offers to detect supported mechs, assuming server & port are set correctly
 
 sub command112a {
@@ -1504,7 +1504,7 @@ sub command112a {
     } else {
         print "If you have already set the hostname and port number, I can try to\n";
         print "detect the mechanisms your IMAP server supports.\n";
-        print "I will try to detect CRAM-MD5 and DIGEST-MD5 support.  I can't test\n";
+        print "I will try to detect SCRAM, CRAM-MD5, and DIGEST-MD5 support. I can't test\n";
         print "for \"login\" or \"plain\" without knowing a username and password.\n";
         print "Auto-detecting is optional - you can safely say \"n\" here.\n";
         print "\nTry to detect supported mechanisms? [y/N]: ";
@@ -1514,6 +1514,30 @@ sub command112a {
           # Yes, let's try to detect.
           print "Trying to detect IMAP capabilities...\n";
           my $host = $imapServerAddress . ':'. $imapPort;
+          print "SCRAM-SHA-1:\t";
+          my $tmp = detect_auth_support('IMAP',$host,'SCRAM-SHA-1');
+          if (defined($tmp)) {
+              if ($tmp eq 'YES') {
+                  print "$WHT SUPPORTED$NRM\n";
+              } else {
+                print "$WHT NOT SUPPORTED$NRM\n";
+              }
+          } else {
+            print $WHT . " ERROR DETECTING$NRM\n";
+          }
+
+          print "SCRAM-SHA-256:\t";
+          my $tmp = detect_auth_support('IMAP',$host,'SCRAM-SHA-256');
+          if (defined($tmp)) {
+              if ($tmp eq 'YES') {
+                  print "$WHT SUPPORTED$NRM\n";
+              } else {
+                print "$WHT NOT SUPPORTED$NRM\n";
+              }
+          } else {
+            print $WHT . " ERROR DETECTING$NRM\n";
+          }
+
           print "CRAM-MD5:\t";
           my $tmp = detect_auth_support('IMAP',$host,'CRAM-MD5');
           if (defined($tmp)) {
@@ -1543,14 +1567,17 @@ sub command112a {
       print "\nWhat authentication mechanism do you want to use for IMAP connections?\n\n";
       print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
       print $WHT . "plain" . $NRM . " - SASL PLAIN. If you need this, you already know it.\n";
-      print $WHT . "cram-md5" . $NRM . " - Slightly better than plaintext methods.\n";
-      print $WHT . "digest-md5" . $NRM . " - Privacy protection - better than cram-md5.\n";
+      print $WHT . "cram-md5" . $NRM . " - Historic. No longer considered secure.\n";
+      print $WHT . "digest-md5" . $NRM . " - Historic. No longer considered secure.\n";
+      print $WHT . "scram-sha-1" . $NRM . " - Salted and hashed. Security contested.\n";
+      print $WHT . "scram-sha-256" . $NRM . " - Salted and hashed. Safer than sha-1.\n";
       print "\n*** YOUR IMAP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n";
       print "If you don't understand or are unsure, you probably want \"login\"\n\n";
-      print "login, plain, cram-md5, or digest-md5 [$WHT$imap_auth_mech$NRM]: $WHT";
+      print "login, plain, cram-md5, digest-md5, scram-* [$WHT$imap_auth_mech$NRM]: $WHT";
       $inval=<STDIN>;
       chomp($inval);
-      if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || ($inval =~ /^login\b/i) || ($inval =~ /^plain\b/i)) {
+      if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || ($inval =~ /^scram-.+\b/i) ||
+           ($inval =~ /^login\b/i) || ($inval =~ /^plain\b/i)) {
         return lc($inval);
       } else {
         # user entered garbage or default value so nothing needs to be set
@@ -1560,7 +1587,7 @@ sub command112a {
 
 
 # SMTP authentication type
-# Possible choices: none, login, plain, cram-md5, digest-md5
+# Possible choices: none, login, plain, cram-md5, digest-md5, scram-[digest-algo]
 sub command112b {
     if ($use_smtp_tls ne "0") {
         print "Auto-detection of login methods is unavailable when using TLS or STARTTLS.\n";
@@ -1641,9 +1668,34 @@ sub command112b {
                   print $WHT . "ERROR DETECTING$NRM\n";
             }
 
-
             print "Testing DIGEST-MD5:\t";
             $tmp=detect_auth_support('SMTP',$host,'DIGEST-MD5');
+            if (defined($tmp)) {
+                if ($tmp eq 'YES') {
+                    print $WHT . "SUPPORTED$NRM\n";
+                } else {
+                    print $WHT . "NOT SUPPORTED$NRM\n";
+                }
+              } else {
+                  print $WHT . "ERROR DETECTING$NRM\n";
+            }
+
+            # Try SCRAM-SHA-1
+            print "Testing SCRAM-SHA-1:\t";
+            $tmp=detect_auth_support('SMTP',$host,'SCRAM-SHA-1');
+            if (defined($tmp)) {
+                if ($tmp eq 'YES') {
+                    print $WHT . "SUPPORTED$NRM\n";
+                } else {
+                    print $WHT . "NOT SUPPORTED$NRM\n";
+                }
+              } else {
+                  print $WHT . "ERROR DETECTING$NRM\n";
+            }
+
+            # Try SCRAM-SHA-256
+            print "Testing SCRAM-SHA-256:\t";
+            $tmp=detect_auth_support('SMTP',$host,'SCRAM-SHA-256');
             if (defined($tmp)) {
                 if ($tmp eq 'YES') {
                     print $WHT . "SUPPORTED$NRM\n";
@@ -1659,11 +1711,13 @@ sub command112b {
     print $WHT . "none" . $NRM . " - Your SMTP server does not require authorization.\n";
     print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
     print $WHT . "plain" . $NRM . " - SASL PLAIN. Plaintext. If you can do better, you probably should.\n";
-    print $WHT . "cram-md5" . $NRM . " - Slightly better than plaintext.\n";
-    print $WHT . "digest-md5" . $NRM . " - Privacy protection - better than cram-md5.\n";
+    print $WHT . "cram-md5" . $NRM . " - Historic. No longer considered secure.\n";
+    print $WHT . "digest-md5" . $NRM . " - Historic. No longer considered secure.\n";
+    print $WHT . "scram-sha-1" . $NRM . " - Salted and hashed. Security contested.\n";
+    print $WHT . "scram-sha-256" . $NRM . " - Salted and hashed. Safer than sha-1.\n";
     print $WHT . "\n*** YOUR SMTP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n" . $NRM;
     print "If you don't understand or are unsure, you probably want \"none\"\n\n";
-    print "none, login, plain, cram-md5, or digest-md5 [$WHT$smtp_auth_mech$NRM]: $WHT";
+    print "none, login, plain, cram-md5, digest-md5, scram-* [$WHT$smtp_auth_mech$NRM]: $WHT";
     $inval=<STDIN>;
     chomp($inval);
     if ($inval =~ /^none\b/i) {
@@ -1672,7 +1726,7 @@ sub command112b {
         $smtp_sitewide_pass = '';
         # SMTP doesn't necessarily require logins
         return "none";
-    } elsif ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) ||
+    } elsif ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || ($inval =~ /^scram-.+\b/i) ||
               ($inval =~ /^login\b/i) || ($inval =~/^plain\b/i)) {
         command_smtp_sitewide_userpass($inval);
         return lc($inval);
@@ -3008,7 +3062,7 @@ sub command325 {
     }
     print "Hide download links for SVG objects? (y/n) [$WHT$default_value$NRM]: $WHT";
     $block_svg_download = <STDIN>;
-+    if ( ( $block_svg_download =~ /^y\n/i ) || ( ( $block_svg_download =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+    if ( ( $block_svg_download =~ /^y\n/i ) || ( ( $block_svg_download =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $block_svg_download = 'true';
     } else {
         $block_svg_download = 'false';

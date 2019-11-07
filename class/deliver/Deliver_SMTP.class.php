@@ -245,6 +245,71 @@ class Deliver_SMTP extends Deliver {
         );
         if (boolean_hook_function('smtp_authenticate', $smtp_auth_args, 1)) {
             // authentication succeeded
+        } else if ( substr($smtp_auth_mech, 0, 6) == 'scram-' ) {
+            // Doing SCRAM
+            $hAlg = scram_supports(substr($smtp_auth_mech, 6));
+            if ($hAlg === false) {
+                return(0);
+            }
+            fputs($stream, 'AUTH '.strtoupper($smtp_auth_args)."\r\n");
+
+            $tmp = fgets($stream,1024);
+
+            if ($this->errorCheck($tmp,$stream)) {
+                return(0);
+            }
+            // At this point, $tmp should hold "334 "
+
+
+            // No Channel Binding support...
+            $cbf = 'n';
+            // Generate 20 random bytes
+            $cliNonce = scram_nonce();
+            // Build SCRAM request
+            $scram_request = scram_request($user, $cbf, $cliNonce);
+
+            fputs($stream, $scram_request."\r\n");
+
+            // Get SCRAM response
+            $tmp = fgets($stream,1024);
+            if ($this->errorCheck($tmp,$stream)) {
+                return(0);
+            }
+
+            // At this point, $tmp should hold "334 <challenge string>"
+            $chall = substr($tmp,4);
+
+            $serData = scram_parse_challenge($chall, $cliNonce);
+            if ($serData === false) {
+                return(0);
+            }
+
+            $scram_response = scram_response($hAlg, $user, $cbf, $cliNonce, $serData['r'], $pass, $serData['s'], $serData['i']);
+            
+            fputs($stream, $scram_response."\r\n");
+
+            // Get SCRAM validation
+            $tmp = fgets($stream,1024);
+            if ($this->errorCheck($tmp,$stream)) {
+                return(0);
+            }
+
+            // At this point, $tmp should hold "334 <server verification string>"
+            $serVer = substr($tmp,4);
+
+            $valid = scram_verify($hAlg, $user, $cbf, $cliNonce, $serData['r'], $pass, $serData['s'], $serData['i'], $serVer);
+
+            if ($valid === false) {
+                return(0);
+            }
+            // TODO: For compatibility, this may need to either be blank or NOOP. Find out which!!!
+            fputs($stream, "\r\n");
+            // Just to make sure we're really logged in
+            $tmp = fgets($stream,1024);
+            if ($this->errorCheck($tmp,$stream)) {
+                return(0);
+            }
+        // SCRAM code ends here
         } else if (( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) {
             // Doing some form of non-plain auth
             if ($smtp_auth_mech == 'cram-md5') {
