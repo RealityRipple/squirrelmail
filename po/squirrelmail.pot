@@ -243,7 +243,7 @@ msgstr ""
 msgid "The IMAP server is reporting that plain text logins are disabled."
 msgstr ""
 
-msgid "Using CRAM-MD5 or DIGEST-MD5 authentication instead may work."
+msgid "Using SCRAM, CRAM-MD5, or DIGEST-MD5 authentication instead may work."
 msgstr ""
 
 msgid "Also, the use of TLS may allow SquirrelMail to login."

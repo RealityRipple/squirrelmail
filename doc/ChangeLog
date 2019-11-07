@@ -431,6 +431,8 @@ Version 1.5.2 - SVN
     (see notes in config/config_local.example.php for more details)
   - Added handling for RCDATA and RAWTEXT elements in HTML sanitizer
     [CVE-2019-12970]
+  - Added SCRAM authentication support (RFC5802) (RFC7677) for IMAP
+    and SMTP
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------

@@ -46,7 +46,7 @@ if($imap_auth_mech == 'login') {
         sqimap_logout($imap);
         if ($logindisabled) {
             $string = _("The IMAP server is reporting that plain text logins are disabled.").'<br />'.
-                _("Using CRAM-MD5 or DIGEST-MD5 authentication instead may work.").'<br />';
+                _("Using SCRAM, CRAM-MD5, or DIGEST-MD5 authentication instead may work.").'<br />';
             if (!$use_imap_tls) {
                 $string .= _("Also, the use of TLS may allow SquirrelMail to login.").'<br />';
             }

@@ -879,7 +879,78 @@ function sqimap_login ($username, $password, $imap_server_address,
 
     $imap_stream = sqimap_create_stream($imap_server_address,$imap_port,$use_imap_tls,$stream_options);
 
-    if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
+    if (substr($imap_auth_mech, 0, 6) == 'scram-') {
+        // Doing SCRAM
+        $hAlg = scram_supports(substr($imap_auth_mech, 6));
+        if ($hAlg === false) {
+            $response="BAD";
+            $message='PHP server does not appear to support the authentication method selected.';
+            $message .= '  Please contact your system administrator.';
+        } else {
+            $tag=sqimap_session_id(false);
+            fputs($imap_stream, $tag.' AUTHENTICATE '.strtoupper($imap_auth_mech)."\r\n");
+            $tmp = sqimap_fgets($imap_stream);
+            if ($tmp[0] !== '+') {
+                $response="BAD";
+                $message='IMAP server does not appear to support the authentication method selected.';
+                $message .= '  Please contact your system administrator.';
+            } else {
+                // No Channel Binding support...
+                $cbf = 'n';
+                // Generate 20 random bytes
+                $cliNonce = scram_nonce();
+                // Build SCRAM request
+                $scram_request = scram_request($username, $cbf, $cliNonce);
+                fputs($imap_stream, $scram_request."\r\n");
+                // Get SCRAM response
+                $tmp = sqimap_fgets($imap_stream);
+                if ($tmp[0] !== '+'){
+                    $tmp = explode(' ', $tmp, 3);
+                    $response=$tmp[1];
+                    $message=$tmp[2];
+                } else {
+                    // At this point, $tmp should hold "+ <challenge string>"
+                    $chall = substr($tmp,2);
+                    $serData = scram_parse_challenge($chall, $cliNonce);
+                    if ($serData === false) {
+                        $response="BAD";
+                        $message='IMAP server challenge could not be parsed.';
+                        $message .= '  Please contact your system administrator.';
+                    } else {
+                        $scram_response = scram_response($hAlg, $username, $cbf, $cliNonce, $serData['r'], $password, $serData['s'], $serData['i']);
+                        
+                        fputs($imap_stream, $scram_response."\r\n");
+
+                        // Get SCRAM validation
+                        $tmp = sqimap_fgets($imap_stream);
+                        if ($tmp[0] !== '+'){
+                            $tmp = explode(' ', $tmp, 3);
+                            $response=$tmp[1];
+                            $message=$tmp[2];
+                        } else {
+                            // At this point, $tmp should hold "+ <server verification string>"
+                            $serVer = substr($tmp,2);
+                            $valid = scram_verify($hAlg, $username, $cbf, $cliNonce, $serData['r'], $password, $serData['s'], $serData['i'], $serVer);
+                            if ($valid === false) {
+                                $response="BAD";
+                                $message='IMAP server challenge response could not be verified.';
+                                $message .= '  Please contact your system administrator.';
+                            } else {
+                                fputs($imap_stream, "\r\n");
+
+                                // Just to make sure we're really logged in
+                                $tmp = sqimap_fgets($imap_stream);
+                                $tmp = explode(' ', $tmp, 3);
+                                $response=$tmp[1];
+                                $message=$tmp[2];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    // SCRAM code ends here
+    } else if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
         // We're using some sort of authentication OTHER than plain or login
         $tag=sqimap_session_id(false);
         if ($imap_auth_mech == 'digest-md5') {

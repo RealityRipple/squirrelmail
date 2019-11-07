@@ -137,6 +137,224 @@ function sqauth_save_password($pass) {
 }
 
 /**
+ * Determine if an algorithm is supported by hash() and hash_hmac()
+ *
+ * @param string $algo Algorithm to find.
+ *
+ * @return string Functional $algo as used by hash() and hash_hmac()
+ *      or boolean FALSE
+ *
+ * @since 1.5.2
+ */
+
+function scram_supports($algo) {
+ $HASHs = hash_algos();
+ if (check_php_version(7,2)) {
+  $HMACs = hash_hmac_algos();
+  $HASHs = array_values(array_intersect($HASHs, $HMACs));
+ }
+ $fAlgo = strtolower(str_replace('-', '', $algo));
+ if (in_array($fAlgo, $HASHs))
+  return $fAlgo;
+ return false;
+}
+
+/**
+ * Build client nonce for SCRAM (See RFC 5802 for details)
+ *
+ * @return string A set of twenty random printable ASCII characters
+ *
+ * @since 1.5.2
+ */
+function scram_nonce () {
+    // All printable ASCII characters except commas are OK
+    // (For simplicity, we're just going to use letters and numbers, though)
+    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $max = strlen($chars) - 1;
+    $nonce = '';
+    for($i = 0; $i < 20; $i++) {
+        $rndChr = random_int(0, $max);
+        $nonce.= $chars[$rndChr];
+    }
+    return $nonce;
+}
+
+/**
+ * Build client request for SCRAM (See RFC 5802 for details)
+ *
+ * @param string $username User ID
+ * @param string $cbf Channel Binding Flag ('n', 'y', or 'p=tls-unique'/'p=tls-server-end-point')
+ * @param string $nonce Client's random nonce data
+ *
+ * @return string The response to be sent to the server (base64 encoded)
+ *
+ * @since 1.5.2
+ */
+function scram_request ($username,$cbf,$nonce) {
+    return base64_encode($cbf.',,n='.$username.',r='.$nonce);
+}
+
+/**
+ * Parse SCRAM challenge.
+ * This function parses the challenge sent during SCRAM authentication and
+ * returns an array. See the RFC for details on what's in the challenge string.
+ *
+ * @param string $challenge SCRAM Challenge
+ * @param string $nonce Client's random nonce data
+ *
+ * @return array SCRAM challenge decoded data
+ *      or boolean FALSE
+ *
+ * @since 1.5.2
+ */
+function scram_parse_challenge ($challenge,$nonce) {
+    $chall = base64_decode($challenge, true);
+    if ($chall === false) {
+        // The challenge must be base64 encoded
+        return false;
+    }
+    // Chall should now be r=NONCE,s=SALT,i=ITER
+    $sReq = explode(',', $chall);
+    $serNonce = '';
+    $serSalt  = '';
+    $serIter  = 0;
+    for($i = 0; $i < count($sReq); $i++) {
+        switch(substr($sReq[$i], 0, 2)) {
+            case 'r=':
+                $serNonce = substr($sReq[$i], 2);
+                break;
+            case 's=':
+                $serSalt = substr($sReq[$i], 2);
+                break;
+            case 'i=':
+                $serIter = substr($sReq[$i], 2);
+                break;
+        }
+    }
+    if (strlen($serNonce) <= strlen($nonce)) {
+        //the server 'r' value must be bigger than the client 'r' value
+        return false;
+    }
+    if (substr($serNonce, 0, strlen($nonce)) !== $nonce) {
+        // The server 'r' value must begin with the client 'r' value
+        return false;
+    }
+    if (is_numeric($serIter)) {
+        $serIter = intval($serIter);
+    } else {
+        // The iteration value must be a number
+        return false;
+    }
+    $serSaltV = base64_decode($serSalt, true);
+    if ($serSaltV === false) {
+        // The salt must be base64-encoded
+        return false;
+    }
+    $parsed = array();
+    $parsed['r'] = $serNonce;
+    $parsed['s'] = $serSaltV;
+    $parsed['i'] = $serIter;
+    return $parsed;
+}
+
+/**
+ * Build SCRAM response to challenge.
+ * This function hashes the heck out of the password and all previous communications
+ * to create a proof value which is then sent to the server as authentication.
+ *
+ * @param string $alg Hash algorithm to use ('sha1' or 'sha256')
+ * @param string $username User ID
+ * @param string $cbf Channel Binding Flag ('n', 'y', or 'p=tls-unique'/'p=tls-server-end-point')
+ * @param string $cli_nonce Client's random nonce data
+ * @param string $ser_nonce Client + Server's random nonce data
+ * @param string $password User password supplied by User
+ * @param string $salt Raw binary salt data, supplied by the server challenge
+ * @param string $iter PBKDF2 iterations, supplied by the server challenge
+ *
+ * @return string The response to be sent to the server (base64 encoded)
+ *
+ * @since 1.5.2
+ */
+function scram_response ($alg,$username,$cbf,$cli_nonce,$ser_nonce,$password,$salt,$iter) {
+    // salt and hash password
+    $salted_pass = hash_pbkdf2($alg, $password, $salt, $iter, 0, true);
+    $cli_hash = hash_hmac($alg, 'Client Key', $salted_pass, true);
+    $cli_key = hash($alg, $cli_hash, true);
+
+    $c = base64_encode($cbf.',,');
+
+    //generate unproofed communications
+    $cli_request = 'n='.$username.',r='.$cli_nonce;
+    $ser_challenge = 'r='.$ser_nonce.',s='.base64_encode($salt).',i='.$iter;
+    $cli_response_unp = 'c='.$c.',r='.$ser_nonce;
+    $comm_unp = $cli_request.','.$ser_challenge.','.$cli_response_unp;
+
+    //hash unproofed communications
+    $cli_sig = hash_hmac($alg, $comm_unp, $cli_key, true);
+    $cli_proof = $cli_hash ^ $cli_sig;
+
+    //generate proofed response
+    $cli_response = $cli_response_unp.',p='.base64_encode($cli_proof);
+
+    return base64_encode($cli_response);
+}
+
+/**
+ * Verify SCRAM server response.
+ * The final step in SCRAM is to make sure the server isn't just faking validation.
+ * This is done by hashing the unproofed communications with a 'Server Key'
+ * version of the hashed password, and comparing it with the server's final SCRAM message.
+ *
+ * @param string $alg Hash algorithm to use ('sha1' or 'sha256')
+ * @param string $username User ID
+ * @param string $cbf Channel Binding Flag ('n', 'y', or 'p=tls-unique'/'p=tls-server-end-point')
+ * @param string $cli_nonce Client's random nonce data
+ * @param string $ser_nonce Client + Server's random nonce data
+ * @param string $password User password supplied by User
+ * @param string $salt Raw binary salt data, supplied by the server challenge
+ * @param string $iter PBKDF2 iterations, supplied by the server challenge
+ * @param string $proof The server's final SCRAM message (base64 encoded)
+ *
+ * @return boolean Success or failure
+ *
+ * @since 1.5.2
+ */
+function scram_verify ($alg,$username,$cbf,$cli_nonce,$ser_nonce,$password,$salt,$iter,$proof) {
+    $proof = base64_decode($proof, true);
+    if ($proof === false) {
+        // The proof must be base64 encoded
+        return false;
+    }
+    if (substr($proof, 0, 2) !== 'v=') {
+        // The proof was not provided correctly
+        return false;
+    }
+    $proof = substr($proof, 2);
+    $proof = base64_decode($proof, true);
+    if ($proof === false) {
+        // The proof v value must be base64 encoded
+        return false;
+    }
+    // salt and hash password
+    $salted_pass = hash_pbkdf2($alg, $password, $salt, $iter, 0, true);
+    $cli_hash = hash_hmac($alg, 'Client Key', $salted_pass, true);
+    $cli_key = hash($alg, $cli_hash, true);
+
+    $c = base64_encode($cbf.',,');
+
+    //generate unproofed communications
+    $cli_request = 'n='.$username.',r='.$cli_nonce;
+    $ser_challenge = 'r='.$ser_nonce.',s='.base64_encode($salt).',i='.$iter;
+    $cli_response_unp = 'c='.$c.',r='.$ser_nonce;
+    $comm_unp = $cli_request.','.$ser_challenge.','.$cli_response_unp;
+
+    //hash for server
+    $ser_hash = hash_hmac($alg, 'Server Key', $salted_pass, true);
+    $ser_proof = hash_hmac($alg, $comm_unp, $ser_hash, true);
+    return $ser_proof === $proof;
+}
+
+/**
  * Given the challenge from the server, supply the response using cram-md5 (See
  * RFC 2195 for details)
  *

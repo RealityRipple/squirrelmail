@@ -804,7 +804,7 @@ echo $IND . 'Capabilities: <tt>'.sm_encode_html_special_chars($capline)."</tt><b
 
 if($imap_auth_mech == 'login' && stristr($capline, 'LOGINDISABLED') !== FALSE) {
     do_err('Your server doesn\'t allow plaintext logins. '.
-            'Try enabling another authentication mechanism like CRAM-MD5, DIGEST-MD5 or TLS-encryption '.
+            'Try enabling another authentication mechanism like SCRAM, CRAM-MD5, DIGEST-MD5 or TLS-encryption '.
             'in the SquirrelMail configuration.', FALSE);
 }
 
