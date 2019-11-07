@@ -3008,7 +3008,7 @@ sub command325 {
     }
     print "Hide download links for SVG objects? (y/n) [$WHT$default_value$NRM]: $WHT";
     $block_svg_download = <STDIN>;
-+    if ( ( $block_svg_download =~ /^y\n/i ) || ( ( $block_svg_download =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+    if ( ( $block_svg_download =~ /^y\n/i ) || ( ( $block_svg_download =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $block_svg_download = 'true';
     } else {
         $block_svg_download = 'false';
