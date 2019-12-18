@@ -57,6 +57,10 @@ $squirrelmail_plugin_hooks['optpage_register_block']['spamcop']
     = 'spamcop_options';
 $squirrelmail_plugin_hooks['loading_prefs']['spamcop'] 
     = 'spamcop_load';
+$squirrelmail_plugin_hooks['message_list_controls']['spamcop']
+    = 'spamcop_show_button';
+$squirrelmail_plugin_hooks['mailbox_display_button_action']['spamcop']
+    = 'spamcop_action_button';
 $squirrelmail_plugin_hooks['read_body_header_right']['spamcop'] 
     = 'spamcop_show_link';
 $squirrelmail_plugin_hooks['compose_send']['spamcop'] 
