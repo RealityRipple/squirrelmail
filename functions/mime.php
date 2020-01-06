@@ -2129,7 +2129,9 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
      * body {background: blah-blah}
      * and change it to .bodyclass so we can just assign it to a <div>
      */
-    $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
+    // Let's try out something that catches stuff like:  body, p, div {    or stuff like:  body a {
+    // $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
+    $content = preg_replace("/body((?:\s*(?:,| )\s*[a-z0-9_-]+)*\s*\{.*?\})/si", ".bodyclass\\1", $content);
 
     global $use_transparent_security_image;
     if ($use_transparent_security_image) $secremoveimg = '../images/spacer.png';
