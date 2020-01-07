@@ -5,7 +5,7 @@
  *
  * File should be loaded in every file in src/ or plugins that occupate an entire frame
  *
- * @copyright 2006-2019 The SquirrelMail Project Team
+ * @copyright 2006-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
