@@ -5,7 +5,7 @@
  * Date: May 2, 2002
  *
  * @author Todd Hammer <thammer at rtccom.com>
- * @copyright 2002-2019 The SquirrelMail Project Team
+ * @copyright 2002-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
