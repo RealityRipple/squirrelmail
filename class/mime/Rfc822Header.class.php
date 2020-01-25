@@ -806,6 +806,10 @@ class Rfc822Header {
         $value_a = explode(',', $value);
         foreach ($value_a as $val) {
             $val = trim($val);
+            if (empty($val)) {
+             $res_a['href'] = '';
+             continue;
+            }
             if ($val[0] == '<') {
                 $val = substr($val, 1, -1);
             }
