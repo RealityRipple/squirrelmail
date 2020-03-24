@@ -895,6 +895,7 @@ function sqimap_asearch_get_selectable_unformatted_mailboxes(&$boxes)
 /* get globals we will need */
 sqgetGlobalVar('smtoken', $submitted_token, SQ_FORM, '');
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
 
 if (!sqgetGlobalVar('checkall',$checkall,SQ_GET)) {
     $checkall = false;
