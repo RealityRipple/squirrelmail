@@ -474,12 +474,7 @@ function get_location () {
            $is_secure_connection, $sq_ignore_http_x_forwarded_headers;
 
     /* Get the path, handle virtual directories */
-    if(strpos(php_self(), '?')) {
-        $path = substr(php_self(), 0, strpos(php_self(), '?'));
-    } else {
-        $path = php_self();
-    }
-    $path = substr($path, 0, strrpos($path, '/'));
+    $path = substr(php_self(FALSE), 0, strrpos(php_self(FALSE), '/'));
 
     // proto+host+port are already set in config:
     if ( !empty($config_location_base) ) {

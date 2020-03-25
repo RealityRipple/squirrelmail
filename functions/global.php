@@ -697,10 +697,12 @@ if (!function_exists('session_regenerate_id')) {
  * @return string The path, filename and any arguments for the
  *                current script
  */
-function php_self() {
+function php_self($with_query_string=TRUE) {
 
-    $request_uri = '';
-
+    static $request_uri = '';
+    if (!empty($request_uri))
+        return ($with_query_string ? $request_uri : (strpos($request_uri, '?') !== FALSE ? substr($request_uri, 0, strpos($request_uri, '?')) : $request_uri));
+ 
     // first try $_SERVER['PHP_SELF'], which seems most reliable
     // (albeit it usually won't include the query string)
     //
@@ -733,7 +735,10 @@ function php_self() {
         $request_uri .= '?' . $query_string;
     }   
 
-    return $request_uri;
+    global $php_self_pattern, $php_self_replacement;
+    if (!empty($php_self_pattern))
+        $request_uri = preg_replace($php_self_pattern, $php_self_replacement, $request_uri);
+    return ($with_query_string ? $request_uri : (strpos($request_uri, '?') !== FALSE ? substr($request_uri, 0, strpos($request_uri, '?')) : $request_uri));
 
 }
 
