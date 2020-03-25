@@ -183,4 +183,14 @@
  * can be enabled by adding this here:
  * $remove_rcdata_rawtext_tags_and_content = TRUE; 
  *
+ * $php_self_pattern
+ * $php_self_replacement
+ * These may be used to modify the value of the global $PHP_SELF
+ * variable used throughout the SquirrelMail code (though that
+ * variable is used less frequently in version 1.5.x). The
+ * pattern should be a full regular expression including the
+ * delimiters. This may be helpful when the web server sees
+ * traffic from a proxy so the normal $PHP_SELF does not resolve
+ * to what it should be for the real client.
+ *
  */

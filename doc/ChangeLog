@@ -433,6 +433,14 @@ Version 1.5.2 - SVN
     [CVE-2019-12970]
   - Added SCRAM authentication support (RFC5802) (RFC7677) for IMAP
     and SMTP
+  - Added the ability to modify of the value of the global $PHP_SELF
+    variable used throughout the SquirrelMail code (though less so
+    in version 1.5.2).  The administrator may do so by adding the
+    configuration settings $php_self_pattern and $php_self_replacement
+    to config/config_local.php, where the pattern should be a full
+    regular expression including the delimiters. This may be helpful
+    when the web server sees traffic from a proxy so the normal
+    $PHP_SELF does not resolve to what it should be for the real client.
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
