@@ -409,6 +409,13 @@ FIXME!
     );
 
 
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'return_to_message_list_after_move',
+        'caption' => _("Return To Message List After Move"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
 
     /*** Load the Address Book Options into the array ***/
     $optgrps[SMOPT_GRP_ABOOK] = _("Address Book Display Options");

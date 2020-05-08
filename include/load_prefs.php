@@ -354,6 +354,7 @@ $truncate_subject = getPref($data_dir, $username, 'truncate_subject', 50);
 $show_recipient_instead = getPref($data_dir, $username, 'show_recipient_instead', SMPREF_OFF);
 
 $delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', SMPREF_ON);
+$return_to_message_list_after_move = getPref($data_dir, $username, 'return_to_message_list_after_move', SMPREF_ON);
 
 /**
  * Access keys
