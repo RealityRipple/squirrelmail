@@ -37,7 +37,7 @@ require_once(SM_PATH . 'functions/compose.php');
  * and sorted msgs array and return the index of the next message
  *
  * @param int $passed_id The current message UID
- * @return the index of the next valid message from the array
+ * @return the index of the next valid message from the array or -1 if there is no next message
  */
 function findNextMessage($uidset,$passed_id='backwards') {
     if (!is_array($uidset)) {
@@ -59,7 +59,7 @@ function findNextMessage($uidset,$passed_id='backwards') {
  * and sorted msgs array and return the index of the previous message
  *
  * @param int $passed_id The current message UID
- * @return the index of the next valid message from the array
+ * @return the index of the next valid message from the array or -1 if there is no next message
  */
 
 function findPreviousMessage($uidset, $passed_id) {
@@ -479,7 +479,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
            $delete_prev_next_display, $show_copy_buttons,
            $compose_new_win, $compose_width, $compose_height,
-           $oTemplate;
+           $oTemplate, $return_to_message_list_after_move;
 
     //FIXME cleanup argument list, use $aMailbox where possible
     $mailbox = $aMailbox['NAME'];
@@ -640,11 +640,16 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
 
     $oTemplate->assign('mailboxes', sqimap_mailbox_option_array($imapConnection));
     if (in_array('\\deleted', $aMailbox['PERMANENTFLAGS'],true)) {
-        $delete_url = $base_uri . "src/$where";
         $oTemplate->assign('can_be_deleted', true);
-        $oTemplate->assign('move_delete_form_action', $base_uri.'src/'.$where);
+        // force return-to-message-list if this is the only message in the folder
+        if ($return_to_message_list_after_move || ($next < 0 && $prev < 0))
+            $oTemplate->assign('move_delete_form_action', $base_uri.'src/'.$where);
+        else
+            $oTemplate->assign('move_delete_form_action', $base_uri.'src/read_body.php');
         $oTemplate->assign('delete_form_extra', addHidden('mailbox', $aMailbox['NAME'])."\n" .
                                                 addHidden('msg[0]', $passed_id)."\n" .
+                                                // only need when $return_to_message_list_after_move is off
+                                                addHidden('passed_id', ($next >= 0 ? $next : $prev))."\n" .
                                                 addHidden('startMessage', $startMessage)."\n" );
         if (!(isset($passed_ent_id) && $passed_ent_id)) {
             $oTemplate->assign('can_be_moved', true);
@@ -927,6 +932,14 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'])) {
  */
 if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
     handleMessageListForm($imapConnection,$aMailbox,$sButton='setDeleted', array($delete_id));
+}
+
+/**
+ * or move button... why is handleMessageListForm (per above) conditional anway?
+ */
+if ( sqgetGlobalVar('moveButton', $ignore, SQ_POST) ) {
+    $sError = handleMessageListForm($imapConnection,$aMailbox);
+    sqgetGlobalVar('targetMailbox', $lastTargetMailbox, SQ_POST);
 }
 
 /**
