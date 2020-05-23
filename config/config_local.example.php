@@ -193,4 +193,11 @@
  * traffic from a proxy so the normal $PHP_SELF does not resolve
  * to what it should be for the real client.
  *
+ * $upload_filesize_divisor allows the administrator to specify
+ * the divisor used when converting the size of an uploaded file
+ * as given by PHP's filesize() and converted to human-digestable
+ * form.  By default, 1000 is used, but 1024 may be necessary in
+ * some environments.
+ * $upload_filesize_divisor = 1024;
+ *
  */

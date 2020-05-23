@@ -169,9 +169,10 @@ function displayErrors () {
 //FIXME: I think this is needless since there is no reason templates cannot just call directly to show_readable_size
  *
  * @param int size to be converted to human-readable
+ * @param int filesize_divisor the divisor we'll use (OPTIONAL; default 1024)
  * @return string human-readable form
  * @since 1.5.2
  **/
-function humanReadableSize ($size) {
-    return show_readable_size($size);
+function humanReadableSize ($size, $filesize_divisor=1024) {
+    return show_readable_size($size, $filesize_divisor);
 }
