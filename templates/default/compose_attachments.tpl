@@ -55,7 +55,7 @@ extract($t);
    <input type="checkbox" name="delete[]" id="delete<?php echo $attachment_count; ?>" accesskey="<?php echo ($attachment_count % 10); ?>" value="<?php echo $attach['Key']; ?>" />
   </td>
   <td class="fieldValue"><label for="delete<?php echo $attachment_count; ?>">
-   <?php echo $attach['FileName']; ?> - <?php echo $attach['ContentType']; ?> (<?php echo humanReadableSize($attach['Size']); ?>)
+   <?php echo $attach['FileName']; ?> - <?php echo $attach['ContentType']; ?> (<?php echo humanReadableSize($attach['Size'], $upload_filesize_divisor); ?>)
   </label></td>
  </tr>
         <?php

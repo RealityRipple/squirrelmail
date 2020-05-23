@@ -1484,7 +1484,9 @@ function showInputForm ($session, $values=false) {
         }
 
         $attach = array();
-        global $username, $attachment_dir;
+        global $username, $attachment_dir, $upload_filesize_divisor;
+        if (empty($upload_filesize_divisor))
+            $upload_filesize_divisor = 1000; // *not* 1024 -- does this break for some users?
         $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
         if (!empty($attach_array)) {
             foreach ($attach_array as $key => $attachment) {
@@ -1507,6 +1509,7 @@ function showInputForm ($session, $values=false) {
         $max = min($sizes);
         $oTemplate->assign('max_file_size', empty($max) ? -1 : $max);
         $oTemplate->assign('attachments', $attach);
+        $oTemplate->assign('upload_filesize_divisor', $upload_filesize_divisor);
 
         // access keys...
         //
