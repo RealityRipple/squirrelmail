@@ -654,18 +654,19 @@ function OneTimePadCreate ($length=100) {
   * a more easily digested (readable) format
   *
   * @param int $bytes the size in bytes
+  * @param int $filesize_divisor the divisor we'll use (OPTIONAL; default 1024)
   *
   * @return string The size in human readable format
   *
   * @since 1.0
   *
   */
-function show_readable_size($bytes) {
-    $bytes /= 1024;
+function show_readable_size($bytes, $filesize_divisor) {
+    $bytes /= $filesize_divisor;
     $type = _("KiB");
 
-    if ($bytes / 1024 > 1) {
-        $bytes /= 1024;
+    if ($bytes / $filesize_divisor > 1) {
+        $bytes /= $filesize_divisor;
         $type = _("MiB");
     }
 
