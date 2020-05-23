@@ -635,7 +635,13 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
         $this_attachment['DefaultHREF'] = $defaultlink;
         $this_attachment['DownloadHREF'] = $links['download link']['href'];
         $this_attachment['ViewHREF'] = isset($links['attachment_common']) ? $links['attachment_common']['href'] : '';
-        $this_attachment['Size'] = $header->size;
+
+        // base64 encoded file sizes are misleading, so approximate real size
+        if (!empty($header->encoding) && strtolower($header->encoding) == 'base64')
+            $this_attachment['Size'] = $header->size / 4 * 3;
+        else
+            $this_attachment['Size'] = $header->size;
+
         $this_attachment['ContentType'] = sm_encode_html_special_chars($type0 .'/'. $type1);
         $this_attachment['OtherLinks'] = array();
         foreach ($links as $val) {
