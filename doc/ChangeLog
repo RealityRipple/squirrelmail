@@ -439,6 +439,8 @@ Version 1.5.2 - SVN
     regular expression including the delimiters. This may be helpful
     when the web server sees traffic from a proxy so the normal
     $PHP_SELF does not resolve to what it should be for the real client.
+  - Show more accurate filesize for uploaded files and base64-encoded
+    attachments (when reading a message)
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
