@@ -661,7 +661,7 @@ function OneTimePadCreate ($length=100) {
   * @since 1.0
   *
   */
-function show_readable_size($bytes, $filesize_divisor) {
+function show_readable_size($bytes, $filesize_divisor=1024) {
     $bytes /= $filesize_divisor;
     $type = _("KiB");
 
