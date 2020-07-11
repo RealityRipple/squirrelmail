@@ -648,8 +648,14 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
         $this_attachment['ContentType'] = sm_encode_html_special_chars($type0 .'/'. $type1);
         $this_attachment['OtherLinks'] = array();
         foreach ($links as $val) {
-            if ($val['text']==_("Download") || $val['text'] == _("View"))
+            if ($val['text']==_("Download")) {
+                $this_attachment['DownloadHREF'] = $val['href'];
                 continue;
+            }
+            if ($val['text']==_("View")) {
+                $this_attachment['ViewHREF'] = $val['href'];
+                continue;
+            }
             if (empty($val['text']) && empty($val['extra']))
                 continue;
 
