@@ -1204,17 +1204,19 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
 }
 
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
-        $passed_ent_id='', $imapConnection) {
-    if (!$passed_ent_id) {
-        $body_a = sqimap_run_command($imapConnection,
-                'FETCH '.$passed_id.' RFC822',
-                TRUE, $response, $readmessage,
-                TRUE);
-    } else {
-        $body_a = sqimap_run_command($imapConnection,
-                'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
-                TRUE, $response, $readmessage, TRUE);
-        $message = $message->parent;
+        $passed_ent_id='', $imapConnection=null) {
+    if ($imapConnection) {
+        if (!$passed_ent_id) {
+            $body_a = sqimap_run_command($imapConnection,
+                    'FETCH '.$passed_id.' RFC822',
+                    TRUE, $response, $readmessage,
+                    TRUE);
+        } else {
+            $body_a = sqimap_run_command($imapConnection,
+                    'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
+                    TRUE, $response, $readmessage, TRUE);
+            $message = $message->parent;
+        }
     }
     if ($response == 'OK') {
         $subject = encodeHeader($message->rfc822_header->subject);
