@@ -94,8 +94,8 @@ class ErrorHandler {
      * @private
      * @since 1.5.1
      */
-    function SquirrelMailErrorhandler($iErrNo, $sErrStr, $sErrFile, $iErrLine, $aContext) {
-        if (strpos($sErrStr, 'A session had already been started') === false)
+    function SquirrelMailErrorhandler($iErrNo, $sErrStr, $sErrFile, $iErrLine, $aContext=null) {
+        if (strpos($sErrStr, 'A session had already been started') === false && strpos($sErrStr, 'a session is already active') === false)
          mail('webmaster@realityripple.com', 'SquirrelMail Error', "Error #$iErrNo: $sErrStr\n$sErrFile line $iErrLine\n".print_r($aContext, true));
         $aError = array(
                         'type'     => SQM_NOTICE,// Error type, notice, warning or fatal error;
