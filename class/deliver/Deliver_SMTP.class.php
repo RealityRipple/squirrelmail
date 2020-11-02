@@ -528,7 +528,7 @@ class Deliver_SMTP extends Deliver {
         return true;
     }
 
-    function authPop($pop_server='', $pop_port='', $user, $pass) {
+    function authPop($pop_server='', $pop_port='', $user='', $pass='') {
         if (!$pop_port) {
             $pop_port = 110;
         }

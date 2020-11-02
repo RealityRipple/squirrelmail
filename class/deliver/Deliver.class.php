@@ -165,7 +165,7 @@ class Deliver {
      *
      */
     function send_mail($message, $header, $boundary, $stream=false, 
-                       &$raw_length, $extra=NULL) {
+                       &$raw_length=0, $extra=NULL) {
 
 
         if ($stream) {
