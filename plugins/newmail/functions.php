@@ -507,7 +507,7 @@ function newmail_media_object($object,$type,$path,$args=array(),$addsuffix=true)
  * @return string object html tags and attributes required by selected media type.
  * @todo add ogg and svg support
  */
-function newmail_media_object_ie($object,$type,$path,$args=array(),$addsuffix) {
+function newmail_media_object_ie($object,$type,$path,$args=array(),$addsuffix=true) {
     $ret_ie='';
     $suffix='';
     $sArgs=newmail_media_prepare_args($args);

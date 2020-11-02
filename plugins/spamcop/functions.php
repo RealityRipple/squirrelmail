@@ -179,20 +179,22 @@ function spamcop_enable_disable($option,$disable_action,$enable_action) {
  * @todo Duplicate code in src/compose.php
  */
 function spamcop_getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
-                                      $passed_ent_id='', $imapConnection) {
+                                      $passed_ent_id='', $imapConnection=null) {
                                           
     global $username, $attachment_dir;
 
-    if (!$passed_ent_id) {
-        $body_a = sqimap_run_command($imapConnection,
-                                    'FETCH '.$passed_id.' RFC822',
-                                    TRUE, $response, $readmessage,
-                                    TRUE);
-    } else {
-        $body_a = sqimap_run_command($imapConnection,
-                                     'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
-                                     TRUE, $response, $readmessage,TRUE);
-        $message = $message->parent;
+    if ($imapConnection) {
+        if (!$passed_ent_id) {
+            $body_a = sqimap_run_command($imapConnection,
+                                        'FETCH '.$passed_id.' RFC822',
+                                        TRUE, $response, $readmessage,
+                                        TRUE);
+        } else {
+            $body_a = sqimap_run_command($imapConnection,
+                                         'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
+                                         TRUE, $response, $readmessage,TRUE);
+            $message = $message->parent;
+        }
     }
     if ($response == 'OK') {
         array_shift($body_a);
