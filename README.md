@@ -15,6 +15,7 @@ This version contains the following changes:
   * The `X-Frame-Options: SAMEORIGIN` header has been replaced with CSP's `frame-ancestors` header. This is set based on the `provider_uri` preference, and accepts any http or https domains or subdomains that match.
     * A new variable in the config will be added at a later point.
   * SCRAM support for SMTP and IMAP logins, supporting any hash algorithm PHP supports (with checks against HMAC list on 7.2+).
+  * Optional parameters corrected for PHP 8.0.
 
 Additionally, some minor fixes that would cause warnings or strange failures have also been resolved.
 Changes to the official source code are tracked in the `trunk` branch and merged with `master` as soon as possible. I'm looking into a way to automate this process.
