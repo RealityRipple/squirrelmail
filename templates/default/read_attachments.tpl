@@ -10,19 +10,20 @@
  *    $attachments - array containing info for all message attachments.  Each
  *                   element in the array represents a separate attachment and
  *                   contains the following elements:
- *       $el['Name']         - The name of the attachment
- *       $el['Description']  - Description of the attachment
- *       $el['DefaultHREF']  - URL to the action that should occur when the name is clicked
- *       $el['DownloadHREF'] - URL to download the attachment
- *       $el['ViewHREF']     - URL to view the attachment.  Empty if not available.
- *       $el['Size']         - Size of attachment in bytes.
- *       $el['ContentType']  - Content-Type of the attachment
- *       $el['OtherLinks']   - array containing links to any other actions
- *                             available for this attachment that might be
- *                             provided by plugins, for example.  Each element represents
- *                             a different action and contains the following elements:
- *            $link['HREF'] - URL to access the functionality
- *            $link['Text'] - Text representing the functionality.
+ *       $el['Name']          - The name of the attachment
+ *       $el['Description']   - Description of the attachment
+ *       $el['DefaultHREF']   - URL to the action that should occur when the name is clicked
+ *       $el['DownloadHREF']  - URL to download the attachment
+ *       $el['ViewHREF']      - URL to view the attachment.  Empty if not available.
+ *       $el['Size']          - Size of attachment in bytes.
+ *       $el['ContentType']   - Content-Type of the attachment
+ *       $el['OtherLinks']    - array containing links to any other actions
+ *                              available for this attachment that might be
+ *                              provided by plugins, for example.  Each element represents
+ *                              a different action and contains the following elements:
+ *            $link['HREF']  - URL to access the functionality
+ *            $link['Text']  - Text representing the functionality
+ *            $link['Extra'] - Any extra anchor tag attributes provided by a plugin
  *
  * @copyright 1999-2020 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -82,7 +83,7 @@ if (count($attachments)==0) {
     foreach ($attachment['OtherLinks'] as $link) {
         ?>
    &nbsp;|&nbsp;
-   <a href="<?php echo $link['HREF']; ?>"><?php echo $link['Text']; ?></a>
+   <a href="<?php echo $link['HREF'] . '" ' . $link['Extra']; ?>><?php echo $link['Text']; ?></a>
         <?php
     }
    ?>
