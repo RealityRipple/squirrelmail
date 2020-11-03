@@ -656,12 +656,19 @@ function buildAttachmentArray($message, $exclude_id, $mailbox, $id) {
                 $this_attachment['ViewHREF'] = $val['href'];
                 continue;
             }
-            if (empty($val['text']) && empty($val['extra']))
+
+            // This makes no sense - If 'text' and 'extra' are just concatenated,
+            // there is no point in having 'extra'.... I am going to assume this
+            // was a mistake and am changing 'extra' to be what I think it was
+            // meant to be: additional tag attributes.  However, I'm not checking
+            // extensively for plugins that were using this the wrong way (but why would they?)
+            if (empty($val['text']))
                 continue;
 
             $temp = array();
             $temp['HREF'] = $val['href'];
-            $temp['Text'] = (empty($val['text']) ? '' : $val['text']) . (empty($val['extra']) ? '' : $val['extra']);
+            $temp['Text'] = $val['text'];
+            $temp['Extra'] = (empty($val['extra']) ? '' : $val['extra']);
             $this_attachment['OtherLinks'][] = $temp;
         }
         $attachments[] = $this_attachment;
