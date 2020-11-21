@@ -93,6 +93,9 @@ register_attachment_common('text/html',      'link_html');
 register_attachment_common('text/x-vcard',   'link_vcard');
 register_attachment_common('text/directory', 'link_vcard');
 
+/* Register ics (calendar) */
+register_attachment_common('application/ics',  'link_text');
+
 /* Register rules for general types.
  * These will be used if there isn't a more specific rule available. */
 register_attachment_common('text/*',  'link_text');
