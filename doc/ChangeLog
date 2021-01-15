@@ -441,6 +441,7 @@ Version 1.5.2 - SVN
     $PHP_SELF does not resolve to what it should be for the real client.
   - Show more accurate filesize for uploaded files and base64-encoded
     attachments (when reading a message)
+  - Added fixes for PHP version 8 compatibility
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
