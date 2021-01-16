@@ -857,7 +857,7 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
         $lowerbox = strtolower(sm_encode_html_special_chars($value));
         $sel = false;
         if ($show_selected != 0) {
-            foreach ($show_selected as $val)) {
+            foreach ($show_selected as $val) {
                 if (strtolower($value) == strtolower(sm_encode_html_special_chars($val))) {
                     $sel = true;
                     break;
