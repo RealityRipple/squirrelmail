@@ -39,7 +39,7 @@ function formatAddressList ($addresses) {
         return array();
         
     $contacts = array();
-    foreach ($addresses as $undef => $row) {
+    foreach($addresses as $row) {
         $contact = array (
                             'FirstName'      => sm_encode_html_special_chars($row['firstname']),
                             'LastName'       => sm_encode_html_special_chars($row['lastname']),
@@ -150,7 +150,7 @@ function getBackends () {
     $backends = array();
     $backends['-1'] = _("All address books");
     $ret = $abook->get_backend_list();
-    foreach ($ret as $undef => $v) {
+    foreach ($ret as $v) {
         if ($v->btype == 'local' && !$v->listing) {
             continue;
         }

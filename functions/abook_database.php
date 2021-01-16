@@ -681,7 +681,7 @@ class abook_database extends addressbook_backend {
             $sepstr = '';
             $where_clause = '';
             $where_clause_args = array();
-            foreach($alias as $undef=>$nickname) {
+            foreach ($alias as $nickname) {
                 $where_clause .= $sepstr . $this->identifier_quote_char . 'nickname' . $this->identifier_quote_char . ' = ?';
                 $where_clause_args[] = $nickname;
                 $sepstr = ' OR ';
@@ -705,7 +705,7 @@ class abook_database extends addressbook_backend {
                              $this->table, $this->owner);
 
             $sepstr = '';
-            foreach($alias as $undef=>$nickname) {
+            foreach ($alias as $nickname) {
                 $query .= sprintf("%s nickname='%s' ", $sepstr,
                                   $this->dbh->quoteString($nickname));
                 $sepstr = 'OR';
