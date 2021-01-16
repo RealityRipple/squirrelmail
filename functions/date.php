@@ -58,6 +58,7 @@ function getGMTSeconds($stamp, $tzc) {
             $tzc = '-0400';
             break;
         case 'GMT':
+        case 'UTC':
             $tzc = '+0000';
             break;
         case 'BST':
