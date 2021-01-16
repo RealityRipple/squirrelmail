@@ -523,7 +523,7 @@ function icon_theme_save($option) {
     // Don't assume the new value is there, double check
     // and only save if found
     $found = false;
-    foreach($icon_themes as $index=>$data) {
+    foreach ($icon_themes as $data) {
         if ($data['PATH'] == $option->new_value) {
             $found = true;
             break;
@@ -542,7 +542,8 @@ function css_theme_save ($option) {
     // Don't assume the new value is there, double check
     // and only save if found
     $found = false;
-    foreach($user_themes as $index=>$data) {
+    reset($user_themes);
+    foreach ($user_themes as $data) {
         if ($data['PATH'] == $option->new_value) {
             $found = true;
             break;
@@ -551,8 +552,8 @@ function css_theme_save ($option) {
     
     if (!$found) {
         $template_themes = $oTemplate->get_alternative_stylesheets(true);
-        foreach($template_themes as $path=>$name) {
-            if ($path == $option->new_value){
+        foreach ($template_themes as $path => $name) {
+            if ($path == $option->new_value) {
                 $found = true;
                 break;
             }

@@ -1343,7 +1343,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
             $pn = $data2[1];
             $pna = explode(')(', $pn);
             $delnew = array();
-            foreach ($pna as $k=>$v) {
+            foreach ($pna as $v) {
                 $lst = explode('"', $v);
                 if (isset($lst[3])) {
                     $delnew[$lst[1]] = $lst[3];
