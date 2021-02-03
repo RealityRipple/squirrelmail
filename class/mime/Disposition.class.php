@@ -46,7 +46,7 @@ class Disposition {
      * @since 1.3.1
      */
     function getProperty($par) {
-        $value = strtolower($par);
+        $par = strtolower($par);
         if (isset($this->properties[$par])) {
             return $this->properties[$par];
         }
