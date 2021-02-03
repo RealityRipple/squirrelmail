@@ -1581,8 +1581,7 @@ sub command112a {
       print $WHT . "plain" . $NRM . " - SASL PLAIN. If you need this, you already know it.\n";
       print $WHT . "cram-md5" . $NRM . " - Historic. No longer considered secure.\n";
       print $WHT . "digest-md5" . $NRM . " - Historic. No longer considered secure.\n";
-      print $WHT . "scram-sha-1" . $NRM . " - Salted and hashed. Security contested.\n";
-      print $WHT . "scram-sha-256" . $NRM . " - Salted and hashed. Safer than sha-1.\n";
+      print $WHT . "scram-[ALGO]" . $NRM . " - Salted and hashed. Supports your PHP install's HMAC list.\n";
       print "\n*** YOUR IMAP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n";
       print "If you don't understand or are unsure, you probably want \"login\"\n\n";
       print "login, plain, cram-md5, digest-md5, scram-* [$WHT$imap_auth_mech$NRM]: $WHT";
@@ -1738,8 +1737,7 @@ sub command112b {
     print $WHT . "plain" . $NRM . " - SASL PLAIN. Plaintext. If you can do better, you probably should.\n";
     print $WHT . "cram-md5" . $NRM . " - Historic. No longer considered secure.\n";
     print $WHT . "digest-md5" . $NRM . " - Historic. No longer considered secure.\n";
-    print $WHT . "scram-sha-1" . $NRM . " - Salted and hashed. Security contested.\n";
-    print $WHT . "scram-sha-256" . $NRM . " - Salted and hashed. Safer than sha-1.\n";
+    print $WHT . "scram-[ALGO]" . $NRM . " - Salted and hashed. Supports your PHP install's HMAC list.\n";
     print $WHT . "\n*** YOUR SMTP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n" . $NRM;
     print "If you don't understand or are unsure, you probably want \"none\"\n\n";
     print "none, login, plain, cram-md5, digest-md5, scram-* [$WHT$smtp_auth_mech$NRM]: $WHT";
