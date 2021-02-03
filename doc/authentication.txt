@@ -16,9 +16,9 @@ will default to the "classic" plaintext methods, without TLS.
 As of 1.5.2, the SCRAM auth mechanism has also been added. This supercedes the
 now deprecated CRAM-MD5 and DIGEST-MD5 with a salted hash, typically with SHA-1
 or SHA-256. While SHA-1 is potentially insecure, HMAC makes things much safer,
-so SCRAM-SHA-1 is still considered functionally secure. If your mail server
-supports SCRAM, please consider using it, especially if it doesn't support TLS
-or you aren't using it. More especially if you're still using MD5.
+so SHA-1 is still considered functionally secure. If your mail server supports
+SCRAM, please consider using it, especially if it doesn't support TLS or you
+aren't using it. More especially if you're still using MD5.
 
 Note: There is no point in using TLS if your IMAP server is localhost. You need
 root to sniff the loopback interface, and if you don't trust root, or an attacker
@@ -28,7 +28,7 @@ having the loopback interface sniffed.
 REQUIREMENTS
 ------------
 
-SCRAM-SHA-1/SCRAM-SHA-256
+SCRAM
 * SquirrelMail 1.5.2 or higher
 * PHP 7.0 or higher (random_int() function for nonce generation)
 
@@ -120,7 +120,7 @@ configuration utility.
 
 These configuration variables will be used to connect to the SMTP server as long
 as the authentication mechanism is something besides 'none', i.e. 'login', 
-'plain', 'cram-md5', 'digest-md5', 'scram-sha-1', or 'scram-sha-256'.
+'plain', 'cram-md5', 'digest-md5', or 'scram-*'.
 
 DEBUGGING SSL ERROR MESSAGES
 ----------------------------
