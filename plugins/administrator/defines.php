@@ -12,23 +12,40 @@
  */
 
 /** Define constants for the various option types. */
-define('SMOPT_TYPE_UNDEFINED', -1);
-define('SMOPT_TYPE_STRING', 0);
-define('SMOPT_TYPE_STRLIST', 1);
-define('SMOPT_TYPE_TEXTAREA', 2);
-define('SMOPT_TYPE_INTEGER', 3);
-define('SMOPT_TYPE_FLOAT', 4);
-define('SMOPT_TYPE_BOOLEAN', 5);
-define('SMOPT_TYPE_HIDDEN', 6);
-define('SMOPT_TYPE_COMMENT', 7);
-define('SMOPT_TYPE_NUMLIST', 8);
-define('SMOPT_TYPE_TITLE', 9);
-define('SMOPT_TYPE_THEME', 10);
-define('SMOPT_TYPE_PLUGINS', 11);
-define('SMOPT_TYPE_LDAP', 12);
-define('SMOPT_TYPE_CUSTOM', 13);
-define('SMOPT_TYPE_EXTERNAL', 32);
-define('SMOPT_TYPE_PATH',33);
+if (!defined('SMOPT_TYPE_UNDEFINED'))
+ define('SMOPT_TYPE_UNDEFINED', -1);
+if (!defined('SMOPT_TYPE_STRING'))
+ define('SMOPT_TYPE_STRING', 0);
+if (!defined('SMOPT_TYPE_STRLIST'))
+ define('SMOPT_TYPE_STRLIST', 1);
+if (!defined('SMOPT_TYPE_TEXTAREA'))
+ define('SMOPT_TYPE_TEXTAREA', 2);
+if (!defined('SMOPT_TYPE_INTEGER'))
+ define('SMOPT_TYPE_INTEGER', 3);
+if (!defined('SMOPT_TYPE_FLOAT'))
+ define('SMOPT_TYPE_FLOAT', 4);
+if (!defined('SMOPT_TYPE_BOOLEAN'))
+ define('SMOPT_TYPE_BOOLEAN', 5);
+if (!defined('SMOPT_TYPE_HIDDEN'))
+ define('SMOPT_TYPE_HIDDEN', 6);
+if (!defined('SMOPT_TYPE_COMMENT'))
+ define('SMOPT_TYPE_COMMENT', 7);
+if (!defined('SMOPT_TYPE_NUMLIST'))
+ define('SMOPT_TYPE_NUMLIST', 8);
+if (!defined('SMOPT_TYPE_TITLE'))
+ define('SMOPT_TYPE_TITLE', 9);
+if (!defined('SMOPT_TYPE_THEME'))
+ define('SMOPT_TYPE_THEME', 10);
+if (!defined('SMOPT_TYPE_PLUGINS'))
+ define('SMOPT_TYPE_PLUGINS', 11);
+if (!defined('SMOPT_TYPE_LDAP'))
+ define('SMOPT_TYPE_LDAP', 12);
+if (!defined('SMOPT_TYPE_CUSTOM'))
+ define('SMOPT_TYPE_CUSTOM', 13);
+if (!defined('SMOPT_TYPE_EXTERNAL'))
+ define('SMOPT_TYPE_EXTERNAL', 32);
+if (!defined('SMOPT_TYPE_PATH'))
+ define('SMOPT_TYPE_PATH',33);
 
 /**
  * Returns reformated aTemplateSet array data for option selection
