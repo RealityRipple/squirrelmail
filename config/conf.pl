@@ -1538,6 +1538,18 @@ sub command112a {
             print $WHT . " ERROR DETECTING$NRM\n";
           }
 
+          print "SCRAM-SHA-512:\t";
+          my $tmp = detect_auth_support('IMAP',$host,'SCRAM-SHA-512');
+          if (defined($tmp)) {
+              if ($tmp eq 'YES') {
+                  print "$WHT SUPPORTED$NRM\n";
+              } else {
+                print "$WHT NOT SUPPORTED$NRM\n";
+              }
+          } else {
+            print $WHT . " ERROR DETECTING$NRM\n";
+          }
+
           print "CRAM-MD5:\t";
           my $tmp = detect_auth_support('IMAP',$host,'CRAM-MD5');
           if (defined($tmp)) {
@@ -1696,6 +1708,19 @@ sub command112b {
             # Try SCRAM-SHA-256
             print "Testing SCRAM-SHA-256:\t";
             $tmp=detect_auth_support('SMTP',$host,'SCRAM-SHA-256');
+            if (defined($tmp)) {
+                if ($tmp eq 'YES') {
+                    print $WHT . "SUPPORTED$NRM\n";
+                } else {
+                    print $WHT . "NOT SUPPORTED$NRM\n";
+                }
+              } else {
+                  print $WHT . "ERROR DETECTING$NRM\n";
+            }
+
+            # Try SCRAM-SHA-512
+            print "Testing SCRAM-SHA-512:\t";
+            $tmp=detect_auth_support('SMTP',$host,'SCRAM-SHA-512');
             if (defined($tmp)) {
                 if ($tmp eq 'YES') {
                     print $WHT . "SUPPORTED$NRM\n";
