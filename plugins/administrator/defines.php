@@ -138,8 +138,6 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  '$imap_auth_mech' => array( 'name' => _("IMAP Authentication Type"),
                                              'type' => SMOPT_TYPE_STRLIST,
                                              'posvals' => array('login' => _("IMAP login"),
-                                                                'scram-sha-1' => 'SCRAM-SHA-1',
-                                                                'scram-sha-256' => 'SCRAM-SHA-256',
                                                                 'cram-md5' => 'CRAM-MD5',
                                                                 'digest-md5' => 'DIGEST-MD5'),
                                              'default' => 'login' ),
@@ -168,8 +166,6 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                              'type' => SMOPT_TYPE_STRLIST,
                                              'posvals' => array('none' => _("No SMTP auth"),
                                                                 'login' => _("Login (plain text)"),
-                                                                'scram-sha-1' => 'SCRAM-SHA-1',
-                                                                'scram-sha-256' => 'SCRAM-SHA-256',
                                                                 'cram-md5' => 'CRAM-MD5',
                                                                 'digest-md5' => 'DIGEST-MD5'),
                                              'default' => 'none'),
@@ -443,3 +439,21 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  /* --------------------------------------------------------*/
 
                );
+
+$HASHs = hash_algos();
+if (check_php_version(7,2)) {
+    $HMACs = hash_hmac_algos();
+    $HASHs = array_values(array_intersect($HASHs, $HMACs));
+}
+foreach($HASHs as $hash) {
+    $hash = str_replace('sha', 'sha-', $hash);
+    $hash = str_replace('sha-3-', 'sha3-', $hash);
+    $hash = str_replace('ripemd', 'ripemd-', $hash);
+    $hash = str_replace('tiger', 'tiger-', $hash);
+    $hash = str_replace('haval', 'haval-', $hash);
+    $hash = str_replace('snefru256', 'snefru-256', $hash);
+    $key = 'scram-'.strtolower($hash);
+    $value = 'SCRAM-'.strtoupper($hash);
+    $defcfg['$imap_auth_mech']['posvals'][$key] = $value;
+    $defcfg['$smtp_auth_mech']['posvals'][$key] = $value;
+}
