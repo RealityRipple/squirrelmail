@@ -9,7 +9,7 @@
  *  functions/global.php
  *  functions/strings.php.
  *
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -153,7 +153,10 @@ function scram_supports($algo) {
   $HMACs = hash_hmac_algos();
   $HASHs = array_values(array_intersect($HASHs, $HMACs));
  }
- $fAlgo = strtolower(str_replace('-', '', $algo));
+ $fAlgo = strtolower($algo);
+ if (in_array($fAlgo, $HASHs))
+  return $fAlgo;
+ $fAlgo = str_replace('-', '', $fAlgo);
  if (in_array($fAlgo, $HASHs))
   return $fAlgo;
  return false;

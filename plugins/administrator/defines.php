@@ -4,7 +4,7 @@
  * Administrator plugin - Option definitions
  *
  * @author Philippe Mingo
- * @copyright 1999-2020 The SquirrelMail Project Team
+ * @copyright 1999-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -12,23 +12,40 @@
  */
 
 /** Define constants for the various option types. */
-define('SMOPT_TYPE_UNDEFINED', -1);
-define('SMOPT_TYPE_STRING', 0);
-define('SMOPT_TYPE_STRLIST', 1);
-define('SMOPT_TYPE_TEXTAREA', 2);
-define('SMOPT_TYPE_INTEGER', 3);
-define('SMOPT_TYPE_FLOAT', 4);
-define('SMOPT_TYPE_BOOLEAN', 5);
-define('SMOPT_TYPE_HIDDEN', 6);
-define('SMOPT_TYPE_COMMENT', 7);
-define('SMOPT_TYPE_NUMLIST', 8);
-define('SMOPT_TYPE_TITLE', 9);
-define('SMOPT_TYPE_THEME', 10);
-define('SMOPT_TYPE_PLUGINS', 11);
-define('SMOPT_TYPE_LDAP', 12);
-define('SMOPT_TYPE_CUSTOM', 13);
-define('SMOPT_TYPE_EXTERNAL', 32);
-define('SMOPT_TYPE_PATH',33);
+if (!defined('SMOPT_TYPE_UNDEFINED'))
+ define('SMOPT_TYPE_UNDEFINED', -1);
+if (!defined('SMOPT_TYPE_STRING'))
+ define('SMOPT_TYPE_STRING', 0);
+if (!defined('SMOPT_TYPE_STRLIST'))
+ define('SMOPT_TYPE_STRLIST', 1);
+if (!defined('SMOPT_TYPE_TEXTAREA'))
+ define('SMOPT_TYPE_TEXTAREA', 2);
+if (!defined('SMOPT_TYPE_INTEGER'))
+ define('SMOPT_TYPE_INTEGER', 3);
+if (!defined('SMOPT_TYPE_FLOAT'))
+ define('SMOPT_TYPE_FLOAT', 4);
+if (!defined('SMOPT_TYPE_BOOLEAN'))
+ define('SMOPT_TYPE_BOOLEAN', 5);
+if (!defined('SMOPT_TYPE_HIDDEN'))
+ define('SMOPT_TYPE_HIDDEN', 6);
+if (!defined('SMOPT_TYPE_COMMENT'))
+ define('SMOPT_TYPE_COMMENT', 7);
+if (!defined('SMOPT_TYPE_NUMLIST'))
+ define('SMOPT_TYPE_NUMLIST', 8);
+if (!defined('SMOPT_TYPE_TITLE'))
+ define('SMOPT_TYPE_TITLE', 9);
+if (!defined('SMOPT_TYPE_THEME'))
+ define('SMOPT_TYPE_THEME', 10);
+if (!defined('SMOPT_TYPE_PLUGINS'))
+ define('SMOPT_TYPE_PLUGINS', 11);
+if (!defined('SMOPT_TYPE_LDAP'))
+ define('SMOPT_TYPE_LDAP', 12);
+if (!defined('SMOPT_TYPE_CUSTOM'))
+ define('SMOPT_TYPE_CUSTOM', 13);
+if (!defined('SMOPT_TYPE_EXTERNAL'))
+ define('SMOPT_TYPE_EXTERNAL', 32);
+if (!defined('SMOPT_TYPE_PATH'))
+ define('SMOPT_TYPE_PATH',33);
 
 /**
  * Returns reformated aTemplateSet array data for option selection
@@ -138,8 +155,6 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  '$imap_auth_mech' => array( 'name' => _("IMAP Authentication Type"),
                                              'type' => SMOPT_TYPE_STRLIST,
                                              'posvals' => array('login' => _("IMAP login"),
-                                                                'scram-sha-1' => 'SCRAM-SHA-1',
-                                                                'scram-sha-256' => 'SCRAM-SHA-256',
                                                                 'cram-md5' => 'CRAM-MD5',
                                                                 'digest-md5' => 'DIGEST-MD5'),
                                              'default' => 'login' ),
@@ -168,8 +183,6 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                              'type' => SMOPT_TYPE_STRLIST,
                                              'posvals' => array('none' => _("No SMTP auth"),
                                                                 'login' => _("Login (plain text)"),
-                                                                'scram-sha-1' => 'SCRAM-SHA-1',
-                                                                'scram-sha-256' => 'SCRAM-SHA-256',
                                                                 'cram-md5' => 'CRAM-MD5',
                                                                 'digest-md5' => 'DIGEST-MD5'),
                                              'default' => 'none'),
@@ -443,3 +456,21 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  /* --------------------------------------------------------*/
 
                );
+
+$HASHs = hash_algos();
+if (check_php_version(7,2)) {
+    $HMACs = hash_hmac_algos();
+    $HASHs = array_values(array_intersect($HASHs, $HMACs));
+}
+foreach($HASHs as $hash) {
+    $hash = str_replace('sha', 'sha-', $hash);
+    $hash = str_replace('sha-3-', 'sha3-', $hash);
+    $hash = str_replace('ripemd', 'ripemd-', $hash);
+    $hash = str_replace('tiger', 'tiger-', $hash);
+    $hash = str_replace('haval', 'haval-', $hash);
+    $hash = str_replace('snefru256', 'snefru-256', $hash);
+    $key = 'scram-'.strtolower($hash);
+    $value = 'SCRAM-'.strtoupper($hash);
+    $defcfg['$imap_auth_mech']['posvals'][$key] = $value;
+    $defcfg['$smtp_auth_mech']['posvals'][$key] = $value;
+}

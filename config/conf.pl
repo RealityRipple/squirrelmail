@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # conf.pl
 #
-# Copyright (c) 1999-2020 The SquirrelMail Project Team
+# Copyright (c) 1999-2021 The SquirrelMail Project Team
 # Licensed under the GNU GPL. For full terms see COPYING.
 #
 # A simple configure script to configure SquirrelMail
@@ -1538,6 +1538,18 @@ sub command112a {
             print $WHT . " ERROR DETECTING$NRM\n";
           }
 
+          print "SCRAM-SHA-512:\t";
+          my $tmp = detect_auth_support('IMAP',$host,'SCRAM-SHA-512');
+          if (defined($tmp)) {
+              if ($tmp eq 'YES') {
+                  print "$WHT SUPPORTED$NRM\n";
+              } else {
+                print "$WHT NOT SUPPORTED$NRM\n";
+              }
+          } else {
+            print $WHT . " ERROR DETECTING$NRM\n";
+          }
+
           print "CRAM-MD5:\t";
           my $tmp = detect_auth_support('IMAP',$host,'CRAM-MD5');
           if (defined($tmp)) {
@@ -1569,8 +1581,7 @@ sub command112a {
       print $WHT . "plain" . $NRM . " - SASL PLAIN. If you need this, you already know it.\n";
       print $WHT . "cram-md5" . $NRM . " - Historic. No longer considered secure.\n";
       print $WHT . "digest-md5" . $NRM . " - Historic. No longer considered secure.\n";
-      print $WHT . "scram-sha-1" . $NRM . " - Salted and hashed. Security contested.\n";
-      print $WHT . "scram-sha-256" . $NRM . " - Salted and hashed. Safer than sha-1.\n";
+      print $WHT . "scram-[ALGO]" . $NRM . " - Salted and hashed. Supports your PHP install's HMAC list.\n";
       print "\n*** YOUR IMAP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n";
       print "If you don't understand or are unsure, you probably want \"login\"\n\n";
       print "login, plain, cram-md5, digest-md5, scram-* [$WHT$imap_auth_mech$NRM]: $WHT";
@@ -1705,6 +1716,19 @@ sub command112b {
               } else {
                   print $WHT . "ERROR DETECTING$NRM\n";
             }
+
+            # Try SCRAM-SHA-512
+            print "Testing SCRAM-SHA-512:\t";
+            $tmp=detect_auth_support('SMTP',$host,'SCRAM-SHA-512');
+            if (defined($tmp)) {
+                if ($tmp eq 'YES') {
+                    print $WHT . "SUPPORTED$NRM\n";
+                } else {
+                    print $WHT . "NOT SUPPORTED$NRM\n";
+                }
+              } else {
+                  print $WHT . "ERROR DETECTING$NRM\n";
+            }
         }
     }
     print "\nWhat authentication mechanism do you want to use for SMTP connections?\n";
@@ -1713,8 +1737,7 @@ sub command112b {
     print $WHT . "plain" . $NRM . " - SASL PLAIN. Plaintext. If you can do better, you probably should.\n";
     print $WHT . "cram-md5" . $NRM . " - Historic. No longer considered secure.\n";
     print $WHT . "digest-md5" . $NRM . " - Historic. No longer considered secure.\n";
-    print $WHT . "scram-sha-1" . $NRM . " - Salted and hashed. Security contested.\n";
-    print $WHT . "scram-sha-256" . $NRM . " - Salted and hashed. Safer than sha-1.\n";
+    print $WHT . "scram-[ALGO]" . $NRM . " - Salted and hashed. Supports your PHP install's HMAC list.\n";
     print $WHT . "\n*** YOUR SMTP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n" . $NRM;
     print "If you don't understand or are unsure, you probably want \"none\"\n\n";
     print "none, login, plain, cram-md5, digest-md5, scram-* [$WHT$smtp_auth_mech$NRM]: $WHT";
