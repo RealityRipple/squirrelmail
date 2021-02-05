@@ -16,7 +16,7 @@
  *   Authors:       Lori Brownell <loribr@microsoft.com>
  *                  K.D. Chang    <a-kchang@microsoft.com>
  *
- * @copyright 2003-2020 The SquirrelMail Project Team
+ * @copyright 2003-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

@@ -315,7 +315,7 @@
  * U+2666 - &diams;    -- black diamond suit
  * </pre>
  *
- * @copyright 2004-2020 The SquirrelMail Project Team
+ * @copyright 2004-2021 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
