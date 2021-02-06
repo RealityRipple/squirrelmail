@@ -120,7 +120,7 @@ function parseConfig( $cfg_file ) {
                     } else {
                         // Number or function call
                         $mode = 'N';
-                        $value = $line[$j[;
+                        $value = $line[$j];
                     }
                 }
                 break;
