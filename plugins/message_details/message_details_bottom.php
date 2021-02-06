@@ -211,7 +211,7 @@ function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=
             }
         }
 
-        if (($line != '' && $line{0} == '-' || $header)  && isset($boundaries[0])) {
+        if (($line != '' && $line[0] == '-' || $header)  && isset($boundaries[0])) {
             $cnt=count($boundaries)-1;
             $bnd = $boundaries[$cnt]['bnd'];
             $bndreg = $boundaries[$cnt]['bndreg'];
@@ -221,7 +221,7 @@ function get_message_details($mailbox, $passed_id, $passed_ent_id=0, $stripHTML=
                 $bndlen = strlen($reg[1]);
                 $bndend = false;
                 if (strlen($line) > ($bndlen + 3)) {
-                    if ($line{$bndlen+2} == '-' && $line{$bndlen+3} == '-')
+                    if ($line[$bndlen+2] == '-' && $line[$bndlen+3] == '-')
                         $bndend = true;
                 }
                 if ($bndend) {

@@ -31,7 +31,7 @@ function parseRFC822Address($sAddress,$iLimit = 0) {
         if ($iLimit && $iLimit == count($aAddress)) {
             return $aAddress;
         }
-        $cChar = $sToken{0};
+        $cChar = $sToken[0];
         switch ($cChar)
         {
         case '=':
@@ -290,7 +290,7 @@ function _getAddressTokens($address) {
     $iCnt = strlen($address);
     $i = 0;
     while ($i < $iCnt) {
-        $cChar = $address{$i};
+        $cChar = $address[$i];
         switch($cChar)
         {
         case '<':
@@ -309,11 +309,11 @@ function _getAddressTokens($address) {
             $iEnd = strpos($address,$cChar,$i+1);
             if ($iEnd) {
                 // skip escaped quotes
-                $prev_char = $address{$iEnd-1};
+                $prev_char = $address[$iEnd-1];
                 while ($prev_char === '\\' && substr($address,$iEnd-2,2) !== '\\\\') {
                     $iEnd = strpos($address,$cChar,$iEnd+1);
                     if ($iEnd) {
-                        $prev_char = $address{$iEnd-1};
+                        $prev_char = $address[$iEnd-1];
                     } else {
                         $prev_char = false;
                     }
@@ -340,7 +340,7 @@ function _getAddressTokens($address) {
                 $iDepth = 1;
                 $iComment = $i;
                 while (($iDepth > 0) && (++$iComment < $iCnt)) {
-                    $cCharComment = $address{$iComment};
+                    $cCharComment = $address[$iComment];
                     switch($cCharComment) {
                         case '\\':
                             ++$iComment;
@@ -366,7 +366,7 @@ function _getAddressTokens($address) {
             // check the next token in case comments appear in the middle of email addresses
             $prevToken = end($aTokens);
             if (!in_array($prevToken,$aSpecials,true)) {
-                if ($i+1<strlen($address) && !in_array($address{$i+1},$aSpecials,true)) {
+                if ($i+1<strlen($address) && !in_array($address[$i+1],$aSpecials,true)) {
                     $iEnd = strpos($address,' ',$i+1);
                     if ($iEnd) {
                         $sNextToken = trim(substr($address,$i+1,$iEnd - $i -1));

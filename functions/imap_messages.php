@@ -400,7 +400,7 @@ function get_thread_sort($imap_stream, $search='ALL') {
 
     if ($sThreadResponse) {
         for ($i=0,$iCnt = strlen($sThreadResponse);$i<$iCnt;++$i) {
-            $cChar = $sThreadResponse{$i};
+            $cChar = $sThreadResponse[$i];
             switch ($cChar) {
                 case '(': // new sub thread
                     // correction for a subthread of a thread with no parents in thread
@@ -468,14 +468,14 @@ function elapsedTime($start) {
  * @return string $s parsed string without the double quotes or literal count
  */
 function parseString($read,&$i) {
-    $char = $read{$i};
+    $char = $read[$i];
     $s = '';
     if ($char == '"') {
         $iPos = ++$i;
         while (true) {
             $iPos = strpos($read,'"',$iPos);
             if (!$iPos) break;
-            if ($iPos && $read{$iPos -1} != '\\') {
+            if ($iPos && $read[$iPos -1] != '\\') {
                 $s = substr($read,$i,($iPos-$i));
                 $i = $iPos;
                 break;
@@ -704,7 +704,7 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
                                 case 'date':
                                     $aMsg['date'] = trim(str_replace('  ', ' ', $value));
                                     break;
-                                case 'x-priority': $aMsg['x-priority'] = ($value) ? (int) $value{0} : 3; break;
+                                case 'x-priority': $aMsg['x-priority'] = ($value) ? (int) $value[0] : 3; break;
                                 case 'priority':
                                 case 'importance':
                                     // duplicate code with Rfc822Header.cls:parsePriority()
@@ -773,8 +773,8 @@ function sqimap_parse_envelope($read, &$i, &$msg) {
     $arg_no = 0;
     $arg_a = array();
     ++$i;
-    for ($cnt = strlen($read); ($i < $cnt) && ($read{$i} != ')'); ++$i) {
-        $char = strtoupper($read{$i});
+    for ($cnt = strlen($read); ($i < $cnt) && ($read[$i] != ')'); ++$i) {
+        $char = strtoupper($read[$i]);
         switch ($char) {
             case '{':
             case '"':
@@ -797,8 +797,8 @@ function sqimap_parse_envelope($read, &$i, &$msg) {
                 $addr_a = array();
                 $group = '';
                 $a=0;
-                for (; $i < $cnt && $read{$i} != ')'; ++$i) {
-                    if ($read{$i} == '(') {
+                for (; $i < $cnt && $read[$i] != ')'; ++$i) {
+                    if ($read[$i] == '(') {
                         $addr = sqimap_parse_address($read, $i);
                         if (($addr[3] == '') && ($addr[2] != '')) {
                             /* start of group */
@@ -852,8 +852,8 @@ function sqimap_parse_envelope($read, &$i, &$msg) {
  */
 function sqimap_parse_address($read, &$i) {
     $arg_a = array();
-    for (; $read{$i} != ')'; ++$i) {
-        $char = strtoupper($read{$i});
+    for (; $read[$i] != ')'; ++$i) {
+        $char = strtoupper($read[$i]);
         switch ($char) {
             case '{':
             case '"': $arg_a[] =  parseString($read,$i); break;

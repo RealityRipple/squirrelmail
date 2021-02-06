@@ -422,7 +422,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     $read = sqimap_fgets($imap_stream);
     $i = 0;
     while ($read) {
-        $char = $read{0};
+        $char = $read[0];
         switch ($char)
         {
           case '+':
@@ -430,7 +430,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
             $read = sqimap_fgets($imap_stream);
             break;
 
-          case $tag{0}:
+          case $tag[0]:
           {
             /* get the command */
             $arg = '';
@@ -478,7 +478,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                  break 2; /* switch while */
             }
             break;
-          } // end case $tag{0}
+          } // end case $tag[0]
 
           case '*':
           {
@@ -530,11 +530,11 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                             break 4; /* while while switch while */
                         }
                         /* check for next untagged reponse and break */
-                        if ($read{0} == '*') break 2;
+                        if ($read[0] == '*') break 2;
                         $s = substr($read,-3);
                     } while ($s === "}\r\n" || $read_literal);
                     $s = substr($read,-3);
-                } while ($read{0} !== '*' &&
+                } while ($read[0] !== '*' &&
                          substr($read,0,strlen($tag)) !== $tag);
                 $resultlist[] = $fetch_data;
                 /* release not neaded data */
@@ -566,7 +566,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                     $read = sqimap_fgets($imap_stream);
                     if ($read === false) {
                         break 3; /* while switch while */
-                    } else if ($read{0} == '*') {
+                    } else if ($read[0] == '*') {
                         break;
                     }
                     $s = substr($read,-3);
@@ -1015,7 +1015,7 @@ function sqimap_login ($username, $password, $imap_server_address,
                     // Skip any rfc5530 response code: '[something]' at the
                     // start of the message
                     if (!empty($message)
-                     && $message{0} == '['
+                     && $message[0] == '['
                      && ($end = strstr($message, ']'))
                      && $end != ']') {
                         $message = substr($end, 1);
@@ -1542,7 +1542,7 @@ function sqimap_append_checkresponse($response, $sMailbox, $sid='', $query='') {
     if ($sid) {
         $imapsid = $sid;
     }
-    if ($response{0} == '+') {
+    if ($response[0] == '+') {
         // continuation request triggerd by sqimap_append()
         $bDone = true;
     } else {
