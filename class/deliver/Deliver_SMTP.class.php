@@ -57,7 +57,7 @@ class Deliver_SMTP extends Deliver {
 
     function preWriteToStream(&$s) {
         if ($s) {
-            if ($s{0} == '.')   $s = '.' . $s;
+            if ($s[0] == '.')   $s = '.' . $s;
             $s = str_replace("\n.","\n..",$s);
         }
     }
@@ -408,7 +408,7 @@ class Deliver_SMTP extends Deliver {
             $server_msg .= substr($line, 4);
         }
 
-        if ( ((int) $err_num{0}) < 4) {
+        if ( ((int) $err_num[0]) < 4) {
             return false;
         }
 

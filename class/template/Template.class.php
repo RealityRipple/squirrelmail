@@ -1018,7 +1018,7 @@ class Template
         // return list of all files in a directory (and that
         // of any ancestors)
         //
-        if ($filename{strlen($filename) - 1} == '/') {
+        if ($filename[strlen($filename) - 1] == '/') {
 
             $return_array = array();
             foreach ($this->template_file_cache as $file => $file_info) {
