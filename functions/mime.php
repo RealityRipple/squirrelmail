@@ -1420,8 +1420,7 @@ function sq_skipspace($body, $offset){
     $me = 'sq_skipspace';
     preg_match('/^(\s*)/s', substr($body, $offset), $matches);
     if (!empty($matches[1])){
-        $count = strlen($matches[1]);
-        $offset += $count;
+        $offset += strlen($matches[1]);
     }
     return $offset;
 }
