@@ -74,18 +74,27 @@ function charset_decode_utf_8 ($string) {
     
     // decode four byte unicode characters
     $string = preg_replace_callback("/([\360-\367])([\200-\277])([\200-\277])([\200-\277])/",
-    create_function ('$matches', 'return \'&#\'.((ord($matches[1])-240)*262144+(ord($matches[2])-128)*4096+(ord($matches[3])-128)*64+(ord($matches[4])-128)).\';\';'),
-    $string);
+                                    (check_php_version(5, 3, 0)
+                                     ? function($matches) { return '&#'.((ord($matches[1])-240)*262144+(ord($matches[2])-128)*4096+(ord($matches[3])-128)*64+(ord($matches[4])-128)).';'; }
+                                     : create_function ('$matches', 'return \'&#\'.((ord($matches[1])-240)*262144+(ord($matches[2])-128)*4096+(ord($matches[3])-128)*64+(ord($matches[4])-128)).\';\';')
+                                    ),
+                                    $string);
 
     // decode three byte unicode characters
     $string = preg_replace_callback("/([\340-\357])([\200-\277])([\200-\277])/",
-    create_function ('$matches', 'return \'&#\'.((ord($matches[1])-224)*4096+(ord($matches[2])-128)*64+(ord($matches[3])-128)).\';\';'),
-    $string);
+                                    (check_php_version(5, 3, 0)
+                                     ? function($matches) { return '&#'.((ord($matches[1])-224)*4096+(ord($matches[2])-128)*64+(ord($matches[3])-128)).';'; }
+                                     : create_function ('$matches', 'return \'&#\'.((ord($matches[1])-224)*4096+(ord($matches[2])-128)*64+(ord($matches[3])-128)).\';\';')
+                                    ),
+                                    $string);
 
     // decode two byte unicode characters
     $string = preg_replace_callback("/([\300-\337])([\200-\277])/",
-    create_function ('$matches', 'return \'&#\'.((ord($matches[1])-192)*64+(ord($matches[2])-128)).\';\';'),
-    $string);
+                                    (check_php_version(5, 3, 0)
+                                     ? function($matches) { return '&#'.((ord($matches[1])-192)*64+(ord($matches[2])-128)).';'; }
+                                     : create_function ('$matches', 'return \'&#\'.((ord($matches[1])-192)*64+(ord($matches[2])-128)).\';\';')
+                                    ),
+                                    $string);
 
     // remove broken unicode
     $string = preg_replace("/[\200-\237]|\240|[\241-\377]/",'?',$string);

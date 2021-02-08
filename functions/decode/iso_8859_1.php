@@ -24,14 +24,20 @@ function charset_decode_iso_8859_1 ($string) {
         return $string;
 
     $string = preg_replace_callback("/([\201-\237])/",
-    create_function ('$matches', 'return \'&#\' . ord($matches[1]) . \';\';'),
-    $string);
+                                    (check_php_version(5, 3, 0)
+                                     ? function($matches) { return '&#' . ord($matches[1]) . ';'; }
+                                     : create_function ('$matches', 'return \'&#\' . ord($matches[1]) . \';\';')
+                                    ),
+                                    $string);
 
     /* I don't want to use 0xA0 (\240) in any ranges. RH73 may dislike it */
     $string = str_replace("\240", '&#160;', $string);
 
     $string = preg_replace_callback("/([\241-\377])/",
-    create_function ('$matches', 'return \'&#\' . ord($matches[1]) . \';\';'),
-    $string);
+                                    (check_php_version(5, 3, 0)
+                                     ? function($matches) { return '&#' . ord($matches[1]) . ';'; }
+                                     : create_function ('$matches', 'return \'&#\' . ord($matches[1]) . \';\';')
+                                    ),
+                                    $string);
     return $string;
 }
