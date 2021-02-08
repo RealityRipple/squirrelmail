@@ -445,6 +445,7 @@ Version 1.5.2 - SVN
     attachments (when reading a message)
   - Added fixes for PHP version 8 compatibility (thanks to Marcel Pol for
     bringing this to our attention)
+  - Migrate away from create_function() as long as we have PHP 5.3+
 
 Version 1.5.1 (branched on 2006-02-12)
 --------------------------------------
