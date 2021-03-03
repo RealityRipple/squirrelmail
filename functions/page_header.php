@@ -59,10 +59,14 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     // prevent clickjack attempts
 // FIXME: use a new config variable for this eventually. for now, we'll just cut the prefix off the provider_uri.
-    $ancestor = $provider_uri;
-    if (strpos($ancestor, '://') !== false)
-     $ancestor = substr($ancestor, strpos($ancestor, '://') + 3);
-    $oTemplate->header('Content-Security-Policy: frame-ancestors http://'.$ancestor.' https://'.$ancestor.' http://*.'.$ancestor.' https://*.'.$ancestor);
+    if (empty($provider_uri))
+     $oTemplate->header('X-Frame-Options: SAMEORIGIN');
+    else {
+     $ancestor = $provider_uri;
+     if (strpos($ancestor, '://') !== false)
+      $ancestor = substr($ancestor, strpos($ancestor, '://') + 3);
+     $oTemplate->header('Content-Security-Policy: frame-ancestors http://'.$ancestor.' https://'.$ancestor.' http://*.'.$ancestor.' https://*.'.$ancestor);
+    }
 
     // prevent clickjack attempts using JavaScript for browsers that
     // don't support the X-Frame-Options header...
