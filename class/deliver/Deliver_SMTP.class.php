@@ -163,7 +163,7 @@ class Deliver_SMTP extends Deliver {
         $tmp = $this->parse_ehlo_response($stream);
         if ($this->errorCheck($tmp,$stream)) {
             // fall back to HELO if EHLO is not supported (error 5xx)
-            if ($this->dlv_ret_nr{0} == '5') {
+            if ($this->dlv_ret_nr[0] == '5') {
                 fputs($stream, "HELO $helohost\r\n");
                 $tmp = fgets($stream,1024);
                 if ($this->errorCheck($tmp,$stream)) {
