@@ -1204,7 +1204,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
 }
 
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
-        $passed_ent_id='', $imapConnection=null) {
+        $passed_ent_id='', $imapConnection=NULL) {
     if ($imapConnection) {
         if (!$passed_ent_id) {
             $body_a = sqimap_run_command($imapConnection,
