@@ -23,7 +23,7 @@ extract($t);
 if (!empty($plugin_output['read_body_top'])) echo $plugin_output['read_body_top']; 
 ?>
 <div class="readBody">
-<table cellspacing="0" class="table2">
+<table cellspacing="0" class="sm_readBody_table2">
  <tr>
   <td> 
    <?php echo $message_body; ?>

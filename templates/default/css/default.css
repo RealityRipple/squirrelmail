@@ -106,9 +106,16 @@ table.table1    td  {
     padding-right: 2px;
 }
 
-table.table2    {
+table.table2 {
     border: 1px solid #ababab /* __COLOR9__ */;
     width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.sm_readBody_table2 {
+    border: 1px solid #ababab /* __COLOR9__ */;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -979,7 +986,9 @@ div.readHeaders table.spacer {
 }
 
 div.readBody table {
-    width: 100%;
+    /* Some HTML messages don't work well with this,
+       so we're trying it out without -- need feedback
+       width: 100%; */
 }
 
 div.readBody table.table2 tr {
