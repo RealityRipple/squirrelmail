@@ -50,11 +50,16 @@ if (count($images) == 0) {
         }
       ?>
      </td>
-     <td>&nbsp;</td>
     </tr>
     <tr>
-     <td colspan="2" class="image">
-      <img src="<?php echo $img['DisplayURL']; ?>" />
+     <td class="image">
+      <table cellpadding="0" cellspacing="0" class="imageWrapper">
+       <tr>
+        <td>
+         <img src="<?php echo $img['DisplayURL']; ?>" />
+        </td>
+       </tr>
+      </table>
      </td>
     </tr>
    </table>

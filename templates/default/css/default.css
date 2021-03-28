@@ -1018,7 +1018,7 @@ div.readInlineImages {
 }
 
 div.readInlineImages table {
-    width: 50%;
+    /* width: 50%; */
     margin-top:8px;
     margin-bottom:8px;
     margin-left: auto;
@@ -1040,6 +1040,15 @@ div.readInlineImages td.header5 a {
 div.readInlineImages td.image {
     border:1px solid #ababab /* __COLOR9__ */;
     padding:10px;
+}
+
+div.readInlineImages td img {
+    width:100%;
+}
+
+table.imageWrapper {
+    margin-top:0 !important;
+    margin-bottom:0 !important;
 }
 
 div.viewHeader table.table1 {
