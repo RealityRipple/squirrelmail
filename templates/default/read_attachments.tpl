@@ -81,10 +81,11 @@ if (count($attachments)==0) {
     }
 
     foreach ($attachment['OtherLinks'] as $link) {
-        ?>
-   &nbsp;|&nbsp;
-   <a href="<?php echo $link['HREF'] . '" ' . $link['Extra']; ?>><?php echo $link['Text']; ?></a>
-        <?php
+        echo '&nbsp;|&nbsp;';
+        if (empty($link['HREF']))
+            echo '<span ' . $link['Extra'] . '>' . $link['Text'] . '</span>';
+        else
+            echo '<a href="' . $link['HREF'] . '" ' . $link['Extra'] . '>' . $link['Text'] . '</a>';
     }
    ?>
    </small>

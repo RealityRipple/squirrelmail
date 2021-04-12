@@ -52,7 +52,7 @@ $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
 
 <table border="0" cellspacing="0" cellpadding="2" align="center">
 <tr><td bgcolor="<?php echo $color[4]; ?>">
-<img src="<?php echo $DownloadLink; ?>" />
+<img width="100%" src="<?php echo $DownloadLink; ?>" />
 
 </td></tr></table>
 <?php
