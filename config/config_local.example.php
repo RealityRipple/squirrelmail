@@ -200,4 +200,10 @@
  * some environments.
  * $upload_filesize_divisor = 1024;
  *
+ * $same_site_cookies allows override of how cookies are set
+ * with the "SameSite" attribute. Normally you won't want to
+ * do anything with this. If you do, you can set it to "Lax"
+ * "Strict" (which is default) or "None" -- or set it to an
+ * empty string to cause cookies to be sent without adding
+ * the SameSite attribute at all and use the browser's default
  */
