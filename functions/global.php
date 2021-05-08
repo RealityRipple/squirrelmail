@@ -491,7 +491,8 @@ function sqsession_destroy() {
     global $base_uri, $_COOKIE, $_SESSION;
 
     if (isset($_COOKIE[session_name()]) && session_name()) {
-        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri);
+        // sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri);
+        sqsetcookie(session_name(), 'SQMTRASH', 1, $base_uri);
 
         /*
          * Make sure to kill /src and /src/ cookies, just in case there are
@@ -502,8 +503,10 @@ function sqsession_destroy() {
          *     or fixate the $base_uri cookie, so we don't worry about
          *     trying to delete all of them here.
          */
-        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src');
-        sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src/');
+        // sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src');
+        // sqsetcookie(session_name(), $_COOKIE[session_name()], 1, $base_uri . 'src/');
+        sqsetcookie(session_name(), 'SQMTRASH', 1, $base_uri . 'src');
+        sqsetcookie(session_name(), 'SQMTRASH', 1, $base_uri . 'src/');
     }
 
     if (isset($_COOKIE['key']) && $_COOKIE['key']) sqsetcookie('key','SQMTRASH',1,$base_uri);
