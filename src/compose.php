@@ -1729,6 +1729,11 @@ function deliverMessage(&$composeMessage, $draft=false) {
 
     $rfc822_header = $composeMessage->rfc822_header;
 
+    // clear Date header so drafts don't end up with a stale date
+    // (does this cause issues with some other scenario where a
+    // message with an existing date header should be preserved??)
+    unset($rfc822_header->date);
+
     $abook = addressbook_init(false, true);
     $rfc822_header->to = $rfc822_header->parseAddress($send_to,true, array(), '', $domain, array(&$abook,'lookup'));
     $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,true,array(), '',$domain, array(&$abook,'lookup'));
