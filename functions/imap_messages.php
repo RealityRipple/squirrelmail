@@ -710,7 +710,7 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
             case 'BODYSTRUCTURE':
                 break; // to be implemented, moving imap code out of the Message class
             case 'INTERNALDATE':
-                $aMsg['INTERNALDATE'] = trim(str_replace('  ', ' ',parseString($read,$i)));
+                $aMsg['INTERNALDATE'] = trim(preg_replace('/\s+/', ' ',parseString($read,$i)));
                 break;
             case 'BODY.PEEK[HEADER.FIELDS':
             case 'BODY[HEADER.FIELDS':
@@ -731,7 +731,7 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
                             $value = trim(substr($line, $pos+1));
                             switch($field) {
                                 case 'date':
-                                    $aMsg['date'] = trim(str_replace('  ', ' ', $value));
+                                    $aMsg['date'] = trim(preg_replace('/\s+/', ' ', $value));
                                     break;
                                 case 'x-priority': $aMsg['x-priority'] = ($value) ? (int) $value[0] : 3; break;
                                 case 'priority':
