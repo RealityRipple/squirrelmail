@@ -1729,21 +1729,75 @@ function sm_validate_security_token($token, $validity_period=0, $show_error=FALS
   * attempts to add the correct character encoding
   *
   * @param string $string The string to be converted
-  * @param int $flags A bitmask that controls the behavior of htmlspecialchars()
+  * @param int $flags A bitmask that controls the behavior of
+  *                   htmlspecialchars() -- NOTE that this parameter
+  *                   should only be used to dictate handling of
+  *                   quotes; handling invalid code sequences is done
+  *                   using the $invalid_sequence_flag parameter below
   *                   (See http://php.net/manual/function.htmlspecialchars.php )
-  *                   (OPTIONAL; default ENT_COMPAT, ENT_COMPAT | ENT_SUBSTITUTE for PHP >=5.4)
+  *                   (OPTIONAL; default ENT_COMPAT)
   * @param string $encoding The character encoding to use in the conversion
-  *                         (OPTIONAL; default automatic detection)
+  *                         (if not one of the character sets supported
+  *                         by PHP's htmlspecialchars(), then $encoding
+  *                         will be ignored and iso-8859-1 will be used,
+  *                         unless a default has been specified in
+  *                         $default_htmlspecialchars_encoding in
+  *                         config_local.php) (OPTIONAL; default automatic
+  *                         detection)
   * @param boolean $double_encode Whether or not to convert entities that are
   *                               already in the string (only supported in
   *                               PHP 5.2.3+) (OPTIONAL; default TRUE)
+  * @param mixed $invalid_sequence_flag A bitmask that controls how invalid
+  *                                     code sequences should be handled;
+  *                                     When calling htmlspecialchars(),
+  *                                     this value will be combined with
+  *                                     the $flags parameter above
+  *                                     (See http://php.net/manual/function.htmlspecialchars.php )
+  *                                     (OPTIONAL; defaults to the string
+  *                                     "ent_substitute" that, for PHP 5.4+,
+  *                                     is converted to the ENT_SUBSTITUTE
+  *                                     constant, otherwise empty)
   *
   * @return string The converted text
   *
   */
 function sm_encode_html_special_chars($string, $flags=ENT_COMPAT,
-                                      $encoding=NULL, $double_encode=TRUE)
+                                      $encoding=NULL, $double_encode=TRUE,
+                                      $invalid_sequence_flag='ent_substitute')
 {
+   if ($invalid_sequence_flag === 'ent_substitute')
+   {
+      if (check_php_version(5, 4, 0))
+         $invalid_sequence_flag = ENT_SUBSTITUTE;
+      else
+         $invalid_sequence_flag = 0;
+   }
+
+
+   // charsets supported by PHP's htmlspecialchars
+   // (move this elsewhere if needed)
+   //
+   static $htmlspecialchars_charsets = array(
+      'iso-8859-1', 'iso8859-1',
+      'iso-8859-5', 'iso8859-5',
+      'iso-8859-15', 'iso8859-15',
+      'utf-8',
+      'cp866', 'ibm866', '866',
+      'cp1251', 'windows-1251', 'win-1251', '1251',
+      'cp1252', 'windows-1252', '1252',
+      'koi8-R', 'koi8-ru', 'koi8r',
+      'big5', '950',
+      'gb2312', '936',
+      'big5-hkscs',
+      'shift_jis', 'sjis', 'sjis-win', 'cp932', '932',
+      'euc-jp', 'eucjp', 'eucjp-win',
+      'macroman',
+   );
+
+
+   // if not given, set encoding to the charset being
+   // used by the current user interface language
+   //
    if (!$encoding)
    {
       global $default_charset;
@@ -1752,15 +1806,57 @@ function sm_encode_html_special_chars($string, $flags=ENT_COMPAT,
       $encoding = $default_charset;
    }
 
-   if (check_php_version(5, 2, 3)) {
-      // Replace invalid characters with a symbol instead of returning
-      // empty string for the entire to be encoded string.
-      if (check_php_version(5, 4, 0) && $flags == ENT_COMPAT) {
-         $flags = $flags | ENT_SUBSTITUTE;
+
+   // two ways to handle encodings not supported by htmlspecialchars() -
+   // one takes less CPU cycles but can munge characters in certain
+   // translations, the other is more exact but requires more resources
+   //
+   global $html_special_chars_extended_fix;
+//FIXME: need to document that the config switch above can be enabled in config_local... but first, we need to decide if we will implement the second option here -- currently there hasn't been a need for it (munged characters seem quite rare).... see tracker #2806 for some tips https://sourceforge.net/p/squirrelmail/bugs/2806
+   if (!in_array(strtolower($encoding), $htmlspecialchars_charsets))
+   {
+      if ($html_special_chars_extended_fix)
+      {
+         // convert to utf-8 first, run htmlspecialchars() and convert
+         // back to original encoding below
+         //
+//FIXME: try conversion functions in this order: recode_string(), iconv(), mbstring (with various charset checks: sq_mb_list_encodings(), mb_check_encoding) -- oh, first check for internal charset_decode_CHARSET() function?? or just use (does this put everything into HTML entities already? shouldn't, but if it does, return right here):
+         $string = charset_decode($encoding, $string, TRUE, TRUE);
+         $string = charset_encode($string, $encoding, TRUE);
       }
-      return htmlspecialchars($string, $flags, $encoding, $double_encode);
+      else
+      {
+         // simply force use of an encoding that is supported (some
+         // characters may be munged)
+         //
+         // use default from configuration if provided or hard-coded fallback
+         //
+         global $default_htmlspecialchars_encoding;
+         if (!empty($default_htmlspecialchars_encoding))
+            $encoding = $default_htmlspecialchars_encoding;
+         else
+            $encoding = 'iso-8859-1';
+      }
    }
 
-   return htmlspecialchars($string, $flags, $encoding);
-}
 
+// TODO: Is adding this check an unnecessary performance hit?
+   if (check_php_version(5, 2, 3))
+      $ret = htmlspecialchars($string, $flags | $invalid_sequence_flag,
+                              $encoding, $double_encode);
+   else
+      $ret = htmlspecialchars($string, $flags | $invalid_sequence_flag,
+                              $encoding);
+
+
+   // convert back to original encoding if needed (see above)
+   //
+   if ($html_special_chars_extended_fix
+    && !in_array(strtolower($encoding), $htmlspecialchars_charsets))
+   {
+//FIXME: NOT FINISHED - here, we'd convert from utf-8 back to original charset (if we obey $lossy_encoding and end up returning in utf-8 instead of original charset, does that screw up the caller?)
+   }
+
+
+   return $ret;
+}
