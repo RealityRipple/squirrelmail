@@ -61,6 +61,14 @@
  * part (beginning with "@") will be stripped before
  * calculating the CRC or MD5.
  *
+ * $default_htmlspecialchars_encoding (string) is used to
+ * specify the charset that is used for htmlspecialchars()
+ * calls when an invalid charset was requested (PHP's
+ * htmlspecialchars() only supports a limited number of
+ * encodings).  SquirrelMail defaults to iso-8859-1, but if
+ * you want to change the default to something like utf-8,
+ * you can use this setting for that.
+ *
  * $smtp_stream_options allows more control over the SSL context
  * used when connecting to the SMTP server over SSL/TLS.  See:
  * http://www.php.net/manual/context.php and in particular
