@@ -127,7 +127,7 @@ class Template
     var $other_template_engine_objects = array();
 
     /**
-      * Constructor
+      * Constructor (PHP5 style, required in some future version of PHP)
       *
       * Please do not call directly.  Use Template::construct_template().
       *
@@ -143,6 +143,18 @@ class Template
 
         $this->set_up_template($template_set_id);
 
+    }
+
+    /**
+      * Constructor (PHP4 style, kept for compatibility reasons)
+      *
+      * Please do not call directly.  Use Template::construct_template().
+      *
+      * @param string $template_set_id the template ID
+      *
+      */
+    function Template($template_set_id) {
+        self::__construct($template_set_id);
     }
 
     /**

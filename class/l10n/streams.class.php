@@ -58,11 +58,13 @@ class FileReader {
     var $error=0;
 
     /**
+     * Constructor (PHP5 style, required in some future version of PHP)
      * reads translation file and fills translation input object properties
      * @param string $filename path to file
      * @return boolean false there is a problem with $filename
+TODO: Constructors should not return anything.
      */
-    function FileReader($filename) {
+    function __construct($filename) {
         // disable stat warnings for unreadable directories
         if (@file_exists($filename)) {
 
@@ -78,6 +80,17 @@ class FileReader {
             return false;
         }
     }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * reads translation file and fills translation input object properties
+     * @param string $filename path to file
+     * @return boolean false there is a problem with $filename
+TODO: Constructors should not return anything.
+     */
+    function FileReader($filename) {
+        return self::__construct($filename);
+     }
 
     /**
      * reads data from current position
