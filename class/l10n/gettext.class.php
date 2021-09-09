@@ -68,9 +68,11 @@ class gettext_reader {
     }
 
     /**
+     * Constructor (PHP5 style, required in some future version of PHP)
      * constructor that requires StreamReader object
      * @param object $Reader
      * @return boolean false, if some error with stream
+TODO: Constructors should not return anything.
      */
     function gettext_reader($Reader) {
         $MAGIC1 = (int) ((222) | (18<<8) | (4<<16) | (149<<24));
@@ -104,6 +106,17 @@ class gettext_reader {
 
         // Here we store already found translations
         $this->_HASHED = array();
+    }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * constructor that requires StreamReader object
+     * @param object $Reader
+     * @return boolean false, if some error with stream
+TODO: Constructors should not return anything.
+     */
+    function gettext_reader($Reader) {
+        return self::__construct($Reader);
     }
 
     /**

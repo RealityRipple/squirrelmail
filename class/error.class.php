@@ -34,12 +34,12 @@ if (ini_get('docref_root')=='') ini_set('docref_root','http://www.php.net/');
 class ErrorHandler {
 
     /**
-     * Constructor
+     * Constructor (PHP5 style, required in some future version of PHP)
      * @param  object $oTemplate Template object
      * @param  string $sTemplateFile Template containing the error template
      * @since 1.5.1
      */
-    function ErrorHandler(&$oTemplate, $sTemplateFile) {
+    function __construct(&$oTemplate, $sTemplateFile) {
 #        echo 'init error handler...';
         $this->TemplateName = $sTemplateFile;
         $this->Template =& $oTemplate;
@@ -47,6 +47,16 @@ class ErrorHandler {
         $this->header_sent = false;
         $this->delayed_errors = false;
         $this->Template->assign('delayed_errors', $this->delayed_errors);
+    }
+
+    /**
+     * Constructor (PHP4 style, kept for compatibility reasons)
+     * @param  object $oTemplate Template object
+     * @param  string $sTemplateFile Template containing the error template
+     * @since 1.5.1
+     */
+    function ErrorHandler(&$oTemplate, $sTemplateFile) {
+        self::__construct($oTemplate, $sTemplateFile);
     }
 
     /**
