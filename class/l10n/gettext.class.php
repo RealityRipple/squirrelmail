@@ -74,7 +74,7 @@ class gettext_reader {
      * @return boolean false, if some error with stream
 TODO: Constructors should not return anything.
      */
-    function gettext_reader($Reader) {
+    function __construct($Reader) {
         $MAGIC1 = (int) ((222) | (18<<8) | (4<<16) | (149<<24));
         $MAGIC2 = (int) ((149) | (4<<8) | (18<<16) | (222<<24));
 
