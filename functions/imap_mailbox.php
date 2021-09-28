@@ -1246,7 +1246,7 @@ function mbxSort($a, $b) {
  * @return object see mailboxes class
  * @since 1.5.0
  */
-function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
+function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream=null) {
     global $data_dir, $username, $list_special_folders_first,
            $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
            $move_to_trash, $move_to_sent, $save_as_draft,
