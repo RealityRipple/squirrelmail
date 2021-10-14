@@ -48,7 +48,7 @@ extract($t);
  </tr>
  <tr>
   <td class="sqm_loginFieldName"><label for="login_username">
-   <?php echo _("E-Mail:"); ?>
+   <?php echo _("Name:"); ?>
   </label></td>
   <td class="sqm_loginFieldInput">
    <input type="text" name="<?php global $username_form_name; echo $username_form_name; ?>" value="<?php echo $login_field_value; ?>" id="login_username" onfocus="alreadyFocused=true;" <?php global $username_form_extra; echo $username_form_extra; ?> />
