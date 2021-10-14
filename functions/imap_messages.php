@@ -247,9 +247,10 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
       case 'CC':
         if(!$walk) {
             if (check_php_version(5, 3, 0))
-                $walk_function = function(&$v,&$k,$f) {
+                $walk_function = function(&$v,$k,$f) {
                     $v[$f] = (isset($v[$f])) ? $v[$f] : "";
-                    $addr = reset(parseRFC822Address($v[$f],1));
+                    $rfcaddr = parseRFC822Address($v[$f],1);
+                    $addr = reset($rfcaddr);
                     $sPersonal = (isset($addr[SQM_ADDR_PERSONAL]) && $addr[SQM_ADDR_PERSONAL]) ?
                        $addr[SQM_ADDR_PERSONAL] : "";
                     $sEmail = ($addr[SQM_ADDR_HOST]) ?
@@ -258,9 +259,10 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
                     $v[$f] = ($sPersonal) ? decodeHeader($sPersonal, true, false):$sEmail;
                 };
             else
-                $walk_function = create_function('&$v,&$k,$f',
+                $walk_function = create_function('&$v,$k,$f',
                     '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
-                     $addr = reset(parseRFC822Address($v[$f],1));
+                     $rfcaddr = parseRFC822Address($v[$f],1);
+                     $addr = reset($rfcaddr);
                      $sPersonal = (isset($addr[SQM_ADDR_PERSONAL]) && $addr[SQM_ADDR_PERSONAL]) ?
                        $addr[SQM_ADDR_PERSONAL] : "";
                      $sEmail = ($addr[SQM_ADDR_HOST]) ?
@@ -274,14 +276,14 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
       case 'SUBJECT':
         if(!$walk) {
             if (check_php_version(5, 3, 0))
-                $walk_function = function(&$v,&$k,$f) {
+                $walk_function = function(&$v,$k,$f) {
                     $v[$f] = (isset($v[$f])) ? $v[$f] : "";
                     $v[$f] = strtolower(decodeHeader(trim($v[$f]), true, false));
                     $v[$f] = (preg_match("/^(?:(?:vedr|sv|re|aw|fw|fwd|\[\w\]):\s*)*\s*(.*)$/si", $v[$f], $matches)) ?
                                        $matches[1] : $v[$f];
                 };
             else
-                $walk_function = create_function('&$v,&$k,$f',
+                $walk_function = create_function('&$v,$k,$f',
                     '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
                      $v[$f] = strtolower(decodeHeader(trim($v[$f]), true, false));
                      $v[$f] = (preg_match("/^(?:(?:vedr|sv|re|aw|fw|fwd|\[\w\]):\s*)*\s*(.*)$/si", $v[$f], $matches)) ?

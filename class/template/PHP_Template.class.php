@@ -40,7 +40,7 @@ class PHP_Template extends Template
 
 
     /**
-      * Constructor
+      * Constructor (PHP5 style, required in some future version of PHP)
       *
       * Please do not call directly.  Use Template::construct_template().
       *
@@ -56,6 +56,18 @@ class PHP_Template extends Template
 
         parent::__construct($template_id);
 
+    }
+
+    /**
+      * Constructor (PHP4 style, kept for compatibility reasons)
+      *
+      * Please do not call directly.  Use Template::construct_template().
+      *
+      * @param string $template_id the template ID
+      *
+      */
+    function PHP_Template($template_id) {
+        self::__construct($template_id);
     }
 
     /**
