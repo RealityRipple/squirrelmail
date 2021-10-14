@@ -1,0 +1,85 @@
+body
+{
+ color:  #FFFFFF;
+ background-color: #305030;
+ background-image: url(//realityripple.com/images/nature.jpg);
+ background-size: cover !important;
+ background-repeat: no-repeat !important;
+ background-position: left bottom !important;
+ background-attachment: fixed !important;
+ text-shadow: 1px 1px 2px #000000;
+}
+#sqm_login
+{
+ margin-top: 150px;
+}
+#sqm_login td.sqm_loginOrgName
+{
+ font-size: 150%;
+ padding: 0.25em 0.5em;
+ border-radius: 0.5em 0.5em 0 0;
+}
+.sqm_loginOrgName, .sqm_signoutBar
+{
+ background-color: #002000;
+}
+#sqm_login td.sqm_loginFieldName
+{
+ text-align: left;
+ padding-top: 0.5em;
+ padding-bottom: 0.5em;
+ padding-left: 0.5em;
+}
+#sqm_login td.sqm_loginFieldName,
+#sqm_login td.sqm_loginFieldInput,
+#sqm_login td.sqm_loginSubmit
+{
+ background: rgba(0, 0, 0, 0.7);
+}
+#sqm_login td.sqm_loginSubmit
+{
+ padding-bottom: 0.5em;
+ border-radius: 0 0 1em 1em;
+}
+
+input[type="text"], input[type="password"], textarea, input:not([type])
+{
+ background-color: #101010;
+ border: 1px solid #C0C0C0;
+ color: #FFFFFF;
+ min-width: 275px;
+}
+input[type="submit"]
+{
+ color: #FFFFFF;
+ border-color: #464646;
+ background-image: linear-gradient(to bottom, #202020, #070707);
+ background-color: #070707;
+ display: inline-block;
+ outline: 0;
+ font-family: sans-serif;
+ font-size: 80%;
+ font-style: normal;
+ padding: 0.2em 0.63em;
+ margin: 0.15em 0.25em;
+ border-radius: 2px;
+ border-width: 1px;
+ border-style: solid;
+ text-indent: 0;
+ text-align: inherit;
+ white-space: normal;
+ cursor: pointer;
+ cursor: hand;
+}
+input[type="submit"]:hover:not([disabled]),
+input[type="submit"]:focus:not([disabled])
+{
+ border-color: #464646;
+ background-image: linear-gradient(to bottom, #202020, #070707);
+ background-color: #070707;
+ box-shadow: 0px 1px 1px #404040;
+}
+input[type="submit"]:hover:not([disabled]):active
+{
+ box-shadow: inset 0px 1px 1px #404040;
+}

@@ -1,0 +1,569 @@
+body
+{
+ color:  #FFFFFF;
+ background-color: #305030;
+ background-image: url(//realityripple.com/images/nature.jpg);
+ background-size: cover !important;
+ background-repeat: no-repeat !important;
+ background-position: left bottom !important;
+ background-attachment: fixed !important;
+ text-shadow: 1px 1px 2px #000000;
+}
+body.sqm_leftMain
+{
+ color:  #FFFFFF;
+ background-color: #103010;
+ background-image: linear-gradient(to right, #000000 0%, #103010 100%);
+}
+body.sqm_leftMain span a img
+{
+ vertical-align: super;
+}
+a:link, a:visited
+{
+ color: #00CC00;
+ text-decoration: none;
+}
+a:hover, a:active
+{
+ text-decoration: underline;
+}
+.sqm_leftMain a:link, .sqm_leftMain a:visited, .sqm_leftMain a:hover, .sqm_leftMain a:active
+{
+ color:  #00A000;
+}
+.leftunseen, .leftspecial, .leftspecial a:link, .leftspecial a:visited, .leftspecial a:hover, .leftspecial a:active
+{
+ color:  #00CC00;
+}
+
+/* UNTESTED */
+.leftnoselect a:link, .leftnoselect a:visited, .leftnoselect a:hover, .leftnoselect a:active
+{
+ color:  #00FF00;
+}
+.highlight
+{
+ color:  #FF0000;
+}
+.error_table
+{
+ color: #FFFFFF;
+ border: 2px solid #FF0000;
+ background-color: #000000;
+}
+.error_thead
+{
+ background-color: #800000;
+}
+.error_thead_caption
+{
+ background-color: #FF0000;
+}
+.error_row
+{
+ color: #FFFFFF;
+}
+.error_val
+{
+ color: #FFFFFF;
+ border: 2px solid #FF0000;
+}
+.error_key
+{
+ border: 2px solid #FF0000;
+ color: #FFFFFF;
+ background-color: #000000;
+}
+/* /UNTESTED */
+
+table.table1
+{
+ border: 0 !important;
+ width: 100% !important;
+ background: rgba(0, 0, 0, 0.7) !important;
+ margin-top: 0 !important;
+ margin-bottom: 0 !important;
+ padding-top: 1em !important;
+ padding-bottom: 1em !important;
+}
+table.spacer
+{
+ background-color: rgba(0, 0, 0, 0.7) !important;
+}
+table.table2
+{
+ border: 0 !important;
+ width: 100% !important;
+ background-color: rgba(0, 0, 0, 0.7) !important;
+ margin-top: 0 !important;
+ margin-bottom: 0 !important;
+ padding-bottom: 0.5em;
+}
+table.table1 table.table2
+{
+ background-color: transparent !important;
+}
+table.table1 td
+{
+ vertical-align: top;
+}
+table.table2 td
+{
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+}
+td.header1
+{
+ text-align: center !important;
+ background: rgba(0, 32, 0, 0.6) !important;
+}
+td.header2
+{
+ text-align: center !important;
+ background: rgba(0, 0, 0, 0.5) !important;
+}
+td.header4
+{
+ background: rgba(0, 32, 0, 0.6);
+}
+tr.even
+{
+ background: transparent;
+}
+tr.odd
+{
+ background: rgba(32, 32, 128, 0.3);
+}
+.table_standard
+{
+ border: 0;
+ background: rgba(0, 0, 0, 0.7);
+}
+.sqm_loginOrgName, .sqm_signoutBar
+{
+ background-color: #002000;
+}
+.sqm_motd
+{
+ background-color: #008000;
+ background-image: linear-gradient(to right, #000000, #008000, #000000);
+ width: 100%;
+}
+.sqm_motd td
+{
+ background: #000000;
+ text-align: center;
+}
+table.sqm_emptyFolder
+{
+ background: rgba(0, 0, 0, 0.7);
+ width: 100%;
+ padding-bottom: 0.25em;
+ border-bottom-left-radius: 0.5em;
+ border-bottom-right-radius: 0.5em;
+}
+table.sqm_emptyFolder td
+{
+ background: transparent;
+}
+.table_errorBoxWrapper
+{
+ background: rgba(0, 0, 0, 0.7);
+ width: 100%;
+}
+.table_errorBox
+{
+ background: #000000;
+ margin-left: auto;
+ margin-right: auto;
+ border: 1px solid #FF0000;
+ padding: 0.25em;
+ border-radius: 0.5em;
+}
+.error_message
+{
+ background: #000000;
+ padding: 0.25em;
+}
+.sqm_currentFolder
+{
+ background: rgba(0, 0, 0, 0.7);
+ padding-top: 0.25em;
+ padding-left: 0.5em;
+ border-top-left-radius: 0.5em;
+}
+.sqm_headerSignout
+{
+ background: rgba(0, 0, 0, 0.7);
+ padding-top: 0.25em;
+ padding-right: 0.5em;
+ border-top-right-radius: 0.5em;
+}
+.sqm_topNavigation
+{
+ background: rgba(0, 0, 0, 0.7);
+ text-align: center;
+ padding-left: 0.5em;
+ padding-bottom: 2em;
+}
+.sqm_providerInfo
+{
+ background: rgba(0, 0, 0, 0.7);
+ padding-bottom: 0.25em;
+ padding-right: 0.5em;
+ padding-bottom: 2em;
+}
+div#message_list table.table_empty td
+{
+ padding: 0;
+}
+.table_messageListWrapper
+{
+ background: rgba(0, 0, 0, 0.7);
+}
+.table_messageList
+{
+ background: transparent;
+}
+.table_messageList td.spacer
+{
+ background-color: transparent;
+ background-image: none;
+}
+.table_messageList tr.mouse_over
+{
+ background: #000000;
+}
+.table_messageList tr.clicked
+{
+ background: #004000;
+}
+.deleted
+{
+ color: #B0B0B0;
+}
+.flagged
+{
+ color: #C0C000;
+}
+.high_priority
+{
+ color: #FF0000;
+}
+.low_priority
+{
+ color: #00FFFF;
+}
+.message_list_controls
+{
+ background: transparent;
+}
+.spacer
+{
+ background-color: transparent;
+}
+.dialogbox table.wrapper
+{
+ border: 0;
+ background: rgba(0, 0, 0, 0.7);
+ width: 100%;
+}
+.dialogbox table.wrapper table
+{
+ width: 100%;
+}
+.dialogbox table.wrapper table td.header2
+{
+ background: rgba(0, 0, 0, 0.6);
+}
+.dialogbox table.wrapper td
+{
+ padding-left: 0;
+ padding-right: 0;
+}
+#addressList td.abookPaginationAndButtons
+{
+ background: transparent;
+}
+#addressList td.abookSwitch
+{
+ background: transparent;
+}
+#addressList td.abookButtons
+{
+ background: transparent;
+}
+#addressList td.abookField:first-child
+{
+ border-left: 0;
+ padding-left: 0;
+}
+#addressList td.abookField
+{
+ border-left: 1px solid #606060;
+ padding-left: 0.5em;
+ border-right: 0;
+}
+#addressList td.colHeader
+{
+ background: rgba(0, 0, 0, 0.6);
+}
+#addrBookSearch table.wrapper
+{
+ border: 1px solid #008000;
+ background: rgba(0, 0, 0, 0.7);
+}
+#optionGroups td.optionDesc
+{
+ background: transparent;
+ padding: 0 0.5em 0.5em;
+}
+#optionOrder table.moveFields
+{
+ background: #000000;
+ padding: 0.5em;
+ margin-top: 1em;
+ margin-bottom: 1em;
+ border-radius: 0.5em;
+}
+#optionOrder table.moveFields td
+{
+ border-left: 1px solid #606060;
+ padding-left: 0.5em;
+ border-right: 0px;
+ padding-right: 0.5em;
+}
+#optionOrder table.moveFields td:first-child
+{
+ border-left: 0px;
+ padding-left: 0;
+}
+#optionsIdentity table.table2 tr
+{
+ background: transparent;
+}
+#optionsIdentity hr
+{
+ width: 95%;
+ border: 1px solid #006000;
+}
+#help td.nav
+{
+ color: #B0B0B0;
+}
+div.search td.header4
+{
+ border-bottom: 1px solid #008000;
+}
+div.search td.queryAction
+{
+ border-left: 1px solid #008000;
+ border-top: 0;
+ border-bottom: 1px solid #008000;
+}
+div.search td.queryDesc 
+{
+ border-top: 0;
+ border-bottom: 1px solid #008000;
+}
+div.search span.error
+{
+ color: #FF0000;
+}
+div.search td.searchForm:first-child
+{
+ border-left: 0px;
+}
+div.search td.searchForm
+{
+ border-right: 0px;
+ border-left: 1px solid #606060;
+}
+div.search td.queryError
+{
+ color: #FF0000;
+}
+div.search h1
+{
+ background-color: rgba(0, 0, 0, 0.7);
+ margin: 0;
+ padding: 0.25em;
+ border-top: 1px solid #606060;
+}
+form + hr
+{
+ margin-top: 0;
+ margin-bottom: 0;
+}
+div.search h2
+{
+ color: #FFFFFF;
+}
+div.compose tr.header
+{
+ background: transparent;
+}
+div.compose tr.header + tr.attachment td
+{
+ border-top: 1px solid #000000;
+}
+div.compose tr.attachment td
+{
+ background: transparent;
+ border-top: 0px;
+ border-bottom: 1px solid #000000;
+}
+div.compose table.close
+{
+ text-align: right;
+ background: transparent;
+ border: 0;
+}
+div.compose table#attachment_table,
+div.readMenuBar table
+{
+ border-left: 0;
+ border-right: 0;
+ background: rgba(0, 0, 0, 0.7);
+}
+div.readMenuBar table.top
+{
+ border-top: 0;
+}
+div.readMenuBar table.bottom
+{
+ border-bottom: 0;
+}
+div.readMenuBar tr.buttons
+{
+ background-color: transparent;
+}
+table.sm_readBody_table2
+{
+ border-color: transparent;
+ border-style: solid;
+ border-top-width: 0.25em;
+ border-bottom-width: 0.25em;
+ border-left-width: 1em;
+ border-right-width: 1em;
+ background-color: rgba(0, 0, 0, 0.7);
+}
+table.sm_readBody_table2 pre
+{
+ white-space: pre-wrap;
+ border-radius: 0.5em;
+ background: #000000;
+ padding: 1em;
+}
+table.sm_readBody_table2 pre a
+{
+ word-wrap: anywhere;
+}
+table.sm_readBody_table2 pre .quote1
+{
+ color: #80A0FF;
+}
+table.sm_readBody_table2 pre .quote2
+{
+ color: #80FFFF;
+}
+table.sm_readBody_table2 div.htmlIframe iframe
+{
+ color: #000000;
+ background-color: #FFFFFF;
+ border: 0;
+}
+div.readHeaders tr#smime
+{
+ background-color: rgba(255, 153, 51, 0.3);
+}
+div.readHeaders tr#smime a, table.readHeaders tr#smime a:visited
+{
+ color: #FF9933;
+}
+table[bgcolor]
+{
+ border: 0;
+ background: rgba(0, 0, 0, 0.7) !important;
+ width: 100%;
+}
+table[bgcolor] table[bgcolor]
+{
+ border: 0;
+ background: transparent !important;
+}
+table[bgcolor] td[bgcolor]
+{
+ background: transparent !important;
+}
+table[bgcolor] ~ form table
+{
+ margin-left: 2.5%;
+ border-left: 1px solid #008000;
+ border-right: 1px solid #008000;
+ border-bottom: 1px solid #008000;
+ background: rgba(0, 0, 0, 0.7) !important;
+}
+tr[bgcolor="#DCDCDC"], td[bgcolor="#DCDCDC"]
+{
+ background-color: #002000;
+}
+tr[bgcolor="#ABABAB"]
+{
+ background-color: #004000;
+}
+tr[bgcolor="#FFFFCC"]
+{
+ background-color: #000020;
+}
+input[type="text"], input[type="password"], textarea, input:not([type])
+{
+ background-color: #101010;
+ border: 1px solid #C0C0C0;
+ color: #FFFFFF;
+}
+select
+{
+ background-color: #000000;
+ border: 1px solid #C0C0C0;
+ color: #FFFFFF;
+}
+input[type="submit"],
+input[type="button"]
+{
+ color: #FFFFFF;
+ border-color: #464646;
+ background-image: linear-gradient(to bottom, #202020, #070707);
+ background-color: #070707;
+ display: inline-block;
+ outline: 0;
+ font-family: sans-serif;
+ font-size: 80%;
+ font-style: normal;
+ padding: 0.2em 0.63em;
+ margin: 0.15em 0.25em;
+ border-radius: 2px;
+ border-width: 1px;
+ border-style: solid;
+ text-indent: 0;
+ text-align: inherit;
+ white-space: normal;
+ cursor: pointer;
+ cursor: hand;
+}
+input[type="submit"]:hover:not([disabled]),
+input[type="submit"]:focus:not([disabled]),
+input[type="button"]:hover:not([disabled]),
+input[type="button"]:focus:not([disabled])
+{
+ border-color: #464646;
+ background-image: linear-gradient(to bottom, #202020, #070707);
+ background-color: #070707;
+ box-shadow: 0px 1px 1px #404040;
+}
+input[type="submit"]:hover:not([disabled]):active,
+input[type="button"]:hover:not([disabled]):active
+{
+ box-shadow: inset 0px 1px 1px #404040;
+}
