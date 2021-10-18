@@ -104,7 +104,7 @@ class ErrorHandler {
      * @private
      * @since 1.5.1
      */
-    function SquirrelMailErrorhandler($iErrNo, $sErrStr, $sErrFile, $iErrLine, $aContext=null) {
+    function SquirrelMailErrorhandler($iErrNo, $sErrStr, $sErrFile, $iErrLine, $aContext=NULL) {
         $aError = array(
                         'type'     => SQM_NOTICE,// Error type, notice, warning or fatal error;
                         'category' => NULL,      // SquirrelMail error category;
