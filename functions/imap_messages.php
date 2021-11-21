@@ -130,8 +130,8 @@ function sqimap_message_list_squisher($aUid) {
     }
     sort($aUid, SORT_NUMERIC);
 
+    $s = '';
     if (count($aUid)) {
-        $s = '';
         for ($i=0,$iCnt=count($aUid);$i<$iCnt;++$i) {
             $iStart = $aUid[$i];
             $iEnd = $iStart;
