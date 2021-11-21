@@ -202,6 +202,7 @@ if ($pageOffset < $end_msg) {
                     <td style="width:<?php echo $aWidth[$iCol]; ?>%">
 
 <?php
+        $colNameText = '';
         switch ($iCol) {
           case SQM_COL_CHECK:
               if ($javascript_on) {
@@ -220,23 +221,37 @@ if ($pageOffset < $end_msg) {
               }
               break;
           case SQM_COL_FROM:       
-              echo '<label for="toggleAll">' . _("From") . "</label>\n";
+              // was: echo '<label for="toggleAll">' . _("From") . "</label>\n";
+              $colNameText = _("From");
               break;
-          case SQM_COL_DATE:       echo _("Date") . "\n";     break;
-          case SQM_COL_SUBJ:       echo _("Subject") . "\n";  break;
+          case SQM_COL_DATE:
+              // was: echo _("Date") . "\n";
+              $colNameText = _("Date");
+              break;
+          case SQM_COL_SUBJ:
+              // was: echo _("Subject") . "\n";
+              $colNameText = _("Subject");
+              break;
           case SQM_COL_FLAGS:
-                echo getIcon($icon_theme_path, 'msg_new.png', '&nbsp;', _("Message Flags")) . "\n";
-                break;
-          case SQM_COL_SIZE:       echo  _("Size") . "\n";    break;
+              echo getIcon($icon_theme_path, 'msg_new.png', '&nbsp;', _("Message Flags")) . "\n";
+              break;
+          case SQM_COL_SIZE:
+              // echo  _("Size") . "\n";
+              $colNameText = _("Size");
+              break;
           case SQM_COL_PRIO:
-                echo getIcon($icon_theme_path, 'prio_high.png', '!', _("Priority")) . "\n";
-                break;
+              echo getIcon($icon_theme_path, 'prio_high.png', '!', _("Priority")) . "\n";
+              break;
           case SQM_COL_ATTACHMENT:
-                echo getIcon($icon_theme_path, 'attach.png', '+', _("Attachment")) . "\n";
-                break;
-          case SQM_COL_INT_DATE:   echo _("Received") . "\n"; break;
+              echo getIcon($icon_theme_path, 'attach.png', '+', _("Attachment")) . "\n";
+              break;
+          case SQM_COL_INT_DATE:
+              // was: echo _("Received") . "\n";
+              $colNameText = _("Received");
+              break;
           case SQM_COL_TO:
-              echo '<label for="toggleAll">' . _("To") . "</label>\n";
+              // was: echo '<label for="toggleAll">' . _("To") . "</label>\n";
+              $colNameText = _("To");
               break;
           case SQM_COL_CC:         echo _("Cc") . "\n";       break;
           case SQM_COL_BCC:        echo _("Bcc") . "\n";      break;
@@ -258,9 +273,11 @@ if ($pageOffset < $end_msg) {
                 $text_icon = '&#9723;'; // U+25FB WHITE MEDIUM SQUARE
             }
             /* Now that we have everything figured out, show the actual button. */
-            echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\" style=\"text-decoration:none\">" .
-                 getIcon($icon_theme_path, $img, $text_icon, _("Click here to change the sorting of the message list")) . "\n" .
-                 '</a>';
+            echo " <a href=\"$baseurl&amp;startMessage=1&amp;srt=$newsort\" style=\"text-decoration:none;color:inherit\">";
+        }
+        echo $colNameText;
+        if (isset($aSortSupported[$iCol])) {
+            echo ' ' . getIcon($icon_theme_path, $img, $text_icon, _("Click here to change the sorting of the message list")) . "\n</a>";
         }
 ?>
                     </td>
