@@ -455,7 +455,7 @@ $bad_plugins = array(
         'xmailer'                 // Integrated into SquirrelMail 1.2 core
         );
 
-if (isset($plugins[0])) {
+if (!empty($plugins) && is_array($plugins)) {
     foreach($plugins as $plugin) {
         if(!file_exists(SM_PATH .'plugins/'.$plugin)) {
             do_err('You have enabled the <i>'.$plugin.'</i> plugin, but I cannot find it.', FALSE);
@@ -559,7 +559,7 @@ if (isset($plugins[0])) {
         echo $IND . "Plugins OK.<br />\n";
     }
 } else {
-    echo $IND . "Plugins are not enabled in config.<br />\n";
+    echo $IND . "Plugins are not correctly enabled in the configuration file.<br />\n";
 }
 foreach($theme as $thm) {
     if(!file_exists($thm['PATH'])) {
