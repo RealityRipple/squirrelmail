@@ -986,7 +986,7 @@ $header = $message->header;
 // they SHOULD be included as part of the FETCH responses."
 //
 if ($imap_server_type == 'gmail') {
-    sqimap_toggle_flag($imapConnection, $passed_id, '\\Seen', true, true);
+    sqimap_toggle_flag($imapConnection, array($passed_id), '\\Seen', true, true);
 }
 
 /****************************************/

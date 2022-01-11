@@ -82,7 +82,8 @@ function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=fals
 /**
  * Set a flag on the provided uid list
  * @param  resource imap connection
- * @param  array $id list with uid's
+ * @param  mixed $id Normally an array which is a list with message UIDs to be flagged
+ *                   or a string range such as "1:*"
  * @param  string $flag Flags to set/unset flags can be i.e.'\Seen', '\Answered', '\Seen \Answered'
  * @param  bool   $set  add (true) or remove (false) the provided flag
  * @param  bool   $handle_errors Show error messages in case of a NO, BAD or BYE response
@@ -92,8 +93,12 @@ function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
     $msgs_id = sqimap_message_list_squisher($id);
     $set_string = ($set ? '+' : '-');
 
-    for ($i=0; $i<sizeof($id); $i++) {
-        $aMessageList["$id[$i]"] = array();
+    $aMessageList = array();
+    // TODO: There doesn't seem to be a reason to set up $aMessageList anyway because an empty array for each message doesn't add anything to the parseFetch() return value, so this code block could be simply deleted:
+    if (!is_string($id)) {
+        for ($i=0; $i<sizeof($id); $i++) {
+            $aMessageList["$id[$i]"] = array();
+        }
     }
 
     $aResponse = sqimap_run_command_list($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, TRUE);
@@ -103,8 +108,8 @@ function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
 
     // some broken IMAP servers do not return UID elements on UID STORE
     // if this is the case, then we need to do a UID FETCH
-    $testkey=$id[0];
-    if (!isset($parseFetchResults[$testkey]['UID'])) {
+    if (!empty($parseFetchResults)
+     && !isset(reset($parseFetchResults)['UID'])) {
         $aResponse = sqimap_run_command_list($imap_stream, "FETCH $msgs_id (FLAGS)", $handle_errors, $response, $message, TRUE);
         $parseFetchResults = parseFetch($aResponse,$aMessageList);
     }
