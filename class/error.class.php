@@ -5,7 +5,7 @@
  *
  * This contains the custom error handler for SquirrelMail.
  *
- * @copyright 2005-2021 The SquirrelMail Project Team
+ * @copyright 2005-2022 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
