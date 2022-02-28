@@ -95,7 +95,13 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     $used_fontset = (!empty($chosen_fontset) ? $chosen_fontset : $default_fontset);
     $used_fontsize = (!empty($chosen_fontsize) ? $chosen_fontsize : $default_fontsize);
-    $used_theme = !isset($chosen_theme) && $user_theme_default != 'none' && is_dir($chosen_theme) && is_readable($chosen_theme)?  $user_themes[$user_theme_default]['PATH'].'/default.css' : $chosen_theme_path;
+    if (!empty($chosen_theme) && is_dir($chosen_theme) && is_readable($chosen_theme))
+        $used_theme = $chosen_theme_path;
+    else if ($user_theme_default != 'none')
+        $used_theme = $user_themes[$user_theme_default]['PATH'];
+    else
+        $used_theme = 'none';
+
     
     /**
      * Stylesheets are loaded in the following order:
@@ -115,14 +121,13 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     $aUserStyles = array();
 
     // 2. Option user-defined stylesheet from preferences.
-    if (!empty($used_theme) && $used_theme != 'none') {
+    if ($used_theme != 'none') {
+//FIXME: rid ourselves of "none" strings!  I didn't do it here because I think the problem is that the theme itself should never be "none" (? well, what else would it be?  if "none" theme is actually OK, then is there a constant to use below instead of a hard-coded string?)
         /**
          * All styles (except "none" - ugh) just point to a directory,
          * so we need to include all .css files in that directory.
          */
-//FIXME: rid ourselves of "none" strings!  I didn't do it here because I think the problem is that the theme itself should never be "none" (? well, what else would it be?  if "none" theme is actually OK, then is there a constant to use below in stead of a hard-coded string?)
-        $styles = $used_theme == 'none' ? array()
-                : list_files($used_theme, '.css');
+        $styles = list_files($used_theme, '.css');
         foreach ($styles as $sheet) { 
             $aUserStyles[] = $used_theme .'/'.$sheet;
         }
