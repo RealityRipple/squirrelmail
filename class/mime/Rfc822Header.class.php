@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 /**
  * Rfc822Header.class.php
@@ -375,8 +375,12 @@ class Rfc822Header {
         $aTokens = array();
         $aSpecials = array('(' ,'<' ,',' ,';' ,':');
         $aReplace =  array(' (',' <',' ,',' ;',' :');
-        $address = str_replace($aSpecials,$aReplace,$address);
-        $iCnt = strlen($address);
+        if (!empty($address)) {
+            $address = str_replace($aSpecials,$aReplace,$address);
+            $iCnt = strlen($address);
+        } else {
+            $iCnt = 0;
+        }
         $i = 0;
         while ($i < $iCnt) {
             $cChar = $address[$i];
