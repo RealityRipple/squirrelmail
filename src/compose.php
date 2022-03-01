@@ -521,32 +521,34 @@ if ($send) {
          * of language interface.
          */
         set_my_charset();
-        /**
-         * This is to change all newlines to \n
-         * We'll change them to \r\n later (in the sendMessage function)
-         */
-        $body = str_replace("\r\n", "\n", $body);
-        $body = str_replace("\r", "\n", $body);
+        if ($body != null) {
+            /**
+             * This is to change all newlines to \n
+             * We'll change them to \r\n later (in the sendMessage function)
+             */
+            $body = str_replace("\r\n", "\n", $body);
+            $body = str_replace("\r", "\n", $body);
 
-        /**
-         * Rewrap $body so that no line is bigger than $editor_size
-         */
-        $body = explode("\n", $body);
-        $newBody = '';
-        foreach ($body as $line) {
-            if( $line <> '-- ' ) {
-                $line = rtrim($line);
+            /**
+             * Rewrap $body so that no line is bigger than $editor_size
+             */
+            $body = explode("\n", $body);
+            $newBody = '';
+            foreach ($body as $line) {
+                if( $line <> '-- ' ) {
+                    $line = rtrim($line);
+                }
+                if (sq_strlen($line, $default_charset) <= $editor_size + 1) {
+                    $newBody .= $line . "\n";
+                } else {
+                    sqWordWrap($line, $editor_size, $default_charset);
+                    $newBody .= $line . "\n";
+
+                }
+
             }
-            if (sq_strlen($line, $default_charset) <= $editor_size + 1) {
-                $newBody .= $line . "\n";
-            } else {
-                sqWordWrap($line, $editor_size, $default_charset);
-                $newBody .= $line . "\n";
-
-            }
-
+            $body = $newBody;
         }
-        $body = $newBody;
 
         $Result = deliverMessage($composeMessage);
 
@@ -1621,9 +1623,15 @@ function checkInput ($show) {
      */
     global $send_to, $send_to_cc, $send_to_bcc;
 
-    $send_to = trim($send_to);
-    $send_to_cc = trim($send_to_cc);
-    $send_to_bcc = trim($send_to_bcc);
+    if (!empty($send_to)) {
+        $send_to = trim($send_to);
+    }
+    if (!empty($send_to_cc)) {
+        $send_to_cc = trim($send_to_cc);
+    }
+    if (!empty($send_to_bcc)) {
+        $send_to_bcc = trim($send_to_bcc);
+    }
     if (empty($send_to) && empty($send_to_cc) && empty($send_to_bcc)) {
         if ($show) {
             plain_error_message(_("You have not filled in the \"To:\" field."));
