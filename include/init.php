@@ -520,7 +520,8 @@ switch (PAGE_NAME) {
 
         // sanitize just in case...
         //
-        $templateid = preg_replace('/(\.\.\/){1,}/', '', $templateid);
+        if (!empty($templateid))
+            $templateid = preg_replace('/(\.\.\/){1,}/', '', $templateid);
 
         // make sure given template actually is available
         //
