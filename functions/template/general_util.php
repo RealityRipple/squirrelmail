@@ -33,10 +33,7 @@ function create_css_link($uri, $name='', $alt=TRUE, $mtype='screen') {
         return '';
     }
 
-    // set to lower case to avoid errors
-    //
     sqGetGlobalVar('HTTP_USER_AGENT', $browser_user_agent, SQ_SERVER);
-    $browser_user_agent = strtolower($browser_user_agent);
 
     if (stristr($browser_user_agent, "msie 4")) {
         $browser = 'msie4';
