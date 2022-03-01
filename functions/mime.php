@@ -769,6 +769,7 @@ function decodeBody($string, $encoding, $force_crlf='') {
 
     global $force_crlf_default;
     if (empty($force_crlf)) $force_crlf = $force_crlf_default;
+    if (empty($force_crlf)) $force_crlf = 'NOCHANGE';
     $force_crlf = strtoupper($force_crlf);
 
     // must force line endings to LF due to broken
