@@ -581,6 +581,10 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
     $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type'),
     $aFetchItems = array('FLAGS', 'RFC822.SIZE', 'INTERNALDATE')) {
 
+    global $extra_small_header_fields;
+    if (!empty($extra_small_header_fields))
+        $aHeaderFields = array_merge($aHeaderFields, $extra_small_header_fields);
+
     $aMessageList = array();
 
     /**
