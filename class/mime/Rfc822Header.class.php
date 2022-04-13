@@ -122,10 +122,10 @@ class Rfc822Header {
      */
     var $dnt = '';
     /**
-     * Delivery notification (DR)
+     * Address for requesting message delivery status notification (DSN)
      * @var mixed
      */
-    var $drnt = '';
+    var $dsn = '';
     /**
      * @var mixed
      */
@@ -289,7 +289,7 @@ class Rfc822Header {
                 break;
             case 'return-receipt-to':
                 $value = $this->stripComments($value);
-                $this->drnt = $this->parseAddress($value);
+                $this->dsn = $this->parseAddress($value);
                 break;
             case 'mime-version':
                 $value = $this->stripComments($value);
