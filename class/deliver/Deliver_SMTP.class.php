@@ -412,7 +412,7 @@ class Deliver_SMTP extends Deliver {
             if (!$to[$i]->host) $to[$i]->host = $domain;
             if (strlen($to[$i]->mailbox)) {
                 // Ask for DSN if user has requested such and remote server supports it
-                if ($rfc822_header->dsn && array_key_exists('DSN',$this->ehlo)) {
+                if (isset($rfc822_header->dsn) && $rfc822_header->dsn && array_key_exists('DSN',$this->ehlo)) {
                     // TODO: Make the DSN parameters configurable by admin? user?
                     fputs($stream, 'RCPT TO:<'.$to[$i]->mailbox.'@'.$to[$i]->host."> NOTIFY=SUCCESS,DELAY,FAILURE\r\n");
                     // Retry without DSN fields for cranky MTAs
