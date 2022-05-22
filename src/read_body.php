@@ -145,7 +145,10 @@ function SendMDN ( $mailbox, $passed_id, $message, $imapConnection) {
         $content_type->properties['charset']=$default_charset;
     }
     $rfc822_header->content_type = $content_type;
-    $rfc822_header->to[] = $header->dnt;
+    if (!empty($header->dnt))
+        $rfc822_header->to[] = $header->dnt;
+    else
+        $rfc822_header->to[] = $header->dsn;
     $rfc822_header->subject = _("Read:") . ' ' . decodeHeader($header->subject,true,false);
 
     $idents = get_identities();
@@ -410,7 +413,9 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
 
     if ($default_use_mdn) {
         if ($mdn_user_support) {
-            if ($header->dnt) {
+            // We are generous to the sender because DSNs are commonly ignored by servers and
+            // technically offering a return receipt in the MUA for a DSN is overstepping the RFCs
+            if ($header->dnt || $header->dnt) {
                 $mdn_url = $PHP_SELF;
                 $mdn_url = set_url_var($mdn_url, 'mailbox', urlencode($mailbox));
                 $mdn_url = set_url_var($mdn_url, 'passed_id', $passed_id);
@@ -654,7 +659,10 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
         if (!(isset($passed_ent_id) && $passed_ent_id)) {
             $oTemplate->assign('can_be_moved', true);
             $oTemplate->assign('move_form_extra', addHidden('mailbox', $aMailbox['NAME'])."\n" .
-                                                  addHidden('msg[0]', $passed_id)."\n" );
+                                                  addHidden('msg[0]', $passed_id)."\n" .
+                                                  // only need when $return_to_message_list_after_move is off
+                                                  addHidden('passed_id', ($next >= 0 ? $next : $prev))."\n" .
+                                                  addHidden('startMessage', $startMessage)."\n" );
             $oTemplate->assign('last_move_target', isset($lastTargetMailbox) && !empty($lastTargetMailbox) ? $lastTargetMailbox : '');
             $oTemplate->assign('can_be_copied', $show_copy_buttons==1);
         } else {
@@ -932,6 +940,13 @@ if (isset($aMailbox['MSG_HEADERS'][$passed_id]['FLAGS'])) {
  */
 if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
     handleMessageListForm($imapConnection,$aMailbox,$sButton='setDeleted', array($delete_id));
+}
+
+ /**
+ * or delete button... why is handleMessageListForm (per above) conditional anway?
+ */
+if ( sqgetGlobalVar('delete', $ignore, SQ_POST) ) {
+    $sError = handleMessageListForm($imapConnection,$aMailbox);
 }
 
 /**

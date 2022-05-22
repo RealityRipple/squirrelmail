@@ -17,7 +17,8 @@
 /**
  * Copy a set of messages ($id) to another mailbox ($mailbox)
  * @param int $imap_stream The resource ID for the IMAP socket
- * @param string $id The list of messages to copy
+ * @param  mixed $id Normally an array which is a list with message UIDs to be copied
+ *                   or a string range such as "1:*" or a simple integer
  * @param string $mailbox The destination to copy to
  * @param bool $handle_errors Show error messages in case of a NO, BAD or BYE response
  * @return bool If the copy completed without errors
@@ -59,7 +60,8 @@ function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = tru
  * Deletes a message and move it to trash or expunge the mailbox
  * @param  resource imap connection
  * @param  string $mailbox mailbox, used for checking if it concerns the trash_folder
- * @param  array $id list with uid's
+ * @param  mixed $id Normally an array which is a list with message UIDs to be deleted
+ *                   or a string range such as "1:*" or a simple integer
  * @param  bool   $bypass_trash (since 1.5.0) skip copy to trash
  * @return array  $aMessageList array with messages containing the new flags and UID @see parseFetch
  * @since 1.4.0
@@ -83,7 +85,7 @@ function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=fals
  * Set a flag on the provided uid list
  * @param  resource imap connection
  * @param  mixed $id Normally an array which is a list with message UIDs to be flagged
- *                   or a string range such as "1:*"
+ *                   or a string range such as "1:*" or a simple integer
  * @param  string $flag Flags to set/unset flags can be i.e.'\Seen', '\Answered', '\Seen \Answered'
  * @param  bool   $set  add (true) or remove (false) the provided flag
  * @param  bool   $handle_errors Show error messages in case of a NO, BAD or BYE response
@@ -94,11 +96,15 @@ function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
     $msgs_id = sqimap_message_list_squisher($id);
     $set_string = ($set ? '+' : '-');
 
+    /*
+    * We need to return the data in the same order as the caller supplied
+    * in $id, but IMAP servers are free to return responses in
+    * whatever order they wish... So we need to re-sort manually
+    */
     $aMessageList = array();
-    // TODO: There doesn't seem to be a reason to set up $aMessageList anyway because an empty array for each message doesn't add anything to the parseFetch() return value, so this code block could be simply deleted:
-    if (!is_string($id)) {
-        for ($i=0; $i<sizeof($id); $i++) {
-            $aMessageList["$id[$i]"] = array();
+    if (is_array($id)) {
+        for ($i=0; $i<count($id); $i++) {
+            $aMessageList[$id[$i]] = array();
         }
     }
 
@@ -586,6 +592,10 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
     $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type'),
     $aFetchItems = array('FLAGS', 'RFC822.SIZE', 'INTERNALDATE')) {
 
+    global $extra_small_header_fields;
+    if (!empty($extra_small_header_fields))
+        $aHeaderFields = array_merge($aHeaderFields, $extra_small_header_fields);
+
     $aMessageList = array();
 
     /**
@@ -608,7 +618,7 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
         */
         if ($bUidFetch) {
             for ($i = 0; $i < sizeof($msg_list); $i++) {
-                $aMessageList["$msg_list[$i]"] = array();
+                $aMessageList[$msg_list[$i]] = array();
             }
         }
     }
@@ -640,8 +650,10 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
 /**
  * Parses a fetch response, currently it can hande FLAGS, HEADERS, RFC822.SIZE, INTERNALDATE and UID
  * @param array    $aResponse Imap response
- * @param array    $aMessageList Placeholder array for results. The keys of the
- *                 placeholder array should be the UID so we can reconstruct the order.
+ * @param array    $aMessageList Placeholder array for results. The keys of this
+ *                               placeholder array should be the UID so we can
+ *                               reconstruct the order (OPTIONAL; this array will
+ *                               be built for the return value fresh if not given)
  * @return array   $aMessageList associative array with messages. Key is the UID, value is an associative array
  * @author Marc Groot Koerkamp
  */
@@ -796,6 +808,7 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
             $msgi = "$unique_id";
             $aMsg['UID'] = $unique_id;
        } else {
+//FIXME: under what circumstances does this happen? We can't use an empty string as an array index in the line just below, so we need to use something else here
             $msgi = '';
        }
        $aMessageList[$msgi] = $aMsg;

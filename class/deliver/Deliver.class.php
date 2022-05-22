@@ -773,6 +773,10 @@ class Deliver {
             /* RFC 2298 */
             $header[] = 'Disposition-Notification-To: '.$dnt. $rn;
         }
+        if (isset($rfc822_header->dsn) && $rfc822_header->dsn) {
+            $dsn = $rfc822_header->getAddr_s('dsn');
+            $header[] = 'Return-Receipt-To: '.$dsn. $rn;
+        }
         if ($rfc822_header->priority) {
             switch($rfc822_header->priority)
             {
