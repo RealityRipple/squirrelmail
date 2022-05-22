@@ -68,7 +68,9 @@ function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = tru
  */
 function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=false) {
     // FIXME: Remove globals by introducing an associative array with properties as 4th argument as replacement for the $bypass_trash variable.
-    global $move_to_trash, $trash_folder;
+    global $move_to_trash, $trash_folder, $mark_as_read_upon_delete;
+    if ($mark_as_read_upon_delete)
+        sqimap_toggle_flag($imap_stream, $id, '\\Seen', true, true);
     if (($move_to_trash == true) && ($bypass_trash != true) &&
         (sqimap_mailbox_exists($imap_stream, $trash_folder) &&  ($mailbox != $trash_folder)) ) {
         /**
