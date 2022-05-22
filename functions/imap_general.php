@@ -908,6 +908,11 @@ function sqimap_login ($username, $password, $imap_server_address,
                     $read=sqimap_fgets($imap_stream);
                 }
             }
+            // IMAP server might return some untagged info before
+            // the tagged login command response - skip over that
+            while ($read[0] === '*') {
+                $read = sqimap_fgets($imap_stream);
+            }
             $results=explode(" ",$read,3);
             $response=$results[1];
             $message=$results[2];
@@ -936,7 +941,7 @@ function sqimap_login ($username, $password, $imap_server_address,
          * credentials and use that as the authorization identity.
          */
         $tag=sqimap_session_id(false);
-        $sasl = (isset($sqimap_capabilities['SASL-IR']) && $sqimap_capabilities['SASL-IR']) ? true : false;
+        $sasl = sqimap_capability($imap_stream, 'SASL-IR');
         if(!empty($authz)) {
             $auth = base64_encode("$username\0$authz\0$password");
         } else {
@@ -956,6 +961,11 @@ function sqimap_login ($username, $password, $imap_server_address,
                 fputs($imap_stream, "$auth\r\n");
                 $read = sqimap_fgets($imap_stream);
             }
+        }
+        // IMAP server might return some untagged info before
+        // the tagged login command response - skip over that
+        while ($read[0] === '*') {
+            $read = sqimap_fgets($imap_stream);
         }
         $results=explode(" ",$read,3);
         $response=$results[1];
