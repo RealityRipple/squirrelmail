@@ -105,6 +105,14 @@ function load_optpage_data_folder() {
     );
 
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
+        'name'    => 'mark_as_read_upon_delete',
+        'caption' => _("Mark Deleted Messages as Read"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+//TODO: Arguably, this should go in Compose preferences, not here
+    $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'save_reply_with_orig',
         'caption' => _("Save Replies with Original Message"),
         'type'    => SMOPT_TYPE_BOOLEAN,
