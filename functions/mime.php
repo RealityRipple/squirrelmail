@@ -396,18 +396,38 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
          */
 
         if ($body_message->header->type1 == 'html') {
-            if ($show_html_default <> 1) {
+            // Do we need to make an HTML part viewable as non-HTML plain text?
+            if ($show_html_default != 1) {
                 $entity_conv = array('&nbsp;' => ' ',
-                                     '<p>'    => "\n",
-                                     '<P>'    => "\n",
-                                     '<br>'   => "\n",
-                                     '<BR>'   => "\n",
-                                     '<br />' => "\n",
-                                     '<BR />' => "\n",
+                                     // These are better done by regex (below)
+                                     // '<p>'    => "\n",
+                                     // '<P>'    => "\n",
+                                     // '<br>'   => "\n",
+                                     // '<BR>'   => "\n",
+                                     // '<br />' => "\n",
+                                     // '<BR />' => "\n",
+                                     // '<tr>'   => "\n",
+                                     // '<div>'  => "\n",
                                      '&gt;'   => '>',
-                                     '&lt;'   => '<');
+                                     '&lt;'   => '<',
+                                     '&amp;'   => '&',
+                                     '&copy;'   => '©');
+                // first, completely remove <style> tags as they aren't useful in this context
+                $body = preg_replace('/<style.*>.*<\/style.*>/isU', '', $body);
+                // emulate how newlines are treated as spaces in HTML
+                $body = preg_replace('/(\r|\n)+/', ' ', $body);
+                // now replace the tags listed just above
                 $body = strtr($body, $entity_conv);
+                // <p>, <br>, <tr> and <div> are best replaced by a newline
+                $body = preg_replace('/<(p|br|tr|div).*>/isU', "\n", $body);
+                // remove the rest of the HTML tags
                 $body = strip_tags($body);
+                // condense multiple spaces into one
+                $body = preg_replace('/[ \t]+/', ' ', $body);
+                // trim each line
+                $body = preg_replace('/ *\n */', "\n", $body);
+                // allow maximum two newlines
+                $body = preg_replace('/\n\n\n+/', "\n\n", $body);
                 $body = trim($body);
                 translateText($body, $wrap_at,
                         $body_message->header->getParameter('charset'));
