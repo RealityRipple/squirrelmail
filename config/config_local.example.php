@@ -125,6 +125,14 @@
  * being used (backtick for MySQL (and thus MariaDB),
  * double quotes for all others).
  *
+ * $prefs_db_charset (string) allows you to explicitly
+ * set the user preferences (SQL) database connection
+ * character set.  In most cases, system defaults should
+ * be sufficient, even for UTF-8 preference values and
+ * so forth, but this allows you to specifically make
+ * the selection as needed, for example:
+ * $prefs_db_charset = 'utf8mb4';
+ *
  * $use_expiring_security_tokens (boolean) allows you to
  * make SquirrelMail use short-lived anti-CSRF security
  * tokens that expire as desired (not recommended, can
