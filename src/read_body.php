@@ -490,6 +490,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message,
     $mailbox = $aMailbox['NAME'];
 
     $urlMailbox = urlencode($mailbox);
+    $next = $prev = -1;
 
     // Create Prev & Next links
     // Handle nested entities first (i.e. Mime Attach parts)
