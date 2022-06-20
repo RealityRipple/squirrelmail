@@ -39,7 +39,7 @@ if (!is_object($message)) {
 }
 $message_ent = $message->getEntity($ent_id);
 if ($passed_ent_id) {
-    $message = &$message->getEntity($passed_ent_id);
+    $message = $message->getEntity($passed_ent_id);
 }
 $header   = $message_ent->header;
 $type0    = $header->type0;
