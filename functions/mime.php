@@ -859,7 +859,11 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
     $encoded = true;
 
 // FIXME: spaces are allowed inside quoted-printable encoding, but the following line will bust up any such encoded strings
-    $aString = explode(' ',$string);
+    if ($string === null) {
+        $aString = array();
+    } else {
+        $aString = explode(' ',$string);
+    }
     $ret = '';
     foreach ($aString as $chunk) {
         if ($encoded && $chunk === '') {

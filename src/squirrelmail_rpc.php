@@ -218,7 +218,7 @@ if (!$handled_by_plugin) switch (strtolower($rpc_action)) {
   *                                 must also be provided).
   *
   */
-function sm_rpc_return_error($rpc_action=NULL, $error_code,
+function sm_rpc_return_error($rpc_action=NULL, $error_code='',
                              $error_text='', $guilty_party='',
                              $http_status_code=0, $http_status_text='') {
 
