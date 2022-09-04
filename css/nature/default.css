@@ -517,6 +517,10 @@ tr[bgcolor="#FFFFCC"]
 {
  background-color: #000020;
 }
+td[bgcolor="#FFFFFF"]
+{
+ background-color: #000000;
+}
 input[type="text"], input[type="password"], textarea, input:not([type])
 {
  background-color: #101010;
