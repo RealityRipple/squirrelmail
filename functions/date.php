@@ -83,13 +83,16 @@ function getGMTSeconds($stamp, $tzc) {
             break;
     }
     $neg = false;
-    if (substr($tzc, 0, 1) == '-') {
-        $neg = true;
-    } else if (substr($tzc, 0, 1) != '+') {
-        $tzc = '+'.$tzc;
+    if (preg_match('/^([+-]?)(\d\d)(\d\d)$/', $tzc, $matches)) {
+        if ($matches[1] === '-')
+            $neg = true;
+        $hh = $matches[2];
+        $mm = $matches[3];
+    } else {
+        // anything not listed above and not in the form +0400
+        // defaults to UTC
+        $hh = $mm = 0;
     }
-    $hh = substr($tzc,1,2);
-    $mm = substr($tzc,3,2);
     $iTzc = ($hh * 60 + $mm) * 60;
     if ($neg) $iTzc = -1 * (int) $iTzc;
     /* stamp in gmt */
