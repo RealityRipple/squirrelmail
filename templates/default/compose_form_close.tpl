@@ -29,7 +29,7 @@
  *                              (when no attachments have been added, this will
  *                              not be provided here)
  *
- * @copyright 1999-2022 The SquirrelMail Project Team
+ * @copyright 1999-2023 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
