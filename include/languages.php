@@ -15,7 +15,7 @@
  * functions are not available. Scripts in functions/ directory should not
  * setup anything when they are loaded.
  *
- * @copyright 1999-2022 The SquirrelMail Project Team
+ * @copyright 1999-2023 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
