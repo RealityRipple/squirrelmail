@@ -918,7 +918,7 @@ function sqimap_login ($username, $password, $imap_server_address,
                         $message .= '  Please contact your system administrator.';
                     } else {
                         $scram_response = scram_response($hAlg, $username, $cbf, $cliNonce, $serData['r'], $password, $serData['s'], $serData['i']);
-                        
+
                         fputs($imap_stream, $scram_response."\r\n");
 
                         // Get SCRAM validation
