@@ -1006,7 +1006,7 @@ function save_option($option) {
 
     // all other widgets except TEXTAREAs should never be allowed to have newlines
     //
-    else if ($option->type != SMOPT_TYPE_TEXTAREA)
+    else if ($option->type != SMOPT_TYPE_TEXTAREA && !empty($option->new_value))
         $option->new_value = str_replace(array("\r", "\n"), '', $option->new_value);
 
 

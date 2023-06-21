@@ -34,6 +34,7 @@ function cachePrefValues($data_dir, $username) {
         return;
     }
 
+    $prefs_cache = array();
     sqsession_unregister('prefs_cache');
     sqsession_unregister('prefs_are_cached');
 
