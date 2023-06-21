@@ -285,7 +285,7 @@ class Deliver_SMTP extends Deliver {
             }
 
             $scram_response = scram_response($hAlg, $user, $cbf, $cliNonce, $serData['r'], $pass, $serData['s'], $serData['i']);
-            
+
             fputs($stream, $scram_response."\r\n");
 
             // Get SCRAM validation
