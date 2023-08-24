@@ -70,7 +70,7 @@ function process_optionmode_submit($optpage, $optpage_data) {
             /* Special case: need to make sure emailaddress
              * is saved if we use it as a test for ask_user_info */
             global $ask_user_info;
-            if ( $optpage = SMOPT_PAGE_PERSONAL && $ask_user_info &&
+            if ( $optpage == SMOPT_PAGE_PERSONAL && $ask_user_info &&
                 $option->name == 'email_address' ) {
                 $option->setValue('');
             }
