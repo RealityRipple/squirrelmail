@@ -823,6 +823,7 @@ function _getSortField($sort,$bServerSort) {
             break;
         case SQSORT_FROM_ASC:
         case SQSORT_FROM_DESC:
+// TODO: If capabilities include SORT=DISPLAY then this can be DISPLAYFROM... should this be a user or admin option? Maybe it could cycle/switch between FROM and DISPLAYFROM?
             $sSortField = 'FROM';
             break;
         case SQSORT_SUBJ_ASC:
@@ -835,6 +836,7 @@ function _getSortField($sort,$bServerSort) {
             break;
         case SQSORT_TO_ASC:
         case SQSORT_TO_DESC:
+// TODO: If capabilities include SORT=DISPLAY then this can be DISPLAYTO... should this be a user or admin option? Maybe it could cycle/switch between TO and DISPLAYTO?
             $sSortField = 'TO';
             break;
         case SQSORT_CC_ASC:
