@@ -118,7 +118,7 @@ function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
     // some broken IMAP servers do not return UID elements on UID STORE
     // if this is the case, then we need to do a UID FETCH
     if (!empty($parseFetchResults)
-     && !isset($parseFetchResults)['UID']) {
+     && !isset($parseFetchResults['UID'])) {
         $aResponse = sqimap_run_command_list($imap_stream, "FETCH $msgs_id (FLAGS)", $handle_errors, $response, $message, TRUE);
         $parseFetchResults = parseFetch($aResponse,$aMessageList);
     }
