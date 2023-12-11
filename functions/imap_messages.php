@@ -614,7 +614,10 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
         * whatever order they wish... So we need to re-sort manually
         */
         if ($bUidFetch) {
-            for ($i = 0; $i < sizeof($msg_list); $i++) {
+            // 1.4.x had a problem where $msg_list wasn't guaranteed to be an array,
+            // but the following doesn't seem to be necessary in 1.5.x
+            $msg_count = is_array($msg_list) ? sizeof($msg_list) : 1;
+            for ($i = 0; $i < $msg_count; $i++) {
                 $aMessageList[$msg_list[$i]] = array();
             }
         }
