@@ -24,7 +24,7 @@
  *                              $el['Display'] - string containing the display
  *                                             name for the element
  *                            
- * @copyright 1999-2023 The SquirrelMail Project Team
+ * @copyright 1999-2024 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

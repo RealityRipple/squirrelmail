@@ -366,7 +366,7 @@ Version 1.5.2 - SVN
     plugin, and added anti-CSRF protection to the empty trash feature (thanks
     to Nicholas Carlini for finding all these issues).
     [CVE-2011-2752, CVE-2011-2753, CVE-2010-4555]
-  - Fixed XSS problem with unsanitized style tags in messages. [CVE-2011-2023]
+  - Fixed XSS problem with unsanitized style tags in messages. [CVE-2011-2024]
   - Always ensure that the Reply-To header is a full email address in
     outgoing messages
   - Unified address book searches somewhat: file-backed address books now
