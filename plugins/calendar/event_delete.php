@@ -3,7 +3,7 @@
 /**
  * Functions to delete a event.
  *
- * @copyright 2002-2023 The SquirrelMail Project Team
+ * @copyright 2002-2024 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
