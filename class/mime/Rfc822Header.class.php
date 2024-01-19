@@ -747,7 +747,7 @@ class Rfc822Header {
             $charset = substr($value,0,strpos($value,"'"));
             $value = substr($value,strlen($charset)+1);
             $language = substr($value,0,strpos($value,"'"));
-            $value = substr($value,strlen($charset)+1);
+            $value = substr($value,strlen($language)+1);
             /* FIXME: What's the status of charset decode with language information ????
              * Maybe language information contains only ascii text and charset_decode() 
              * only runs sm_encode_html_special_chars() on it. If it contains 8bit information, you 
