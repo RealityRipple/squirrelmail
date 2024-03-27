@@ -691,6 +691,8 @@ function parseFetch(&$aResponse,$aMessageList = array()) {
             $read = trim(substr($read,$i));
             $i_len = strlen($read);
             $i = strpos($read,' ');
+            if ($i === FALSE)
+                break;
             $arg = substr($read,0,$i);
             ++$i;
             /*
