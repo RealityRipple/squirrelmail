@@ -265,7 +265,7 @@ function displayPageHeader($color, $mailbox='', $sHeaderJs='', $sOnload = '') {
         $data_dir, $username;
 
     if (empty($sOnload)) {
-        if (strpos($action, 'reply') !== FALSE && $reply_focus) {
+        if (!empty($action) && strpos($action, 'reply') !== FALSE && $reply_focus) {
             if ($reply_focus == 'select')
                 $sOnload = 'checkForm(\'select\');';
             else if ($reply_focus == 'focus')
@@ -374,7 +374,7 @@ function compose_Header($color, $mailbox, $sHeaderJs='', $sOnload = '') {
     global $reply_focus, $action, $oTemplate;
 
     if (empty($sOnload)) {
-        if (strpos($action, 'reply') !== FALSE && $reply_focus) {
+        if (!empty($action) && strpos($action, 'reply') !== FALSE && $reply_focus) {
             if ($reply_focus == 'select')
                 $sOnload = 'checkForm(\'select\');';
             else if ($reply_focus == 'focus')
