@@ -108,13 +108,13 @@ sqsession_register($onetimepad, 'onetimepad');
 $sqimap_capabilities = sqimap_capability($imapConnection);
 
 /* Server side sorting control */
-if (isset($sqimap_capabilities['SORT']) && $sqimap_capabilities['SORT'] == true &&
+if (isset($sqimap_capabilities['SORT']) && !empty($sqimap_capabilities['SORT']) &&
     isset($disable_server_sort) && $disable_server_sort) {
     unset($sqimap_capabilities['SORT']);
 }
 
 /* Thread sort control */
-if (isset($sqimap_capabilities['THREAD']) && $sqimap_capabilities['THREAD'] == true &&
+if (isset($sqimap_capabilities['THREAD']) && !empty($sqimap_capabilities['THREAD']) &&
     isset($disable_thread_sort) && $disable_thread_sort) {
     unset($sqimap_capabilities['THREAD']);
 }
@@ -122,7 +122,7 @@ if (isset($sqimap_capabilities['THREAD']) && $sqimap_capabilities['THREAD'] == t
 sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
 $delimiter = sqimap_get_delimiter ($imapConnection);
 
-if (isset($sqimap_capabilities['NAMESPACE']) && $sqimap_capabilities['NAMESPACE'] == true) {
+if (isset($sqimap_capabilities['NAMESPACE']) && !empty($sqimap_capabilities['NAMESPACE'])) {
     $namespace = sqimap_get_namespace($imapConnection);
     sqsession_register($namespace, 'sqimap_namespace');
 }
