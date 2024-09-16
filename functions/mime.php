@@ -843,6 +843,10 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
         $string = implode("\n", $string);
     }
 
+    // loose type checking also catches $string === NULL here:
+    if ($string == '')
+        return '';
+
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
             function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decodeheader')) {
         $string = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decodeheader', $string);
