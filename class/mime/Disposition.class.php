@@ -19,9 +19,11 @@
  * @package squirrelmail
  * @subpackage mime
  * @since 1.3.0
- * @todo FIXME: do we have to declare vars ($name and $properties)?
  */
 class Disposition {
+    var $name;
+    var $properties;
+
     /**
      * Constructor (PHP5 style, required in some future version of PHP)
      * @param string $name

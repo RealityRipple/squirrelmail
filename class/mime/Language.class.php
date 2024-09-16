@@ -22,6 +22,9 @@
  * @since 1.3.0
  */
 class Language {
+    var $name;
+    var $properties;
+
     /**
      * Constructor (PHP5 style, required in some future version of PHP)
      * @param mixed $name
