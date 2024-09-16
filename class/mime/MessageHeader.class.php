@@ -23,6 +23,9 @@
  * @since 1.3.2
  */
 class MessageHeader {
+    var $entity_id;
+    var $lines;
+
     /**
      * Media type
      * @var string
