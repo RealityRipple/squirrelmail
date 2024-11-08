@@ -1279,7 +1279,7 @@ function sqimap_logout ($imap_stream) {
  * @param stream $imap_stream
  * @param string $capability (since 1.3.0)
  * @param boolean $bUseCache (since 1.5.1) Controls use of capability data stored in session
- * @return mixed (string if $capability is set and found,
+ * @return mixed (string or array if $capability is set and found (array in the case the capability has multiple options),
  *  false, if $capability is set and not found,
  *  array if $capability not set)
  */
@@ -1287,6 +1287,7 @@ function sqimap_capability($imap_stream, $capability='', $bUseCache=true) {
     // sqgetGlobalVar('sqimap_capabilities', $sqimap_capabilities, SQ_SESSION);
 
     if (!$bUseCache || ! sqgetGlobalVar('sqimap_capabilities', $sqimap_capabilities, SQ_SESSION)) {
+        $sqimap_capabilities = array();
         $read = sqimap_run_command($imap_stream, 'CAPABILITY', true, $a, $b);
         $c = explode(' ', $read[0]);
         for ($i=2; $i < count($c); $i++) {
