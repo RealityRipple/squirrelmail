@@ -17,7 +17,7 @@
  *      $move_down      - URL foundation to move a field down in the ordering
  *      $remove         - URL foundation to remove a field from the ordering.
  * 
- * @copyright 1999-2023 The SquirrelMail Project Team
+ * @copyright 1999-2024 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
