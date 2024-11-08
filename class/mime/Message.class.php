@@ -25,6 +25,7 @@
  * @since 1.3.0
  */
 class Message {
+    var $header;
     /**
      * rfc822header object
      * @var object
