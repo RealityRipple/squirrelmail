@@ -25,7 +25,7 @@
  *            $link['Text']  - Text representing the functionality
  *            $link['Extra'] - Any extra anchor tag attributes provided by a plugin
  *
- * @copyright 1999-2024 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

@@ -3,7 +3,7 @@
 /**
  * Message and Spam Filter Plugin - Filtering Functions
  *
- * @copyright 1999-2024 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -130,7 +130,7 @@ function filters_LoadCache () {
         $SpamFilters_DNScache = array();
         if ($fp = fopen ($data_dir . '/dnscache', 'r')) {
             flock($fp,LOCK_SH);
-            while ($data = fgetcsv($fp,1024)) {
+            while ($data = fgetcsv($fp,1024,',','"','')) {
                if ($data[2] > time()) {
                   $SpamFilters_DNScache[$data[0]]['L'] = $data[1];
                   $SpamFilters_DNScache[$data[0]]['T'] = $data[2];

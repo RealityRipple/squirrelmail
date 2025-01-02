@@ -3,7 +3,7 @@
 /**
  * SquirrelMail time zone library - time zone validation script.
  *
- * @copyright 2005-2024 The SquirrelMail Project Team
+ * @copyright 2005-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
