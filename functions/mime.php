@@ -6,7 +6,7 @@
  * This contains the functions necessary to detect and decode MIME
  * messages.
  *
- * @copyright 1999-2024 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -972,7 +972,9 @@ function decodeHeader ($string, $utfencode=true,$htmlsafe=true,$decide=false) {
             }
         }
 
-        if (!$encoded && $htmlsafe) {
+        // It is possible to slip XSS in here when a header has encoded content followed by unecoded malicious content --- this test was written long ago, but because the leftover $chunk has not been classified or handled in any way, we can't assume it is safe to include as-is.... We'll assume the person who wrote this if() would agree and didn't mean to accidentally allow such and that what they meant was the following corrected line:
+        // if (!$encoded && $htmlsafe) {
+        if ($htmlsafe) {
             $ret .= sm_encode_html_special_chars($chunk);
         } else {
             $ret .= $chunk;
