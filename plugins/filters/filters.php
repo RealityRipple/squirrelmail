@@ -187,7 +187,8 @@ function filters_bulkquery($filters, $IPs) {
 /**
  * Starts the filtering process
  * @param array $hook_args (since 1.5.2) do hook arguments. Is used to check
- * hook name, array key = 0.
+ * hook name, array key = 0 (UPDATE: but right_main_after_header hook uses
+ * boolean_hook_function which doesn't pass the hook name)
  * @access private
  */
 function start_filters($hook_args) {
@@ -216,7 +217,7 @@ function start_filters($hook_args) {
      * check hook that calls filtering. If filters are called by right_main_after_header,
      * do filtering only when we are in INBOX folder.
      */
-    if ($hook_args[0]=='right_main_after_header' &&
+    if (PAGE_NAME == right_main &&
         (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM) && $mailbox!='INBOX')) {
         return;
     }
