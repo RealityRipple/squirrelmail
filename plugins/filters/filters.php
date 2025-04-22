@@ -217,7 +217,7 @@ function start_filters($hook_args) {
      * check hook that calls filtering. If filters are called by right_main_after_header,
      * do filtering only when we are in INBOX folder.
      */
-    if (PAGE_NAME == right_main &&
+    if (PAGE_NAME == 'right_main' &&
         (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM) && $mailbox!='INBOX')) {
         return;
     }
