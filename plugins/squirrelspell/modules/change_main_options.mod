@@ -4,7 +4,7 @@
  * -----------------------
  * Squirrelspell module
  *
- * Copyright (c) 1999-2024 The SquirrelMail Project Team
+ * Copyright (c) 1999-2025 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module changes the international dictionaries selection

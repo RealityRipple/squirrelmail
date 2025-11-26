@@ -3,7 +3,7 @@
 /**
  * Message and Spam Filter Plugin - Filtering Functions
  *
- * @copyright 1999-2024 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -130,7 +130,7 @@ function filters_LoadCache () {
         $SpamFilters_DNScache = array();
         if ($fp = fopen ($data_dir . '/dnscache', 'r')) {
             flock($fp,LOCK_SH);
-            while ($data = fgetcsv($fp,1024)) {
+            while ($data = fgetcsv($fp,1024,',','"','')) {
                if ($data[2] > time()) {
                   $SpamFilters_DNScache[$data[0]]['L'] = $data[1];
                   $SpamFilters_DNScache[$data[0]]['T'] = $data[2];
@@ -187,7 +187,8 @@ function filters_bulkquery($filters, $IPs) {
 /**
  * Starts the filtering process
  * @param array $hook_args (since 1.5.2) do hook arguments. Is used to check
- * hook name, array key = 0.
+ * hook name, array key = 0 (UPDATE: but right_main_after_header hook uses
+ * boolean_hook_function which doesn't pass the hook name)
  * @access private
  */
 function start_filters($hook_args) {
@@ -216,7 +217,7 @@ function start_filters($hook_args) {
      * check hook that calls filtering. If filters are called by right_main_after_header,
      * do filtering only when we are in INBOX folder.
      */
-    if ($hook_args !== null && $hook_args[0]=='right_main_after_header' &&
+    if (PAGE_NAME == 'right_main' &&
         (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM) && $mailbox!='INBOX')) {
         return;
     }

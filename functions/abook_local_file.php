@@ -3,7 +3,7 @@
 /**
  * abook_local_file.php
  *
- * @copyright 1999-2024 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -211,7 +211,7 @@ class abook_local_file extends addressbook_backend {
         @fclose($this->filehandle);
         $this->filehandle = 0;
         $this->filename   = '';
-        $this->writable   = false;
+        $this->writeable  = false;
     }
 
     /** Lock the datafile - try 20 times in 5 seconds */

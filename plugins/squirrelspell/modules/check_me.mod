@@ -10,7 +10,7 @@
  * the interface window.
  *
  * @author Konstantin Riabitsev <icon at duke.edu>
- * @copyright 1999-2024 The SquirrelMail Project Team
+ * @copyright 1999-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

@@ -3,7 +3,7 @@
 /**
  * functions to operate on calendar data files.
  *
- * @copyright 2002-2024 The SquirrelMail Project Team
+ * @copyright 2002-2025 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
@@ -73,7 +73,7 @@ function readcalendardata() {
         $fp = fopen ($filename,'r');
 
         if ($fp){
-            while ($fdata = fgetcsv ($fp, 4096, '|')) {
+            while ($fdata = fgetcsv ($fp, 4096, '|', '"', '\\')) {
                 $calendardata[$fdata[0]][$fdata[1]] = array( 'length'   => $fdata[2],
                                                              'priority' => $fdata[3],
                                                              'title'    => str_replace("\n",' ',calendar_readmultiline($fdata[4])),
@@ -136,7 +136,7 @@ function delete_event($date, $time) {
     $filename = getHashedFile($username, $data_dir, "$username.$year.cal");
     $fp = fopen ($filename,'r');
     if ($fp){
-        while ($fdata = fgetcsv ($fp, 4096, "|")) {
+        while ($fdata = fgetcsv ($fp, 4096, "|", '"', '\\')) {
             if (($fdata[0]==$date) && ($fdata[1]==$time)){
                 // do nothing
             } else {
@@ -165,7 +165,7 @@ function update_event($date, $time) {
     $filename = getHashedFile($username, $data_dir, "$username.$year.cal");
     $fp = fopen ($filename,'r');
     if ($fp){
-        while ($fdata = fgetcsv ($fp, 4096, '|')) {
+        while ($fdata = fgetcsv ($fp, 4096, '|', '"', '\\')) {
             if (($fdata[0]==$date) && ($fdata[1]==$time)){
                 // do nothing
             } else {
