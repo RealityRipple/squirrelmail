@@ -211,7 +211,7 @@ class abook_local_file extends addressbook_backend {
         @fclose($this->filehandle);
         $this->filehandle = 0;
         $this->filename   = '';
-        $this->writable   = false;
+        $this->writeable  = false;
     }
 
     /** Lock the datafile - try 20 times in 5 seconds */
