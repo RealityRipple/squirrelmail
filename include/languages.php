@@ -251,7 +251,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
 
     // iconv functions does not have html target and can be used only with utf-8
     if ( $use_php_iconv && $default_charset=='utf-8') {
-        $string = iconv($charset,$default_charset,$string);
+        $string = iconv($charset,$default_charset.'//IGNORE',$string);
         return ($save_html ? $string : sm_encode_html_special_chars($string, ENT_COMPAT, $charset));
     }
 
