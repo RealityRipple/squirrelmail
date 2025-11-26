@@ -32,6 +32,8 @@ if (ini_get('docref_root')=='') ini_set('docref_root','http://www.php.net/');
  * @package squirrelmail
  */
 class ErrorHandler {
+    var $TemplateName = '', $Template = '', $aErrors = array(), $header_sent = false,
+        $delayed_errors = false;
 
     /**
      * Constructor (PHP5 style, required in some future version of PHP)

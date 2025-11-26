@@ -35,7 +35,7 @@ class mailboxes {
     var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, $is_noinferiors = false,
         $is_special = false, $is_root = false, $is_inbox = false, $is_sent = false,
         $is_trash = false, $is_draft = false,  $mbxs = array(),
-        $unseen = false, $total = false, $recent = false;
+        $unseen = false, $total = false, $recent = false, $tag = false;
 
     function addMbx($mbx, $delimiter, $start, $specialfirst) {
         $ary = explode($delimiter, $mbx->mailboxname_full);
