@@ -17,8 +17,6 @@ define('SQM_WARNING',1);
 define('SQM_ERROR',2);
 define('SQM_STRICT',3);
 
-// php5 E_STRICT constant (compatibility with php4)
-if (! defined('E_STRICT')) define('E_STRICT',2048);
 // Set docref_root (fixes URLs that link to php manual)
 if (ini_get('docref_root')=='') ini_set('docref_root','http://www.php.net/');
 
@@ -140,7 +138,7 @@ class ErrorHandler {
              * E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING
              */
             switch ($iErrNo) {
-            case E_STRICT:
+            case 2048:
                 $iType = (is_null($iType)) ? SQM_STRICT : $iType;
             case E_NOTICE:
                 $iType = (is_null($iType)) ? SQM_NOTICE : $iType;
