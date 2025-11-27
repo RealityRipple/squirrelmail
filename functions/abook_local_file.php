@@ -293,7 +293,7 @@ class abook_local_file extends addressbook_backend {
         }
         @rewind($this->filehandle);
 
-        while ($row = @fgetcsv($this->filehandle, $this->line_length, '|')) {
+        while ($row = @fgetcsv($this->filehandle, $this->line_length, '|', '"', '\\')) {
             if (count($row)<5) {
                 /**
                  * address book is corrupted.
@@ -355,7 +355,7 @@ class abook_local_file extends addressbook_backend {
         $this->open();
         @rewind($this->filehandle);
 
-        while ($row = @fgetcsv($this->filehandle, $this->line_length, '|')) {
+        while ($row = @fgetcsv($this->filehandle, $this->line_length, '|', '"', '\\')) {
             if (count($row)<5) {
                 /**
                  * address book is corrupted.
@@ -395,7 +395,7 @@ class abook_local_file extends addressbook_backend {
         $this->open();
         @rewind($this->filehandle);
 
-        while ($row = @fgetcsv($this->filehandle, $this->line_length, '|')) {
+        while ($row = @fgetcsv($this->filehandle, $this->line_length, '|', '"', '\\')) {
             if (count($row)<5) {
                 /**
                  * address book is corrupted. Don't be nice to people that 
@@ -504,7 +504,7 @@ class abook_local_file extends addressbook_backend {
         @rewind($this->filehandle);
         $i = 0;
         $rows = array();
-        while($row = @fgetcsv($this->filehandle, $this->line_length, '|')) {
+        while($row = @fgetcsv($this->filehandle, $this->line_length, '|', '"', '\\')) {
             if(!in_array($row[0], $alias)) {
                 $rows[$i++] = $row;
             }
@@ -569,7 +569,7 @@ class abook_local_file extends addressbook_backend {
         @rewind($this->filehandle);
         $i = 0;
         $rows = array();
-        while($row = @fgetcsv($this->filehandle, $this->line_length, '|')) {
+        while($row = @fgetcsv($this->filehandle, $this->line_length, '|', '"', '\\')) {
             if(strtolower($row[0]) != strtolower($alias)) {
                 $rows[$i++] = $row;
             } else {
