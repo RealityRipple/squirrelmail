@@ -1710,6 +1710,6 @@ function sqimap_get_user_server ($imap_server, $username) {
  */
 function map_yp_alias($username) {
    $safe_username = escapeshellarg($username);
-   $yp = `ypmatch $safe_username aliases`;
+   $yp = shell_exec("ypmatch $safe_username aliases");
    return chop(substr($yp, strlen($username)+1));
 }
