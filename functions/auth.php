@@ -9,7 +9,7 @@
  *  functions/global.php
  *  functions/strings.php.
  *
- * @copyright 1999-2025 The SquirrelMail Project Team
+ * @copyright 1999-2026 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

@@ -52,7 +52,7 @@
  * does not default the SQL connection character set as expected
  * (most sensible systems will do the right thing transparently).
  *
- * @copyright 1999-2025 The SquirrelMail Project Team
+ * @copyright 1999-2026 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

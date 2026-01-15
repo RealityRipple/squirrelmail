@@ -9,7 +9,7 @@
  *
  * @author Vicky Pyne <dotvicky at dotvicky.net>
  * @copyright 2005 Vicky Pyne <dotvicky at dotvicky.net>
- * @copyright 2005-2025 The SquirrelMail Project Team
+ * @copyright 2005-2026 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail

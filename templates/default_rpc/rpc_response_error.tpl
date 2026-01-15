@@ -18,7 +18,7 @@
   *                      error: either "client" or "server" (optional;
   *                      may not be present)
   *
-  * @copyright 1999-2025 The SquirrelMail Project Team
+  * @copyright 1999-2026 The SquirrelMail Project Team
   * @license http://opensource.org/licenses/gpl-license.php GNU Public License
   * @version $Id$
   * @package squirrelmail
