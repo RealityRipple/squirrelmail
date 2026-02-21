@@ -1033,8 +1033,8 @@ class Message {
                     if ((count($this->entities) == 0) &&
                             (!isset($this->header->parameters['filename'])) &&
                             (!isset($this->header->parameters['name'])) &&
-                            isset($this->header->disposition) && is_object($this->header->disposition) &&
-                            !(is_object($this->header->disposition) && strtolower($this->header->disposition->name) == 'attachment')) {
+                            (empty($this->header->disposition) || (isset($this->header->disposition) && is_object($this->header->disposition) &&
++                             strtolower($this->header->disposition->name) != 'attachment'))) {
                         $entity[] = $this->entity_id;
                         $found = true;
                     }
