@@ -8,7 +8,7 @@
  * The following functions are utility functions for templates. Do not
  * echo output in these functions.
  *
- * @copyright 2005-2025 The SquirrelMail Project Team
+ * @copyright 2005-2026 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
