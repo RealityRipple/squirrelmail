@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP pspell spellcheck class functions
- * @copyright 2006-2025 The SquirrelMail Project Team
+ * @copyright 2006-2026 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

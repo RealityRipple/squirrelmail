@@ -5,7 +5,7 @@
  *
  * Functions needed to display the options pages.
  *
- * @copyright 1999-2025 The SquirrelMail Project Team
+ * @copyright 1999-2026 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -768,7 +768,7 @@ class SquirrelOption {
         //
         if ($checkbox) {
 //TODO: Why isn't trailing_text being sanitized with sm_encode_special_chars()???  If this is a bug, add that, then add the option to display unsanitized if $this->trailing_text_is_html is enabled
-            $result = addCheckbox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name), $this->aExtraAttribs)) . $nbsp . create_label(($this->trailing_text_small ? '<small>' : '') . $this->trailing_text . ($this->trailing_text_small ? '</small>' : ''), 'new_' . $this->name);
+            $result = addCheckbox('new_' . $this->name, ((int)$this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name), $this->aExtraAttribs)) . $nbsp . create_label(($this->trailing_text_small ? '<small>' : '') . $this->trailing_text . ($this->trailing_text_small ? '</small>' : ''), 'new_' . $this->name);
         }
 
         // radio buttons...
@@ -776,10 +776,10 @@ class SquirrelOption {
         else {
 
             /* Build the yes choice. */
-            $yes_option = addRadioBox('new_' . $this->name, ($this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label((!empty($this->yes_text) ? $this->yes_text : _("Yes")), 'new_' . $this->name . '_yes');
+            $yes_option = addRadioBox('new_' . $this->name, ((int)$this->value != SMPREF_NO), SMPREF_YES, array_merge(array('id' => 'new_' . $this->name . '_yes'), $this->aExtraAttribs)) . $nbsp . create_label((!empty($this->yes_text) ? $this->yes_text : _("Yes")), 'new_' . $this->name . '_yes');
 
             /* Build the no choice. */
-            $no_option = addRadioBox('new_' . $this->name, ($this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label((!empty($this->no_text) ? $this->no_text : _("No")), 'new_' . $this->name . '_no');
+            $no_option = addRadioBox('new_' . $this->name, ((int)$this->value == SMPREF_NO), SMPREF_NO, array_merge(array('id' => 'new_' . $this->name . '_no'), $this->aExtraAttribs)) . $nbsp . create_label((!empty($this->no_text) ? $this->no_text : _("No")), 'new_' . $this->name . '_no');
 
             /* Build the combined "boolean widget". */
             $result = "$yes_option$nbsp$nbsp$nbsp$nbsp$no_option " . ($this->trailing_text_small ? '<small>' : '') . ($this->trailing_text_is_html ? $this->trailing_text : sm_encode_html_special_chars($this->trailing_text)) . ($this->trailing_text_small ? '</small>' : '');

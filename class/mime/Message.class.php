@@ -5,7 +5,7 @@
  *
  * This file contains functions needed to handle mime messages.
  *
- * @copyright 2003-2025 The SquirrelMail Project Team
+ * @copyright 2003-2026 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
@@ -987,28 +987,39 @@ class Message {
      * @param array $entity
      * @param array $alt_order
      * @param boolean $strict
+     * @param boolean $mozilla_fix By default this function "fixes"
+     *                             some bug in a Mozilla product
+     *                             but the caller can set this to
+     *                             FALSE to turn that off
+     *                             (I wonder if we can't just turn this off permanently)
+     *                             (Note: Currently this function automatically
+     *                             tries turning this off if nothing had been
+     *                             found with it enabled)
+     * @param boolean $being_called_recursively This is an internal flag
+     *                                          that prevents infinite
+     *                                          recursion (default FALSE)
      * @return array
      */
-    function findDisplayEntity($entity = array(), $alt_order = array('text/plain', 'text/html'), $strict=false) {
+    function findDisplayEntity($entity = array(), $alt_order = array('text/plain', 'text/html'), $strict=false, $mozilla_fix=TRUE, $being_called_recursively=FALSE) {
         $found = false;
         if ($this->type0 == 'multipart') {
             if($this->type1 == 'alternative') {
-                $msg = $this->findAlternativeEntity($alt_order);
+                $msg = $this->findAlternativeEntity($alt_order, $mozilla_fix);
                 if ( ! is_null($msg) ) {
                     if (count($msg->entities) == 0) {
                         $entity[] = $msg->entity_id;
                     } else {
-                        $entity = $msg->findDisplayEntity($entity, $alt_order, $strict);
+                        $entity = $msg->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
                     }
                     $found = true;
                 }
             } else if ($this->type1 == 'related') { /* RFC 2387 */
-                $msgs = $this->findRelatedEntity();
+                $msgs = $this->findRelatedEntity($mozilla_fix);
                 foreach ($msgs as $msg) {
                     if (count($msg->entities) == 0) {
                         $entity[] = $msg->entity_id;
                     } else {
-                        $entity = $msg->findDisplayEntity($entity, $alt_order, $strict);
+                        $entity = $msg->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
                     }
                 }
                 if (count($msgs) > 0) {
@@ -1020,7 +1031,7 @@ class Message {
                             (!isset($ent->header->parameters['filename'])) &&
                             (!isset($ent->header->parameters['name'])) &&
                             (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
-                        $entity = $ent->findDisplayEntity($entity, $alt_order, $strict);
+                        $entity = $ent->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
                         $found = true;
                     }
                 }
@@ -1033,8 +1044,8 @@ class Message {
                     if ((count($this->entities) == 0) &&
                             (!isset($this->header->parameters['filename'])) &&
                             (!isset($this->header->parameters['name'])) &&
-                            isset($this->header->disposition) && is_object($this->header->disposition) &&
-                            !(is_object($this->header->disposition) && strtolower($this->header->disposition->name) == 'attachment')) {
+                            (empty($this->header->disposition) || (isset($this->header->disposition) && is_object($this->header->disposition) &&
++                             strtolower($this->header->disposition->name) != 'attachment'))) {
                         $entity[] = $this->entity_id;
                         $found = true;
                     }
@@ -1045,7 +1056,7 @@ class Message {
             foreach ($this->entities as $ent) {
                 if(!(is_object($ent->header->disposition) && strtolower($ent->header->disposition->name) == 'attachment') &&
                    (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
-                    $entity = $ent->findDisplayEntity($entity, $alt_order, $strict);
+                    $entity = $ent->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
                     $found = true;
                 }
             }
@@ -1061,14 +1072,25 @@ class Message {
                 }
             }
         }
+        // If we found an empty list, go one more try without the "Mozilla fix"
+        // (can't use $found, beause code above assumes a bad find when Mozilla
+        // fix has interferred)
+        if(!$being_called_recursively && empty($entity)) {
+           $entity = $this->findDisplayEntity($entity, $alt_order, $strict, !$mozilla_fix, TRUE);
+        }
         return $entity;
     }
 
     /**
      * @param array $alt_order
+     * @param boolean $mozilla_fix By default this function "fixes"
+     *                             some bug in a Mozilla product
+     *                             but the caller can set this to
+     *                             FALSE to turn that off
+     *                             (I wonder if we can't just turn this off permanently)
      * @return entity
      */
-    function findAlternativeEntity($alt_order) {
+    function findAlternativeEntity($alt_order, $mozilla_fix=TRUE) {
         /* If we are dealing with alternative parts then we  */
         /* choose the best viewable message supported by SM. */
         $best_view = 0;
@@ -1077,6 +1099,8 @@ class Message {
             $type = $ent->header->type0 . '/' . $ent->header->type1;
             if ($type == 'multipart/related') {
                 $type = $ent->header->getParameter('type');
+// The fix below is hard to grok. Mozilla what? Some early IMAP server? It presents text/html parts as multipart/alternate?!? This seems strange and it breaks some other messages, so I added a flag that allows us to turn this fix off
+if ($mozilla_fix)
                 // Mozilla bug. Mozilla does not provide the parameter type.
                 if (!$type) $type = 'text/html';
             }
@@ -1092,11 +1116,18 @@ class Message {
     }
 
     /**
+     * @param boolean $mozilla_fix By default this function "fixes"
+     *                             some bug in a Mozilla product
+     *                             but the caller can set this to
+     *                             FALSE to turn that off
+     *                             (I wonder if we can't just turn this off permanently)
      * @return array
      */
-    function findRelatedEntity() {
+    function findRelatedEntity($mozilla_fix=TRUE) {
         $msgs = array();
         $related_type = $this->header->getParameter('type');
+// The fix below is hard to grok. Mozilla what? Some early IMAP server? It presents text/html parts as multipart/related?!? This seems strange and it breaks some other messages, so I added a flag that allows us to turn this fix off
+if ($mozilla_fix)
         // Mozilla bug. Mozilla does not provide the parameter type.
         if (!$related_type) $related_type = 'text/html';
         $entCount = count($this->entities);
