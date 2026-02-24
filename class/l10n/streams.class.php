@@ -90,7 +90,7 @@ TODO: Constructors should not return anything.
      */
     function FileReader($filename) {
         return self::__construct($filename);
-     }
+    }
 
     /**
      * reads data from current position

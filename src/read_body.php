@@ -943,7 +943,7 @@ if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
     handleMessageListForm($imapConnection,$aMailbox,$sButton='setDeleted', array($delete_id));
 }
 
- /**
+/**
  * or delete button... why is handleMessageListForm (per above) conditional anway?
  */
 if ( sqgetGlobalVar('delete', $ignore, SQ_POST) ) {

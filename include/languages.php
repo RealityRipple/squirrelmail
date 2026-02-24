@@ -258,7 +258,7 @@ function charset_decode ($charset, $string, $force_decode=false, $save_html=fals
     // If we don't use recode and iconv, we'll do it old way.
 
     /* All HTML special characters are 7 bit and can be replaced first */
-    if (! $save_html) $string = sm_encode_html_special_chars ($string, ENT_COMPAT, $charset);
+    if (! $save_html) $string = sm_encode_html_special_chars($string, ENT_COMPAT, $charset);
 
     /* controls cpu and memory intensive decoding cycles */
     if (! isset($aggressive_decoding) || $aggressive_decoding=="" ) {
