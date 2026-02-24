@@ -59,7 +59,7 @@ function findNextMessage($uidset,$passed_id='backwards') {
  * and sorted msgs array and return the index of the previous message
  *
  * @param int $passed_id The current message UID
- * @return the index of the next valid message from the array or -1 if there is no next message
+ * @return the index of the previous valid message from the array or -1 if there is no previous message
  */
 
 function findPreviousMessage($uidset, $passed_id) {
@@ -943,7 +943,7 @@ if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
     handleMessageListForm($imapConnection,$aMailbox,$sButton='setDeleted', array($delete_id));
 }
 
- /**
+/**
  * or delete button... why is handleMessageListForm (per above) conditional anway?
  */
 if ( sqgetGlobalVar('delete', $ignore, SQ_POST) ) {

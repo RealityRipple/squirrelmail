@@ -1860,3 +1860,4 @@ function sm_encode_html_special_chars($string, $flags=ENT_COMPAT,
 
    return $ret;
 }
+

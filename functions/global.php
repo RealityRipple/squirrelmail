@@ -731,7 +731,7 @@ function php_self($with_query_string=TRUE) {
     static $request_uri = '';
     if (!empty($request_uri))
         return ($with_query_string ? $request_uri : (strpos($request_uri, '?') !== FALSE ? substr($request_uri, 0, strpos($request_uri, '?')) : $request_uri));
- 
+
     // first try $_SERVER['PHP_SELF'], which seems most reliable
     // (albeit it usually won't include the query string)
     //

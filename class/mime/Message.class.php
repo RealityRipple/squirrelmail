@@ -984,160 +984,262 @@ class Message {
     }
 
     /**
-     * @param array $entity
-     * @param array $alt_order
-     * @param boolean $strict
-     * @param boolean $mozilla_fix By default this function "fixes"
-     *                             some bug in a Mozilla product
-     *                             but the caller can set this to
-     *                             FALSE to turn that off
-     *                             (I wonder if we can't just turn this off permanently)
-     *                             (Note: Currently this function automatically
-     *                             tries turning this off if nothing had been
-     *                             found with it enabled)
-     * @param boolean $being_called_recursively This is an internal flag
-     *                                          that prevents infinite
-     *                                          recursion (default FALSE)
-     * @return array
+     * Searches a message for entities of the type(s) that
+     * are specified in $preferred_entity_types
+     *
+     * Note that the caller can use this function to extract entities
+     * that are not just "display entities"
+     *
+     * @param array $entity_ids Pre-seeded return value (list of entity
+     *                          IDs), useful for the caller to search
+     *                          cumulatively for different MIME types
+     *                          (OPTIONAL; default is an empty list)
+     * @param array $preferred_entity_types List of MIME types the
+     *                                      caller will accept in
+     *                                      return, in order of
+     *                                      preference from low to
+     *                                      high (last is most
+     *                                      preferred)
+     * @param boolean $strict When FALSE, if no appropriate entities
+     *                        are found, allows the return of simple
+     *                        text entities that are any of the types:
+     *                        text/plain, text/html, text/message
+     *                        (OPTIONAL; default is FALSE)
+     *
+     * @return array A list of entity IDs suiting the preferred MIME types
+TODO: Is the order of the returned ID list any indication of preference?
      */
-    function findDisplayEntity($entity = array(), $alt_order = array('text/plain', 'text/html'), $strict=false, $mozilla_fix=TRUE, $being_called_recursively=FALSE) {
-        $found = false;
+    function findDisplayEntity($entity_ids = array(),
+                               $preferred_entity_types = array('text/plain', 'text/html'),
+                               $strict=FALSE) {
+        $found = FALSE;
         if ($this->type0 == 'multipart') {
-            if($this->type1 == 'alternative') {
-                $msg = $this->findAlternativeEntity($alt_order, $mozilla_fix);
-                if ( ! is_null($msg) ) {
-                    if (count($msg->entities) == 0) {
-                        $entity[] = $msg->entity_id;
+            if ($this->type1 == 'alternative') {
+                $preferred_entities = $this->findAlternativeEntities($preferred_entity_types);
+                foreach ($preferred_entities as $entity) {
+                    if (count($entity->entities) == 0) {
+                        $entity_ids[] = $entity->entity_id;
+                        $found = TRUE;
+                        break;
                     } else {
-                        $entity = $msg->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
+                        $new_entity_ids = $entity->findDisplayEntity(array(), $preferred_entity_types, $strict);
+                        if (!empty($new_entity_ids)) {
+                            $entity_ids = array_merge($entity_ids, $new_entity_ids);
+                            $found = TRUE;
+                            break;
+                        }
                     }
-                    $found = true;
                 }
+//TODO: I'm not sure the intention of returning a list of entity IDs when the findAlternate above was supposed to only find one yet the findRelated below adds as many to the list as you find (and if there was supposed to be any preference order to the list). I'm leaving it alone for legacy reasons, but those things seem inconsistent
             } else if ($this->type1 == 'related') { /* RFC 2387 */
-                $msgs = $this->findRelatedEntity($mozilla_fix);
-                foreach ($msgs as $msg) {
-                    if (count($msg->entities) == 0) {
-                        $entity[] = $msg->entity_id;
+                $entities = $this->findRelatedEntities($preferred_entity_types);
+                foreach ($entities as $entity) {
+                    if (count($entity->entities) == 0) {
+                        $entity_ids[] = $entity->entity_id;
+                        $found = TRUE;
                     } else {
-                        $entity = $msg->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
+                        $new_entity_ids = $entity->findDisplayEntity(array(), $preferred_entity_types, $strict);
+                        if (!empty($new_entity_ids)) {
+                            $entity_ids = array_merge($entity_ids, $new_entity_ids);
+                            $found = TRUE;
+                        }
                     }
                 }
-                if (count($msgs) > 0) {
-                    $found = true;
-                }
-            } else { /* Treat as multipart/mixed */
+            }
+
+            // Treat as multipart/mixed
+            //
+            // This seems to only look for embedded message
+            // entities (message/rfc822 MIME type) and inspect
+            // them for a part of the desired type
+            else {
                 foreach ($this->entities as $ent) {
                     if(!(is_object($ent->header->disposition) && strtolower($ent->header->disposition->name) == 'attachment') &&
                             (!isset($ent->header->parameters['filename'])) &&
                             (!isset($ent->header->parameters['name'])) &&
                             (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
-                        $entity = $ent->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
-                        $found = true;
+                        $new_entity_ids = $ent->findDisplayEntity(array(), $preferred_entity_types, $strict);
+                        if (!empty($new_entity_ids)) {
+                            $entity_ids = array_merge($entity_ids, $new_entity_ids);
+                            $found = TRUE;
+                        }
                     }
                 }
             }
-        } else { /* If not multipart, then just compare with each entry from $alt_order */
+        }
+
+        // If not multipart, then just compare with each entry from $preferred_entity_types
+        //
+        else {
             $type = $this->type0.'/'.$this->type1;
-//        $alt_order[] = "message/rfc822";
-            foreach ($alt_order as $alt) {
+//        $preferred_entity_types[] = "message/rfc822";
+            foreach ($preferred_entity_types as $alt) {
                 if( ($alt == $type) && isset($this->entity_id) ) {
                     if ((count($this->entities) == 0) &&
                             (!isset($this->header->parameters['filename'])) &&
                             (!isset($this->header->parameters['name'])) &&
                             (empty($this->header->disposition) || (isset($this->header->disposition) && is_object($this->header->disposition) &&
-+                             strtolower($this->header->disposition->name) != 'attachment'))) {
-                        $entity[] = $this->entity_id;
-                        $found = true;
+                             strtolower($this->header->disposition->name) != 'attachment'))) {
+                        $entity_ids[] = $this->entity_id;
+                        $found = TRUE;
+                        break;
                     }
                 }
             }
         }
         if(!$found) {
+            // When nothing was found, search all message entities
+            // *except* attached messages (message/rfc822 MIME type)
+            // and inspect each for a part of the desired type
             foreach ($this->entities as $ent) {
                 if(!(is_object($ent->header->disposition) && strtolower($ent->header->disposition->name) == 'attachment') &&
                    (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
-                    $entity = $ent->findDisplayEntity($entity, $alt_order, $strict, $mozilla_fix, TRUE);
-                    $found = true;
-                }
-            }
-        }
-        if(!$strict && !$found) {
-            if (($this->type0 == 'text') &&
-                in_array($this->type1, array('plain', 'html', 'message')) &&
-                isset($this->entity_id)) {
-                if (count($this->entities) == 0) {
-                    if (!is_object($this->header->disposition) || strtolower($this->header->disposition->name) != 'attachment') {
-                        $entity[] = $this->entity_id;
+                    $new_entity_ids = $ent->findDisplayEntity(array(), $preferred_entity_types, $strict);
+                    if (!empty($new_entity_ids)) {
+                        $entity_ids = array_merge($entity_ids, $new_entity_ids);
+                        $found = TRUE;
                     }
                 }
             }
         }
-        // If we found an empty list, go one more try without the "Mozilla fix"
-        // (can't use $found, beause code above assumes a bad find when Mozilla
-        // fix has interferred)
-        if(!$being_called_recursively && empty($entity)) {
-           $entity = $this->findDisplayEntity($entity, $alt_order, $strict, !$mozilla_fix, TRUE);
+        if(!$strict && !$found) {
+            if ($this->type0 == 'text'
+             && in_array($this->type1, array('plain', 'html', 'message'))
+             && isset($this->entity_id)
+             && count($this->entities) == 0
+             && (!is_object($this->header->disposition)
+              || strtolower($this->header->disposition->name) != 'attachment')) {
+                $entity_ids[] = $this->entity_id;
+            }
         }
-        return $entity;
+        return $entity_ids;
     }
 
     /**
-     * @param array $alt_order
-     * @param boolean $mozilla_fix By default this function "fixes"
-     *                             some bug in a Mozilla product
-     *                             but the caller can set this to
-     *                             FALSE to turn that off
-     *                             (I wonder if we can't just turn this off permanently)
-     * @return entity
+     * Iterates through the top-level entities in a message and
+     * gathers ones that match one of the MIME types contained
+     * in $preferred_entity_types, returning them in order of
+     * preference based first on the preference order expressed
+     * by $preferred_entity_types and then by order of appearance
+     * (where those that appear last in the message are preferred)
+     *
+     * (Designed with multipart/alternative messages in mind)
+     * (RFC 1341 specifies that the last part matching what we
+     * accommodate is the one that should be used)
+     *
+     * So given a $preferred_entity_types of (text/plain, text/html),
+     * the last found text/html part will be the first element in
+     * the return array, but if the message has no text/html parts,
+     * the last found text/plain part will be the top returned entity
+     *
+     * @param array $preferred_entity_types List of MIME types the
+     *                                      caller will accept in
+     *                                      return, in order of
+     *                                      preference from low to
+     *                                      high (last is most
+     *                                      preferred)
+     *
+     * @return array An array of entities in order of preferrence
+     *               as described above, where the first item is
+     *               the most preferred entity, the last is least
+     *               preferred. It is possible that the array could
+     *               be returned as empty if no matches were found.
+     *
      */
-    function findAlternativeEntity($alt_order, $mozilla_fix=TRUE) {
-        /* If we are dealing with alternative parts then we  */
-        /* choose the best viewable message supported by SM. */
-        $best_view = 0;
-        $entity = null;
-        foreach($this->entities as $ent) {
-            $type = $ent->header->type0 . '/' . $ent->header->type1;
-            if ($type == 'multipart/related') {
-                $type = $ent->header->getParameter('type');
-// The fix below is hard to grok. Mozilla what? Some early IMAP server? It presents text/html parts as multipart/alternate?!? This seems strange and it breaks some other messages, so I added a flag that allows us to turn this fix off
-if ($mozilla_fix)
-                // Mozilla bug. Mozilla does not provide the parameter type.
-                if (!$type) $type = 'text/html';
+    function findAlternativeEntities($preferred_entity_types) {
+
+        $preferred_entities = array();
+
+        foreach ($preferred_entity_types as $preferred_type) {
+            foreach($this->entities as $entity) {
+                $entity_type = $entity->findEntityMIMEType($preferred_entity_types);
+                if ($preferred_type == $entity_type)
+                   $preferred_entities[] = $entity;
             }
-            $altCount = count($alt_order);
-            for ($j = $best_view; $j < $altCount; ++$j) {
-                if (($alt_order[$j] == $type) && ($j >= $best_view)) {
-                    $best_view = $j;
-                    $entity = $ent;
+        }
+
+        return array_reverse($preferred_entities);
+    }
+
+    /**
+     * Determine the type of an MIME entity
+     *
+     * If it is a multipart/related entity that doesn't report
+     * the type it represents, we look at its child entities to
+     * try and determine the correct type
+     *
+     * Note that if we have to examine child entities for a
+     * multipart/related entity, we take the last entity that
+     * matches any of our $preferred_entity_types since there
+     * is no other way to know what to expect, and a message
+     * with more than one, say, text types is b0rked and should
+     * not be seen in the wild
+     *
+     * @param array $preferred_entity_types List of MIME types the
+     *                                      caller is seeking out
+     * @param string $default_related_type For multipart/related
+     *                                     entities that don't report
+     *                                     the type they represent
+     *                                     and we can't find one of
+     *                                     our preferred types inside
+     *                                     of it, this will serve as
+     *                                     the default type
+     *                                     (OPTIONAL; default is "N/A")
+     *
+     * @return string The entity's MIME type
+     *
+     */
+    function findEntityMIMEType($preferred_entity_types, $default_related_type='N/A') {
+        $entity_type = $this->header->type0 . '/' . $this->header->type1;
+        if ($entity_type == 'multipart/related') {
+            $entity_type = $this->header->getParameter('type');
+            if (!$entity_type) {
+
+                // Default in case not found (earlier versions
+                // defaulted to text/html, calling it a Mozilla bug,
+                // though it's not clear what Mozilla product)
+                $entity_type = $default_related_type;
+
+                // Iterate child entities and take the last
+                // one that matches our list of preferred types
+                foreach($this->entities as $child_entity) {
+                    $child_entity_type = $child_entity->header->type0 . '/' . $child_entity->header->type1;
+                    if (in_array($child_entity_type, $preferred_entity_types)) {
+                        $entity_type = $child_entity_type;
+                        // Nah, don't stop at the first, take the
+                        // last more in the spirit of RFC 1341
+                        // break;
+                    }
                 }
             }
         }
-        return $entity;
+        return $entity_type;
     }
 
     /**
-     * @param boolean $mozilla_fix By default this function "fixes"
-     *                             some bug in a Mozilla product
-     *                             but the caller can set this to
-     *                             FALSE to turn that off
-     *                             (I wonder if we can't just turn this off permanently)
-     * @return array
+     * Iterates through the top-level entities in a message and
+     * gathers ones that match one the MIME type of the message
+     * itself (designed with multipart/related messages in mind)
+     *
+     * @param array $preferred_entity_types List of MIME types the
+     *                                      caller is seeking out
+     *
+     * @return array An array of all entities that match the
+     *               message MIME type in order of appearance.
+     *               It is possible that the array could be
+     *               returned as empty if no matches were found.
+     *
      */
-    function findRelatedEntity($mozilla_fix=TRUE) {
-        $msgs = array();
-        $related_type = $this->header->getParameter('type');
-// The fix below is hard to grok. Mozilla what? Some early IMAP server? It presents text/html parts as multipart/related?!? This seems strange and it breaks some other messages, so I added a flag that allows us to turn this fix off
-if ($mozilla_fix)
-        // Mozilla bug. Mozilla does not provide the parameter type.
-        if (!$related_type) $related_type = 'text/html';
-        $entCount = count($this->entities);
-        for ($i = 0; $i < $entCount; ++$i) {
-            $type = $this->entities[$i]->header->type0.'/'.$this->entities[$i]->header->type1;
-            if ($related_type == $type) {
-                $msgs[] = $this->entities[$i];
-            }
+    function findRelatedEntities($preferred_entity_types) {
+        $entities = array();
+        $entity_type = $this->findEntityMIMEType($preferred_entity_types);
+
+        foreach ($this->entities as $entity) {
+            if ($entity_type == $entity->header->type0 . '/' . $entity->header->type1)
+                $entities[] = $entity;
         }
-        return $msgs;
+
+        return $entities;
     }
 
     /**

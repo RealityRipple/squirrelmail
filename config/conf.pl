@@ -3040,6 +3040,7 @@ sub command323 {
 }
 
 
+
 # allow_svg_display (since 1.5.2)
 sub command324 {
     print "Some email messages might contain SVG images or animations, however\n";

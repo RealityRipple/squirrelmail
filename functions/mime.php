@@ -415,7 +415,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                                      '&gt;'   => '>',
                                      '&lt;'   => '<',
                                      '&amp;'   => '&',
-                                     '&copy;'   => '©');
+                                     '&copy;'   => 'Â©');
                 // first, completely remove <style> tags as they aren't useful in this context
                 $body = preg_replace('/<style.*>.*<\/style.*>/isU', '', $body);
                 // emulate how newlines are treated as spaces in HTML
